@@ -2,11 +2,12 @@
 
 /* no-framework router
 
-/                               modules/index.php
-/example/more/abc?param=true    modules/example/more.php
-/example?param=true             modules/example.php             
-/example/abc                    modules/example.php
-/example/abc                    modules/example/index.php
+    URL                             CODE
+    /                               modules/index.php
+    /example/more/abc?param=true    modules/example/more.php
+    /example?param=true             modules/example.php             
+    /example/abc                    modules/example.php
+    /example/abc                    modules/example/index.php
 
 */
 
@@ -18,10 +19,8 @@ $depth = array_filter(explode('/', $url));
 $_GET = array_merge($depth, $_GET);
 
 
-if (!$_GET[0]) {
-    include('modules/index.php');
-    exit;
-}
+if (!$_GET[0])
+    $_GET[0] = 'index';
 
 
 $modules = array(
@@ -30,12 +29,18 @@ $modules = array(
         'modules/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'/index.php',
     );
 
+
+if (!isset($_GET[1]))
+    unset($modules[0]);
+
+
 foreach ($modules AS $module) {
     if (file_exists($module)) {
         include($module);
-        exit;
+        $module_found = true;
+        break;
     }
 }
 
-
-redirect(); // 404
+if (!$module_found)
+    redirect();
