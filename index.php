@@ -1,3 +1,3 @@
 <?php
 
-include('_no_framework/start.php');
+include('_no-framework/start.php');
