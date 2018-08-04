@@ -1,3 +1,3 @@
 <?php
 
-echo 'Hello Bitcoin Miners!';
+include('_no_framework/start.php');
