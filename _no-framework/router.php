@@ -3,11 +3,11 @@
 /* no-framework router
 
     URL                             CODE
-    /                               modules/index.php
-    /example/more/abc?param=true    modules/example/more.php
-    /example?param=true             modules/example.php             
-    /example/abc                    modules/example.php
-    /example/abc                    modules/example/index.php
+    /                               public/index.php
+    /example/more/abc?param=true    public/example/more.php
+    /example?param=true             public/example.php             
+    /example/abc                    public/example.php
+    /example/abc                    public/example/index.php
 
 */
 
@@ -23,18 +23,18 @@ if (!$_GET[0])
     $_GET[0] = 'index';
 
 
-$modules = array(
-        'modules/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'/'.filter_var($_GET[1], FILTER_SANITIZE_STRING).'.php',
-        'modules/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'.php',
-        'modules/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'/index.php',
+$public = array(
+        'public/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'/'.filter_var($_GET[1], FILTER_SANITIZE_STRING).'.php',
+        'public/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'.php',
+        'public/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'/index.php',
     );
 
 
 if (!isset($_GET[1]))
-    unset($modules[0]);
+    unset($public[0]);
 
 
-foreach ($modules AS $module) {
+foreach ($public AS $module) {
     if (file_exists($module)) {
         include($module);
         $module_found = true;

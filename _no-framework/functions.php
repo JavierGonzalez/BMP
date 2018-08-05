@@ -7,15 +7,15 @@ function redirect($url='/') {
 }
 
 
-function crono() {
-    global $crono_last;
+function crono($text=false) {
+    global $crono;
     
-    $crono = microtime(true);
+    $crono_now = microtime(true);
     
-    if ($crono_last)
-        $extra = ' ('.round(($crono-$crono_last)*1000,2).' ms)';
+    if ($crono['last'])
+        $extra = ' ('.round(($crono_now-$crono['last'])*1000,2).' ms)';
     
-    echo "\n".$crono.$extra."\n";
+    echo "\n".++$crono['count'].'. '.$crono_now.$extra.' '.$text."\n";
     
-    $crono_last = $crono;
+    $crono['last'] = microtime(true);
 }
