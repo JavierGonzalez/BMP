@@ -1,6 +1,7 @@
 <?php
 
 
+
 function sql_connect($sql_server=false) {
     global $sql;
 
@@ -49,7 +50,6 @@ function sql_close() {
     	@mysqli_close($link);
 
     unset($sql['link']);
-    
 }
 
 

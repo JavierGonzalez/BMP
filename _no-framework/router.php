@@ -42,5 +42,8 @@ foreach ($public AS $module) {
     }
 }
 
-if (!$module_found)
+
+if (!$module_found) {
+    header("HTTP/1.0 404 Not Found");
     redirect();
+}
