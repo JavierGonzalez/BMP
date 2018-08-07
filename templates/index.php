@@ -41,7 +41,7 @@ foreach (array_unique((array)$template['lib']['css']) AS $url)
 
 <table border=1 width=100% height=100% cellpadding=6 cellspacing=0>
     <tr>
-        <td colspan=2>Header...</td>
+        <td colspan=2>Bitcoin Mining Parliament</td>
     </tr>
     
     <tr>

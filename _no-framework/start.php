@@ -5,6 +5,10 @@ foreach (glob('_no-framework/functions*.php') AS $load)
     include($load);
 
 
+foreach (glob('functions/*.php') AS $load)
+    include($load);
+
+
 include('_no-framework/config.php');
 
 
