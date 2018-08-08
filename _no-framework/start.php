@@ -1,6 +1,8 @@
 <?php
 
 
+define('CRONO_START', microtime(true));
+
 
 foreach (glob('_no-framework/functions*.php') AS $load)
     include($load);
