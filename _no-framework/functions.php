@@ -60,3 +60,45 @@ function nucleo_acceso($tipo, $valor='', $pais=false) {
 	return $rt;
 	*/
 }
+
+
+
+function escape($xss_danger_input, $html=true) {
+	
+	$a = $xss_danger_input;
+	$a = nl2br($a);
+	$a = str_replace("'", '&#39;', $a);
+	$a = str_replace('"', '&quot;', $a);
+	$a = str_replace(array("\x00", "\x1a"), '', $a);
+
+	if ($html) 
+		$a = strip_tags($a);
+	
+	$js_filter = 'video|javascript|vbscript|expression|applet|xml|blink|script|embed|object|iframe|frame|frameset|ilayer|bgsound|onabort|onactivate|onafterprint|onafterupdate|onbeforeactivate|onbeforecopy|onbeforecut|onbeforedeactivate|onbeforeeditfocus|onbeforepaste|onbeforeprint|onbeforeunload|onbeforeupdate|onblur|onbounce|oncellchange|onchange|onclick|oncontextmenu|oncontrolselect|oncopy|oncut|ondataavailable|ondatasetchanged|ondatasetcomplete|ondblclick|ondeactivate|ondrag|ondragend|ondragenter|ondragleave|ondragover|ondragstart|ondrop|onerror|onerrorupdate|onfilterchange|onfinish|onfocus|onfocusin|onfocusout|onhelp|onkeydown|onkeypress|onkeyup|onlayoutcomplete|onload|onlosecapture|onmousedown|onmouseenter|onmouseleave|onmousemove|onmouseout|onmouseover|onmouseup|onmousewheel|onmove|onmoveend|onmovestart|onpaste|onpropertychange|onreadystatechange|onreset|onresize|onresizeend|onresizestart|onrowenter|onrowexit|onrowsdelete|onrowsinserted|onscroll|onselect|onselectionchange|onselectstart|onstart|onstop|onsubmit|onunload';
+	$a = preg_replace('/(<|&lt;|&#60;|&#x3C;|&nbsp;)('.$js_filter.')/', 'nojs', $a);
+	
+	return $a;
+}
+
+
+
+function now($days=0, $format='Y-m-d H:i:s', $type='past') {
+	if ($days==0) {
+		$timestamp = time();
+	} else if ($type=='past') {
+		$timestamp = time()-(86400*round($days));
+	} else {
+		$timestamp = time()+(86400*round($days));
+	}
+	return date($format, $timestamp);
+}
+
+
+function boton($texto, $url=false, $confirm=false, $size=false, $pols='', $html_extra=false) {
+	if (($pols=='') OR (ECONOMIA == false)) {
+		return '<button'.($url==false?' disabled="disabled"':' onClick="'.($confirm!=false?'if(!confirm(\''.$confirm.'\')){return false;}':'').($url!='submit'?'window.location.href=\''.$url.'\';return false;':'').'"').($size!=false?' class="'.$size.'"':'').($html_extra!=false?$html_extra:'').'>'.$texto.'</button>';
+	} else {
+		global $pol;
+		return '<span class="amarillo"><input type="submit" value="'.$texto.'"'.($pol['pols']<$pols?' disabled="disabled"':' onClick="'.($confirm!=false?'if(!confirm(\''.$confirm.'\')){return false;}':'').'window.location.href=\''.$url.'\';"').' class="large blue" />'.(ECONOMIA?' &nbsp; '.pols($pols).' '.MONEDA.'':'').($html_extra!=false?$html_extra:'').'</span>';
+	}
+}

@@ -1,10 +1,4 @@
-/* The source code packaged with this file is Free Software, Copyright (C) 2008 by
-** Javier González González <desarrollo AT virtualpol.com> <gonzomail AT gmail.com>
-** It's licensed under the GNU GENERAL PUBLIC LICENSE v3 unless stated otherwise.
-** You can get copies of the licenses here: http://www.gnu.org/licenses/gpl.html
-** The source: http://www.virtualpol.com/codigo - TOS: http://www.virtualpol.com/TOS
-** VirtualPol, The first Democratic Social Network - http://www.virtualpol.com
-*/
+
 
 // VARIABLES
 pnick = '';
@@ -22,7 +16,7 @@ $(document).ready(function(){
 	$(".votar").each(function (i) {
 		var tipo = $(this).attr("type");
 		var item_ID = $(this).attr("name");
-		var voto = parseInt($(this).attr("value"));
+		var voto = parseInt($(this).val());
 		if (voto == 1) { var c_mas = " checked=\"checked\""; }
 		if (voto == -1) { var c_menos = " checked=\"checked\""; }
 		var radio_ID = tipo + item_ID;
@@ -52,7 +46,7 @@ $(document).ready(function(){
 	// Mensajes emergentes de ayuda.
 	$(".ayuda").hover(
 		function () {
-			var txt = $(this).attr("value");
+			var txt = $(this).val();
 			$(this).append('<span class="ayudap">' + txt + '</span>');
 		}, 
 		function () { $(".ayudap").remove(); }
@@ -84,7 +78,7 @@ function actualizar_noti() {
 function votar(voto, tipo, item_ID) {
 	var radio_ID = tipo + item_ID;
 	$(".radio_" + radio_ID).blur();
-	var voto_pre = parseInt($("#data_" + radio_ID).attr("value"));
+	var voto_pre = parseInt($("#data_" + radio_ID).val());
 	if (voto_pre == voto) { voto = 0; $(".radio_" + radio_ID).removeAttr("checked"); }
 	$.get("/accion.php", { a: "voto", tipo: tipo, item_ID: item_ID, voto: voto }, function(data){
 		if (data) {
@@ -126,7 +120,7 @@ function print_whois(whois, wnick) {
 function search_timers() {
 	var ts = Math.round((new Date()).getTime() / 1000);
 	$(".timer").each(function (i) {
-		var cuando = $(this).attr("value");
+		var cuando = $(this).val();
 		$(this).text(hace(cuando, ts, 1, false));
 	});
 }
@@ -227,7 +221,7 @@ function chat_filtro_change() {
 }
 
 function msgkeyup(evt, elem) {
-	if ($(elem).attr("value").substr(0,1) == "/") {
+	if ($(elem).val().substr(0,1) == "/") {
 		$(elem).css("background", "#FF7777").css("color", "#952500");
 	} else {
 		$(elem).css("background", "none").css("color", "black");
@@ -242,7 +236,7 @@ function msgkeydown(evt, elem) {
 	else if ("keyCode" in window.event) { keyCode=window.event.keyCode; }
 	else if ("which" in window.event) { keyCode=evt.which; }
 	if (keyCode == 9) {
-		var elmsg = $(elem).attr("value");
+		var elmsg = $(elem).val();
 		var array_elmsg = elmsg.split(" ");
 		var elmsg_num = array_elmsg.length;
 		var palabras = "";
@@ -268,7 +262,7 @@ function chat_query_ajax() {
 		clearTimeout(refresh);
 		var start = new Date().getTime();
 		$("#vpc_actividad").attr("src", IMG + "ico/punto_azul.png");
-		$.post("/ajax.php", { chat_ID: chat_ID, n: msg_ID },
+		$.post("/chat/ajax/refresh", { chat_ID: chat_ID, n: msg_ID },
 			function(data){
 				ajax_refresh = true;
 				if (data) { print_msg(data); }
@@ -336,7 +330,7 @@ function print_msg(data) {
 
 						var vpc_yo = "";
 						if (minick == m_nick) { var vpc_yo = " class=\"vpc_yo\""; }
-						if (m_tipo.substr(0,3) == "98_") { var cargo_ID = 98; } else { var cargo_ID = m_tipo; }
+						if (m_tipo && m_tipo.substr(0,3) == "98_") { var cargo_ID = 98; } else { var cargo_ID = m_tipo; }
 						list += "<li id=\"" + m_ID + "\" class=\"" + m_nick + "\">" + m_time + " <img src=\""+IMG+"cargos/" + cargo_ID + ".gif\" width=\"16\" height=\"16\" title=\"" + array_cargos[cargo_ID] + "\" /> <b" + vpc_yo + " OnClick=\"auto_priv(\'" + m_nick + "\');\">" + m_nick + "</b>: " + txt + "</li>\n";
 				}
 
@@ -414,15 +408,16 @@ function print_delay() {
 
 
 function enviarmsg() {
- 	var elmsg = $("#vpc_msg").attr("value");
+	var elmsg = $("#vpc_msg").val();
 	var boton_envia_estado = $("#botonenviar").attr("disabled");
 	$("#vpc_actividad").attr("src", IMG + "ico/punto_rojo.png");
 	if ((elmsg) && (boton_envia_estado != "disabled")) {
-		ajax_refresh = false;
+
+ 		ajax_refresh = false;
 		clearTimeout(refresh);
 		$("#botonenviar").attr("disabled","disabled");
 		$("#vpc_msg").attr("value","").css("background", "none").css("color", "black");
-		$.post("/ajax.php", { a: "enviar", chat_ID: chat_ID, n: msg_ID, msg: elmsg, anonimo: anonimo }, 
+		$.post("/chat/ajax/send", { chat_ID: chat_ID, n: msg_ID, msg: elmsg, anonimo: anonimo }, 
 		function(data){ 
 			ajax_refresh = true;
 			if (data) { chat_sin_leer = -1; print_msg(data); }
@@ -495,10 +490,6 @@ function enriquecer(m, bbcode) {
 		m = m.replace(/\[quote=(.*?)\]/gi, '<blockquote><div class="quote"><cite>$1 escribió:</cite>');
 		m = m.replace(/\[\/quote\]/gi, '</div></blockquote>');
 	}
-
-	// Botones Instant
-	if (bbcode) { var boton_width = 50; } else { var boton_width = 16; }
-	m = m.replace(/:(aplauso|noo|rickroll|relax|alarmanuclear|porquenotecallas|zas|aleluya):/gi, html_instant('$1', boton_width));
 
 	return m;
 }

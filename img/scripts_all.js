@@ -739,7 +739,7 @@ function chat_query_ajax(){
 		clearTimeout(refresh);
 		var start = new Date().getTime();
 		$("#vpc_actividad").attr("src", IMG + "ico/punto_azul.png");
-		$.post("/ajax.php", { chat_ID: chat_ID, n: msg_ID },
+		$.post("/chat/ajax", { chat_ID: chat_ID, n: msg_ID },
 			function(data){
 				ajax_refresh = true;
 				if (data){ print_msg(data); }
@@ -893,7 +893,7 @@ function enviarmsg(){
 		clearTimeout(refresh);
 		$("#botonenviar").attr("disabled","disabled");
 		$("#vpc_msg").attr("value","").css("background", "none").css("color", "black");
-		$.post("/ajax.php", { a: "enviar", chat_ID: chat_ID, n: msg_ID, msg: elmsg, anonimo: anonimo }, 
+		$.post("/chat/ajax", { a: "enviar", chat_ID: chat_ID, n: msg_ID, msg: elmsg, anonimo: anonimo }, 
 		function(data){ 
 			ajax_refresh = true;
 			if (data){ chat_sin_leer = -1; print_msg(data); }
