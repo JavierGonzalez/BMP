@@ -24,6 +24,10 @@ ob_end_clean();
 
 <script type="text/javascript" src="/img/lib/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/img/scripts2.js"></script>
+<?php
+foreach ((array)$template['lib']['js'] AS $file)
+	echo '<script type="text/javascript" src="'.$file.'"></script>';
+?>
 <script type="text/javascript">
 IMG = '/img/';
 ACCION_URL = "/";

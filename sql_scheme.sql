@@ -198,7 +198,7 @@ CREATE TABLE `cat` (
 --
 
 CREATE TABLE `chats` (
-  `chat_ID` smallint(5) UNSIGNED NOT NULL,
+  `chat_ID` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `estado` enum('activo','bloqueado','en_proceso','expirado','borrado') NOT NULL DEFAULT 'en_proceso',
   `pais` varchar(30) DEFAULT NULL,
   `url` varchar(90) NOT NULL,
@@ -227,7 +227,7 @@ CREATE TABLE `chats` (
 --
 
 CREATE TABLE `chats_msg` (
-  `msg_ID` int(8) UNSIGNED NOT NULL,
+  `msg_ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `chat_ID` smallint(5) UNSIGNED NOT NULL,
   `nick` varchar(32) NOT NULL,
   `msg` varchar(900) NOT NULL,
@@ -235,7 +235,8 @@ CREATE TABLE `chats_msg` (
   `cargo` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   `user_ID` mediumint(6) UNSIGNED NOT NULL DEFAULT '0',
   `tipo` enum('m','p','e','c') NOT NULL DEFAULT 'm',
-  `IP` bigint(12) DEFAULT NULL
+  `IP` bigint(12) DEFAULT NULL,
+  PRIMARY KEY (msg_ID)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -245,7 +246,7 @@ CREATE TABLE `chats_msg` (
 --
 
 CREATE TABLE `config` (
-  `ID` smallint(5) UNSIGNED NOT NULL,
+  `ID` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pais` varchar(30) DEFAULT NULL,
   `dato` varchar(100) NOT NULL DEFAULT '',
   `valor` text NOT NULL,
@@ -260,7 +261,7 @@ CREATE TABLE `config` (
 --
 
 CREATE TABLE `docs` (
-  `ID` smallint(5) NOT NULL,
+  `ID` smallint(5) NOT NULL AUTO_INCREMENT,
   `pais` varchar(30) DEFAULT NULL,
   `url` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `title` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -491,7 +492,7 @@ CREATE TABLE `test` (
 --
 
 CREATE TABLE `users` (
-  `ID` mediumint(8) UNSIGNED NOT NULL,
+  `ID` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nick` varchar(18) NOT NULL DEFAULT '',
   `lang` varchar(5) DEFAULT NULL,
   `pais` varchar(30) DEFAULT NULL,

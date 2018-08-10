@@ -1,10 +1,9 @@
 <?php
 
 
+$template['lib']['js'] = '/public/chat/chat.js';
 
 
-
-if (!isset($_COOKIE['teorizauser'])) { session_start(); }
 
 if ($_GET[2] == 'e') { $externo = true; } else { $externo = false; }
 
@@ -158,7 +157,7 @@ acceso_escribir = '.($acceso['escribir']?'true':'false').';
 al = new Array();
 al_cargo = new Array();
 array_cargos = new Array();
-// array_cargos = { '.$array_cargos.', 0:"", 98:"Turista", 99:"Extranjero" };
+array_cargos = { 0:"", 98:"Turista", 99:"Extranjero" }; // '.$array_cargos.',
 
 array_ignorados = new Array();
 
