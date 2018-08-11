@@ -15,7 +15,7 @@ foreach (glob('_no-framework/functions*.php') AS $load)
 include('_no-framework/config.php');
 
 
-foreach (glob('functions/*.php') AS $load)
+foreach (glob('autoload/*.php') AS $load)
     include($load);
 
 

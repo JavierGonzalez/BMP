@@ -16,6 +16,8 @@ ob_end_clean();
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="description" content="<?=$template['title']?>" />
 
+
+
 <link rel="stylesheet" type="text/css" href="/img/style_all.css" media="all" />
 <style type="text/css">
 #header { background:#FFF <?=$body_bg?> repeat scroll top left; }
