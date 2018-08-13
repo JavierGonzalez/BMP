@@ -1,11 +1,10 @@
 <?php
 
 
+$_ = array('crono_start' => microtime(true));
 
-define('CRONO_START', microtime(true));
 
-
-$_ = array();
+ob_start(NULL, 1024*1024*10);
 
 
 foreach (glob('_no-framework/functions*.php') AS $load)

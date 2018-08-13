@@ -8,6 +8,7 @@ function block_info_raw($height='latest') {
     $output = json_decode($json, true)['data']; 
     
     $json = file_get_contents('https://bch-chain.api.btc.com/v3/block/'.$height.'/tx?verbose=3');
+    file_put_contents('temp/blocks_api/'.$height.'_tx.txt', $json);
     $output['coinbase'] = json_decode($json, true)['data']['list'][0]; 
     
     
@@ -40,12 +41,12 @@ function block_info($height='latest') {
     
     
     foreach ((array)$block_raw['coinbase']['outputs'] AS $tx)
-        if ($tx['value']>0 AND $tx['addresses'][0])
+        if ($tx['value']>0 AND $tx['addresses'][0] AND $tx['addresses'][0]!='1111111111111111111114oLvT2')
             $value_total += $tx['value'];
     
     
     foreach ((array)$block_raw['coinbase']['outputs'] AS $tx)
-        if ($tx['value']>0 AND $tx['addresses'][0])
+        if ($tx['value']>0 AND $tx['addresses'][0] AND $tx['addresses'][0]!='1111111111111111111114oLvT2')
             $output['coinbase_addresses'][] = array(
                     'address'           => $tx['addresses'][0],
                     'value'             => $tx['value'],
@@ -94,22 +95,28 @@ function block_update() {
     if ($height_last==$bmp_height_last)
         return false;
     
+    
     if (!$bmp_height_last)
         $height_next = $height_last-BLOCK_WINDOW;
     else
         $height_next = $bmp_height_last + 1;
     
-    $block = block_info($height_next);    
-    
-    var_dump($block);
-    
-    block_update_insert($block);
+    for ($h=$height_next;$h<=($height_next+10)&&$h<=$height_last;$h++) {
+        crono();
+        $block = block_info($h);    
+        
+        var_dump($block);
+        
+        block_insert($block);
+    }
     
     return true;
 }
 
 
-function block_update_insert($block) {
+function block_insert($block) {
+    
+    block_delete($block['height']);
     
     foreach (explode(' ', 'height date nonce hash size difficulty tx_count reward_block reward_fees hashpower coinbase_text_hex coinbase_text') AS $value)
         $insert_block[$value] = $block[$value];
@@ -130,7 +137,23 @@ function block_update_insert($block) {
     sql_insert('addresses', $insert_addresses);
     
     
-    event_chat('<b>[BLOCK] '.$block['height'].'</b> '.num($block['tx_count']).' tx, '.hashpower_humans($block['hashpower']));
+    foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r) {
+        $heights_delete[] = $r['height'];
+    }
+    block_delete($heights_delete);
+    
+    
+    event_chat('<b>[BLOCK] '.$block['height'].'</b> · '.hashpower_humans($block['hashpower']).', '.num($block['tx_count']).' tx');
     
     return true;
+}
+
+
+function block_delete($blocks) {
+    
+    if (!is_array($blocks))
+        $blocks = array($blocks);
+    
+    sql("DELETE FROM blocks WHERE height IN (".implode(',', (array)$blocks).")");
+    sql("DELETE FROM addresses WHERE height IN (".implode(',', (array)$blocks).")");
 }

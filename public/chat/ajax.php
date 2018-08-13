@@ -7,7 +7,7 @@ $template = false;
 header('connection: close');
 header('Content-Type: text/plain');
 
-
+error_reporting(0);
 
 
 

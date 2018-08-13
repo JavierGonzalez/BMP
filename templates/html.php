@@ -5,7 +5,7 @@
 header('Content-Type: text/html; charset=utf-8');
 
 
-$template['content'] = ob_get_contents();
+$output_content = ob_get_contents();
 ob_end_clean();
 
 
@@ -17,8 +17,8 @@ ob_end_clean();
 <meta name="description" content="<?=$template['title']?>" />
 
 
-
 <link rel="stylesheet" type="text/css" href="/img/style_all.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/img/style2.css" media="all" />
 <style type="text/css">
 #header { background:#FFF <?=$body_bg?> repeat scroll top left; }
 </style>
@@ -85,7 +85,7 @@ p_scroll = false;
 		<div id="header-tab">
 			<ul class="ttabs right">
 				<?php 
-				foreach ((array)$txt_tab AS $u => $a) { 
+				foreach ((array)$template['tabs'] AS $u => $a) { 
 					echo '<li'.(!is_numeric($u)&&$_SERVER['REQUEST_URI']==$u?' class="current"':'').'><a href="'.(!is_numeric($u)?$u:'#').'">'.$a.'</a></li>'; 
 					
 				}
@@ -99,7 +99,7 @@ p_scroll = false;
 
 
 	<div id="content">
-	    <?php echo $template['content']; ?>
+	    <?php echo $output_content; ?>
 	</div>
 
 
@@ -119,7 +119,7 @@ p_scroll = false;
     		</p>
     		
     		<p style="color:#999;">
-    			<?php echo num((microtime(true)-CRONO_START)*1000, 2).'ms '.num(memory_get_usage()/1000).'kb'; ?>
+    			<?php echo num((microtime(true)-$_['crono_start'])*1000, 2).'ms '.num(memory_get_usage()/1000).'kb'; ?>
 			</p>
 		</div>
 		
