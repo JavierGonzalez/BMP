@@ -11,6 +11,8 @@ function block_info_raw($height='latest') {
     file_put_contents('temp/blocks_api/'.$height.'_tx.txt', $json);
     $output['coinbase'] = json_decode($json, true)['data']['list'][0]; 
     
+    $output['outputs'] = json_decode($json, true);
+    
     
     if (!$output['height'])
         return false;
@@ -101,7 +103,7 @@ function block_update() {
     else
         $height_next = $bmp_height_last + 1;
     
-    for ($h=$height_next;$h<=($height_next+10)&&$h<=$height_last;$h++) {
+    for ($h=$height_next;$h<=($height_next+20)&&$h<=$height_last;$h++) {
         crono();
         $block = block_info($h);    
         
