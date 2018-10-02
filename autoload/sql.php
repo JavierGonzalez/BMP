@@ -2,13 +2,13 @@
 
 
 
-function sql_connect($sql_server=false) {
+function sql_connect($server_sql=false) {
     global $sql;
 
-    if (!$sql_server)
-        $sql_server = SQL_SERVER;
+    if (!$server_sql)
+        $server_sql = SERVER_SQL;
 
-	$p = parse_url($sql_server);
+	$p = parse_url($server_sql);
 	
 	if (!isset($p['port']))
 	    $p['port'] = 3306;

@@ -1,6 +1,6 @@
 <?php
 
-
+/*
 // LOGIN
 if (isset($_COOKIE['teorizauser'])) { 
 	session_start();
@@ -88,7 +88,7 @@ FROM users WHERE ID = '".$pol['user_ID']."' LIMIT 1");
 
 // Forzado SSL
 if (false AND !$_SERVER['HTTPS'] AND isset($pol['nick'])) { redirect('https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']); }
-
+*/
 
 /* i18n
 $vp['lang'] = $pol['config']['lang'];
@@ -103,7 +103,7 @@ if ((isset($vp['lang'])) AND ($vp['lang'] != 'es_ES')) {
 }
 */
 
-
+/*
 unset($fecha_init, $fecha_last);
 
 
@@ -113,3 +113,4 @@ $pol['user_ID'] = 1;
 
 $_SESSION['pol']['nick'] = 'GONZO';
 $_SESSION['pol']['user_ID'] = 1;
+*/
