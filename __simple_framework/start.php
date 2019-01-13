@@ -20,6 +20,10 @@ include('__simple_framework/login.php');
 include('__simple_framework/router.php');
 
 
-include('template/index.php');
+if ($_['template']=='api')
+    include('template/api.php');
+    
+else if ($_['template']!==false)
+    include('template/html.php');
 
 

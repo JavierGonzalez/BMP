@@ -1,6 +1,10 @@
 <?php
 
 
+require_once('static/lib/easybitcoin.php');
+$sb = parse_url(URL_BCH);
+$rpc = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
+
 
 function block_info_raw($height='latest') {
     
@@ -82,8 +86,8 @@ function hashpower_humans($hps) {
 
 
 function block_height_last() {
-    $json = file_get_contents('https://bch-chain.api.btc.com/v3/block/latest');
-    return json_decode($json, true)['data']['height'];
+    global $rpc;
+    return $rpc->getinfo()['blocks'];
 }
 
 

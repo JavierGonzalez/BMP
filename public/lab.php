@@ -3,13 +3,6 @@
 $_['template'] = 'api';
 
 
-require_once('static/lib/easybitcoin.php');
-
-crono();
-
-$sb = parse_url(URL_BCH);
-$rpc = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
-
 crono();
 print_r($rpc->getinfo());
 
