@@ -14,7 +14,7 @@ echo html_table($data);
 
 
 
-$template['tabs'] = array(
+$_['template']['tabs'] = array(
         '/hashpower/blocks'=>_('Blocks'),
         '/hashpower/addresses'=>_('Addresses'),
         '/hashpower/miners'=>_('Miners'),

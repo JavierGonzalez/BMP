@@ -1,3 +1,4 @@
 autoload/_passwords.php
 temp/*
 .c9/*
+*.log

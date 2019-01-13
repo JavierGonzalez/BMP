@@ -1,11 +1,9 @@
 <?php
 
+$_['template'] = 'api';
 
 
-if (PHP_SAPI != 'cli')
-    exit;
-
-
-include('_no-framework/start.php');
-
-echo 'OK'."\n";
+if ($_GET[1]=='new_block') {
+    echo 'New Block! '. $_GET['hash'];
+    file_put_contents('bmp.log', "\n".date('Y-m-d H:i:s').' '.$_SERVER['REQUEST_URI'], FILE_APPEND | LOCK_EX);
+}

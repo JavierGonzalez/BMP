@@ -1,5 +1,6 @@
-RewriteEngine on
+# simple_framework
 
+RewriteEngine on
 RewriteBase /
 
 RewriteRule ^index\.php$ - [L]

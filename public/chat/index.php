@@ -1,7 +1,7 @@
 <?php
 
 
-$template['lib']['js'] = '/public/chat/chat.js';
+$_['template']['lib']['js'] = '/public/chat/chat.js';
 
 
 
@@ -122,7 +122,7 @@ BMP
 
 
 // css & js
-$template['header'] .= '
+$_['template']['header'] .= '
 <script type="text/javascript"> 
 msg_ID = -1;
 elnick = "'.$_SESSION['pol']['nick'].'";

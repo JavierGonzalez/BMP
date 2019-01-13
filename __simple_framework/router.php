@@ -1,15 +1,11 @@
-<?php
+<?php # simple_framework
 
-/* no-framework router
-
-    URL                             CODE
-    /                               public/index.php
-    /example/more/abc?param=true    public/example/more.php
-    /example?param=true             public/example.php             
-    /example/abc                    public/example.php
-    /example/abc                    public/example/index.php
-
-*/
+#  URL                             ROUTE
+#  /                               public/index.php
+#  /example/more/abc?param=true    public/example/more.php
+#  /example?param=true             public/example.php             
+#  /example/abc                    public/example.php
+#  /example/abc                    public/example/index.php
 
 
 $url = explode('?', $_SERVER['REQUEST_URI'])[0];
@@ -32,10 +28,6 @@ $public = array(
 
 if (!isset($_GET[1]))
     unset($public[0]);
-
-
-if ($_SERVER['REMOTE_ADDR']==$_SERVER['SERVER_ADDR'])
-    $public = array('_no-framework/cron.php');
 
 
 foreach ($public AS $module) {

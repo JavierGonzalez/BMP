@@ -1,3 +1,3 @@
-<?php
+<?php # simple_framework
 
-include('_no-framework/start.php');
+include('__simple_framework/start.php');

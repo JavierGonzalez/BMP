@@ -13,3 +13,9 @@ function event_chat($msg, $nick=false) {
 
     return true;
 }
+
+
+function shell($command) {
+	$GLOBALS['shell_output'] = trim(shell_exec($command.' 2>&1'));
+	return $GLOBALS['shell_output'];
+}
