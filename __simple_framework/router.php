@@ -1,11 +1,11 @@
 <?php # simple_framework
 
-#  URL                             ROUTE
-#  /                               public/index.php
-#  /example/more/abc?param=true    public/example/more.php
-#  /example?param=true             public/example.php             
-#  /example/abc                    public/example.php
-#  /example/abc                    public/example/index.php
+#  URL                             ROUTE                        PARAMS
+#  /                               public/index.php             
+#  /example/more/abc?param=true    public/example/more.php      $_GET[1] = 'abc';  $_GET['param'] = true;
+#  /example?param=true             public/example.php           $_GET['param'] = true;
+#  /example/abc                    public/example.php           $_GET[1] = 'abc';
+#  /example/abc                    public/example/index.php     $_GET[1] = 'abc';
 
 
 $url = explode('?', $_SERVER['REQUEST_URI'])[0];
@@ -30,9 +30,9 @@ if (!isset($_GET[1]))
     unset($public[0]);
 
 
-foreach ($public AS $module) {
-    if (file_exists($module)) {
-        include($module);
+foreach ($public AS $_module) {
+    if (file_exists($_module)) {
+        include($_module);
         $module_found = true;
         break;
     }

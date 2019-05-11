@@ -1,5 +1,5 @@
 <?php
 
-$_['template'] = 'api';
+$_['template']['api'] = array();
 
 echo 'INDEX - HOME';
