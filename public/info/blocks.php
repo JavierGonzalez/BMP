@@ -1,4 +1,4 @@
-<?php
+<?php # BMP
 
 
 
@@ -11,11 +11,3 @@ foreach ($data AS $key => $value) {
 
 
 echo html_table($data);
-
-
-
-$_['template']['tabs'] = array(
-        '/hashpower/blocks'=>_('Blocks'),
-        '/hashpower/addresses'=>_('Addresses'),
-        '/hashpower/miners'=>_('Miners'),
-    );

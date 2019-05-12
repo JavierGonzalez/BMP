@@ -1,3 +1,3 @@
-<?php
+<?php # BMP
 
 echo 'About BMP';

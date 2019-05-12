@@ -1,4 +1,4 @@
-<?php
+<?php # BMP
 
 
 $share_total = sql("SELECT SUM(share) AS share FROM addresses")[0]['share'];
@@ -27,7 +27,7 @@ echo html_table($data, array(
     
     
     
-$_['template']['tabs'] = array(
+$_['template']['html']['tabs'] = array(
         '/hashpower/blocks'     => _('Blocks'),
         '/hashpower/addresses'  => _('Addresses'),
         '/hashpower/miners'     => _('Miners'),

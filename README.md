@@ -1,6 +1,3 @@
-# BMP
-Bitcoin Mining Parliament
-
+# Bitcoin Mining Parliament
 
 Javier González González
-BMP Architect

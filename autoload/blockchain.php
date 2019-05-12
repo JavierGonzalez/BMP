@@ -1,7 +1,7 @@
 <?php
 
 
-require_once('static/lib/easybitcoin.php');
+require_once('lib/easybitcoin.php');
 $sb = parse_url(URL_BCH);
 $rpc = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
 

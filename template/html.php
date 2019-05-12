@@ -17,27 +17,27 @@ ob_end_clean();
 <meta name="description" content="<?=$_['template']['html']['title']?>" />
 
 
-<link rel="stylesheet" type="text/css" href="/img/style_all.css" media="all" />
-<link rel="stylesheet" type="text/css" href="/img/style2.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/static/img/style_all.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/static/img/style2.css" media="all" />
 <style type="text/css">
 #header { background:#FFF <?=$body_bg?> repeat scroll top left; }
 </style>
 
 
-<script type="text/javascript" src="/img/lib/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/img/scripts2.js"></script>
+<script type="text/javascript" src="/static/img/lib/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/img/scripts2.js"></script>
 <?php
 foreach ((array)$_['template']['html']['lib']['js'] AS $file)
 	echo '<script type="text/javascript" src="'.$file.'"></script>';
 ?>
 <script type="text/javascript">
-IMG = '/img/';
+IMG = '/static/img/';
 ACCION_URL = "/";
 p_scroll = false;
 </script>
 
 
-<!--<link rel="shortcut icon" href="/favicon.ico" />-->
+<!--<link rel="shortcut icon" href="/static/img/favicon.ico" />-->
 
 <?=$_['template']['html']['header']?>
 

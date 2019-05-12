@@ -3,7 +3,7 @@
 
 /*** ESTRUCTURA ***/
 body {
-	min-width:1000px;
+	min-width:800px;
 	max-width:1600px;
 	cursor:default;
 	color: #111;
@@ -30,7 +30,6 @@ body {
 	left:200px;
 	right:0;
 	top:0px;
-	min-width:760px;
 }
 
 #header {

@@ -4,7 +4,7 @@
 ?>
 <ul class="menu vertical">
 
-	<li id="menu-comu"<?=($txt_menu=='comu'?' class="menu-sel"':'')?>><a href="/"><?=_('Communications')?></a>
+	<li id="menu-comu"<?=($txt_menu=='comu'?' class="menu-sel"':'')?>><a href="/"><?=_('Chat')?></a>
 		<ul>
 			<li><a href="/chats"><?=_('Chats')?></a></li>
 			<li><a href="/forum"><b><?=_('Forum')?></b></a>
@@ -28,7 +28,6 @@
 
 	<li id="menu-demo"<?=($txt_menu=='demo'?' class="menu-sel"':'')?>><a href="/votacion"><?=_('Hashpower')?></a>
 		<ul>
-			<!--<li><a href="/elecciones"><?=_('Elections')?></a></li>-->
 			<li><a href="/votacion"><b><?=_('Voting')?></b><span class="md"><?=$pol['config']['info_consultas']?></span></a></li>
 			<li><a href="/jobs"><?=_('Jobs')?></a>
 				<ul>

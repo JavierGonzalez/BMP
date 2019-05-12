@@ -2,4 +2,5 @@
 
 $_['template']['api'] = array();
 
-echo 'INDEX - HOME';
+
+crono();

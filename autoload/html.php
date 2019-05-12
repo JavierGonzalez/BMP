@@ -2,8 +2,11 @@
 
 
 
-function html_table($data, $config=false) {
-    
+function html_table($data=false, $config=false) {
+
+    if (!$data)
+        return '';
+
     $html = '<table>';
     
     // Header

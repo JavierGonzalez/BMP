@@ -1,4 +1,4 @@
-<?php 
+<?php # BMP
 
 
 if ($_GET[1]=='crawler') {
