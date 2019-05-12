@@ -52,8 +52,7 @@ p_scroll = false;
 	<a href="/" style="font-size:50px;margin-left:50px;">BMP</a>
 	
     <?php include('template/html_menu.php'); ?>
-
-	<div id="menu-next"></div>
+	
 </div>
 
 
@@ -115,7 +114,7 @@ p_scroll = false;
 				<br />
 			    <a target="_blank" href="/papers"><?=_('Papers')?></a> | <a target="_blank" href="/about"><?=_('About')?></a>
     			<br />
-    			2017-2018
+    			2019
     		</p>
     		
     		<p style="color:#999;">

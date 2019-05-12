@@ -1,9 +1,10 @@
 -- BMP
 
+
 CREATE TABLE `blocks` (
   `id`                    int(8) UNSIGNED       NOT NULL AUTO_INCREMENT,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
-  `time`                  timestamp             DEFAULT NULL,
+  `date`                  timestamp,
   `nonce`                 varchar(32)           DEFAULT NULL,
   `hash`                  varchar(64)           DEFAULT NULL,
   `size`                  decimal(20,0)         DEFAULT NULL,
@@ -12,13 +13,14 @@ CREATE TABLE `blocks` (
   `reward_block`          varchar(32)           DEFAULT NULL,
   `reward_fees`           varchar(32)           DEFAULT NULL,
   `hashpower`             decimal(50,0)         DEFAULT NULL,
-  `coinbase_text_hex`     varchar(512)          DEFAULT NULL,
-  `coinbase_text`         varchar(32)           DEFAULT NULL,
+  `coinbase_text_hex`     varchar(100)          DEFAULT NULL,
+  `coinbase_text`         varchar(100)          DEFAULT NULL,
+  `pool`                  varchar(100)          DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `hashpower` (
+CREATE TABLE `addresses` (
   `id`                    bigint(16) UNSIGNED   NOT NULL AUTO_INCREMENT,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `address`               varchar(64)           DEFAULT NULL,

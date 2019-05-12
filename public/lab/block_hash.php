@@ -7,7 +7,7 @@ crono();
 
 // var_dump($rpc->error); crono();
 
-//print_r($rpc->getinfo()); crono();
+print_r($rpc->getinfo()); crono();
 
 //print_r($rpc->getnetworkinfo()); crono();
 

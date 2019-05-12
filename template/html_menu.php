@@ -46,3 +46,14 @@
 	</li>
 
 </ul>
+
+
+
+<div id="menu-next"><br /><br />
+
+Last block: <?=block_height_last()?> <br />
+Blocks: <?=sql("SELECT COUNT(*) AS num FROM blocks")[0]['num']?> <br />
+Addresses: <?=sql("SELECT COUNT(*) AS num FROM addresses")[0]['num']?> <br />
+TX: <?=sql("SELECT COUNT(*) AS num FROM tx")[0]['num']?> <br />
+
+</div>
