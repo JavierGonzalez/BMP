@@ -2,7 +2,8 @@
 
 
 CREATE TABLE `blocks` (
-  `id`                    int(8) UNSIGNED       NOT NULL AUTO_INCREMENT,
+  `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
+  `blockchain`            char(3)               DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `hash`                  char(64)              DEFAULT NULL,
   `hashpower`             decimal(60,0)         DEFAULT NULL,
@@ -26,7 +27,9 @@ CREATE TABLE `blocks` (
 
 
 CREATE TABLE `miners` (
-  `id`                    bigint(16) UNSIGNED   NOT NULL AUTO_INCREMENT,
+  `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
+  `blockchain`            char(3)               DEFAULT NULL,
+  `txid`                  int(8) UNSIGNED       DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `address`               varchar(64)           DEFAULT NULL,
   `value`                 decimal(30,8)         DEFAULT NULL,
@@ -38,7 +41,7 @@ CREATE TABLE `miners` (
 
 
 CREATE TABLE `actions` (
-  `id`                    bigint(16) UNSIGNED   NOT NULL AUTO_INCREMENT,
+  `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
   `txid`                  int(8) UNSIGNED       DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `time`                  datetime,
@@ -59,7 +62,7 @@ CREATE TABLE `actions` (
 
 
 CREATE TABLE `key_value` (
-  `id`                    int(8) UNSIGNED       NOT NULL AUTO_INCREMENT,
+  `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
   `key`                   varchar(32)           DEFAULT NULL,
   `value`                 varchar(512)          DEFAULT NULL,
   PRIMARY KEY (id)

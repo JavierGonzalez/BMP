@@ -7,7 +7,7 @@ $rpc = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
 
 
 
-function block_info($height) {
+function block_get_info($height) {
     global $rpc;
     
     $block = $rpc->getblock($rpc->getblockhash($height)); 
@@ -22,6 +22,7 @@ function block_info($height) {
 
     /// Block
     $output['block'] = array(
+            'blockchain'            => BLOCKCHAIN,
             'height'                => $block['height'],
             'hash'                  => $block['hash'],
             'hashpower'             => block_hashpower($block),
@@ -47,6 +48,8 @@ function block_info($height) {
     foreach ((array)$coinbase['vout'] AS $tx)
         if ($tx['value']>0 AND $tx['scriptPubKey']['addresses'][0])
             $output['miners'][] = array(
+                    'blockchain'        => BLOCKCHAIN,
+                    'txid'              => $block['txid'],
                     'height'            => $block['height'],
                     'address'           => $tx['scriptPubKey']['addresses'][0],
                     'value'             => $tx['value'],
@@ -56,18 +59,45 @@ function block_info($height) {
                 );
     
     // Order by value desc
-    if ($output['miners'])
-        usort($output['miners'], function($a, $b) {
-                return $b['value'] - $a['value'];
-            });
+    usort($output['miners'], function($a, $b) {
+            return $b['value'] - $a['value'];
+        });
 
     
 
     /// Actions
-    $output['actions'] = array(
+    foreach ($block['tx'] AS $key => $txid) {
+        if ($key!==0) {
+            $tx = $rpc->getrawtransaction($txid, 1);
+            $output['actions'][] = action_decode($tx, $block);
+        }
+    }
+    
+    
+    return $output;
+}
+
+
+function action_decode($tx, $block) {
+
+    $output = array(
+            'txid'          => $tx['txid'],
+            'height'        => $block['height'],
+            'time'          => date("Y-m-d H:i:s", $block['time']),
+            'address'       => null,
+            'op_return'     => null,
+            'action'        => null,
+            'action_id'     => null,
+            'p1'            => null,
+            'p2'            => null,
+            'p3'            => null,
+            'p4'            => null,
+            'p5'            => null,
+            'p6'            => null,
+            'power'         => null,
+            'hashpower'     => null,
         );
-    
-    
+
     return $output;
 }
 
@@ -100,8 +130,9 @@ function block_update() {
 
 function block_insert($height) {
     
-    $info = block_info($height);
-    var_dump($info);
+    $info = block_get_info($height);
+
+    print_r2($info);
 
     block_delete($info['block']['height']);
 
