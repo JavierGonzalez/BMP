@@ -1,8 +1,5 @@
 <?php # BMP
 
-$_['template']['api'] = array();
-
-
 crono();
 
 // var_dump($rpc->error); crono();
@@ -75,3 +72,6 @@ echo revert_bytes(hash('sha256', hash('sha256', hex2bin($target), true), false))
 
 // $target = '01000000bddd99ccfda39da1b108ce1a5d70038d0a967bacb68b6b63065f626a0000000044f672226090d85db9a9f2fbfe5f0f9609b387af7be5b7fbb7a1767c831c9e995dbe6649ffff001d05e0ed6d';
 // echo hash('sha256', hash('sha256', "\x01\x00\x00\x00\xbd\xDD\x99\xCC\xFD\xA3\x9D\xA1\xB1\x08\xCE\x1A\x5D\x70\x03\x8D\x0A\x96\x7B\xAC\xB6\x8B\x6B\x63\x06\x5F\x62\x6A\x00\x00\x00\x00\x44\xF6\x72\x22\x60\x90\xD8\x5D\xB9\xA9\xF2\xFB\xFE\x5F\x0F\x96\x09\xB3\x87\xAF\x7B\xE5\xB7\xFB\xB7\xA1\x76\x7C\x83\x1C\x9E\x99\x5D\xBE\x66\x49\xFF\xFF\x00\x1D\x05\xE0\xED\x6D", true), false);
+
+
+include('template/api.php')

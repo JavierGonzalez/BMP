@@ -10,3 +10,5 @@ echo $input.'<br />';
 echo sprintf('%f', $input).'<br />';
 
 var_dump($input);
+
+include('template/api.php');

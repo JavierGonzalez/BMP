@@ -1,5 +1,6 @@
 <?php # BMP
 
+$_['html']['title'] = 'Info';
 
 if ($_GET[1]=='crawler') {
     block_update();
@@ -19,7 +20,3 @@ print_r(block_info_raw(543263));
 
 
 
-
-
-
-exit;

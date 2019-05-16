@@ -1,3 +1,3 @@
-<?php # BMP
+<?php
 
-include('template/html.php');
+include('html.php');

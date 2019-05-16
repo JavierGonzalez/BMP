@@ -1,5 +1,5 @@
 <?php # BMP
 
-$_['template']['api'] = array();
+echo '';
 
-echo 'INDEX - HOME';
+exit;

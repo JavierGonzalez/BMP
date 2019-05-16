@@ -1,11 +1,11 @@
 <?php # BMP
 
+$_['html']['title'] = 'Blocks';
 
-
-$data = sql("SELECT height, address, share, hashpower FROM addresses ORDER BY height DESC, share DESC");
+$data = sql("SELECT height, address, power, hashpower FROM miners ORDER BY height DESC, power DESC");
 
 foreach ($data AS $key => $value) {
-    $data[$key]['share'] = num($value['share'], 4).'%';
+    $data[$key]['power'] = num($value['power'], 4).'%';
     $data[$key]['hashpower'] = hashpower_humans($value['hashpower']);
 }
 

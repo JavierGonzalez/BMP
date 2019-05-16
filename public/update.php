@@ -16,3 +16,6 @@ print_r($rpc->getrawtransaction('18d9753cce93b20980ca33b860d24c537f5990034c0a3dc
 */
 
 echo block_height_last();
+
+
+exit;

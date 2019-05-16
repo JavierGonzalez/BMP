@@ -1,6 +1,6 @@
-addresses<?php # BMP
+<?php # BMP
 
-//$_['template']['html']['title'] = 'Protocol';
+$_['html']['title'] = 'Protocol';
 
 ?>
 

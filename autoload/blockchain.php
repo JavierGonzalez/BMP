@@ -7,102 +7,68 @@ $rpc = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
 
 
 
-function block_info_raw($height='latest') {
+function block_info($height) {
     global $rpc;
+    
+    $block = $rpc->getblock($rpc->getblockhash($height)); 
 
-    $output = $rpc->getblock($rpc->getblockhash($height)); 
-    
-    $output['tx_count'] = count($output['tx']);
+    $coinbase = $rpc->getrawtransaction($block['tx'][0], 1);
 
-    $output['coinbase'] = $rpc->getrawtransaction($output['tx'][0], 1);
-    
-    if (!$output['height'])
-        return false;
-    
-    return $output;
-}
-
-
-function block_info_raw_api($height='latest') {
-    
-    $json = file_get_contents('https://bch-chain.api.btc.com/v3/block/'.$height);
-    $output = json_decode($json, true)['data']; 
-    
-    $json = file_get_contents('https://bch-chain.api.btc.com/v3/block/'.$height.'/tx?verbose=3');
-    file_put_contents('temp/blocks_api/'.$height.'_tx.txt', $json);
-    $output['coinbase'] = json_decode($json, true)['data']['list'][0]; 
-    
-    $output['outputs'] = json_decode($json, true);
-    
-    
-    if (!$output['height'])
-        return false;
-    
-    return $output;
-}
-
-
-
-function block_info($height='latest') {
-    
-    $block_raw = block_info_raw($height);
-    
-    foreach (explode(' ', 'height time nonce hash size difficulty tx_count reward_block reward_fees') AS $element)
-        $output[$element] = $block_raw[$element];
-    
-    if (count($block_raw['coinbase']['vout'])>1)
-        $output['bmp'] = 'true';
-    
-    $output['hashpower'] = block_hashpower($block_raw);
-    $output['hashpower_humans'] = hashpower_humans($output['hashpower']);
-    
-    
-    $output['coinbase_text_hex'] = $block_raw['coinbase']['vin'][0]['coinbase'];
-    $output['coinbase_text'] = hex2bin($output['coinbase_text_hex']);
-    $output['coinbase_text_signals'] = array_filter(explode('/', $output['coinbase_text']));
-    
-    foreach ((array)$block_raw['coinbase']['vout'] AS $tx)
+    foreach ((array)$coinbase['vout'] AS $tx)
         if ($tx['value']>0 AND $tx['scriptPubKey']['addresses'][0])
-            $value_total += $tx['value'];
-    
-    
-    foreach ((array)$block_raw['coinbase']['vout'] AS $tx)
+            $coinbase_value_total += $tx['value'];
+
+
+
+    /// Block
+    $output['block'] = array(
+            'height'                => $block['height'],
+            'hash'                  => $block['hash'],
+            'hashpower'             => block_hashpower($block),
+            'size'                  => $block['size'],
+            'tx_count'              => count($block['tx']),
+            'version_hex'           => $block['versionHex'],
+            'previousblockhash'     => $block['previousblockhash'],
+            'merkleroot'            => $block['merkleroot'],
+            'time'                  => date("Y-m-d H:i:s", $block['time']),
+            'time_median'           => date("Y-m-d H:i:s", $block['mediantime']),
+            'bits'                  => $block['bits'],
+            'nonce'                 => $block['nonce'],
+            'difficulty'            => $block['difficulty'],
+            'reward_coinbase'       => $coinbase_value_total,
+            'reward_fees'           => null,
+            'coinbase'              => $coinbase['vin'][0]['coinbase'],
+            'pool'                  => null,
+            'signals'               => null,
+        );
+
+
+    /// Miners
+    foreach ((array)$coinbase['vout'] AS $tx)
         if ($tx['value']>0 AND $tx['scriptPubKey']['addresses'][0])
-            $output['coinbase_addresses'][] = array(
+            $output['miners'][] = array(
+                    'height'            => $block['height'],
                     'address'           => $tx['scriptPubKey']['addresses'][0],
                     'value'             => $tx['value'],
-                    'share'             => (($tx['value']*100)/$value_total),
-                    'hashpower'         => ($output['hashpower']*(($tx['value']*100)/$value_total))/100,
-                    'hashpower_humans'  => hashpower_humans(($output['hashpower']*(($tx['value']*100)/$value_total))/100),
+                    'quota'             => null,
+                    'power'             => (($tx['value']*100)/$coinbase_value_total),
+                    'hashpower'         => ($output['block']['hashpower']*(($tx['value']*100)/$coinbase_value_total))/100,
                 );
     
-    
-    if ($output['coinbase_addresses'])
-        usort($output['coinbase_addresses'], function($a, $b) {
+    // Order by value desc
+    if ($output['miners'])
+        usort($output['miners'], function($a, $b) {
                 return $b['value'] - $a['value'];
             });
+
+    
+
+    /// Actions
+    $output['actions'] = array(
+        );
     
     
     return $output;
-}
-
-
-
-function block_hashpower($block) {
-    return ($block['difficulty'] * pow(2,32) / 600); // hps = hashesh per second
-}
-
-
-
-function hashpower_humans($hps, $decimals=2) {
-    return num($hps/1000/1000000/1000000, $decimals).' PH/s';
-}
-
-
-
-function block_height_last() {
-    global $rpc;
-    return $rpc->getinfo()['blocks'];
 }
 
 
@@ -122,63 +88,71 @@ function block_update() {
     else
         $height_next = $bmp_height_last + 1;
     
-    for ($h=$height_next;$h<=($height_next+0)&&$h<=$height_last;$h++) {
-        crono();
-        $block = block_info($h);    
-        
-        var_dump($block);
-        
-        block_insert($block);
-    }
+
+    for ($h=$height_next;$h<=($height_next+0)&&$h<=$height_last;$h++)
+        block_insert($h);
+    
+
+    return true;
+}
+
+
+
+function block_insert($height) {
+    
+    $info = block_info($height);
+    var_dump($info);
+
+    block_delete($info['block']['height']);
+
+
+    sql_insert('blocks', $info['block']);
+
+    sql_insert('miners', $info['miners']);
+
+    // sql_insert('actions', $info['actions']);
+
+
+    foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
+        block_delete($r['height']);
+
+
+    // event_chat('<b>[BLOCK] '.$block['height'].'</b> · '.hashpower_humans($block['hashpower']).', '.num($block['tx_count']).' tx');
     
     return true;
 }
 
 
-function block_insert($block) {
-    
-    block_delete($block['height']);
-    
-    foreach (explode(' ', 'height date nonce hash size difficulty tx_count reward_block reward_fees hashpower coinbase_text_hex coinbase_text') AS $value)
-        $insert_block[$value] = $block[$value];
 
-    sql_insert('blocks', $insert_block);
+function block_delete($height) {
     
+    if (!is_array($height))
+        $height = array($height);
     
-    foreach ((array)$block['coinbase_addresses'] AS $value)
-        $insert_addresses[] = array(
-                'height'        => $block['height'],
-                'address'       => $value['address'],
-                'value'         => $value['value'],
-                'share'         => $value['share'],
-                'hashpower'     => $value['hashpower'],
-            );
-    
-    
-    sql_insert('addresses', $insert_addresses);
-    
-    
-    foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r) {
-        $heights_delete[] = $r['height'];
-    }
-    block_delete($heights_delete);
-    
-    
-    event_chat('<b>[BLOCK] '.$block['height'].'</b> · '.hashpower_humans($block['hashpower']).', '.num($block['tx_count']).' tx');
-    
-    return true;
+    sql("DELETE FROM blocks WHERE height IN (".implode(',', (array)$height).")");
+    sql("DELETE FROM miners WHERE height IN (".implode(',', (array)$height).")");
 }
 
 
-function block_delete($blocks) {
-    
-    if (!is_array($blocks))
-        $blocks = array($blocks);
-    
-    sql("DELETE FROM blocks WHERE height IN (".implode(',', (array)$blocks).")");
-    sql("DELETE FROM addresses WHERE height IN (".implode(',', (array)$blocks).")");
+
+
+
+function block_hashpower($block) {
+    return ($block['difficulty'] * pow(2,32) / 600); // hps = hashesh per second
 }
 
+
+
+function hashpower_humans($hps, $decimals=2) {
+    return num($hps/1000000/1000000, $decimals).'&nbsp;TH/s';
+}
+
+
+
+function block_height_last() {
+    global $rpc;
+    return $rpc->getinfo()['blocks'];
+}
 
 
 

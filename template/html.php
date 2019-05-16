@@ -9,12 +9,14 @@ $output_content = ob_get_contents();
 ob_end_clean();
 
 
+// 
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-<title><?=$_['template']['html']['title']?></title>
+<title><?=$_['html']['title']?></title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<meta name="description" content="<?=$_['template']['html']['title']?>" />
+<meta name="description" content="<?=$_['html']['title']?>" />
 
 
 <link rel="stylesheet" type="text/css" href="/static/img/style_all.css" media="all" />
@@ -27,7 +29,7 @@ ob_end_clean();
 <script type="text/javascript" src="/static/img/lib/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="/static/img/scripts2.js"></script>
 <?php
-foreach ((array)$_['template']['html']['lib']['js'] AS $file)
+foreach ((array)$_['html']['lib']['js'] AS $file)
 	echo '<script type="text/javascript" src="'.$file.'"></script>';
 ?>
 <script type="text/javascript">
@@ -39,7 +41,7 @@ p_scroll = false;
 
 <!--<link rel="shortcut icon" href="/static/img/favicon.ico" />-->
 
-<?=$_['template']['html']['header']?>
+<?=$_['html']['header']?>
 
 
 </head>
@@ -84,7 +86,7 @@ p_scroll = false;
 		<div id="header-tab">
 			<ul class="ttabs right">
 				<?php 
-				foreach ((array)$_['template']['html']['tabs'] AS $u => $a) { 
+				foreach ((array)$_['html']['tabs'] AS $u => $a) { 
 					echo '<li'.(!is_numeric($u)&&$_SERVER['REQUEST_URI']==$u?' class="current"':'').'><a href="'.(!is_numeric($u)?$u:'#').'">'.$a.'</a></li>'; 
 					
 				}

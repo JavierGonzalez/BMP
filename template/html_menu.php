@@ -52,8 +52,9 @@
 <div id="menu-next"><br /><br />
 
 Last block: <?=block_height_last()?> <br />
-Blocks: <?=sql("SELECT COUNT(*) AS num FROM blocks")[0]['num']?> <br />
-Addresses: <?=sql("SELECT COUNT(*) AS num FROM addresses")[0]['num']?> <br />
-TX: <?=sql("SELECT COUNT(*) AS num FROM tx")[0]['num']?> <br />
+<?=hashpower_humans(sql("SELECT SUM(hashpower) AS num FROM blocks")[0]['num']/BLOCK_WINDOW)?> <br />
+Blocks:  <?=sql("SELECT COUNT(*) AS num FROM blocks")[0]['num']?> <br />
+Miners:  <?=sql("SELECT COUNT(DISTINCT address) AS num FROM miners")[0]['num']?> <br />
+Actions: <?=sql("SELECT COUNT(*) AS num FROM actions")[0]['num']?> <br />
 
 </div>

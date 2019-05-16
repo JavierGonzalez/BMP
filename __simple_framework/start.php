@@ -21,7 +21,6 @@ include('__simple_framework/login.php');
 include('__simple_framework/router.php');
 
 
-if (!isset($_['template']))
-    $_['template']['index'] = true;
+include('template/index.php');
 
-include('template/'.key($_['template']).'.php');
+exit;
