@@ -49,29 +49,27 @@ function block_get_info($height) {
         if ($tx['value']>0 AND $tx['scriptPubKey']['addresses'][0])
             $output['miners'][] = array(
                     'blockchain'        => BLOCKCHAIN,
-                    'txid'              => $block['txid'],
+                    'txid'              => $coinbase['txid'],
                     'height'            => $block['height'],
                     'address'           => $tx['scriptPubKey']['addresses'][0],
+                    'method'            => 'value',
                     'value'             => $tx['value'],
                     'quota'             => null,
                     'power'             => (($tx['value']*100)/$coinbase_value_total),
                     'hashpower'         => ($output['block']['hashpower']*(($tx['value']*100)/$coinbase_value_total))/100,
                 );
     
+
     // Order by value desc
-    usort($output['miners'], function($a, $b) {
-            return $b['value'] - $a['value'];
+    usort($output['miners'], function($a, $b) { 
+            return $b['value'] - $a['value']; 
         });
 
-    
 
     /// Actions
-    foreach ($block['tx'] AS $key => $txid) {
-        if ($key!==0) {
-            $tx = $rpc->getrawtransaction($txid, 1);
-            $output['actions'][] = action_decode($tx, $block);
-        }
-    }
+    foreach ($block['tx'] AS $key => $txid)
+        if ($key!==0 AND false)
+            $output['actions'][] = action_decode($rpc->getrawtransaction($txid, 1), $block);
     
     
     return $output;
@@ -81,6 +79,7 @@ function block_get_info($height) {
 function action_decode($tx, $block) {
 
     $output = array(
+            'blockchain'    => BLOCKCHAIN,
             'txid'          => $tx['txid'],
             'height'        => $block['height'],
             'time'          => date("Y-m-d H:i:s", $block['time']),
@@ -94,6 +93,7 @@ function action_decode($tx, $block) {
             'p4'            => null,
             'p5'            => null,
             'p6'            => null,
+            'json'          => null,
             'power'         => null,
             'hashpower'     => null,
         );

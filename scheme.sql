@@ -6,7 +6,6 @@ CREATE TABLE `blocks` (
   `blockchain`            char(3)               DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `hash`                  char(64)              DEFAULT NULL,
-  `hashpower`             decimal(60,0)         DEFAULT NULL,
   `size`                  decimal(20,0)         DEFAULT NULL,
   `tx_count`              decimal(10,0)         DEFAULT NULL,
   `version_hex`           varchar(64)           DEFAULT NULL,
@@ -22,6 +21,7 @@ CREATE TABLE `blocks` (
   `coinbase`              varchar(500)          DEFAULT NULL,
   `pool`                  varchar(100)          DEFAULT NULL,
   `signals`               varchar(200)          DEFAULT NULL,
+  `hashpower`             decimal(60,0)         DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -29,9 +29,10 @@ CREATE TABLE `blocks` (
 CREATE TABLE `miners` (
   `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
   `blockchain`            char(3)               DEFAULT NULL,
-  `txid`                  int(8) UNSIGNED       DEFAULT NULL,
+  `txid`                  char(64)              DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `address`               varchar(64)           DEFAULT NULL,
+  `method`                varchar(64)           DEFAULT NULL,
   `value`                 decimal(30,8)         DEFAULT NULL,
   `quota`                 int(8)                DEFAULT NULL,
   `power`                 decimal(18,14)        DEFAULT NULL,
@@ -42,7 +43,8 @@ CREATE TABLE `miners` (
 
 CREATE TABLE `actions` (
   `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
-  `txid`                  int(8) UNSIGNED       DEFAULT NULL,
+  `blockchain`            char(3)               DEFAULT NULL,
+  `txid`                  char(64)              DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `time`                  datetime,
   `address`               varchar(64)           DEFAULT NULL,
@@ -55,6 +57,7 @@ CREATE TABLE `actions` (
   `p4`                    varchar(300)          DEFAULT NULL,
   `p5`                    varchar(300)          DEFAULT NULL,
   `p6`                    varchar(300)          DEFAULT NULL,
+  `json`                  longtext              DEFAULT NULL,
   `power`                 decimal(18,14)        DEFAULT NULL,
   `hashpower`             decimal(60,0)         DEFAULT NULL,
   PRIMARY KEY (id)
