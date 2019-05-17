@@ -26,7 +26,7 @@ function html_table($data=false, $config=false) {
             if ($config[$name]['align'])
                 $td_extra .= ' align="'.$config[$name]['align'].'"';
             
-            $html .= '<td'.$td_extra.'>'.$column.'</td>';
+            $html .= '<td'.$td_extra.' nowrap>'.$column.'</td>';
         }
         $html .= '</tr>';
     }

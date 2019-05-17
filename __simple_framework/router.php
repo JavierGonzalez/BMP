@@ -32,6 +32,10 @@ if (!isset($_GET[1]))
 
 foreach ($public AS $_module) {
     if (file_exists($_module)) {
+
+        if (file_exists(dirname($_module).'/*.php'))
+            include(dirname($_module).'/*.php');
+
         include($_module);
         $module_found = true;
         break;

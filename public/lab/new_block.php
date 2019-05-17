@@ -3,13 +3,16 @@
 
 crono();
 
-$num = 10;
+$num = 1;
+$refresh = 1;
+
+
 for ($h=1;$h<=$num;$h++)
-    $result = block_update();
+    $result = get_new_block();
 
 crono();
 
-if ($result)
+if ($result AND $refresh)
     echo '<meta http-equiv="refresh" content="0">';
 
 

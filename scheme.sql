@@ -1,6 +1,12 @@
 -- BMP
 
 
+DROP TABLE IF EXISTS `blocks`;
+DROP TABLE IF EXISTS `miners`;
+DROP TABLE IF EXISTS `actions`;
+DROP TABLE IF EXISTS `key_value`;
+
+
 CREATE TABLE `blocks` (
   `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
   `blockchain`            char(3)               DEFAULT NULL,
@@ -18,9 +24,9 @@ CREATE TABLE `blocks` (
   `difficulty`            decimal(30,8)         DEFAULT NULL,
   `reward_coinbase`       decimal(30,8)         DEFAULT NULL,
   `reward_fees`           decimal(30,8)         DEFAULT NULL,
-  `coinbase`              varchar(500)          DEFAULT NULL,
+  `coinbase`              varchar(900)          DEFAULT NULL,
   `pool`                  varchar(100)          DEFAULT NULL,
-  `signals`               varchar(200)          DEFAULT NULL,
+  `signals`               varchar(900)          DEFAULT NULL,
   `hashpower`             decimal(60,0)         DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -48,7 +54,7 @@ CREATE TABLE `actions` (
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `time`                  datetime,
   `address`               varchar(64)           DEFAULT NULL,
-  `op_return`             varchar(900)          DEFAULT NULL,
+  `op_return`             longtext              DEFAULT NULL,
   `action`                varchar(50)           DEFAULT NULL,
   `action_id`             varchar(10)           DEFAULT NULL,
   `p1`                    varchar(300)          DEFAULT NULL,
@@ -66,7 +72,7 @@ CREATE TABLE `actions` (
 
 CREATE TABLE `key_value` (
   `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
-  `key`                   varchar(32)           DEFAULT NULL,
-  `value`                 varchar(512)          DEFAULT NULL,
+  `key`                   varchar(200)          DEFAULT NULL,
+  `value`                 longtext              DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

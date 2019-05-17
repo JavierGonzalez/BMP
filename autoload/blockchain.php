@@ -1,31 +1,28 @@
 <?php # BMP
 
 
-require_once('lib/easybitcoin.php');
-$sb = parse_url(URL_BCH);
-$rpc = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
+$b = rpc_connect();
 
 
-
-function block_get_info($height) {
-    global $rpc;
+function get_block_info($height) {
+    global $b;
     
-    $block = $rpc->getblock($rpc->getblockhash($height)); 
+    set_time_limit(10*60);
 
-    $coinbase = $rpc->getrawtransaction($block['tx'][0], 1);
+    $block = $b->getblock($b->getblockhash($height)); 
+
+    $coinbase = $b->getrawtransaction($block['tx'][0], 1);
 
     foreach ((array)$coinbase['vout'] AS $tx)
         if ($tx['value']>0 AND $tx['scriptPubKey']['addresses'][0])
             $coinbase_value_total += $tx['value'];
-
-
+    
 
     /// Block
     $output['block'] = array(
             'blockchain'            => BLOCKCHAIN,
             'height'                => $block['height'],
             'hash'                  => $block['hash'],
-            'hashpower'             => block_hashpower($block),
             'size'                  => $block['size'],
             'tx_count'              => count($block['tx']),
             'version_hex'           => $block['versionHex'],
@@ -41,6 +38,7 @@ function block_get_info($height) {
             'coinbase'              => $coinbase['vin'][0]['coinbase'],
             'pool'                  => null,
             'signals'               => null,
+            'hashpower'             => block_hashpower($block),
         );
 
 
@@ -58,33 +56,32 @@ function block_get_info($height) {
                     'power'             => (($tx['value']*100)/$coinbase_value_total),
                     'hashpower'         => ($output['block']['hashpower']*(($tx['value']*100)/$coinbase_value_total))/100,
                 );
-    
-
-    // Order by value desc
-    usort($output['miners'], function($a, $b) { 
-            return $b['value'] - $a['value']; 
-        });
 
 
     /// Actions
     foreach ($block['tx'] AS $key => $txid)
-        if ($key!==0 AND false)
-            $output['actions'][] = action_decode($rpc->getrawtransaction($txid, 1), $block);
+        if ($key!==0)
+            if ($result = action_decode($b->getrawtransaction($txid, 1), $block))
+                $output['actions'][] = $result;
     
     
     return $output;
 }
 
 
+
 function action_decode($tx, $block) {
+
+    if (!is_action_valid($tx))
+        return false;
 
     $output = array(
             'blockchain'    => BLOCKCHAIN,
             'txid'          => $tx['txid'],
             'height'        => $block['height'],
             'time'          => date("Y-m-d H:i:s", $block['time']),
-            'address'       => null,
-            'op_return'     => null,
+            'address'       => $tx['vout'][0]['scriptPubKey']['addresses'][0],
+            'op_return'     => op_return_decode($tx),
             'action'        => null,
             'action_id'     => null,
             'p1'            => null,
@@ -103,7 +100,25 @@ function action_decode($tx, $block) {
 
 
 
-function block_update() {
+function op_return_decode($tx) {
+    return $tx['vout'][1]['scriptPubKey']['hex'];
+}
+
+
+
+function is_action_valid($tx) {
+    
+    $op_return_raw = $tx['vout'][1]['scriptPubKey']['hex'];
+
+    if ($op_return_raw AND substr($op_return_raw,0,2)==='6a')
+        return true;
+
+    return false;
+}
+
+
+
+function get_new_block() {
     
     $height_last = block_height_last();
     
@@ -130,26 +145,23 @@ function block_update() {
 
 function block_insert($height) {
     
-    $info = block_get_info($height);
+    $info = get_block_info($height);
 
-    print_r2($info);
+    if (DEBUG)
+        print_r2($info);
 
     block_delete($info['block']['height']);
 
 
-    sql_insert('blocks', $info['block']);
-
-    sql_insert('miners', $info['miners']);
-
-    // sql_insert('actions', $info['actions']);
+    sql_insert('blocks',  $info['block']);
+    sql_insert('miners',  $info['miners']);
+    sql_insert('actions', $info['actions']);
 
 
     foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
         block_delete($r['height']);
 
 
-    // event_chat('<b>[BLOCK] '.$block['height'].'</b> · '.hashpower_humans($block['hashpower']).', '.num($block['tx_count']).' tx');
-    
     return true;
 }
 
@@ -160,11 +172,10 @@ function block_delete($height) {
     if (!is_array($height))
         $height = array($height);
     
-    sql("DELETE FROM blocks WHERE height IN (".implode(',', (array)$height).")");
-    sql("DELETE FROM miners WHERE height IN (".implode(',', (array)$height).")");
+    sql("DELETE FROM blocks  WHERE height IN (".implode(',', (array)$height).")");
+    sql("DELETE FROM miners  WHERE height IN (".implode(',', (array)$height).")");
+    sql("DELETE FROM actions WHERE height IN (".implode(',', (array)$height).")");
 }
-
-
 
 
 
@@ -181,8 +192,8 @@ function hashpower_humans($hps, $decimals=2) {
 
 
 function block_height_last() {
-    global $rpc;
-    return $rpc->getinfo()['blocks'];
+    global $b;
+    return $b->getinfo()['blocks'];
 }
 
 
@@ -192,4 +203,20 @@ function revert_bytes($input) {
     $output = array_reverse($output);
     $output = implode('', $output);
     return $output;
+}
+
+
+
+function rpc_connect() {
+    global $b;
+
+    if (!$b) {
+        require_once('lib/easybitcoin.php');
+        $sb = parse_url(URL_BCH);
+        $b = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
+        if (!$b)
+            echo $b->error();
+    }
+    
+    return $b;
 }

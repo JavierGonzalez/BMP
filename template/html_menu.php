@@ -18,7 +18,7 @@
 		</ul>
 	</li>
 
-	<li id="menu-info"<?=($txt_menu=='info'?' class="menu-sel"':'')?>><a href="/"><?=_('Information')?></a>
+	<li id="menu-info"<?=($txt_menu=='info'?' class="menu-sel"':'')?>><a href="/info/miners"><?=_('Info')?></a>
 		<ul>
 			<li><a href="/info/censo"><?=_('Census')?><span class="md"><?=num($pol['config']['info_censo'])?></span></a></li>
 			<li><a href="/doc"><b><?=_('Documents')?></b><span class="md"><?=$pol['config']['info_documentos']?></span></a></li>
@@ -51,10 +51,21 @@
 
 <div id="menu-next"><br /><br />
 
-Last block: <?=block_height_last()?> <br />
-<?=hashpower_humans(sql("SELECT SUM(hashpower) AS num FROM blocks")[0]['num']/BLOCK_WINDOW)?> <br />
-Blocks:  <?=sql("SELECT COUNT(*) AS num FROM blocks")[0]['num']?> <br />
-Miners:  <?=sql("SELECT COUNT(DISTINCT address) AS num FROM miners")[0]['num']?> <br />
-Actions: <?=sql("SELECT COUNT(*) AS num FROM actions")[0]['num']?> <br />
+	<?php
+
+	if (DEBUG) {
+
+		echo 'Last block: '.block_height_last().'<br />';
+		echo hashpower_humans(sql("SELECT SUM(hashpower) AS num FROM blocks")[0]['num']/BLOCK_WINDOW).'<br />';
+		echo '<br />';
+		echo 'Blocks:  '.sql("SELECT COUNT(*) AS num FROM blocks")[0]['num'].'<br />';
+		echo 'Miners:  '.sql("SELECT COUNT(DISTINCT address) AS num FROM miners")[0]['num'].'<br />';
+		echo 'Actions: '.sql("SELECT COUNT(*) AS num FROM actions")[0]['num'].'<br />';
+		echo '<br />';
+		echo num((microtime(true)-$_['crono_start'])*1000, 2).' ms &nbsp; '.num(memory_get_usage()/1000).' kb';
+
+	}
+
+	?>
 
 </div>

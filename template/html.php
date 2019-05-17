@@ -84,7 +84,7 @@ p_scroll = false;
 
 
 		<div id="header-tab">
-			<ul class="ttabs right">
+			<ul class="ttabs left">
 				<?php 
 				foreach ((array)$_['html']['tabs'] AS $u => $a) { 
 					echo '<li'.(!is_numeric($u)&&$_SERVER['REQUEST_URI']==$u?' class="current"':'').'><a href="'.(!is_numeric($u)?$u:'#').'">'.$a.'</a></li>'; 
@@ -118,10 +118,7 @@ p_scroll = false;
     			<br />
     			2019
     		</p>
-    		
-    		<p style="color:#999;">
-    			<?php echo num((microtime(true)-$_['crono_start'])*1000, 2).'ms '.num(memory_get_usage()/1000).'kb'; ?>
-			</p>
+
 		</div>
 		
 		<div id="footer-left">

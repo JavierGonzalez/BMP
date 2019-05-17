@@ -11,12 +11,3 @@ if ($_GET[1]=='crawler') {
 
 
 
-
-
-
-
-
-print_r(block_info_raw(543263));
-
-
-
