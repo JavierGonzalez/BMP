@@ -10,5 +10,5 @@ define('BLOCK_BMP_GENESIS', 0);
 
 define('OP_RETURN_MAX_SIZE', 0);
 
-
 define('BLOCKCHAIN', 'BCH');
+

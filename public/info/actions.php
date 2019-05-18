@@ -3,15 +3,14 @@
 $_['html']['title'] = 'Actions';
 
 
-
-$data = sql("SELECT time, NULL, op_return 
+// WHERE op_return LIKE '6a026d01%'
+$data = sql("SELECT * 
 FROM actions  
-WHERE op_return LIKE '6a026d01%'
-ORDER BY RAND()
-LIMIT 20"); // 
+ORDER BY time DESC
+LIMIT 500"); // 
 
 foreach ($data AS $key => $value) {
-    $data[$key]['NULL'] = hex2bin(substr($value['op_return'], 10));
+    $data[$key]['op_return_bin'] = hex2bin(substr($value['op_return'], 10));
 }
 
 

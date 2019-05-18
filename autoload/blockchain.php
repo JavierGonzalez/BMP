@@ -72,50 +72,25 @@ function get_block_info($height) {
 
 function action_decode($tx, $block) {
 
-    if (!is_action_valid($tx))
-        return false;
-
     $output = array(
             'blockchain'    => BLOCKCHAIN,
             'txid'          => $tx['txid'],
             'height'        => $block['height'],
             'time'          => date("Y-m-d H:i:s", $block['time']),
             'address'       => $tx['vout'][0]['scriptPubKey']['addresses'][0],
-            'op_return'     => op_return_decode($tx),
-            'action'        => null,
-            'action_id'     => null,
-            'p1'            => null,
-            'p2'            => null,
-            'p3'            => null,
-            'p4'            => null,
-            'p5'            => null,
-            'p6'            => null,
-            'json'          => null,
-            'power'         => null,
-            'hashpower'     => null,
+            'op_return'     => $tx['vout'][1]['scriptPubKey']['hex'],
         );
+
+    if (!$decode = op_return_decode($output['op_return']))
+        return false;
+
+    $output = array_merge($output, $decode);
+
+    $output['power']     = null;
+    $output['hashpower'] = null;
 
     return $output;
 }
-
-
-
-function op_return_decode($tx) {
-    return $tx['vout'][1]['scriptPubKey']['hex'];
-}
-
-
-
-function is_action_valid($tx) {
-    
-    $op_return_raw = $tx['vout'][1]['scriptPubKey']['hex'];
-
-    if ($op_return_raw AND substr($op_return_raw,0,2)==='6a')
-        return true;
-
-    return false;
-}
-
 
 
 function get_new_block() {
