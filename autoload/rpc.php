@@ -36,8 +36,8 @@ function get_raw_transaction($txid) {
 
 
 
-function block_height_last() {
+function get_info() {
     $b = rpc_connect();
-    return $b->getinfo()['blocks'];
+    return $b->getinfo();
 }
 

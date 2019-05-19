@@ -54,8 +54,9 @@
 	<?php
 
 	if (DEBUG) {
-
-		echo 'Last block: '.block_height_last().'<br />';
+		$info = get_info();
+		echo 'Last block: '.$info['blocks'].'<br />';
+		echo 'Peers: '.$info['connections'].'<br />';
 		echo hashpower_humans(sql("SELECT SUM(hashpower) AS num FROM blocks")[0]['num']/BLOCK_WINDOW).'<br />';
 		echo '<br />';
 		echo 'Blocks:  '.sql("SELECT COUNT(*) AS num FROM blocks")[0]['num'].'<br />';
@@ -63,7 +64,6 @@
 		echo 'Actions: '.sql("SELECT COUNT(*) AS num FROM actions")[0]['num'].'<br />';
 		echo '<br />';
 		echo num((microtime(true)-$_['crono_start'])*1000, 2).' ms &nbsp; '.num(memory_get_usage()/1000).' kb';
-
 	}
 
 	?>

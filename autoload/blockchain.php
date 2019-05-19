@@ -93,21 +93,21 @@ function action_decode($tx, $block) {
 
 function get_new_block() {
     
-    $height_last = block_height_last();
+    $rpc_height = get_info()['blocks'];
     
-    $bmp_height_last = sql("SELECT height FROM blocks ORDER BY height DESC LIMIT 1")[0]['height'];
+    $bmp_height = sql("SELECT height FROM blocks ORDER BY height DESC LIMIT 1")[0]['height'];
     
-    if ($height_last===$bmp_height_last)
+    if ($rpc_height==$bmp_height)
         return false;
     
     
-    if (!$bmp_height_last)
-        $height_next = $height_last - BLOCK_WINDOW;
+    if (!$bmp_height)
+        $height = $rpc_height - BLOCK_WINDOW;
     else
-        $height_next = $bmp_height_last + 1;
+        $height = $bmp_height + 1;
     
 
-    block_insert($height_next);
+    block_insert($height);
     
 
     foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
@@ -134,9 +134,9 @@ function block_insert($height) {
 
 
 function block_delete($height) {
-    sql("DELETE FROM blocks  WHERE height = '".$height."'");
-    sql("DELETE FROM miners  WHERE height = '".$height."'");
-    sql("DELETE FROM actions WHERE height = '".$height."'");
+    sql("DELETE FROM blocks  WHERE height = ".$height);
+    sql("DELETE FROM miners  WHERE height = ".$height);
+    sql("DELETE FROM actions WHERE height = ".$height);
 }
 
 
