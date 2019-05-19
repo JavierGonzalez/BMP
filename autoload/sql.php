@@ -78,6 +78,9 @@ function sql($query) {
     while ($r = mysqli_fetch_array($result, MYSQLI_ASSOC))
         $output[] = $r;
     
+	if (isset($output[0]['ECHO']))
+		return $output[0]['ECHO'];
+
     return $output;
 }
 

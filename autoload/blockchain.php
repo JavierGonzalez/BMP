@@ -16,7 +16,7 @@ function get_block_info($height) {
 
     /// Block
     $output['block'] = array(
-            'blockchain'            => BLOCKCHAIN,
+            'chain'                 => BLOCKCHAIN,
             'height'                => $block['height'],
             'hash'                  => $block['hash'],
             'size'                  => $block['size'],
@@ -32,7 +32,7 @@ function get_block_info($height) {
             'reward_coinbase'       => $coinbase_value_total,
             'reward_fees'           => null,
             'coinbase'              => $coinbase['vin'][0]['coinbase'],
-            'pool'                  => null,
+            'pool'                  => pool_decode(hex2bin($coinbase['vin'][0]['coinbase']))['name'],
             'signals'               => null,
             'hashpower'             => block_hashpower($block),
         );
@@ -42,7 +42,7 @@ function get_block_info($height) {
     foreach ((array)$coinbase['vout'] AS $tx)
         if ($tx['value']>0 AND $tx['scriptPubKey']['addresses'][0])
             $output['miners'][] = array(
-                    'blockchain'        => BLOCKCHAIN,
+                    'chain'             => BLOCKCHAIN,
                     'txid'              => $coinbase['txid'],
                     'height'            => $block['height'],
                     'address'           => str_replace('bitcoincash:', '', $tx['scriptPubKey']['addresses'][0]),
@@ -70,7 +70,7 @@ function get_block_info($height) {
 function action_decode($tx, $block) {
 
     $action = array(
-            'blockchain'    => BLOCKCHAIN,
+            'chain'         => BLOCKCHAIN,
             'txid'          => $tx['txid'],
             'height'        => $block['height'],
             'time'          => date("Y-m-d H:i:s", $block['time']),
@@ -151,4 +151,20 @@ function revert_bytes($hex) {
     $hex = str_split($hex, 2);
     $hex = array_reverse($hex);
     return implode('', $hex);
+}
+
+
+
+function pool_decode($coinbase) {
+    global $pools_json;
+
+    if (!is_array($pools_json))
+        $pools_json = json_decode(file_get_contents('static/pools_bch.json'), true);
+
+
+    foreach ($pools_json['coinbase_tags'] AS $tag => $pool)
+        if (strpos($coinbase, $tag)!==false)
+            return $pool;
+
+    return null;
 }

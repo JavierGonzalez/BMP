@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS `key_value`;
 
 CREATE TABLE `blocks` (
   `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
-  `blockchain`            char(3)               DEFAULT NULL,
+  `chain`                 char(3)               DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `hash`                  char(64)              DEFAULT NULL,
   `size`                  decimal(20,0)         DEFAULT NULL,
@@ -28,13 +28,17 @@ CREATE TABLE `blocks` (
   `pool`                  varchar(100)          DEFAULT NULL,
   `signals`               varchar(900)          DEFAULT NULL,
   `hashpower`             decimal(60,0)         DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  KEY `chain` (`chain`),
+  KEY `height` (`height`),
+  KEY `time` (`time`),
+  KEY `hashpower` (`hashpower`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `miners` (
   `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
-  `blockchain`            char(3)               DEFAULT NULL,
+  `chain`                 char(3)               DEFAULT NULL,
   `txid`                  char(64)              DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `address`               varchar(64)           DEFAULT NULL,
@@ -43,13 +47,17 @@ CREATE TABLE `miners` (
   `quota`                 int(8)                DEFAULT NULL,
   `power`                 decimal(18,14)        DEFAULT NULL,
   `hashpower`             decimal(60,0)         DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  KEY `chain` (`chain`),
+  KEY `height` (`height`),
+  KEY `address` (`address`),
+  KEY `hashpower` (`hashpower`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `actions` (
   `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
-  `blockchain`            char(3)               DEFAULT NULL,
+  `chain`                 char(3)               DEFAULT NULL,
   `txid`                  char(64)              DEFAULT NULL,
   `height`                int(8) UNSIGNED       DEFAULT NULL,
   `time`                  datetime,
@@ -66,7 +74,14 @@ CREATE TABLE `actions` (
   `json`                  longtext              DEFAULT NULL,
   `power`                 decimal(18,14)        DEFAULT NULL,
   `hashpower`             decimal(60,0)         DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  KEY `chain` (`chain`),
+  KEY `height` (`height`),
+  KEY `time` (`time`),
+  KEY `action_id` (`action_id`),
+  KEY `p1` (`p1`),
+  KEY `action` (`action`),
+  KEY `hashpower` (`hashpower`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
@@ -74,5 +89,6 @@ CREATE TABLE `key_value` (
   `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
   `key`                   varchar(200)          DEFAULT NULL,
   `value`                 longtext              DEFAULT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  KEY `key` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

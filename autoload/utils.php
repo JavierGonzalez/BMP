@@ -2,7 +2,7 @@
 
 
 
-function hashpower_humans($hps, $decimals=2) {
+function hashpower_humans($hps, $decimals=0) {
     return num($hps/1000000/1000000, $decimals).'&nbsp;TH/s';
 }
 

@@ -55,15 +55,29 @@
 
 	if (DEBUG) {
 		$info = get_info();
-		echo 'Last block: '.$info['blocks'].'<br />';
+
+		$bmp_height = sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
+		if (!is_array($bmp_height))
+			$progress = round(abs((($info['blocks']-$bmp_height)*100)/BLOCK_WINDOW-100)).'%';
+
+
+		echo 'Height: '.$info['blocks'].' '.$progress.'<br />';
 		echo 'Peers: '.$info['connections'].'<br />';
-		echo hashpower_humans(sql("SELECT SUM(hashpower) AS num FROM blocks")[0]['num']/BLOCK_WINDOW).'<br />';
+
+		$blocks_num = sql("SELECT SUM(hashpower) AS ECHO FROM blocks");
+		if (!is_array($blocks_num))
+			echo hashpower_humans(($blocks_num / BLOCK_WINDOW)).'<br />';
+		
 		echo '<br />';
-		echo 'Blocks:  '.sql("SELECT COUNT(*) AS num FROM blocks")[0]['num'].'<br />';
-		echo 'Miners:  '.sql("SELECT COUNT(DISTINCT address) AS num FROM miners")[0]['num'].'<br />';
-		echo 'Actions: '.sql("SELECT COUNT(*) AS num FROM actions")[0]['num'].'<br />';
+
+
+		echo 'Blocks:  '.sql("SELECT COUNT(*) AS ECHO FROM blocks").'<br />';
+		echo 'Miners:  '.sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners").'<br />';
+		echo 'Actions: '.sql("SELECT COUNT(*) AS ECHO FROM actions").'<br />';
+		
 		echo '<br />';
-		echo num((microtime(true)-$_['crono_start'])*1000, 2).' ms &nbsp; '.num(memory_get_usage()/1000).' kb';
+		
+		echo num((microtime(true)-$_['crono_start'])*1000).' ms &nbsp; '.num(memory_get_usage()/1000).' kb';
 	}
 
 	?>
