@@ -1,4 +1,4 @@
-<?php
+<?php # BMP
 
 
 
@@ -7,8 +7,6 @@ function html_table($data=false, $config=false) {
     if (!$data)
         return '';
 
-    $html = '<table>';
-    
     // Header
     $html .= '<tr>';
     foreach ($data[0] AS $key => $value) {
@@ -31,10 +29,6 @@ function html_table($data=false, $config=false) {
         $html .= '</tr>';
     }
     
-    
-    
-    $html .= '</table>';
-    
-    
-    return $html;
+
+    return '<table>'.$html.'</table>';
 }

@@ -1,7 +1,132 @@
 <?php # BMP
 
 
-crono();
+
+
+
+$hash = '0000000000000000013821c4378e842401ac54371a8afa81777327266bf418af';
+
+
+$block = get_block($hash); 
+
+print_r2($block);
+
+foreach ($block['tx'] AS $txid)
+    print_r2(get_raw_transaction($txid));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exit;
+
+// echo "/".bin2hex('.Zasdada||OWOKdkogx.')."/";
+/*
+
+load:
+serializedTx: "0100000001cfc23df6def230ff07741658605df1bf747371e99be920fe2e18c5ae6f6b6d0f010000006b483045022100f878c64bca23812d28673d329a8c42faeeda2ecb3752bfbd804b87e3d313f24b022009707fb86fa9c46af7b37fd286b8195b4d96a703941692d090927266d82ec3bf41210399ce523c30063ae3279461d478ad12119a6311f15698b4f6864177b1c5f22c1300000000030000000000000000166a142e5a6173646164617c7c4f574f4b646b6f67782ee8030000000000001976a914cdd92e467dc1f54451ad257a7471a229e20b2b8e88acb99c2e03000000001976a914a4c82e1986695ed36e7cd8e31e947022ea9c1d1e88ac00000000"
+signatures: ["3045022100f878c64bca23812d28673d329a8c42faeeda2ecb…af7b37fd286b8195b4d96a703941692d090927266d82ec3bf"]
+txid: "30835fd669f4fd04066ef2f006556f0d029877d1ef75901a9c46ce7ac650b119"
+__proto__: Obj
+
+
+Enter (popup)
+-- Esperar 10 sec
+Cick (elegir cuenta)
+Boton (send TX)
+Confirm OP_RETURN en Trezor
+Confirm TX en Trezor
+Confirm value y fee en Trezor
+
+Acción hecha!
+
+*/
+
+exit;
+?>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>BMP</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<script src="https://connect.trezor.io/7/trezor-connect.js"></script>
+
+
+</head>
+<body>
+
+Hello!
+
+
+
+<script type="text/javascript">
+
+var TrezorConnect = window.TrezorConnect;
+
+TrezorConnect.manifest({
+    email: 'gonzo@virtualpol.com',
+    appUrl: 'https://bmp.virtualpol.com'
+});
+
+
+
+result = TrezorConnect.composeTransaction({
+    outputs: [
+        { amount: "1000", address: "qrxajtjx0hql23z345jh5ar35g57yzet3cypzvyfxr" },
+        { type: "opreturn", dataHex: "2e5a6173646164617c7c4f574f4b646b6f67782e" }
+    ],
+    coin: "bch",
+    push: true
+});
+
+
+console.log(result);
+
+</script>
+
+</body>
+</html>
+
+
+
+<?php
+
+
+
+/* WORKS
+var result = TrezorConnect.signMessage({
+    path: "m/44'/0'/0'",
+    message: "example messagezzz"
+});
+
+
+payload:
+address: "184FkypGiToPEXYKRRdGyCRK5Hp1kFpVFH"
+signature: "IAL7B4oNp2z73Ml0c8daMXH+pjkKOYGdDDYqF6epycbRORsll9306Xk9LftWfDhePv14zGOx01DfJa5q4U9MSM8="
+__proto__: Object
+
+*/
+
+
+
+exit;
 
 
 print_r2(op_return_decode('6a026d0320515b8ffeff983580bef3bb7f5fc0f82c2672b030aa8d78708d917cadde2ea7914cb654696d6520746f2064656369646520736f6d657468696e672e20225468652044657363656e7422206c6f6f6b73206d6f7265206c696b65206d79207468696e672c206275742022446f6e6e6965204461726b6f22206861732062657474657220726576696577732e2049207468696e6b20736f6f6e6572206f72206c6174657220492077696c6c20776174636820626f74682e203230306b2073617420676f657320746f20626f7468206f6620796f752e205468782e'));

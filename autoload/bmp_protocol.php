@@ -3,7 +3,7 @@
 
 $bmp_protocol = array(
         
-        'prefix' => '6d', // 9d = BMP
+        'prefix' => '9d',
         
         'actions' => array(
 
@@ -20,9 +20,8 @@ $bmp_protocol = array(
                 'name'          => 'Chat',
                 'description'   => 'IRC-like chat commands:',
                 1 => array('size' =>  10, 'name'=>'timestamp', 'date'=>true),
-                2 => array('size' =>   5, 'name'=>'channel'),
-                3 => array('size' =>   5, 'name'=>'command'),
-                4 => array('size' => 150, 'name'=>'msg'),
+                2 => array('size' =>   2, 'name'=>'channel'),
+                3 => array('size' => 150, 'name'=>'command'),
             ),
 
             '03' => array(
@@ -72,20 +71,21 @@ $bmp_protocol = array(
     );
 
 
+////////
 
 
 function op_return_decode($op_return) {
     global $bmp_protocol;
 
-    if (substr($op_return,0,2)!=='6a') // OP_RETURN
+    if (substr($op_return,0,2)!=='6a')
         return false;
 
-    if (substr($op_return,4,2)!==$bmp_protocol['prefix']) // BMP Protocol
+    if (substr($op_return,4,2)!==$bmp_protocol['prefix'])
         return false;
 
     $action_id  = substr($op_return,6,2);
 
-    if (!$bmp_protocol['actions'][$action_id]) // Protocol action
+    if (!$bmp_protocol['actions'][$action_id])
         return false;
 
     $output = array(
@@ -93,7 +93,7 @@ function op_return_decode($op_return) {
             'action_id' => $action_id,
         );
 
-    $counter = 4;
+    $counter = 6;
     foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
         if (is_numeric($p)) {
             $parameter = substr($op_return, $counter*2, $v['size']*2);
@@ -102,7 +102,7 @@ function op_return_decode($op_return) {
                 if ($v['hex'])
                     $parmeter = $parameter;
 
-                if ($v['date'] AND strlen(hex2bin($parameter))==10)
+                if ($v['date'] AND is_numeric(hex2bin($parameter)))
                     $parmeter = date("Y-m-d H:i:s", hex2bin($parameter));
 
                 $output['p'.$p] = hex2bin($parameter);
