@@ -4,13 +4,12 @@
 ?>
 <ul class="menu vertical">
 
-	<li id="menu-comu"<?=($txt_menu=='comu'?' class="menu-sel"':'')?>><a href="/"><?=_('Chat')?></a>
+	<li id="menu-comu"<?=($txt_menu=='comu'?' class="menu-sel"':'')?>><a href="/chat"><?=_('Chat')?></a>
 		<ul>
 			<li><a href="/chats"><?=_('Chats')?></a></li>
 			<li><a href="/forum"><b><?=_('Forum')?></b></a>
 				<ul>
 					<li><a href="/forum/last-activity"><?=_('Last activity')?></a>
-					<?=(isset($pol['user_ID'])?'<li><a href="/forum/my">'._('For you').'</a></li>':'')?>
 				</ul>
 			</li>
 			<li><a href="/msg"><?=_('Private messages')?></a></li>

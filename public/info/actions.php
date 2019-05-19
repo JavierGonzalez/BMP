@@ -1,6 +1,6 @@
 <?php # BMP
 
-$_['html']['title'] = 'Actions';
+$_template['title'] = 'Actions';
 
 
 // 

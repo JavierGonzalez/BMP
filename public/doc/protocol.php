@@ -1,6 +1,6 @@
 <?php # BMP
 
-$_['html']['title'] = 'Protocol';
+$_template['title'] = 'Protocol';
 
 ?>
 

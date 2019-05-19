@@ -1,6 +1,6 @@
 <?php # BMP
 
-$_['html']['title'] = 'Blocks';
+$_template['title'] = 'Blocks';
 
 $data = sql("SELECT chain, height, hash, 
 (SELECT COUNT(*) FROM miners WHERE height = blocks.height) AS miners, 
@@ -12,7 +12,7 @@ LIMIT 100");
 
 foreach ($data AS $key => $value) {
     $data[$key]['hashpower'] = hashpower_humans($value['hashpower']);
-    $data[$key]['hash'] = substr($value['hash'],0,32);
+    $data[$key]['hash'] = substr($value['hash'],0,32).'..';
     $data[$key]['tx_count'] = num($value['tx_count']);
     $duration = strtotime($time_last) - strtotime($value['time']);
     $data[$key]['min'] = ($key!==0?num($duration/60,0):'');

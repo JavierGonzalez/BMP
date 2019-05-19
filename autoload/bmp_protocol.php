@@ -71,7 +71,9 @@ $bmp_protocol = array(
     );
 
 
-////////
+// Specification
+///////////////////////////////////////////////////////////////////////////////////
+// Code
 
 
 function op_return_decode($op_return) {
@@ -99,13 +101,13 @@ function op_return_decode($op_return) {
             $parameter = substr($op_return, $counter*2, $v['size']*2);
             if ($parameter) {
                 
-                if ($v['hex'])
-                    $parmeter = $parameter;
-
                 if ($v['date'] AND is_numeric(hex2bin($parameter)))
-                    $parmeter = date("Y-m-d H:i:s", hex2bin($parameter));
+                    $parameter = date("Y-m-d H:i:s", hex2bin($parameter));
+                    
+                else if (!$v['hex'])
+                    $parameter = hex2bin($parameter);
 
-                $output['p'.$p] = hex2bin($parameter);
+                $output['p'.$p] = $parameter;
 
                 $counter += $v['size'];
             }

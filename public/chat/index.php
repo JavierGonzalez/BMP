@@ -1,66 +1,19 @@
 <?php # BMP
 
 
-$_['html']['lib']['js']  = '/public/chat/chat.js';
-$_['html']['lib']['css'] = '/public/chat/chat.css';
-
-
-
-if ($_GET[2] == 'e') { $externo = true; } else { $externo = false; }
-
-if ((!$pol['nick']) AND ($_SESSION['pol']['nick'])) { $pol['nick'] = $_SESSION['pol']['nick']; }
-
-foreach (sql("SELECT * FROM chats WHERE estado = 'activo' AND url = '".$_GET[1]."' LIMIT 1") AS $r) {
-
-	$chat_ID = $r['chat_ID'];
-	$titulo = $r['titulo'];
-
-	foreach (array('leer','escribir') AS $a) {
-		$acceso[$a] = nucleo_acceso($r['acceso_'.$a], $r['acceso_cfg_'.$a]);
-	}
-
-	$acceso_leer = $r['acceso_leer'];
-	$acceso_cfg_leer = $r['acceso_cfg_leer'];
-
-	$acceso_escribir = $r['acceso_escribir'];
-	$acceso_cfg_escribir = $r['acceso_cfg_escribir'];
-
-	$acceso_escribir_ex = $r['acceso_escribir_ex'];
-	$acceso_cfg_escribir_ex = $r['acceso_cfg_escribir_ex'];
-}
-
-// genera array js, nombres cargos
-foreach (sql("SELECT cargo_ID, nombre FROM cargos ORDER BY nivel DESC") AS $r) {
-	if ($array_cargos) { $array_cargos .= ', '; } 
-	$array_cargos .= $r['cargo_ID'].':"'.$r['nombre'].'"';
-}
+$_template['lib_js']  = '/public/chat/chat.js';
+$_template['lib_css'] = '/public/chat/chat.css';
+$_template['title'] = 'Chat';
 
 
 
 echo '
 <div id="vp_c">
 
-<h1 style="margin:0 0 18px 0;">';
-
-if ($externo) {
-	if ($_SESSION['pol']['user_ID']) {
-		echo '<span style="float:right;"><a href="http://www.'.DOMAIN.'">'._('Volver a VirtualPol').'</a></span>'.$titulo;
-	} else {
-		echo '<span style="float:right;"><a href="'.REGISTRAR.'?='.PAIS.'">'._('Crear ciudadano').'</a></span>'.$titulo;
-	}
-} else {
-	echo '<span class="quitar"><span style="float:right;">[<a href="/chats/'.$_GET[1].'/opciones">'._('Opciones').'</a>] [<a href="/chats/'.$_GET[1].'/log">'._('Log').'</a>]</span><a href="/chats/">'._('Chat').'</a>: '.$titulo.'</span>';
-}
-
-$a_leer = nucleo_acceso($acceso_leer, $acceso_cfg_leer);
-$a_escribir = nucleo_acceso($acceso_escribir, $acceso_cfg_escribir);
-$a_escribir_ex = nucleo_acceso($acceso_escribir_ex, $acceso_cfg_escribir_ex);
-
-echo '</h1>
 
 <div id="vpc_u">
-<ul id="chat_list">
-</ul>
+	<ul id="chat_list">
+	</ul>
 </div>
 
 <div id="vpc_fondo">
@@ -72,18 +25,7 @@ BMP
 '.now().'
 <br />
 <br />
-<!--<table>
-<tr>
-<td align="right">'._('Acceso leer').':</td>
-<td><b style="color:'.($a_leer?'blue;">'._('SI'):'red;">'._('NO')).'</b>. '.ucfirst('').'</td>
-</tr>
 
-<tr>
-<td align="right">'._('Acceso escribir').':</td>
-'.($pol['estado']=='extranjero'?'<td><b style="color:'.($a_escribir_ex?'blue;">'._('SI'):'red;">'._('NO')).'</b>. '.ucfirst('').'</td>':'<td><b style="color:'.($a_escribir?'blue;">'._('SI'):'red;">'._('NO')).'</b>. '.ucfirst('').'</td>').'
-</tr>
-
-</table>-->
 
 <hr />
 
@@ -101,16 +43,15 @@ BMP
 <table width="100%">
 <tr>
 
-<td width="46" align="right" valign="middle"><img id="vpc_actividad" onclick="actualizar_ahora();" src="/img/ico/punto_gris.png" width="16" height="16" title="Actualizar chat" style="margin-top:4px;" /></td>
+<td width="46" align="right" valign="middle"><img id="vpc_actividad" onclick="actualizar_ahora();" src="/public/chat/img/point_grey.png" width="16" height="16" title="Actualizar chat" style="margin-top:4px;" /></td>
 
 <td valign="middle">
-'.(isset($pol['user_ID'])?'
-<input type="text" id="vpc_msg" name="msg" onKeyUp="msgkeyup(event,this);" onKeyDown="msgkeydown(event,this);" tabindex="1" autocomplete="off" size="65" maxlength="250" style="margin-left:0;width:98%;" autofocus="autofocus" value="" required />':_('¡Regístrate para participar!')).'
+<input type="text" id="vpc_msg" name="msg" onKeyUp="msgkeyup(event,this);" onKeyDown="msgkeydown(event,this);" tabindex="1" autocomplete="off" size="65" maxlength="250" style="margin-left:0;width:98%;" autofocus="autofocus" value="" required />
 </td>
 
 <td nowrap="nowrap" valign="middle" title="Marcar para ocultar eventos del chat">&nbsp;&nbsp; <input id="cfilter" name="cfilter" value="1" type="checkbox" OnClick="chat_filtro_change(chat_filtro);" /> <label for="cfilter" class="inline">'._('Hide events').'</label></td>
 
-<td align="right">'.boton(_('Enviar'), 'submit', false, '', '', ' id="botonenviar"').'</td>
+<td align="right">BOTON_ENVIAR</td>
 
 </tr>
 </table>
@@ -121,9 +62,9 @@ BMP
 
 
 
-
+/*
 // css & js
-$_['template']['header'] .= '
+$_template['header'] .= '
 <script type="text/javascript"> 
 msg_ID = -1;
 elnick = "'.$_SESSION['pol']['nick'].'";
@@ -182,3 +123,6 @@ window.onload = function(){
 
 
 </script>';
+
+
+*/

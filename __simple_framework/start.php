@@ -21,6 +21,8 @@ include('__simple_framework/login.php');
 include('__simple_framework/router.php');
 
 
+$_['output_html_content'] = ob_get_contents();
+ob_end_clean();
 include('template/index.php');
 
 exit;

@@ -1,5 +1,5 @@
 <?php # BMP
 
-$_['html']['title'] = 'About';
+$_template['title'] = 'About';
 
 echo 'About BMP';

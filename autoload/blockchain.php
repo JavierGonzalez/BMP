@@ -159,7 +159,7 @@ function pool_decode($coinbase) {
     global $pools_json;
 
     if (!is_array($pools_json))
-        $pools_json = json_decode(file_get_contents('static/pools_bch.json'), true);
+        $pools_json = json_decode(file_get_contents('public/static/pools_bch.json'), true);
 
 
     foreach ($pools_json['coinbase_tags'] AS $tag => $pool)

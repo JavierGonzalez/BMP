@@ -1,6 +1,6 @@
 <?php # BMP
 
-$_['html']['title'] = 'Miners';
+$_template['title'] = 'Miners';
 
 $total = sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower FROM miners")[0];
 
@@ -19,7 +19,7 @@ foreach ($data AS $key => $value) {
     
     $data[$key]['power'] = num(($value['hashpower']*100)/$total['hashpower'], 8).'%';
     
-    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/$total_blocks);
+    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/$total_blocks,6);
 }
 
 echo sql_error();
