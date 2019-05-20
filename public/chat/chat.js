@@ -1,21 +1,79 @@
 
 
 
-function actualizar_ahora() {
-	chat_delay = 4000;
-	refresh = setTimeout(chat_query_ajax, chat_delay);
-	delays();
-	chat_query_ajax();
-	scroll_abajo();
-	$("#vpc_msg").focus();
+
+function send_msg() {
+	
+	var text = $("#chat_input_msg").val();
+
+	var boton_envia_estado = $("#botonenviar").attr("disabled");
+	$("#vpc_actividad").attr("src", "/public/chat/img/point_red.png");
+
+	if ((text) && (boton_envia_estado != "disabled")) {
+
+ 		ajax_refresh = false;
+		clearTimeout(refresh);
+		$("#botonenviar").attr("disabled","disabled");
+		$("#chat_input_msg").val("").css("background", "none").css("color", "black");
+		$.post("/chat/ajax/send", { chat_ID: chat_ID, n: msg_ID, msg: text }, 
+			function(data){ 
+				ajax_refresh = true;
+				if (data) { chat_sin_leer = -1; print_msg(data); }
+				setTimeout(function(){ $("#botonenviar").removeAttr("disabled"); }, 1600);
+				chat_delay = 4000;
+				refresh = setTimeout(chat_query_ajax, chat_delay);
+				//delays();
+				$("#vpc_actividad").attr("src", "/public/chat/img/point_grey.png");
+			});
+	}
+	return false;
 }
 
-function scroll_abajo() {
+
+function scroll_down() {
 	if (chat_scroll <= document.getElementById("vpc").scrollTop) {
 		document.getElementById("vpc").scrollTop = 90000000;
 		chat_scroll = document.getElementById("vpc").scrollTop;
 	}
 }
+
+
+
+function chat_query_ajax() {
+	if (ajax_refresh) {
+		ajax_refresh = false;
+		clearTimeout(refresh);
+		var start = new Date().getTime();
+		$("#vpc_actividad").attr("src", "/public/chat/img/point_blue.png");
+		$.post("/chat/ajax/refresh", { n: "___" },
+			function(data){
+				ajax_refresh = true;
+				if (data) { print_msg(data); }
+				refresh = setTimeout(chat_query_ajax, chat_delay);
+				var elapsed = new Date().getTime() - start;
+				$("#vpc_actividad").attr("src", "/public/chat/img/point_grey.png").attr("title", "Chat actualizado (" + (chat_delay/1000) + " segundos, " + elapsed + "ms)");
+			}
+		);
+		if (ajax_refresh == true) { merge_list(); }
+	}
+}
+
+
+
+
+
+/*
+
+function actualizar_ahora() {
+	chat_delay = 4000;
+	refresh = setTimeout(chat_query_ajax, chat_delay);
+	delays();
+	chat_query_ajax();
+	scroll_down();
+	$("#chat_input_msg").focus();
+}
+
+
 
 function siControlPulsado(event, nick){
 	if (event.ctrlKey==1) { toggle_ignorados(nick); return false; }
@@ -26,14 +84,14 @@ function toggle_ignorados(nick) {
 	if (idx != -1) {
 		array_ignorados.splice(idx, 1);
 		$("."+nick).show();
-		scroll_abajo();
+		scroll_down();
 	} else {
 		array_ignorados.push(nick); 
 		$("."+nick).hide();
 	}
 	merge_list();
 	chat_scroll = 0;
-	scroll_abajo();
+	scroll_down();
 }
 
 function cf_cambiarnick() {
@@ -56,8 +114,8 @@ function chat_filtro_change() {
 		$(".cf_c, .cf_e").show();	
 	}
 	chat_scroll = 0;
-	scroll_abajo();
-	$("#vpc_msg").focus();
+	scroll_down();
+	$("#chat_input_msg").focus();
 }
 
 function msgkeyup(evt, elem) {
@@ -96,24 +154,6 @@ function msgkeydown(evt, elem) {
 	}
 }
 
-function chat_query_ajax() {
-	if (ajax_refresh) {
-		ajax_refresh = false;
-		clearTimeout(refresh);
-		var start = new Date().getTime();
-		$("#vpc_actividad").attr("src", IMG + "ico/punto_azul.png");
-		$.post("/chat/ajax/refresh", { chat_ID: chat_ID, n: msg_ID },
-			function(data){
-				ajax_refresh = true;
-				if (data) { print_msg(data); }
-				refresh = setTimeout(chat_query_ajax, chat_delay);
-				var elapsed = new Date().getTime() - start;
-				$("#vpc_actividad").attr("src", IMG + "ico/punto_gris.png").attr("title", "Chat actualizado (" + (chat_delay/1000) + " segundos, " + elapsed + "ms)");
-			}
-		);
-		if (ajax_refresh == true) { merge_list(); }
-	}
-}
 
 function refresh_sin_leer() { document.title = chat_sin_leer_yo + chat_sin_leer + " - " + titulo_html; }
 
@@ -241,35 +281,12 @@ function merge_list() {
 
 function print_delay() {
 	if (chat_filtro == "solochat") { $(".cf_c, .cf_e").hide(); }
-	$("#vpc_msg").focus();
-	scroll_abajo();
+	$("#chat_input_msg").focus();
+	scroll_down();
 }
 
 
 
-function enviarmsg() {
-	var elmsg = $("#vpc_msg").val();
-	var boton_envia_estado = $("#botonenviar").attr("disabled");
-	$("#vpc_actividad").attr("src", IMG + "ico/punto_rojo.png");
-	if ((elmsg) && (boton_envia_estado != "disabled")) {
-
- 		ajax_refresh = false;
-		clearTimeout(refresh);
-		$("#botonenviar").attr("disabled","disabled");
-		$("#vpc_msg").val("").css("background", "none").css("color", "black");
-		$.post("/chat/ajax/send", { chat_ID: chat_ID, n: msg_ID, msg: elmsg, anonimo: anonimo }, 
-		function(data){ 
-			ajax_refresh = true;
-			if (data) { chat_sin_leer = -1; print_msg(data); }
-			setTimeout(function(){ $("#botonenviar").removeAttr("disabled"); }, 1600);
-			chat_delay = 4000;
-			refresh = setTimeout(chat_query_ajax, chat_delay);
-			delays();
-			$("#vpc_actividad").attr("src", IMG + "ico/punto_gris.png");
-		} );
-	}
-	return false;
-}
 
 function change_delay(delay) { chat_delay = parseInt(delay) * parseInt(1000); }
 
@@ -292,8 +309,10 @@ function chat_enabled() {
 	chat_delay = 4500;
 	refresh = setTimeout(chat_query_ajax, chat_delay);
 	delays();
-	$("#vpc_msg").focus();
-	scroll_abajo();
+	$("#chat_input_msg").focus();
+	scroll_down();
 }
 
-function auto_priv(nick) { $("#vpc_msg").attr("value","/msg " + nick + " ").css("background", "#FF7777").css("color", "#952500").focus(); }
+function auto_priv(nick) { $("#chat_input_msg").attr("value","/msg " + nick + " ").css("background", "#FF7777").css("color", "#952500").focus(); }
+
+*/

@@ -9,7 +9,7 @@
 <body style="background:#111;margin:0;">
 
 <center>
-<img src="/public/static/img/bitcoin-whitepaper-odyssey.jpg" style="width:100%;margin-top:-300px;" />
+<img src="/public/static/bitcoin-whitepaper-odyssey.jpg" style="width:100%;margin-top:-300px;" />
 </center>
 
 </body>

@@ -1,6 +1,7 @@
 <?php # BMP
 
 
+
 function get_block_info($height) {
     
     set_time_limit(10*60);
@@ -9,9 +10,9 @@ function get_block_info($height) {
 
     $coinbase = get_raw_transaction($block['tx'][0]);
 
-    foreach ($coinbase['vout'] AS $tx)
-        if ($tx['value']>0 AND $tx['scriptPubKey']['addresses'][0])
-            $coinbase_value_total += $tx['value'];
+    foreach ($coinbase['vout'] AS $tx_vout)
+        if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
+            $coinbase_value_total += $tx_vout['value'];
     
 
     /// Block
@@ -39,18 +40,18 @@ function get_block_info($height) {
 
 
     /// Miners
-    foreach ((array)$coinbase['vout'] AS $tx)
-        if ($tx['value']>0 AND $tx['scriptPubKey']['addresses'][0])
+    foreach ((array)$coinbase['vout'] AS $tx_vout)
+        if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
             $output['miners'][] = array(
                     'chain'             => BLOCKCHAIN,
                     'txid'              => $coinbase['txid'],
                     'height'            => $block['height'],
-                    'address'           => str_replace('bitcoincash:', '', $tx['scriptPubKey']['addresses'][0]),
+                    'address'           => address_normalice($tx_vout['scriptPubKey']['addresses'][0]),
                     'method'            => 'value',
-                    'value'             => $tx['value'],
+                    'value'             => $tx_vout['value'],
                     'quota'             => null,
-                    'power'             => (($tx['value']*100)/$coinbase_value_total),
-                    'hashpower'         => ($output['block']['hashpower']*(($tx['value']*100)/$coinbase_value_total))/100,
+                    'power'             => (($tx_vout['value']*100)/$coinbase_value_total),
+                    'hashpower'         => ($output['block']['hashpower']*(($tx_vout['value']*100)/$coinbase_value_total))/100,
                 );
 
 
@@ -74,19 +75,51 @@ function action_decode($tx, $block) {
             'txid'          => $tx['txid'],
             'height'        => $block['height'],
             'time'          => date("Y-m-d H:i:s", $block['time']),
-            'address'       => str_replace('bitcoincash:', '', $tx['vout'][0]['scriptPubKey']['addresses'][0]),
-            'op_return'     => $tx['vout'][1]['scriptPubKey']['hex'],
         );
 
-    if (!$op_return_decode = op_return_decode($action['op_return']))
+    if (!$tx_info = get_tx_info($tx))
         return false;
 
-    $action = array_merge($action, $op_return_decode);
+    if (!$op_return_decode = op_return_decode($tx_info['op_return']))
+        return false;
+
+    $action = array_merge($action, $tx_info, $op_return_decode);
 
     $action['power']     = null;
     $action['hashpower'] = null;
 
     return $action;
+}
+
+
+
+function get_tx_info($tx) {
+    global $bmp_protocol;
+    
+    if (count($tx['vout'])!==2)
+        return false;
+
+
+    // OUTPUT OP_RETURN
+    foreach ($tx['vout'] AS $tx_vout)
+        if ($tx_vout['value']==0)
+            if (substr($tx_vout['scriptPubKey']['hex'],0,2)=='6a')
+                if (substr($tx_vout['scriptPubKey']['hex'],4,2)==$bmp_protocol['prefix'])
+                    $output['op_return'] = $tx_vout['scriptPubKey']['hex'];
+
+    if (!$output['op_return'])
+        return false;
+
+
+    // INPUT ADDRESS
+    $tx_prev = get_raw_transaction($tx['vin'][0]['txid']);
+    $output['address'] = address_normalice($tx_prev['vout'][0]['scriptPubKey']['addresses'][0]);
+
+    if (!$output['address'])
+        return false;
+
+
+    return $output;
 }
 
 
@@ -167,4 +200,8 @@ function pool_decode($coinbase) {
             return $pool;
 
     return null;
+}
+
+function address_normalice($address) {
+    return str_replace('bitcoincash:', '', $address);
 }

@@ -4,7 +4,7 @@
 ?>
 <ul class="menu vertical">
 
-	<li id="menu-comu"<?=($txt_menu=='comu'?' class="menu-sel"':'')?>><a href="/chat"><?=_('Chat')?></a>
+	<li id="menu-comu"<?=($txt_menu=='comu'?' class="menu-sel"':'')?>><a href="/chat"><?=_('Communication')?></a>
 		<ul>
 			<li><a href="/chats"><?=_('Chats')?></a></li>
 			<li><a href="/forum"><b><?=_('Forum')?></b></a>
@@ -17,7 +17,7 @@
 		</ul>
 	</li>
 
-	<li id="menu-info"<?=($txt_menu=='info'?' class="menu-sel"':'')?>><a href="/info/miners"><?=_('Info')?></a>
+	<li id="menu-info"<?=($txt_menu=='info'?' class="menu-sel"':'')?>><a href="/info/miners"><?=_('Information')?></a>
 		<ul>
 			<li><a href="/info/censo"><?=_('Census')?><span class="md"><?=num($pol['config']['info_censo'])?></span></a></li>
 			<li><a href="/doc"><b><?=_('Documents')?></b><span class="md"><?=$pol['config']['info_documentos']?></span></a></li>
@@ -25,7 +25,7 @@
 		</ul>
 	</li>
 
-	<li id="menu-demo"<?=($txt_menu=='demo'?' class="menu-sel"':'')?>><a href="/votacion"><?=_('Hashpower')?></a>
+	<li id="menu-demo"<?=($txt_menu=='demo'?' class="menu-sel"':'')?>><a href="/votacion"><?=_('Hashcracy')?></a>
 		<ul>
 			<li><a href="/votacion"><b><?=_('Voting')?></b><span class="md"><?=$pol['config']['info_consultas']?></span></a></li>
 			<li><a href="/jobs"><?=_('Jobs')?></a>
