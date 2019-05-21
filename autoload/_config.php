@@ -1,6 +1,5 @@
 <?php # BMP
 
-
 define('BMP_VERSION', '2019.06-alpha');
 
 define('DEBUG', true);

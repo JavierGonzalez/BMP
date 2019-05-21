@@ -31,7 +31,16 @@ BMP
 <br />
 '.now().'
 <br />
-<br />
+<br />';
+
+foreach (sql("SELECT address, p1, p2, p3 FROM actions WHERE action = 'chat' AND p2 = '000001' ORDER BY p1 ASC") AS $r)
+	echo date("Y-m-d H:i:s", $r['p1']).' &nbsp; '.substr($r['address'],0,10).' &nbsp; '.$r['p3'].'<br />';
+
+
+
+echo '
+
+
 
 
 <hr />
@@ -119,6 +128,7 @@ $("#chat_input_msg").keyup(function() {
 });
 
 
+
 $("#chat_form_msg").submit(function() {
 
 	var msg = $("#chat_input_msg").val();
@@ -126,7 +136,9 @@ $("#chat_form_msg").submit(function() {
 
 	var timestamp = Math.round(new Date().getTime()/1000);	
 
-	var op_return = "'.$bmp_protocol['prefix'].'" + "02" + bin2hex(timestamp) + bin2hex(msg);
+	var channel = "000001";
+
+	var op_return = "'.$bmp_protocol['prefix'].'" + "02" + bin2hex(timestamp) + channel + bin2hex(msg);
 
 	result = blockchain_send_tx(op_return);
 

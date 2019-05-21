@@ -11,17 +11,17 @@ $bmp_protocol = array(
                 'coinbase'      => true,
                 'action'        => 'hashpower_quota',
                 'name'          => 'Hashpower signaling by quota',
-                'description'   => 'Any number, hashpower block quota, ignore value, best option.',
-                1 => array('size' => 10, 'name'=>'number'),
+                'description'   => 'Not by coinbase value. Any number, best option.',
+                1 => array('size' => 10, 'name'=>'number',  'hex'=>true),
             ),
 
             '02' => array(
                 'action'        => 'chat',
                 'name'          => 'Chat',
-                'description'   => 'IRC-like chat commands:',
-                1 => array('size' =>  10, 'name'=>'timestamp', 'date'=>true),
-                2 => array('size' =>   2, 'name'=>'channel'),
-                3 => array('size' => 150, 'name'=>'command'),
+                'description'   => 'IRC-like on-chain chat',
+                1 => array('size' =>  10, 'name'=>'timestamp'),
+                2 => array('size' =>   3, 'name'=>'channel',  'hex'=>true),
+                3 => array('size' => 150, 'name'=>'msg'),
             ),
 
             '03' => array(
@@ -47,7 +47,7 @@ $bmp_protocol = array(
                 'name'          => 'Voting parameter',
                 'description'   => '',
                 1 => array('size' =>  30, 'name'=>'txid', 'hex'=>true),
-                2 => array('size' =>   6, 'name'=>'parmeter'),
+                2 => array('size' =>  10, 'name'=>'parameter', 'hex'=>true),
                 3 => array('size' => 180, 'name'=>'value'),
             ),
 
@@ -55,7 +55,7 @@ $bmp_protocol = array(
                 'action'        => 'parameter_bmp',
                 'name'          => 'Set parameter BMP',
                 'description'   => '',
-                1 => array('size' =>  10, 'name'=>'key'),
+                1 => array('size' =>  10, 'name'=>'key',  'hex'=>true),
                 2 => array('size' => 200, 'name'=>'value'),
             ),
 
@@ -63,7 +63,7 @@ $bmp_protocol = array(
                 'action'        => 'parameter_miner',
                 'name'          => 'Set parameter miner',
                 'description'   => '',
-                1 => array('size' =>  10, 'name'=>'key'),
+                1 => array('size' =>  10, 'name'=>'key',  'hex'=>true),
                 2 => array('size' => 200, 'name'=>'value'),
             ),
 
@@ -85,10 +85,15 @@ function op_return_decode($op_return) {
     if (substr($op_return,0,2)!=='6a')
         return false;
 
-    if (substr($op_return,4,2)!==$bmp_protocol['prefix'])
+    if (substr($op_return,4,2)===$bmp_protocol['prefix'])
+        $metadata_start_bytes = 3;
+    else if (substr($op_return,6,2)===$bmp_protocol['prefix'])
+        $metadata_start_bytes = 4;
+        
+    if (!$metadata_start_bytes)
         return false;
 
-    $action_id  = substr($op_return,6,2);
+    $action_id  = substr($op_return, $metadata_start_bytes*2, 2);
 
     if (!$bmp_protocol['actions'][$action_id])
         return false;
@@ -98,16 +103,13 @@ function op_return_decode($op_return) {
             'action_id' => $action_id,
         );
 
-    $counter = 6;
+    $counter = $metadata_start_bytes+1;
     foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
         if (is_numeric($p)) {
             $parameter = substr($op_return, $counter*2, $v['size']*2);
             if ($parameter) {
                 
-                if ($v['date'] AND is_numeric(hex2bin($parameter)))
-                    $parameter = date("Y-m-d H:i:s", inyection_filter(hex2bin($parameter)));
-                    
-                else if (!$v['hex'])
+                if (!$v['hex'])
                     $parameter = inyection_filter(hex2bin($parameter));
 
                 $output['p'.$p] = $parameter;

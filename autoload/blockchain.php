@@ -1,7 +1,6 @@
 <?php # BMP
 
 
-
 function get_block_info($height) {
     
     set_time_limit(10*60);
@@ -105,7 +104,7 @@ function get_tx_info($tx) {
         if ($tx_vout['value']==0)
             if ($op_return = $tx_vout['scriptPubKey']['hex'])
                 if (substr($op_return,0,2)=='6a')
-                    if (substr($op_return,4,2)==$bmp_protocol['prefix'])
+                    if (substr($op_return,4,2)==$bmp_protocol['prefix'] OR substr($op_return,6,2)==$bmp_protocol['prefix'])
                         $output['op_return'] = $op_return;
 
     if (!$output['op_return'])
@@ -114,8 +113,10 @@ function get_tx_info($tx) {
 
     // INPUT ADDRESS
     $tx_prev = get_raw_transaction($tx['vin'][0]['txid']);
-    $output['address'] = address_normalice($tx_prev['vout'][0]['scriptPubKey']['addresses'][0]);
-
+    foreach ($tx_prev['vout'] AS $tx_vout)
+        if ($output['address'] = address_normalice($tx_vout['scriptPubKey']['addresses'][0]))
+            break;
+    
     if (!$output['address'])
         return false;
 
@@ -159,7 +160,6 @@ function block_insert($height) {
     sql_insert('blocks',  $info['block']);
     sql_insert('miners',  $info['miners']);
     sql_insert('actions', $info['actions']);
-
 
     if (DEBUG)
         print_r2($info);

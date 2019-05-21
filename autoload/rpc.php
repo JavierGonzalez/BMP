@@ -41,3 +41,10 @@ function get_info() {
     return $b->getinfo();
 }
 
+
+
+function rpc_error() {
+    $b = rpc_connect();
+    return $b->error;
+}
+

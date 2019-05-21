@@ -15,7 +15,7 @@
          · 
         <a href="/about"><?=_('About')?></a>
         <br />
-        2019
+        <?='BMP '.BMP_VERSION?>
     </p>
 
 </div>

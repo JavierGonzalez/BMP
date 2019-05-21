@@ -75,10 +75,6 @@ if (DEBUG) {
 	
 	echo num((microtime(true)-$_['crono_start'])*1000).' ms &nbsp; ';
 	echo num(memory_get_usage()/1000).' kb<br />';
-
-	echo '<br />';
-	
-	echo 'BMP '.BMP_VERSION;
 }
 
 ?>

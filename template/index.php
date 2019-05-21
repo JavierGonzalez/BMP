@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 
 if ($_template['title'])
-	$_template['title'] = 'BMP · '.$_template['title'];
+	$_template['title'] = 'BMP | '.$_template['title'];
 else
 	$_template['title'] = 'BMP';
 
@@ -44,7 +44,7 @@ echo '
 </head>
 
 
-<body>
+<body style="overflow-y:visible;">
 
 <div id="content-left">
 	

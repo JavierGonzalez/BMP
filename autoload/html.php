@@ -1,10 +1,9 @@
 <?php # BMP
 
 
-
 function html_table($data=false, $config=false) {
 
-    if (!$data)
+    if (!is_array($data))
         return '';
 
     // Header

@@ -1,25 +1,15 @@
 <?php
 
-print_r2(hex2bin('31353538333732383635424d5020746573742031'));
 
-exit;
+/*
+block_delete(583551); 
+block_delete(583552);
+block_delete(583553);
+*/
 
-$block = get_block_info(583411); 
+print_r2(rpc_error());
 
-
-print_r2($block);
-
-
-crono();
-
-
-print_r2(get_raw_transaction('bd0d0facd830b0b300337998c162c940c47b513371ee244c7bfda2ec98078baa'));
-
-
-crono();
-
-
-//print_r2(get_raw_transaction('fdf9c8cea507daaf7ede53e81867daa38542c2fbe84090f199cc0564bf8fd0cc'));
+print_r2(get_block_info('583550'));
 
 
 exit;
