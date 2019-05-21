@@ -1,7 +1,6 @@
-<?php # simple_framework
 
 
-?>
+
 <ul class="menu vertical">
 
 	<li id="menu-comu"<?=($txt_menu=='comu'?' class="menu-sel"':'')?>><a href="/chat"><?=_('Communication')?></a>
@@ -17,6 +16,7 @@
 		</ul>
 	</li>
 
+
 	<li id="menu-info"<?=($txt_menu=='info'?' class="menu-sel"':'')?>><a href="/info/miners"><?=_('Information')?></a>
 		<ul>
 			<li><a href="/info/censo"><?=_('Census')?><span class="md"><?=num($pol['config']['info_censo'])?></span></a></li>
@@ -24,6 +24,7 @@
 			<li><a href="/statistics"><?=_('Statistics')?></a></li>
 		</ul>
 	</li>
+
 
 	<li id="menu-demo"<?=($txt_menu=='demo'?' class="menu-sel"':'')?>><a href="/votacion"><?=_('Hashcracy')?></a>
 		<ul>
@@ -44,41 +45,42 @@
 		</ul>
 	</li>
 
+
 </ul>
 
 
 
-<div id="menu-next"><br /><br />
+<div id="menu-next" style="color:#999;padding-top:60px;">
 
-	<?php
+<?php
 
-	if (DEBUG) {
-		$info = get_info();
+if (DEBUG) {
 
-		$bmp_height = sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
-		if (!is_array($bmp_height))
-			$progress = round(abs((($info['blocks']-$bmp_height)*100)/BLOCK_WINDOW-100)).'%';
+	$bmp_height = sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
 
+	echo 'Height: '.$bmp_height.'<br />';
 
-		echo 'Height: '.$info['blocks'].' '.$progress.'<br />';
-		echo 'Peers: '.$info['connections'].'<br />';
-
-		$blocks_num = sql("SELECT SUM(hashpower) AS ECHO FROM blocks");
-		if (!is_array($blocks_num))
-			echo hashpower_humans(($blocks_num / BLOCK_WINDOW)).'<br />';
-		
-		echo '<br />';
+	$blocks_num = sql("SELECT SUM(hashpower) AS ECHO FROM blocks");
+	if (!is_array($blocks_num))
+		echo hashpower_humans(($blocks_num / BLOCK_WINDOW)).'<br />';
+	
+	echo '<br />';
 
 
-		echo 'Blocks:  '.sql("SELECT COUNT(*) AS ECHO FROM blocks").'<br />';
-		echo 'Miners:  '.sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners").'<br />';
-		echo 'Actions: '.sql("SELECT COUNT(*) AS ECHO FROM actions").'<br />';
-		
-		echo '<br />';
-		
-		echo num((microtime(true)-$_['crono_start'])*1000).' ms &nbsp; '.num(memory_get_usage()/1000).' kb';
-	}
+	echo 'Blocks:  '.sql("SELECT COUNT(*) AS ECHO FROM blocks").'<br />';
+	echo 'Miners:  '.sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners").'<br />';
+	echo 'Actions: '.sql("SELECT COUNT(*) AS ECHO FROM actions").'<br />';
+	
+	echo '<br />';
+	
+	echo num((microtime(true)-$_['crono_start'])*1000).' ms &nbsp; ';
+	echo num(memory_get_usage()/1000).' kb<br />';
 
-	?>
+	echo '<br />';
+	
+	echo 'BMP '.BMP_VERSION;
+}
+
+?>
 
 </div>

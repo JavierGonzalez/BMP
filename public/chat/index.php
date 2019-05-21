@@ -8,6 +8,12 @@ $_template['lib_css'][] = '/public/chat/chat.css';
 $_template['lib_js'][] = 'https://connect.trezor.io/7/trezor-connect.js';
 
 
+$_template['tabs'] = array(
+        '/info/blocks'     => _('Blocks'),
+        '/info/miners'     => _('Miners'),
+        '/info/actions'    => _('Actions'),
+    );
+
 echo '
 <div id="vp_c">
 
@@ -42,17 +48,19 @@ BMP
 
 <form id="chat_form_msg">
 
-<table width="100%">
+<table width="100%" style="border:none;">
 <tr>
 
-<td width="46" align="right" valign="middle"><img id="vpc_actividad" onclick="actualizar_ahora();" src="/public/chat/img/point_grey.png" width="16" height="16" title="Actualizar chat" style="margin-top:4px;" /></td>
+<td width="46" align="right" valign="middle">
+<img id="vpc_actividad" onclick="actualizar_ahora();" src="/public/chat/img/point_grey.png" width=16 height=16 style="margin-top:4px;" />
+</td>
 
 <td valign="middle">
 	<input type="text" id="chat_input_msg" name="msg" value="" tabindex="1" autocomplete="off" size="65" maxlength="100" style="margin-left:0;width:98%;" autofocus required />
 </td>
 
 <td>
-	<button type="button" id="chat_button_send">Enviar</button>
+	<button type="button" id="chat_button_send" style="width:100px;">Enviar</button>
 </td>
 
 
@@ -63,11 +71,23 @@ BMP
 -->
 
 </tr>
+
+
+<tr>
+
+<td></td>
+<td colspan=2>
+<span id="op_return_preview" style="font-family:monospace, monospace;font-size:13px;"></span>
+</td>
+
+</tr>
+
+
 </table>
 
 </form>
 
-<span id="op_return_preview"></span>
+
 
 </div>';
 

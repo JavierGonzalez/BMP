@@ -20,9 +20,9 @@ if (!$_GET[0])
 
 
 $public = array(
-        'public/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'/'.filter_var($_GET[1], FILTER_SANITIZE_STRING).'.php',
-        'public/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'.php',
-        'public/'.filter_var($_GET[0], FILTER_SANITIZE_STRING).'/index.php',
+        'public/'.file_filter($_GET[0]).'/'.file_filter($_GET[1]).'.php',
+        'public/'.file_filter($_GET[0]).'.php',
+        'public/'.file_filter($_GET[0]).'/index.php',
     );
 
 

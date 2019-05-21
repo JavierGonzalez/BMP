@@ -1,4 +1,7 @@
-<?php
+<?php # BMP
+
+
+define('BMP_VERSION', '2019.06-alpha');
 
 define('DEBUG', true);
 
@@ -11,4 +14,3 @@ define('BLOCK_BMP_GENESIS', 0);
 define('OP_RETURN_MAX_SIZE', 0);
 
 define('BLOCKCHAIN', 'BCH');
-

@@ -1,6 +1,13 @@
 <?php
 
 
+$filename = 'sd()a d#adD%D&D2$342e/a-sdas_da?¿=d';
+
+$filename = preg_replace('/[^A-Za-z0-9_.-]/', '', $filename);
+
+print_r2($filename);
+
+exit;
 
 $hash = '0000000000000000013821c4378e842401ac54371a8afa81777327266bf418af';
 

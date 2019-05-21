@@ -103,9 +103,10 @@ function get_tx_info($tx) {
     // OUTPUT OP_RETURN
     foreach ($tx['vout'] AS $tx_vout)
         if ($tx_vout['value']==0)
-            if (substr($tx_vout['scriptPubKey']['hex'],0,2)=='6a')
-                if (substr($tx_vout['scriptPubKey']['hex'],4,2)==$bmp_protocol['prefix'])
-                    $output['op_return'] = $tx_vout['scriptPubKey']['hex'];
+            if ($op_return = $tx_vout['scriptPubKey']['hex'])
+                if (substr($op_return,0,2)=='6a')
+                    if (substr($op_return,4,2)==$bmp_protocol['prefix'])
+                        $output['op_return'] = $op_return;
 
     if (!$output['op_return'])
         return false;
@@ -202,6 +203,14 @@ function pool_decode($coinbase) {
     return null;
 }
 
+
+
 function address_normalice($address) {
     return str_replace('bitcoincash:', '', $address);
+}
+
+
+
+function hashpower_humans($hps, $decimals=0) {
+    return num($hps/1000000/1000000, $decimals).'&nbsp;TH/s';
 }

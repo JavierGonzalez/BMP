@@ -1,1 +1,0 @@
-<?php # simple_framework

@@ -1,6 +1,8 @@
 <?php
 
+print_r2(hex2bin('31353538333732383635424d5020746573742031'));
 
+exit;
 
 $block = get_block_info(583411); 
 

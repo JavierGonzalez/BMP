@@ -3,7 +3,7 @@
 
 $bmp_protocol = array(
         
-        'prefix' => '9d',
+        'prefix' => '00', // 9d
         
         'actions' => array(
 
@@ -79,6 +79,9 @@ $bmp_protocol = array(
 function op_return_decode($op_return) {
     global $bmp_protocol;
 
+    if (!ctype_xdigit($op_return))
+        return false;
+
     if (substr($op_return,0,2)!=='6a')
         return false;
 
@@ -102,10 +105,10 @@ function op_return_decode($op_return) {
             if ($parameter) {
                 
                 if ($v['date'] AND is_numeric(hex2bin($parameter)))
-                    $parameter = date("Y-m-d H:i:s", hex2bin($parameter));
+                    $parameter = date("Y-m-d H:i:s", inyection_filter(hex2bin($parameter)));
                     
                 else if (!$v['hex'])
-                    $parameter = hex2bin($parameter);
+                    $parameter = inyection_filter(hex2bin($parameter));
 
                 $output['p'.$p] = $parameter;
 
