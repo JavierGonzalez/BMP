@@ -1,11 +1,14 @@
 <?php
 
 
-block_delete(583569);
+//echo hex2bin('6a1d0002313535383535343739330000016bd472795e0177ff4e1a8bae4f1a');
+
+echo hex2bin('6bd4');
+
+//print_r2(get_block_info(583718));
 
 
-print_r2(get_tx_info(get_raw_transaction('8d0b7ee1449d85f2b19c23b469d3648df152a3eaad132191c570b1341e334845')));
-print_r2(get_tx_info(get_raw_transaction('87961ea467f4ae736f89cec51fe30559abe103f906fc5f380416d204700f52be')));
+//print_r2(get_tx_info(get_raw_transaction('4f0374e3d0797ab60832651b343a77a860252ddf56ce08461e24f2a71cb7e00c')));
 
 
 // 6a4c4c00023135353834353639343300000150727565626120636f6e20756e206d656e73616a65206de173206c6172676f2e20

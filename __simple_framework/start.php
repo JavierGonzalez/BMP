@@ -20,9 +20,12 @@ foreach (glob('autoload/*.php') AS $_file)
 include('__simple_framework/router.php');
 
 
+if (isset($_['template']['output']))
+    include('template/'.$_['template']['output'].'.php');    
+
+
 $_['output_html_content'] = ob_get_contents();
 ob_end_clean();
 include('template/index.php');
-
 
 exit;

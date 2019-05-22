@@ -29,7 +29,7 @@ function html_table($data=false, $config=false) {
 
                 $monospace = false;
                 if ($config[$key]['monospace'])
-                    $monospace = ' style="font-family:monospace, monospace;font-size:13px;"';
+                    $monospace = ' class="monospace"';
 
             $html .= '<td'.$td_extra.$monospace.' nowrap>'.$column.'</td>';
         }

@@ -105,18 +105,20 @@ function op_return_decode($op_return) {
 
     $counter = $metadata_start_bytes+1;
     foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
+        
         if (is_numeric($p)) {
             $parameter = substr($op_return, $counter*2, $v['size']*2);
             if ($parameter) {
                 
                 if (!$v['hex'])
-                    $parameter = inyection_filter(hex2bin($parameter));
+                    $parameter = injection_filter(hex2bin($parameter));
 
                 $output['p'.$p] = $parameter;
 
                 $counter += $v['size'];
             }
         }
+
     }
 
     $output['json'] = null;

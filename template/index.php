@@ -12,8 +12,6 @@ else
 $_template['lib_css'][] = '/template/style_all.css';
 $_template['lib_css'][] = '/template/style2.css';
 
-$_template['lib_js'][]  = '/template/js/jquery-3.4.1.min.js';
-
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -96,19 +94,14 @@ echo '
 </div>
 
 
-
+<script type="text/javascript" src="/template/js/jquery-3.4.1.min.js"></script>
 <?php
-
-
 foreach ((array)$_template['lib_js'] AS $file)
 	echo '<script type="text/javascript" src="'.$file.'"></script>';
-
-echo '
-<script type="text/javascript">
-'.$_template['js'].'
-</script>';
-
 ?>
+<script type="text/javascript">
+<?=$_template['js']?>
+</script>
 
 </body>
 </html>

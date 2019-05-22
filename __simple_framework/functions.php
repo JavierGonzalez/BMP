@@ -1,8 +1,8 @@
 <?php # simple_framework
 
 
-function inyection_filter($danger_input) {
-  $output = trim(htmlentities(strip_tags($danger_input)));
+function injection_filter($danger_input) {
+  $output = trim(strip_tags($danger_input));
   if (get_magic_quotes_gpc())
     $output = stripslashes($output);
   return e($output);
