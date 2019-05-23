@@ -2,23 +2,25 @@
 
 $_template['title'] = 'Chat';
 
+
 $_template['lib_css'][] = '/public/chat/chat.css';
 
-
 $_template['lib_js'][]  = '/public/chat/chat.js';
-
-$_template['lib_js'][] = 'https://connect.trezor.io/7/trezor-connect.js';
-
-
+$_template['lib_js'][]  = 'https://connect.trezor.io/7/trezor-connect.js';
 $_template['lib_js'][]  = '/lib/date.format.js';
 
 
-
 $_template['tabs'] = array(
-        '/info/blocks'     => _('Blocks'),
-        '/info/miners'     => _('Miners'),
-        '/info/actions'    => _('Actions'),
+        '/info/blocks'   => _('Blocks'),
+        '/info/miners'   => _('Miners'),
+        '/info/actions'  => _('Actions'),
     );
+
+
+
+$_template['js'] .= '
+bmp_protocol_prefix = "'.$bmp_protocol['prefix'].'";
+';
 
 
 
@@ -93,11 +95,4 @@ echo '
 
 </div>';
 
-
-
-$_template['js'] .= '
-
-bmp_protocol_prefix = "'.$bmp_protocol['prefix'].'";
-
-';
 

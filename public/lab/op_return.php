@@ -2,14 +2,14 @@
 
 
 // Trezor 1 con op_return
-print_r2(get_raw_transaction('cf63089d30938861e0d9e5e7e7989516f3c70e819243747472598eea694229ea'));
+print_r2(rpc_get_transaction('cf63089d30938861e0d9e5e7e7989516f3c70e819243747472598eea694229ea'));
 
 // Mi memo.cash
-print_r2(get_raw_transaction('120283b1b1405aafdfab6c14f1c5820dc30c8a51dcbc0ee5618a2db2ed743142'));
+print_r2(rpc_get_transaction('120283b1b1405aafdfab6c14f1c5820dc30c8a51dcbc0ee5618a2db2ed743142'));
 
 
 
-// print_r2(get_raw_transaction('fc68765dec0674c531dec5e2aa53087814d642fe8720d886162a90b8618a284c'));
+// print_r2(rpc_get_transaction('fc68765dec0674c531dec5e2aa53087814d642fe8720d886162a90b8618a284c'));
 
 /*
 crono();

@@ -5,9 +5,9 @@ function get_block_info($height) {
     
     set_time_limit(10*60);
 
-    $block = get_block($height); 
+    $block = rpc_get_block($height); 
 
-    $coinbase = get_raw_transaction($block['tx'][0]);
+    $coinbase = rpc_get_transaction($block['tx'][0]);
 
     foreach ($coinbase['vout'] AS $tx_vout)
         if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
@@ -42,22 +42,22 @@ function get_block_info($height) {
     foreach ((array)$coinbase['vout'] AS $tx_vout)
         if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
             $output['miners'][] = array(
-                    'chain'             => BLOCKCHAIN,
-                    'txid'              => $coinbase['txid'],
-                    'height'            => $block['height'],
-                    'address'           => address_normalice($tx_vout['scriptPubKey']['addresses'][0]),
-                    'method'            => 'value',
-                    'value'             => $tx_vout['value'],
-                    'quota'             => null,
-                    'power'             => (($tx_vout['value']*100)/$coinbase_value_total),
-                    'hashpower'         => ($output['block']['hashpower']*(($tx_vout['value']*100)/$coinbase_value_total))/100,
+                    'chain'         => BLOCKCHAIN,
+                    'txid'          => $coinbase['txid'],
+                    'height'        => $block['height'],
+                    'address'       => address_normalice($tx_vout['scriptPubKey']['addresses'][0]),
+                    'method'        => 'value',
+                    'value'         => $tx_vout['value'],
+                    'quota'         => null,
+                    'power'         => (($tx_vout['value']*100)/$coinbase_value_total),
+                    'hashpower'     => ($output['block']['hashpower']*(($tx_vout['value']*100)/$coinbase_value_total))/100,
                 );
 
 
     /// Actions
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
-            if ($tx_raw = get_raw_transaction($txid))
+            if ($tx_raw = rpc_get_transaction($txid))
                 if ($action = action_decode($tx_raw, $block))
                     $output['actions'][] = $action;
     
@@ -70,10 +70,10 @@ function get_block_info($height) {
 function action_decode($tx, $block) {
 
     $action = array(
-            'chain'         => BLOCKCHAIN,
-            'txid'          => $tx['txid'],
-            'height'        => $block['height'],
-            'time'          => date("Y-m-d H:i:s", $block['time']),
+            'chain'     => BLOCKCHAIN,
+            'txid'      => $tx['txid'],
+            'height'    => $block['height'],
+            'time'      => date("Y-m-d H:i:s", $block['time']),
         );
 
     if (!$tx_info = get_tx_info($tx))
@@ -112,7 +112,7 @@ function get_tx_info($tx) {
 
 
     // INPUT ADDRESS
-    $tx_prev = get_raw_transaction($tx['vin'][0]['txid']);
+    $tx_prev = rpc_get_transaction($tx['vin'][0]['txid']);
     foreach ($tx_prev['vout'] AS $tx_vout)
         if ($output['address'] = address_normalice($tx_vout['scriptPubKey']['addresses'][0]))
             break;
@@ -126,9 +126,61 @@ function get_tx_info($tx) {
 
 
 
+function op_return_decode($op_return) {
+    global $bmp_protocol;
+
+    if (!ctype_xdigit($op_return))
+        return false;
+
+    if (substr($op_return,0,2)!=='6a')
+        return false;
+
+    if (substr($op_return,4,2)===$bmp_protocol['prefix'])
+        $metadata_start_bytes = 3;
+    else if (substr($op_return,6,2)===$bmp_protocol['prefix'])
+        $metadata_start_bytes = 4;
+        
+    if (!$metadata_start_bytes)
+        return false;
+
+    $action_id  = substr($op_return, $metadata_start_bytes*2, 2);
+
+    if (!$bmp_protocol['actions'][$action_id])
+        return false;
+
+    $output = array(
+            'action'    => $bmp_protocol['actions'][$action_id]['action'],
+            'action_id' => $action_id,
+        );
+
+    $counter = $metadata_start_bytes+1;
+    foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
+        
+        if (is_numeric($p)) {
+            $parameter = substr($op_return, $counter*2, $v['size']*2);
+            if ($parameter) {
+                
+                if (!$v['hex'])
+                    $parameter = injection_filter(hex2bin($parameter));
+
+                $output['p'.$p] = $parameter;
+
+                $counter += $v['size'];
+            }
+        }
+
+    }
+
+    $output['json'] = null;
+
+    return $output;
+}
+
+
+
 function get_new_block() {
     
-    $rpc_height = get_info()['blocks'];
+    $rpc_height = rpc_get_info()['blocks'];
     
     $bmp_height = sql("SELECT height FROM blocks ORDER BY height DESC LIMIT 1")[0]['height'];
     

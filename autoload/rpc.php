@@ -18,7 +18,7 @@ function rpc_connect() {
 
 
 
-function get_block($hash) {
+function rpc_get_block($hash) {
     $b = rpc_connect();
 
     if (strlen($hash)!==64)
@@ -29,14 +29,14 @@ function get_block($hash) {
 
 
 
-function get_raw_transaction($txid) {
+function rpc_get_transaction($txid) {
     $b = rpc_connect();
     return $b->getrawtransaction($txid, 1);
 }
 
 
 
-function get_info() {
+function rpc_get_info() {
     $b = rpc_connect();
     return $b->getinfo();
 }

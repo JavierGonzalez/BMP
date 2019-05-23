@@ -8,7 +8,7 @@ echo hex2bin('6bd4');
 //print_r2(get_block_info(583718));
 
 
-//print_r2(get_tx_info(get_raw_transaction('4f0374e3d0797ab60832651b343a77a860252ddf56ce08461e24f2a71cb7e00c')));
+//print_r2(get_tx_info(rpc_get_transaction('4f0374e3d0797ab60832651b343a77a860252ddf56ce08461e24f2a71cb7e00c')));
 
 
 // 6a4c4c00023135353834353639343300000150727565626120636f6e20756e206d656e73616a65206de173206c6172676f2e20
@@ -37,12 +37,12 @@ exit;
 $hash = '0000000000000000013821c4378e842401ac54371a8afa81777327266bf418af';
 
 
-$block = get_block($hash); 
+$block = rpc_get_block($hash); 
 
 print_r2($block);
 
 foreach ($block['tx'] AS $txid)
-    print_r2(get_raw_transaction($txid));
+    print_r2(rpc_get_transaction($txid));
 
 
 

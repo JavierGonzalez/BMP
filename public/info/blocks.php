@@ -8,8 +8,7 @@ $data = sql("
     (SELECT COUNT(*) FROM miners WHERE height = blocks.height) AS miners, 
     hashpower, pool, tx_count, time 
     FROM blocks 
-    ORDER BY height DESC
-    ");
+    ORDER BY height DESC");
 
 
 foreach ($data AS $key => $value) {

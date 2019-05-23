@@ -5,13 +5,12 @@ $_template['title'] = 'Actions';
 
 
 $data = sql("
-SELECT txid, height, time, address, action, p1, p2, p3, p4, p5, p6, op_return
-FROM actions  
-ORDER BY time DESC
-");
+    SELECT txid, height, time, address, action, p1, p2, p3, p4, p5, p6, op_return
+    FROM actions  
+    ORDER BY time DESC");
 
 foreach ($data AS $key => $value) {
-    $data[$key]['txid'] = substr($value['txid'],0,10).'..';
+    $data[$key]['txid']    = substr($value['txid'],0,10).'..';
     $data[$key]['address'] = substr($value['address'],0,10).'..';
 }
 

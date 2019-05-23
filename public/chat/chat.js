@@ -4,10 +4,10 @@
 id_last = 0;
 
 ajax_refresh = true;
-refresh = "";
+refresh = '';
 
 chat_delay = 2000;
-chat_delay_close = "";
+chat_delay_close = '';
 chat_scroll = 0;
 
 
@@ -19,22 +19,22 @@ window.onload = function(){
 }
 
 
-$("#chat_input_msg").keyup(function() {
-	$("#op_return_preview").text(bin2hex($(this).val()));
+$('#chat_input_msg').keyup(function() {
+	$('#op_return_preview').text(bin2hex($(this).val()));
 });
 
 
-$("#chat_form_msg").submit(function() {
+$('#chat_form_msg').submit(function() {
 
-	var action = "02";
+	var action = '02';
 
 	var timestamp = Math.round(new Date().getTime()/1000);	
 
-	var channel = "000001";
+	var channel = '000001';
 
-	var msg = $("#chat_input_msg").val();
-	$("#chat_input_msg").val('');
-	$("#op_return_preview").text('');
+	var msg = $('#chat_input_msg').val();
+	$('#chat_input_msg').val('');
+	$('#op_return_preview').text('');
 	
 
 	var op_return = bmp_protocol_prefix + action + bin2hex(timestamp) + channel + bin2hex(msg);
@@ -56,9 +56,9 @@ function chat_query_ajax() {
 		
 		clearTimeout(refresh);
 		var start = new Date().getTime();
-		$("#vpc_actividad").attr("src", "/public/chat/img/point_blue.png");
+		$('#vpc_actividad').attr('src', '/public/chat/img/point_blue.png');
 
-		$.post("/chat/ajax/refresh?id_last=" + id_last, { n: "" },
+		$.post('/chat/ajax/refresh?id_last=' + id_last, { n: '' },
 			function(data){
 				ajax_refresh = true;
 
@@ -71,8 +71,8 @@ function chat_query_ajax() {
 
 				var elapsed = new Date().getTime() - start;
 
-				$("#vpc_actividad").attr("src", "/public/chat/img/point_grey.png");
-				$("#vpc_actividad").attr("title", "Chat update (every " + (chat_delay/1000) + " seconds, " + elapsed + "ms)");
+				$('#vpc_actividad').attr('src', '/public/chat/img/point_grey.png');
+				$('#vpc_actividad').attr('title', 'Chat update (every ' + (chat_delay/1000) + ' seconds, ' + elapsed + 'ms)');
 			}
 		);
 		
@@ -113,8 +113,8 @@ function blockchain_send_tx(op_return) {
 	var TrezorConnect = window.TrezorConnect;
 
 	TrezorConnect.manifest({
-			email: "gonzo@virtualpol.com",
-			appUrl: "https://bmp.virtualpol.com"
+			email: 'gonzo@virtualpol.com',
+			appUrl: 'https://bmp.virtualpol.com'
 		});
 
 	result = TrezorConnect.composeTransaction({
@@ -122,10 +122,10 @@ function blockchain_send_tx(op_return) {
 				{ prev_hash: '60c07cec8990713000509a4ba7623701587df870e9b08bfeec5a8ac85a11976e' }
 			],
 			outputs: [
-				//{ amount: "20000", address: "1CzmQoxTif8uqGpvMYJDSW2crpDLG5yV5u" },
-				{ type: "opreturn", dataHex: op_return }
+				//{ amount: '20000', address: "1CzmQoxTif8uqGpvMYJDSW2crpDLG5yV5u" },
+				{ type: 'opreturn', dataHex: op_return }
 			],
-			coin: "bch",
+			coin: 'bch',
 			push: true
 		});
 
@@ -135,20 +135,20 @@ function blockchain_send_tx(op_return) {
 
 
 function bin2hex(s) {
-  var i, l, o = "", n;
-  s += "";
-  for (i = 0, l = s.length; i < l; i++) {
-    n = s.charCodeAt(i).toString(16)
-    o += n.length < 2 ? "0" + n : n;
-  }
-  return o;
+    var i, l, o = '', n;
+    s += '';
+    for (i = 0, l = s.length; i < l; i++) {
+        n = s.charCodeAt(i).toString(16)
+        o += n.length < 2 ? '0' + n : n;
+    }
+    return o;
 }
 
 
 function scroll_down() {
-	if (chat_scroll <= document.getElementById("vpc").scrollTop) {
-		document.getElementById("vpc").scrollTop = 100000000;
-		chat_scroll = document.getElementById("vpc").scrollTop;
+	if (chat_scroll <= document.getElementById('vpc').scrollTop) {
+		document.getElementById('vpc').scrollTop = 100000000;
+		chat_scroll = document.getElementById('vpc').scrollTop;
 	}
 }
 
