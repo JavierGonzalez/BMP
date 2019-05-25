@@ -17,14 +17,12 @@ $_template['tabs'] = array(
     );
 
 
-
 $_template['js'] .= '
-bmp_protocol_prefix = "'.$bmp_protocol['prefix'].'";
-';
+        bmp_protocol_prefix = "'.$bmp_protocol['prefix'].'";
+    ';
 
+?>
 
-
-echo '
 <div id="vp_c">
 
 
@@ -93,6 +91,5 @@ echo '
 
 
 
-</div>';
-
+</div>
 

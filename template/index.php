@@ -42,7 +42,7 @@ echo '
 </head>
 
 
-<body style="overflow-y:visible;">
+<body style="overflow-y:scroll;">
 
 <div id="content-left">
 	

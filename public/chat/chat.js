@@ -14,7 +14,7 @@ chat_scroll = 0;
 
 window.onload = function(){
 	scroll_down();
-	refresh = setTimeout(chat_query_ajax, 2000); 
+	refresh = setTimeout(chat_query_ajax, chat_delay); 
 	chat_query_ajax();
 }
 
@@ -95,8 +95,9 @@ function print_msg(data) {
 
 		html += '<tr>';
 		html += '<td title="' + date.format('d-m-Y H:i:s') + '">' + date.format('H:i') + '</td>';
-		html += '<td title="' + value['address'] + '" class="monospace"><a href="https://bch5.trezor.io/tx/' + value['txid'] + '" target="_blank">' + value['address'].substr(0, 10) + '</a></td>';
-		html += '<td>' + value['p3'] + '</td>';
+		html += '<td title="Miner: ' + value['address'] + '" class="monospace"><a href="https://bch5.trezor.io/tx/' + value['txid'] + '" target="_blank">' + value['address'].substr(0, 10) + '</a></td>';
+		html += '<td width="100%">' + value['p3'] + '</td>';
+		html += '<td align="right"><a href="/evidence/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
 		html += '</tr>';
 
 		id_last = value['id'];

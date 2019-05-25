@@ -56,16 +56,14 @@
 
 if (DEBUG) {
 
-	$bmp_height = sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
+	echo 'Height: '.sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
+    echo '<br />';
 
-	echo 'Height: '.$bmp_height.'<br />';
-
-	$blocks_num = sql("SELECT SUM(hashpower) AS ECHO FROM blocks");
-	if (!is_array($blocks_num))
-		echo hashpower_humans(($blocks_num / BLOCK_WINDOW)).'<br />';
+	$blocks = sql("SELECT COUNT(*) AS num, SUM(hashpower) AS hashpower FROM blocks")[0];
+	if ($blocks['num']>0)
+		echo hashpower_humans(($blocks['hashpower'] / $blocks['num'])).'<br />';
 	
 	echo '<br />';
-
 
 	echo 'Blocks:  '.sql("SELECT COUNT(*) AS ECHO FROM blocks").'<br />';
 	echo 'Miners:  '.sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners").'<br />';

@@ -18,7 +18,9 @@ foreach ($data AS $key => $value) {
 
 
 echo html_table($data, array(
+        'txid'      => array('monospace' => true),
         'blocks'    => array('align' => 'right'),
+        'address'   => array('monospace' => true),
         'power'     => array('align' => 'right'),
         'hashpower' => array('align' => 'right'),
     ));

@@ -8,7 +8,7 @@ function html_table($data=false, $config=false) {
 
     // Header
     $html .= '<tr>';
-    foreach ($data[0] AS $key => $value) {
+    foreach ((array)$data[0] AS $key => $value) {
 
         if (isset($config[$key]['th']))
             $key = $config[$key]['th'];

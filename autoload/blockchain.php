@@ -1,18 +1,39 @@
 <?php # BMP
 
 
-function get_block_info($height) {
+function block_insert($height) {
+
+    $info = get_block_info($height);
+
+
+    sql_insert('blocks',  $info['block']);
     
+    foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
+        block_delete($r['height']);
+
+    sql_insert('miners',  $info['miners']);
+    
+    miners_power();
+    
+    sql_insert('actions', $info['actions']);
+
+
+    if (DEBUG)
+        print_r2($info);
+}
+
+
+
+function get_block_info($height) {
     set_time_limit(10*60);
 
     $block = rpc_get_block($height); 
 
     $coinbase = rpc_get_transaction($block['tx'][0]);
-
+    
     foreach ($coinbase['vout'] AS $tx_vout)
         if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
-            $coinbase_value_total += $tx_vout['value'];
-    
+            $block_coinbase_value += $tx_vout['value'];
 
     /// Block
     $output['block'] = array(
@@ -29,12 +50,12 @@ function get_block_info($height) {
             'bits'                  => $block['bits'],
             'nonce'                 => $block['nonce'],
             'difficulty'            => $block['difficulty'],
-            'reward_coinbase'       => $coinbase_value_total,
+            'reward_coinbase'       => $block_coinbase_value,
             'reward_fees'           => null,
             'coinbase'              => $coinbase['vin'][0]['coinbase'],
             'pool'                  => pool_decode(hex2bin($coinbase['vin'][0]['coinbase']))['name'],
             'signals'               => null,
-            'hashpower'             => block_hashpower($block),
+            'hashpower'             => block_hashpower($block, $coinbase),
         );
 
 
@@ -49,8 +70,8 @@ function get_block_info($height) {
                     'method'        => 'value',
                     'value'         => $tx_vout['value'],
                     'quota'         => null,
-                    'power'         => (($tx_vout['value']*100)/$coinbase_value_total),
-                    'hashpower'     => ($output['block']['hashpower']*(($tx_vout['value']*100)/$coinbase_value_total))/100,
+                    'power'         => null,
+                    'hashpower'     => ($output['block']['hashpower']*(($tx_vout['value']*100)/$block_coinbase_value))/100,
                 );
 
 
@@ -63,6 +84,15 @@ function get_block_info($height) {
     
     
     return $output;
+}
+
+
+function miners_power() {
+
+    $bitcoin_hashpower = sql("SELECT SUM(hashpower) AS ECHO FROM blocks ORDER BY time DESC LIMIT ".BLOCK_WINDOW);
+
+    sql("UPDATE miners SET power = ROUND((hashpower*100)/".$bitcoin_hashpower.", ".MINERS_POWER_PRECISION.")");
+
 }
 
 
@@ -84,8 +114,17 @@ function action_decode($tx, $block) {
 
     $action = array_merge($action, $tx_info, $op_return_decode);
 
-    $action['power']     = null;
-    $action['hashpower'] = null;
+
+    $action = array_merge($action, 
+            sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower 
+            FROM miners WHERE address = '".e($action['address'])."'")[0]
+        );
+
+
+    if (!$action['power'] AND DEBUG) {
+        $action['power']     = 0;
+        $action['hashpower'] = 0;
+    }
 
     return $action;
 }
@@ -149,17 +188,16 @@ function op_return_decode($op_return) {
         return false;
 
     $output = array(
-            'action'    => $bmp_protocol['actions'][$action_id]['action'],
             'action_id' => $action_id,
+            'action'    => $bmp_protocol['actions'][$action_id]['action'],
         );
 
     $counter = $metadata_start_bytes+1;
     foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
-        
         if (is_numeric($p)) {
             $parameter = substr($op_return, $counter*2, $v['size']*2);
             if ($parameter) {
-                
+    
                 if (!$v['hex'])
                     $parameter = injection_filter(hex2bin($parameter));
 
@@ -168,13 +206,13 @@ function op_return_decode($op_return) {
                 $counter += $v['size'];
             }
         }
-
     }
 
     $output['json'] = null;
 
     return $output;
 }
+
 
 
 
@@ -197,26 +235,8 @@ function get_new_block() {
     block_insert($height);
     
 
-    foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
-        block_delete($r['height']);
-
     return true;
 }
-
-
-
-function block_insert($height) {
-    
-    $info = get_block_info($height);
-
-    sql_insert('blocks',  $info['block']);
-    sql_insert('miners',  $info['miners']);
-    sql_insert('actions', $info['actions']);
-
-    if (DEBUG)
-        print_r2($info);
-}
-
 
 
 function block_delete($height) {
@@ -225,44 +245,3 @@ function block_delete($height) {
     sql("DELETE FROM actions WHERE height = ".$height);
 }
 
-
-
-function block_hashpower($block) {
-    return ($block['difficulty'] * pow(2,32) / 600); // Hashes per second.
-}
-
-
-
-function revert_bytes($hex) {
-    $hex = str_split($hex, 2);
-    $hex = array_reverse($hex);
-    return implode('', $hex);
-}
-
-
-
-function pool_decode($coinbase) {
-    global $pools_json;
-
-    if (!is_array($pools_json))
-        $pools_json = json_decode(file_get_contents('public/static/pools_bch.json'), true);
-
-
-    foreach ($pools_json['coinbase_tags'] AS $tag => $pool)
-        if (strpos($coinbase, $tag)!==false)
-            return $pool;
-
-    return null;
-}
-
-
-
-function address_normalice($address) {
-    return str_replace('bitcoincash:', '', $address);
-}
-
-
-
-function hashpower_humans($hps, $decimals=0) {
-    return num($hps/1000000/1000000, $decimals).'&nbsp;TH/s';
-}
