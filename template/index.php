@@ -9,8 +9,7 @@ else
 	$_template['title'] = 'BMP';
 
 
-$_template['lib_css'][] = '/template/style_all.css';
-$_template['lib_css'][] = '/template/style2.css';
+$_template['lib_css'][] = '/template/style.css';
 
 
 ?><!DOCTYPE html>
@@ -19,7 +18,7 @@ $_template['lib_css'][] = '/template/style2.css';
 
 <title><?=$_template['title']?></title>
 
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <meta name="description" content="<?=$_template['title']?>" />
 
 
@@ -30,6 +29,7 @@ $_template['lib_css'][] = '/template/style2.css';
 
 foreach ((array)$_template['lib_css'] AS $file)
 	echo '<link rel="stylesheet" type="text/css" href="'.$file.'" media="all" />';
+
 
 echo '
 <style type="text/css">

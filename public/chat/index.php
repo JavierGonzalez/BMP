@@ -63,7 +63,7 @@ $_template['js'] .= '
 </td>
 
 <td>
-	<button type="button" id="chat_button_send" style="width:100px;">Enviar</button>
+	<button type="button" id="chat_button_send" style="width:100px;">Execute</button>
 </td>
 
 

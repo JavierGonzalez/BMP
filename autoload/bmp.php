@@ -1,10 +1,10 @@
 <?php # BMP
 
 
+
 function block_insert($height) {
 
     $info = get_block_info($height);
-
 
     sql_insert('blocks',  $info['block']);
     
@@ -17,9 +17,7 @@ function block_insert($height) {
     
     sql_insert('actions', $info['actions']);
 
-
-    if (DEBUG)
-        print_r2($info);
+    return $info;
 }
 
 
@@ -35,6 +33,7 @@ function get_block_info($height) {
         if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
             $block_coinbase_value += $tx_vout['value'];
 
+            
     /// Block
     $output['block'] = array(
             'chain'                 => BLOCKCHAIN,
@@ -87,11 +86,12 @@ function get_block_info($height) {
 }
 
 
+
 function miners_power() {
 
     $bitcoin_hashpower = sql("SELECT SUM(hashpower) AS ECHO FROM blocks ORDER BY time DESC LIMIT ".BLOCK_WINDOW);
 
-    sql("UPDATE miners SET power = ROUND((hashpower*100)/".$bitcoin_hashpower.", ".MINERS_POWER_PRECISION.")");
+    sql("UPDATE miners SET power = ROUND((hashpower*100)/".$bitcoin_hashpower.", ".POWER_PRECISION.")");
 
 }
 
@@ -106,7 +106,7 @@ function action_decode($tx, $block) {
             'time'      => date("Y-m-d H:i:s", $block['time']),
         );
 
-    if (!$tx_info = get_tx_info($tx))
+    if (!$tx_info = get_tx_action($tx))
         return false;
 
     if (!$op_return_decode = op_return_decode($tx_info['op_return']))
@@ -131,36 +131,42 @@ function action_decode($tx, $block) {
 
 
 
-function get_tx_info($tx) {
+function get_tx_action($tx) {
     global $bmp_protocol;
     
     if (count($tx['vout'])!==2)
         return false;
 
 
-    // OUTPUT OP_RETURN
-    foreach ($tx['vout'] AS $tx_vout)
-        if ($tx_vout['value']==0)
-            if ($op_return = $tx_vout['scriptPubKey']['hex'])
-                if (substr($op_return,0,2)=='6a')
-                    if (substr($op_return,4,2)==$bmp_protocol['prefix'] OR substr($op_return,6,2)==$bmp_protocol['prefix'])
-                        $output['op_return'] = $op_return;
+    // OUTPUT OP_RETURN (index = 1)
+    $action['op_return'] = $tx['vout'][1]['scriptPubKey']['hex'];
 
-    if (!$output['op_return'])
+    if (substr($action['op_return'],0,2)=='6a')
+        if (substr($action['op_return'],4,2)!=$bmp_protocol['prefix'] AND substr($action['op_return'],6,2)!=$bmp_protocol['prefix'])
+            return false;
+
+
+    // OUTPUT ADDRESS (index = 0)
+    $action['address'] = $tx['vout'][0]['scriptPubKey']['addresses'][0];
+
+    if (!$action['address'])
         return false;
 
 
-    // INPUT ADDRESS
+
+    // OUTPUT ADDRESS is in PREV OUTPUT ADDRESS
     $tx_prev = rpc_get_transaction($tx['vin'][0]['txid']);
     foreach ($tx_prev['vout'] AS $tx_vout)
-        if ($output['address'] = address_normalice($tx_vout['scriptPubKey']['addresses'][0]))
-            break;
+        if ($action['address']===$tx_vout['scriptPubKey']['addresses'][0])
+            $address_valid = true;
     
-    if (!$output['address'])
+    if (!$address_valid)
         return false;
 
+    
+    $action['address'] = address_normalice($action['address']);
 
-    return $output;
+    return $action;
 }
 
 
@@ -213,35 +219,4 @@ function op_return_decode($op_return) {
     return $output;
 }
 
-
-
-
-function get_new_block() {
-    
-    $rpc_height = rpc_get_info()['blocks'];
-    
-    $bmp_height = sql("SELECT height FROM blocks ORDER BY height DESC LIMIT 1")[0]['height'];
-    
-    if ($rpc_height==$bmp_height)
-        return false;
-    
-    
-    if (!$bmp_height)
-        $height = $rpc_height - BLOCK_WINDOW;
-    else
-        $height = $bmp_height + 1;
-    
-
-    block_insert($height);
-    
-
-    return true;
-}
-
-
-function block_delete($height) {
-    sql("DELETE FROM blocks  WHERE height = ".$height);
-    sql("DELETE FROM miners  WHERE height = ".$height);
-    sql("DELETE FROM actions WHERE height = ".$height);
-}
 

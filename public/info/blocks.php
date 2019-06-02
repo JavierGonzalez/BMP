@@ -3,7 +3,7 @@
 $_template['title'] = 'Blocks';
 
 
-$data = sql("SELECT chain, height, hash, hashpower,
+$data = sql("SELECT height, hash, hashpower,
     (SELECT COUNT(*) FROM miners WHERE height = blocks.height) AS miners, 
     pool, tx_count, time 
     FROM blocks 
@@ -23,7 +23,6 @@ foreach ($data AS $key => $value) {
 
 echo html_table($data, array(
         'miners'        => array('align'     => 'right'),
-        'chain'         => array('th'        => ''),
         'hash'          => array('monospace' => true),
         'tx_count'      => array('align'     => 'right', 'th' => 'TX'),
         'min'           => array('align'     => 'right'),

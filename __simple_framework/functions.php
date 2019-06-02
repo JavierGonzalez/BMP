@@ -28,18 +28,55 @@ function print_r2($print, $echo=true) {
 
 
 
-function crono($text=false) {
+function crono($echo='') {
     global $crono;
+	
+	$crono_now = microtime(true);
+	
+    if (!isset($crono['last'])) {
+		ob_end_flush();
+		ini_set('memory_limit', '15G');
+		set_time_limit(24*60*60);
+		//apache_setenv('no-gzip', '1');
+		
+		$crono['last'] = $crono_now;
 
-    $crono_now = microtime(true);
+		echo '<script>function Sc() { window.scrollTo(0,document.body.scrollHeight); }</script>';
+	}
 
-    if ($crono['last'])
-        $extra = ' ('.round(($crono_now-$crono['last'])*1000,2).' ms)';
+    if (is_array($echo))
+        print_r2($echo);
 
-    echo "\n".++$crono['count'].'. '.$crono_now.$extra.' '.$text."\n";
+    echo '<br />'.++$crono['count'].'. &nbsp; '.date("Y-m-d H:i:s").' &nbsp; '.number_format(($crono_now-$crono['last'])*1000, 2).' ms &nbsp; '.$echo; 
 
-    $crono['last'] = microtime(true);
+
+    echo '<script>Sc();</script>';
+
+	$crono['last'] = microtime(true);
+	
+	flush();
+	ob_flush();
 }
+
+
+
+function every($seconds=60, $id=0) {
+    global $every_last;
+
+    if (time() >= $every_last[$id]+$seconds)
+        return $every_last[$id] = time();
+
+    return false;
+}
+
+
+function ram() {
+    return round(memory_get_usage(true)/1024/1024).' MB';
+}
+
+
+
+
 
 
 

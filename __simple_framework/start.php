@@ -1,5 +1,6 @@
 <?php # simple_framework
 
+
 $_ = array();
 $_['crono_start'] = microtime(true);
 
@@ -27,5 +28,6 @@ if (isset($_['template']['output']))
 $_['output_html_content'] = ob_get_contents();
 ob_end_clean();
 include('template/index.php');
+
 
 exit;
