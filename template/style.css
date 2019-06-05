@@ -6,12 +6,16 @@
     font-size: 14px;
 }
 
-
-.bmp_power a {
-    color:gold;
+/*
+a.bmp_power, a:link.bmp_power, a:active.bmp_power {
+    color:gold; 
     font-weight:bold;
 }
 
+.bmp_power::after {
+    content: '⚡️';
+}
+*/
 
 
 
@@ -25,7 +29,7 @@ table {
     border-collapse:collapse; 
 }
 th, td { 
-    padding:1px 6px; 
+    padding:0px 6px; 
 }
 thead th, th { 
     color:#888;
@@ -132,23 +136,15 @@ body {
 
 
 /*** GENERAL ***/
-a { text-decoration:none; }
+a, a:link, a:active { color:#0066cc; text-decoration:none; }
 a:hover { text-decoration:underline; }
 
-*[title] { cursor: help; }
-abbr, .punteado { border-bottom:1px dotted #999; }
+
+
 
 h1 { font-size:28px; }
 h2 { font-size:22px; }
 h3 { font-size:18px; }
-
-.redondeado {
-	padding-left:2px;
-	padding-right:2px;
-	border-radius: 6px;
-	-moz-border-radius: 6px; 
-	-webkit-border-radius: 6px;
-}
 
 .htxt {
 	padding:0 4px 1px 4px;

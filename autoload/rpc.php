@@ -34,6 +34,11 @@ function rpc_get_transaction($txid) {
     return $b->getrawtransaction($txid, 1);
 }
 
+function rpc_get_mempool() {
+    $b = rpc_connect();
+    return $b->getrawmempool();
+}
+
 
 
 function rpc_get_info() {

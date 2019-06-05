@@ -28,7 +28,7 @@ $_template['lib_css'][] = '/template/style.css';
 <?php
 
 foreach ((array)$_template['lib_css'] AS $file)
-	echo '<link rel="stylesheet" type="text/css" href="'.$file.'" media="all" />';
+	echo '<link rel="stylesheet" type="text/css" href="'.$file.'" media="all" />'."\n";
 
 
 echo '
@@ -97,7 +97,7 @@ echo '
 <script type="text/javascript" src="/template/js/jquery-3.4.1.min.js"></script>
 <?php
 foreach ((array)$_template['lib_js'] AS $file)
-	echo '<script type="text/javascript" src="'.$file.'"></script>';
+	echo '<script type="text/javascript" src="'.$file.'"></script>'."\n";
 ?>
 <script type="text/javascript">
 <?=$_template['js']?>

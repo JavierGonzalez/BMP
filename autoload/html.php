@@ -41,6 +41,11 @@ function html_table($data=false, $config=false) {
 }
 
 
-function html_a($url, $anchor, $blank=false) {
-    return '<a href="'.$url.'"'.($blank?' target="_blank"':'').'>'.$anchor.'</a>';
+function html_a($url, $text, $blank=false) {
+    return '<a href="'.$url.'"'.($blank?' target="_blank"':'').'>'.$text.'</a>';
+}
+
+
+function html_b($text) {
+    return '<b>'.$text.'</b>';
 }

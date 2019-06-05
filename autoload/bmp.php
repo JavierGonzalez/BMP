@@ -4,6 +4,9 @@
 
 function block_insert($height) {
 
+    if (sql("SELECT id FROM blocks WHERE height = '".e($height)."' LIMIT 1"))   
+        return false;
+
     $info = get_block_info($height);
 
     sql_insert('blocks',  $info['block']);
@@ -15,7 +18,7 @@ function block_insert($height) {
     
     miners_power();
     
-    sql_insert('actions', $info['actions']);
+    sql_insert('actions', $info['actions']); // Fix: miners_power() does not affect here.
 
     return $info;
 }
@@ -78,7 +81,7 @@ function get_block_info($height) {
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
             if ($tx_raw = rpc_get_transaction($txid))
-                if ($action = action_decode($tx_raw, $block))
+                if ($action = get_action($tx_raw, $block))
                     $output['actions'][] = $action;
     
     
@@ -97,41 +100,52 @@ function miners_power() {
 
 
 
-function action_decode($tx, $block) {
+function get_mempool() {
+
+    foreach (rpc_get_mempool() AS $txid)
+        if ($tx_raw = rpc_get_transaction($txid))
+            if ($action = get_action($tx_raw))
+                $output['actions'][] = $action;
+
+    return $output;
+}
+
+
+
+function get_action($tx, $block=false) {
 
     $action = array(
             'chain'     => BLOCKCHAIN,
             'txid'      => $tx['txid'],
-            'height'    => $block['height'],
-            'time'      => date("Y-m-d H:i:s", $block['time']),
+            'height'    => ($block?$block['height']:null),
+            'time'      => date("Y-m-d H:i:s", ($block?$block['time']:time())),
         );
+    
 
-    if (!$tx_info = get_tx_action($tx))
+    if (!$tx_info = get_action_tx($tx))
         return false;
+
+    
+    $power = sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower 
+    FROM miners WHERE address = '".e($tx_info['address'])."'")[0];
+
+    if (!$power['hashpower'])
+        return false;
+
 
     if (!$op_return_decode = op_return_decode($tx_info['op_return']))
         return false;
+    
 
-    $action = array_merge($action, $tx_info, $op_return_decode);
+    $action = array_merge($action, $tx_info, $op_return_decode, $power);
 
-
-    $action = array_merge($action, 
-            sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower 
-            FROM miners WHERE address = '".e($action['address'])."'")[0]
-        );
-
-
-    if (!$action['power'] AND DEBUG) {
-        $action['power']     = 0;
-        $action['hashpower'] = 0;
-    }
 
     return $action;
 }
 
 
 
-function get_tx_action($tx) {
+function get_action_tx($tx) {
     global $bmp_protocol;
     
     if (count($tx['vout'])!==2)
@@ -151,7 +165,6 @@ function get_tx_action($tx) {
 
     if (!$action['address'])
         return false;
-
 
 
     // OUTPUT ADDRESS is in PREV OUTPUT ADDRESS
@@ -180,6 +193,7 @@ function op_return_decode($op_return) {
     if (substr($op_return,0,2)!=='6a')
         return false;
 
+    // To fix.
     if (substr($op_return,4,2)===$bmp_protocol['prefix'])
         $metadata_start_bytes = 3;
     else if (substr($op_return,6,2)===$bmp_protocol['prefix'])
@@ -201,8 +215,7 @@ function op_return_decode($op_return) {
     $counter = $metadata_start_bytes+1;
     foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
         if (is_numeric($p)) {
-            $parameter = substr($op_return, $counter*2, $v['size']*2);
-            if ($parameter) {
+            if ($parameter = substr($op_return, $counter*2, $v['size']*2)) {
     
                 if (!$v['hex'])
                     $parameter = injection_filter(hex2bin($parameter));

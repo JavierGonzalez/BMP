@@ -87,10 +87,11 @@ function print_msg(data) {
 		var date = new Date(value['p1']*1000);
 
 		html += '<tr>';
-		html += '<td title="' + date.format('Y-m-d H:i:s') + '">' + date.format('H:i') + '</td>';
-		html += '<td title="Miner: ' + value['address'] + '" class="monospace"><a href="https://bch5.trezor.io/tx/' + value['txid'] + '" target="_blank">' + value['address'].substr(-10, 10) + '</a></td>';
+		html += '<td>' + value['height'] + '</td>';
+		html += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
+		html += '<td title="Miner: ' + value['address'] + '" class="monospace"><a href="/info/miner/' + value['address'] + '" target="_blank">' + value['address'].substr(-10, 10) + '</a></td>';
 		html += '<td width="100%">' + value['p3'] + '</td>';
-		html += '<td align="right"><a href="/evidence/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
+		html += '<td align="right"><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
 		html += '</tr>';
 
 		id_last = value['p1'];
@@ -120,121 +121,6 @@ function scroll_down() {
 }
 
 
-
-
-
-
-
-
-/// TREZOR
-
-
-function miner_utxo(data=null) {
-
-    if (data) {
-        sessionStorage['miner_utxo'] = JSON.stringify(data);
-    }
-
-    if (sessionStorage['miner_utxo'])
-        return JSON.parse(sessionStorage['miner_utxo']);
-    else
-        return false;
-}
-
-
-
-function get_miner_utxo() {
-
-    var TrezorConnect = window.TrezorConnect;
-
-	TrezorConnect.manifest({
-        email: 'gonzo@virtualpol.com',
-        appUrl: 'https://bmp.virtualpol.com'
-    });
-
-
-    trezor_request = TrezorConnect.getAccountInfo({
-        coin: 'bch',
-    });
-
-
-
-    trezor_request.then(function(result) {
-        
-        $.post('/api/miner_utxo', { utxo: result.payload.utxo },
-            function(data){
-                console.log('miner_utxo found!');
-                console.log(data['miner_utxo']);
-                miner_utxo(data['miner_utxo']);
-            }
-        );
-
-    }, function(err) {
-        console.log('error');
-    });
-
-
-}
-
-
-function blockchain_send_tx(op_return) {
-
-
-    if (!miner_utxo()) {
-        get_miner_utxo();
-
-    } else {
-
-
-        var TrezorConnect = window.TrezorConnect;
-
-        TrezorConnect.manifest({
-            email: 'gonzo@virtualpol.com',
-            appUrl: 'https://bmp.virtualpol.com'
-        });
-
-        trezor_request = TrezorConnect.signTransaction({
-                inputs: [
-                    {
-                        address_n: [(44 | 0x80000000) >>> 0, (145 | 0x80000000) >>> 0, (0 | 0x80000000) >>> 0, miner_utxo()['addressPath'][0], miner_utxo()['addressPath'][1]],
-                        prev_index: parseInt(miner_utxo()['index']),
-                        prev_hash: miner_utxo()['transactionHash'],
-                        amount: String(miner_utxo()['value']),
-                        script_type: 'SPENDADDRESS',
-                    }
-                ],
-                outputs: [
-                    {
-                        address: miner_utxo()['address'],
-                        amount: String(miner_utxo()['value'] - ((op_return.length * 2) + 1000)),
-                        script_type: 'PAYTOADDRESS',
-                    },
-                    { 
-                        op_return_data: op_return, 
-                        amount: '0',
-                        script_type: 'PAYTOOPRETURN', 
-                    },
-                ],
-                coin: 'bch',
-                push: true
-            });
-
-        trezor_request.then(function(result) {
-            
-            console.log(result.payload);
-
-            if (result.payload.txid) {
-                var data = miner_utxo();
-                data['index'] = 0;
-                data['transactionHash'] = result.payload.txid;
-                miner_utxo(data);
-            }
-        }, function(err) {
-            console.log('error');
-        });
-    }
-    
-}
 
 
 

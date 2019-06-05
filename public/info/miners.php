@@ -13,8 +13,7 @@ $data = sql("SELECT 0,
     SUM(power) AS power, 
     SUM(hashpower) AS hashpower,
     (SELECT COUNT(*) FROM actions WHERE address = miners.address) AS actions,
-    (SELECT time FROM actions WHERE address = miners.address ORDER BY time DESC LIMIT 1) AS last_action,
-    txid
+    (SELECT time FROM actions WHERE address = miners.address ORDER BY time DESC LIMIT 1) AS last_action
     FROM miners 
     GROUP BY address 
     ORDER BY power DESC");
@@ -22,11 +21,14 @@ $data = sql("SELECT 0,
 
 foreach ($data AS $key => $value) {
     $data[$key][0] = ++$count;
+
+    $data[$key]['miner'] = html_a('/info/miner/'.$value['miner'], $value['miner']);
+    
+    if ($value['actions'] > 0)
+        $data[$key]['miner'] = html_b($data[$key]['miner']);
+
     $data[$key]['power']     = num($value['power'], POWER_PRECISION).'%';
     $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/$blocks_num, 6);
-
-    $data[$key]['evidence'] = html_a('/evidence/miner/'.$value['txid'], 'Evidence');
-    unset($data[$key]['txid']);
 }
 
 

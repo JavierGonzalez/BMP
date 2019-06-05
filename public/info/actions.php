@@ -10,7 +10,7 @@ $data = sql("SELECT height, txid, time, address, action, p1, p2, p3, p4, p5, p6,
 
 
 foreach ($data AS $key => $value) {
-    $data[$key]['txid']    = substr($value['txid'],0,10).'..';
+    $data[$key]['txid']    = html_a('/info/action/'.$value['txid'], substr($value['txid'],0,10).'..');
     $data[$key]['address'] = '..'.substr($value['address'],-10,10);
 }
 

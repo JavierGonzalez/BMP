@@ -6,6 +6,7 @@ $_template['title'] = 'Chat';
 $_template['lib_css'][] = '/public/chat/chat.css';
 
 $_template['lib_js'][]  = '/public/chat/chat.js';
+$_template['lib_js'][]  = '/public/bmp-trezor.js';
 $_template['lib_js'][]  = 'https://connect.trezor.io/7/trezor-connect.js';
 $_template['lib_js'][]  = '/lib/date.format.js';
 
