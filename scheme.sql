@@ -22,8 +22,6 @@ CREATE TABLE `blocks` (
     `bits`                  varchar(20)               NOT NULL,
     `nonce`                 decimal(20,0)             NOT NULL,
     `difficulty`            decimal(30,8)             NOT NULL,
-    `reward_coinbase`       decimal(30,8)         DEFAULT NULL,
-    `reward_fees`           decimal(30,8)         DEFAULT NULL,
     `coinbase`              varchar(900)          DEFAULT NULL,
     `pool`                  varchar(100)          DEFAULT NULL,
     `signals`               varchar(900)          DEFAULT NULL,
@@ -56,17 +54,18 @@ CREATE TABLE `miners` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
+
 CREATE TABLE `actions` (
     `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
     `chain`                 char(3)                   NOT NULL COMMENT 'Ticker',
     `txid`                  char(64)                  NOT NULL,
-    `height`                int(8) UNSIGNED           NOT NULL,
+    `height`                int(8) UNSIGNED       DEFAULT NULL,
     `time`                  datetime,
     `address`               varchar(64)               NOT NULL,
     `op_return`             longtext                  NOT NULL COMMENT 'hex',
     `action_id`             varchar(10)               NOT NULL,
     `action`                varchar(50)               NOT NULL,
-    `p1`                    varchar(300)              NOT NULL,
+    `p1`                    varchar(300)          DEFAULT NULL,
     `p2`                    varchar(300)          DEFAULT NULL,
     `p3`                    varchar(300)          DEFAULT NULL,
     `p4`                    varchar(300)          DEFAULT NULL,

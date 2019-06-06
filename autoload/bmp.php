@@ -18,7 +18,8 @@ function block_insert($height) {
     
     miners_power();
     
-    sql_insert('actions', $info['actions']); // Fix: miners_power() does not affect here.
+    foreach ($info['actions'] AS $action)
+        sql_update('actions', $action, "txid = '".$action['txid']."'", false); // Update (0-conf) or insert.
 
     return $info;
 }
@@ -52,11 +53,8 @@ function get_block_info($height) {
             'bits'                  => $block['bits'],
             'nonce'                 => $block['nonce'],
             'difficulty'            => $block['difficulty'],
-            'reward_coinbase'       => $block_coinbase_value,
-            'reward_fees'           => null,
             'coinbase'              => $coinbase['vin'][0]['coinbase'],
             'pool'                  => pool_decode(hex2bin($coinbase['vin'][0]['coinbase']))['name'],
-            'signals'               => null,
             'hashpower'             => block_hashpower($block, $coinbase),
         );
 
@@ -92,22 +90,23 @@ function get_block_info($height) {
 
 function miners_power() {
 
-    $bitcoin_hashpower = sql("SELECT SUM(hashpower) AS ECHO FROM blocks ORDER BY time DESC LIMIT ".BLOCK_WINDOW);
+    $hashpower_total = sql("SELECT SUM(hashpower) AS ECHO FROM blocks ORDER BY time DESC LIMIT ".BLOCK_WINDOW);
 
-    sql("UPDATE miners SET power = ROUND((hashpower*100)/".$bitcoin_hashpower.", ".POWER_PRECISION.")");
+    sql("UPDATE miners SET power = ROUND((hashpower*100)/".$hashpower_total.", ".POWER_PRECISION.")");
 
 }
 
 
 
 function get_mempool() {
-
+    
     foreach (rpc_get_mempool() AS $txid)
-        if ($tx_raw = rpc_get_transaction($txid))
-            if ($action = get_action($tx_raw))
-                $output['actions'][] = $action;
+        if (!sql("SELECT id FROM actions WHERE txid = '".$txid."' LIMIT 1"))
+            if ($tx_raw = rpc_get_transaction($txid))
+                if ($action = get_action($tx_raw))
+                    $actions[] = $action;
 
-    return $output;
+    return (array)$actions;
 }
 
 
@@ -120,7 +119,7 @@ function get_action($tx, $block=false) {
             'height'    => ($block?$block['height']:null),
             'time'      => date("Y-m-d H:i:s", ($block?$block['time']:time())),
         );
-    
+
 
     if (!$tx_info = get_action_tx($tx))
         return false;
@@ -136,9 +135,8 @@ function get_action($tx, $block=false) {
     if (!$op_return_decode = op_return_decode($tx_info['op_return']))
         return false;
     
-
+        
     $action = array_merge($action, $tx_info, $op_return_decode, $power);
-
 
     return $action;
 }
@@ -155,9 +153,11 @@ function get_action_tx($tx) {
     // OUTPUT OP_RETURN (index = 1)
     $action['op_return'] = $tx['vout'][1]['scriptPubKey']['hex'];
 
-    if (substr($action['op_return'],0,2)=='6a')
-        if (substr($action['op_return'],4,2)!=$bmp_protocol['prefix'] AND substr($action['op_return'],6,2)!=$bmp_protocol['prefix'])
-            return false;
+    if (substr($action['op_return'],0,2)!='6a')
+        return false;
+
+    if (substr($action['op_return'],4,2)!=$bmp_protocol['prefix'] AND substr($action['op_return'],6,2)!=$bmp_protocol['prefix']) // Refact
+        return false;
 
 
     // OUTPUT ADDRESS (index = 0)
@@ -193,10 +193,9 @@ function op_return_decode($op_return) {
     if (substr($op_return,0,2)!=='6a')
         return false;
 
-    // To fix.
-    if (substr($op_return,4,2)===$bmp_protocol['prefix'])
+    if (substr($op_return,4,2)===$bmp_protocol['prefix']) // Refact
         $metadata_start_bytes = 3;
-    else if (substr($op_return,6,2)===$bmp_protocol['prefix'])
+    else if (substr($op_return,6,2)===$bmp_protocol['prefix']) // Refact
         $metadata_start_bytes = 4;
         
     if (!$metadata_start_bytes)

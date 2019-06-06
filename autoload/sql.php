@@ -88,7 +88,6 @@ function sql($query) {
 
 function sql_insert($table, $rows) {
 
-
 	if (!is_array($rows))
 		return false;
 
@@ -114,16 +113,18 @@ function sql_insert($table, $rows) {
 				$columns_values[] = "'".e($value)."'";
 		}
 
-		$values[] = "(".implode(",", $columns_values).")";
+        if (count($columns_values)>0)
+		    $values[] = "(".implode(",", $columns_values).")";
 
 		if (++$values_num>=5000) {
 			sql("INSERT INTO `".e($table)."` (".implode(',', (array)$columns).") VALUES ".implode(",", (array)$values));
 			$values 	= array();
 			$values_num = 0;
-		}
+        }
 	}
-
-	$res = sql("INSERT INTO `".e($table)."` (".implode(',', (array)$columns).") VALUES ".implode(",", (array)$values));
+print_r2($values);
+    if (count($values)>0)
+        $res = sql("INSERT INTO `".e($table)."` (".implode(',', (array)$columns).") VALUES ".implode(",", (array)$values));
 
 	if ($res===false)
 		return false;

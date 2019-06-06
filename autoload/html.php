@@ -1,7 +1,7 @@
 <?php # BMP
 
 
-function html_table($data=false, $config=false) {
+function html_table($data, $config=false) {
 
     if (!is_array($data))
         return '';
@@ -48,4 +48,8 @@ function html_a($url, $text, $blank=false) {
 
 function html_b($text) {
     return '<b>'.$text.'</b>';
+}
+
+function html_h($text, $num=1) {
+    return '<h'.$num.'>'.$text.'</h'.$num.'>';
 }

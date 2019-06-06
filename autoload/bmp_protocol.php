@@ -7,15 +7,25 @@ $bmp_protocol = array(
         
         'actions' => array(
 
-            '01' => array(
+            '00' => array(
+                'status'        => 'implemented',
                 'coinbase'      => true,
-                'action'        => 'hashpower_quota',
-                'name'          => 'Hashpower signaling by quota',
-                'description'   => 'Not by coinbase value. Any number, best option.',
+                'action'        => 'power_by_value',
+                'name'          => 'Signalling of power % by value.',
+                'description'   => 'By default, standard, P2Pool style',
+            ),
+
+            '01' => array(
+                'status'        => 'planned',
+                'coinbase'      => true,
+                'action'        => 'power_by_op_return',
+                'name'          => 'Signalling of power % by OP_RETURN.',
+                'description'   => 'Value independent signaling. Any number, best option.',
                 1 => array('size' => 10, 'name'=>'number',  'hex'=>true),
             ),
 
             '02' => array(
+                'status'        => 'implemented',
                 'action'        => 'chat',
                 'name'          => 'Chat',
                 'description'   => 'IRC-like on-chain chat',
@@ -25,6 +35,7 @@ $bmp_protocol = array(
             ),
 
             '03' => array(
+                'status'        => 'planned',
                 'action'        => 'vote',
                 'name'          => 'Vote',
                 'description'   => 'All action can be voted, validity parallel voting independly.',
@@ -35,6 +46,7 @@ $bmp_protocol = array(
             ),
 
             '04' => array(
+                'status'        => 'planned',
                 'action'        => 'voting',
                 'name'          => 'Voting create',
                 'description'   => '',
@@ -43,6 +55,7 @@ $bmp_protocol = array(
             ),
 
             '05' => array(
+                'status'        => 'planned',
                 'action'        => 'voting_parameter',
                 'name'          => 'Voting parameter',
                 'description'   => '',
@@ -52,6 +65,7 @@ $bmp_protocol = array(
             ),
 
             '06' => array(
+                'status'        => 'planned',
                 'action'        => 'parameter_bmp',
                 'name'          => 'Set parameter BMP',
                 'description'   => '',
@@ -60,6 +74,7 @@ $bmp_protocol = array(
             ),
 
             '07' => array(
+                'status'        => 'planned',
                 'action'        => 'parameter_miner',
                 'name'          => 'Set parameter miner',
                 'description'   => '',

@@ -86,6 +86,9 @@ function print_msg(data) {
 
 		var date = new Date(value['p1']*1000);
 
+        if (value['height'] == null)
+            value['height'] = '';
+
 		html += '<tr>';
 		html += '<td>' + value['height'] + '</td>';
 		html += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';

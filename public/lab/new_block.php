@@ -3,17 +3,12 @@
 
 crono();
 
-$num = 1;
-$refresh = 1;
-
-
-for ($h=1;$h<=$num;$h++)
-    $result = get_new_block();
+if (get_new_block())
+    echo '<meta http-equiv="refresh" content="0">';
+else
+    sql_insert('actions', get_mempool());
 
 crono();
-
-if ($result AND $refresh)
-    echo '<meta http-equiv="refresh" content="0">';
 
 
 exit;
