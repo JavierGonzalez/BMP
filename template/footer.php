@@ -22,7 +22,7 @@
 
 <div id="footer-left">
 
-    “Any needed rules and incentives can be enforced with this consensus mechanism.”
-    <a href="https://www.bitcoin.com/bitcoin.pdf" target="_blank" style="color:grey;">Satoshi Nakamoto</a>
+    “Any needed rules and incentives can be enforced with this consensus mechanism.”<br />
+    <a href="https://www.bitcoin.com/bitcoin.pdf" target="_blank" style="color:grey;" nowrap>Satoshi Nakamoto</a>
 
 </div>

@@ -1,4 +1,4 @@
-<?php
+<?php # maximum_simplicity
 
 header('Content-Type: text/html; charset=utf-8');
 
@@ -10,6 +10,11 @@ else
 
 
 $_template['lib_css'][] = '/template/style.css';
+
+
+$_template['js'] .= '
+        bmp_protocol_prefix = "'.$bmp_protocol['prefix'].'";
+    ';
 
 
 ?><!DOCTYPE html>
@@ -94,7 +99,7 @@ echo '
 </div>
 
 
-<script type="text/javascript" src="/template/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/lib/jquery-3.4.1.min.js"></script>
 <?php
 foreach ((array)$_template['lib_js'] AS $file)
 	echo '<script type="text/javascript" src="'.$file.'"></script>'."\n";

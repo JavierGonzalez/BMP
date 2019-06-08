@@ -3,9 +3,9 @@
 
 $_['template']['output'] = 'api';
 
-
-if ($_GET[2]=='refresh' AND is_numeric($_GET['id_last']))
-	$echo['msg'] = sql("SELECT id, txid, height, ROUND(power, ".POWER_PRECISION.") AS power, address, p1, p3 
+if ($_GET[2]=='refresh' AND $_GET['last'])
+	$echo['msg'] = sql("SELECT id, txid, height, time, address, nick, action, p1, p2, p3,
+        ROUND(power, ".POWER_PRECISION.") AS power 
         FROM actions 
-        WHERE action = 'chat' AND p2 = '000001' AND p1 > ".e($_GET['id_last'])." 
-        ORDER BY p1 ASC");
+        WHERE action IN ('chat', 'miner_parameter') AND time > '".e($_GET['last'])."'
+        ORDER BY time ASC, id ASC");

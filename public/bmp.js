@@ -1,6 +1,4 @@
-
-
-/// TREZOR
+// BMP — Javier González González
 
 
 function miner_utxo(data=null) {
@@ -39,15 +37,20 @@ function get_miner_utxo() {
 
         $.post('/api/miner_utxo', { utxo: result.payload.utxo },
             function(data){
-                console.log('miner_utxo found!');
-                console.log(data['miner_utxo']);
-                miner_utxo(data['miner_utxo']);
+                if (data['miner_utxo']['transactionHash']) {
+                    console.log('miner_utxo found! ' + data['miner_utxo']['transactionHash']);
+                    console.log(data['miner_utxo']);
+                    miner_utxo(data['miner_utxo']);
+                } else {
+                    sessionStorage.clear();
+                    console.log('miner_utxo not found!');
+                }
             }
         );
 
     }, function(error) {
-        console.log('error: ' + error);
         sessionStorage.clear();
+        console.log('ERROR: ' + error);
     });
 
 
@@ -101,19 +104,38 @@ function blockchain_send_tx(op_return) {
             
             console.log(result.payload);
 
+            if (result.payload.error)
+                console.log('ERROR: ' + result.payload.error);
+            
             if (result.payload.txid) {
                 var data = miner_utxo();
                 data['index'] = 0;
                 data['value'] = value_output;
                 data['transactionHash'] = result.payload.txid;
                 miner_utxo(data);
+                console.log('BMP Transaction! ' + data['address'] + '  ' + result.payload.txid);
+            } else {
+                sessionStorage.clear();
             }
 
         }, function(error) {
-            console.log('error: ' + error);
             sessionStorage.clear();
+            console.log('ERROR: ' + error);
         });
     }
     
 }
 
+
+
+
+
+function bin2hex(s) {
+    var i, l, o = '', n;
+    s += '';
+    for (i = 0, l = s.length; i < l; i++) {
+        n = s.charCodeAt(i).toString(16)
+        o += n.length < 2 ? '0' + n : n;
+    }
+    return o;
+}

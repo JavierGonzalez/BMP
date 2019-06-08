@@ -1,4 +1,4 @@
-<?php # simple_framework
+<?php # maximum_simplicity
 
 
 $_ = array();
@@ -8,17 +8,17 @@ $_['crono_start'] = microtime(true);
 ob_start(NULL, 1024*1024*10);
 
 
-include('__simple_framework/config.php');
+include('__maximum_simplicity/config.php');
 
 
-include('__simple_framework/functions.php');
+include('__maximum_simplicity/functions.php');
 
 
 foreach (glob('autoload/*.php') AS $_file)
     include($_file);
 
 
-include('__simple_framework/router.php');
+include('__maximum_simplicity/router.php');
 
 
 if (isset($_['template']['output']))

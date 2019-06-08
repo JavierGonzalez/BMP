@@ -100,6 +100,7 @@ function sql_insert($table, $rows) {
 	foreach ($rows AS $row_id => $row) {
 		$columns_values = array();
 
+
 		foreach ($row AS $key => $value) {
 
 			if ($row_id==0)
@@ -122,9 +123,10 @@ function sql_insert($table, $rows) {
 			$values_num = 0;
         }
 	}
-print_r2($values);
+
     if (count($values)>0)
         $res = sql("INSERT INTO `".e($table)."` (".implode(',', (array)$columns).") VALUES ".implode(",", (array)$values));
+
 
 	if ($res===false)
 		return false;
@@ -134,19 +136,19 @@ print_r2($values);
 
 
 
-function sql_update($table, $p, $w) {
+function sql_update($table, $p, $w, $or_insert=false) {
 
 	if (!is_array($p))
 		return false;
 
-	if ($insert===true) {
+	if ($or_insert===true) {
 		$w = str_replace(' LIMIT 1', '', $w);
 
-		if (false===sql("SELECT * FROM `".e($table)."` WHERE ".$w." LIMIT 1"))
-			return sql_insert($table, $p, false);
+		if (sql("SELECT id FROM `".e($table)."` WHERE ".$w." LIMIT 1"))
+            return sql_update($table, $p, $w);
 		else
-			return sql_update($table, $p, $w, false);
-
+            return sql_insert($table, $p);
+            
 	} else {
 		$a = array();
 		foreach ($p AS $key => $value) {

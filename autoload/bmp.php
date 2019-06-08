@@ -1,4 +1,4 @@
-<?php # BMP
+<?php # BMP — Javier González González
 
 
 
@@ -18,8 +18,13 @@ function block_insert($height) {
     
     miners_power();
     
-    foreach ($info['actions'] AS $action)
-        sql_update('actions', $action, "txid = '".$action['txid']."'", false); // Update (0-conf) or insert.
+    foreach ((array)$info['actions'] AS $action)
+        sql_update('actions', $action, "txid = '".$action['txid']."'", true); // Update (0-conf) or insert.
+
+
+    
+    foreach (sql("SELECT address, p2 AS nick FROM actions WHERE action = 'miner_parameter' AND p1 = 'nick'") AS $r)
+        sql_update('miners', array('nick' => $r['nick']), "address = '".$r['address']."'");
 
     return $info;
 }
@@ -78,9 +83,8 @@ function get_block_info($height) {
     /// Actions
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
-            if ($tx_raw = rpc_get_transaction($txid))
-                if ($action = get_action($tx_raw, $block))
-                    $output['actions'][] = $action;
+            if ($action = get_action($txid, $block))
+                $output['actions'][] = $action;
     
     
     return $output;
@@ -102,24 +106,23 @@ function get_mempool() {
     
     foreach (rpc_get_mempool() AS $txid)
         if (!sql("SELECT id FROM actions WHERE txid = '".$txid."' LIMIT 1"))
-            if ($tx_raw = rpc_get_transaction($txid))
-                if ($action = get_action($tx_raw))
-                    $actions[] = $action;
+            if ($action = get_action($txid))
+                $actions[] = $action;
 
-    return (array)$actions;
+    return $actions;
 }
 
 
 
-function get_action($tx, $block=false) {
+function get_action($txid, $block=false) {
+
+    $tx = rpc_get_transaction($txid);
 
     $action = array(
             'chain'     => BLOCKCHAIN,
             'txid'      => $tx['txid'],
             'height'    => ($block?$block['height']:null),
-            'time'      => date("Y-m-d H:i:s", ($block?$block['time']:time())),
         );
-
 
     if (!$tx_info = get_action_tx($tx))
         return false;
@@ -128,15 +131,30 @@ function get_action($tx, $block=false) {
     $power = sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower 
     FROM miners WHERE address = '".e($tx_info['address'])."'")[0];
 
-    if (!$power['hashpower'])
+
+    // Actions without hashpower are ignored.
+    if (!$power['power'])
         return false;
 
 
     if (!$op_return_decode = op_return_decode($tx_info['op_return']))
         return false;
-    
-        
+
+
     $action = array_merge($action, $tx_info, $op_return_decode, $power);
+
+
+    if (!$block)
+        $action['time'] = date("Y-m-d H:i:s");
+    else if ($action['action']=='chat')
+        $action['time'] = date("Y-m-d H:i:s", $action['p1']);
+    else
+        $action['time'] = date("Y-m-d H:i:s", $block['time']);
+
+
+    if ($nick = sql("SELECT p2 AS ECHO FROM actions WHERE action = 'miner_parameter' AND p1 = 'nick' AND address = '".$action['address']."' ORDER BY time DESC LIMIT 1"))
+        if (!is_array($nick))
+            $action['nick'] = $nick;
 
     return $action;
 }
@@ -145,7 +163,7 @@ function get_action($tx, $block=false) {
 
 function get_action_tx($tx) {
     global $bmp_protocol;
-    
+
     if (count($tx['vout'])!==2)
         return false;
 
@@ -186,13 +204,13 @@ function get_action_tx($tx) {
 
 function op_return_decode($op_return) {
     global $bmp_protocol;
-
+    
     if (!ctype_xdigit($op_return))
         return false;
-
+        
     if (substr($op_return,0,2)!=='6a')
         return false;
-
+        
     if (substr($op_return,4,2)===$bmp_protocol['prefix']) // Refact
         $metadata_start_bytes = 3;
     else if (substr($op_return,6,2)===$bmp_protocol['prefix']) // Refact
@@ -217,7 +235,7 @@ function op_return_decode($op_return) {
             if ($parameter = substr($op_return, $counter*2, $v['size']*2)) {
     
                 if (!$v['hex'])
-                    $parameter = injection_filter(hex2bin($parameter));
+                    $parameter = trim(injection_filter(hex2bin($parameter)));
 
                 $output['p'.$p] = $parameter;
 

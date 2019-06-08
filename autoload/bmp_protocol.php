@@ -1,4 +1,4 @@
-<?php # BMP
+<?php # BMP — Javier González González
 
 
 $bmp_protocol = array(
@@ -30,11 +30,29 @@ $bmp_protocol = array(
                 'name'          => 'Chat',
                 'description'   => 'IRC-like on-chain chat',
                 1 => array('size' =>  10, 'name'=>'timestamp'),
-                2 => array('size' =>   3, 'name'=>'channel',  'hex'=>true),
+                2 => array('size' =>   2, 'name'=>'channel',  'hex'=>true),
                 3 => array('size' => 150, 'name'=>'msg'),
             ),
 
             '03' => array(
+                'status'        => 'developing',
+                'action'        => 'miner_parameter',
+                'name'          => 'Set parameter miner',
+                'description'   => '',
+                1 => array('size' =>  10, 'name'=>'key'),
+                2 => array('size' => 200, 'name'=>'value'),
+            ),
+
+            '04' => array(
+                'status'        => 'planned',
+                'action'        => 'bmp_parameter',
+                'name'          => 'Set parameter BMP',
+                'description'   => '',
+                1 => array('size' =>  10, 'name'=>'key'),
+                2 => array('size' => 200, 'name'=>'value'),
+            ),
+
+            '05' => array(
                 'status'        => 'planned',
                 'action'        => 'vote',
                 'name'          => 'Vote',
@@ -45,7 +63,7 @@ $bmp_protocol = array(
                 4 => array('size' => 170, 'name'=>'comment'),
             ),
 
-            '04' => array(
+            '06' => array(
                 'status'        => 'planned',
                 'action'        => 'voting',
                 'name'          => 'Voting create',
@@ -54,7 +72,7 @@ $bmp_protocol = array(
                 2 => array('size' => 200, 'name'=>'title'),
             ),
 
-            '05' => array(
+            '07' => array(
                 'status'        => 'planned',
                 'action'        => 'voting_parameter',
                 'name'          => 'Voting parameter',
@@ -64,23 +82,6 @@ $bmp_protocol = array(
                 3 => array('size' => 180, 'name'=>'value'),
             ),
 
-            '06' => array(
-                'status'        => 'planned',
-                'action'        => 'parameter_bmp',
-                'name'          => 'Set parameter BMP',
-                'description'   => '',
-                1 => array('size' =>  10, 'name'=>'key',  'hex'=>true),
-                2 => array('size' => 200, 'name'=>'value'),
-            ),
-
-            '07' => array(
-                'status'        => 'planned',
-                'action'        => 'parameter_miner',
-                'name'          => 'Set parameter miner',
-                'description'   => '',
-                1 => array('size' =>  10, 'name'=>'key',  'hex'=>true),
-                2 => array('size' => 200, 'name'=>'value'),
-            ),
 
         ),
     );

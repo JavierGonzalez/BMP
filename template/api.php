@@ -1,4 +1,4 @@
-<?php # simple_framework
+<?php # maximum_simplicity
 
 
 header('Content-type:application/json;charset=utf-8');

@@ -1,4 +1,3 @@
-<?php # simple_framework
+<?php # maximum_simplicity
 
-
-include('__simple_framework/start.php');
+include('__maximum_simplicity/start.php');

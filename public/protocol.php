@@ -26,9 +26,13 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
 
 
 $config = array(
-        'coinbase'    => array('align' => 'center'),
+        'status'    => array('capital' => true),
+        'coinbase'  => array('align' => 'center'),
     );
 
+
 echo html_table($table, $config);
+
+echo '<hr /><br /><br /><br /><br />';
 
 print_r2($bmp_protocol);

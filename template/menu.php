@@ -61,7 +61,12 @@ if (DEBUG) {
 
 	$blocks = sql("SELECT COUNT(*) AS num, SUM(hashpower) AS hashpower FROM blocks")[0];
 	if ($blocks['num']>0)
-		echo hashpower_humans(($blocks['hashpower'] / $blocks['num'])).'<br />';
+        echo hashpower_humans(($blocks['hashpower'] / $blocks['num'])).'<br />';
+        
+    echo sql("SELECT ROUND(SUM(power), ".POWER_PRECISION.") AS ECHO FROM miners").'%<br />';
+
+    echo sql("SELECT ROUND(SUM(miners.power), ".POWER_PRECISION.") AS ECHO FROM miners 
+            LEFT OUTER JOIN actions ON actions.address = miners.address WHERE actions.id IS NOT NULL GROUP BY miners.address").'%<br />';
 	
 	echo '<br />';
 
@@ -72,9 +77,11 @@ if (DEBUG) {
 	echo '<br />';
 	
 	echo num((microtime(true)-$_['crono_start'])*1000).' ms &nbsp; ';
-	echo num(memory_get_usage()/1000).' kb<br />';
+    echo num(memory_get_usage()/1000).' kb<br />';
 }
 
 ?>
+
+<span id="msg_error" style="color:red;font-size:10px;"></span>
 
 </div>

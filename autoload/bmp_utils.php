@@ -1,4 +1,4 @@
-<?php # BMP
+<?php # BMP — Javier González González
 
 
 function block_hashpower($block) {
@@ -43,7 +43,7 @@ function address_normalice($address) {
 
 
 
-function hashpower_humans($hps, $decimals=0) {
+function hashpower_humans($hps, $decimals=4) {
     return num($hps/1000000/1000000, $decimals).'&nbsp;TH/s';
 }
 
@@ -66,9 +66,8 @@ function get_new_block() {
     
     $info = block_insert($height);
     
-
-    if (DEBUG)
-        print_r2($info);
+    
+    print_r2($info);
     
     return $info;
 }

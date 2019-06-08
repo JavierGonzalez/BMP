@@ -124,7 +124,8 @@ body {
 }
 #footer-left {
 	margin-right:300px;
-	max-width:600px;
+    max-width:600px;
+    font-size: 16px;
 }
 #footer-right {
     text-align:center;

@@ -1,4 +1,5 @@
-<?php # simple_framework
+<?php # maximum_simplicity
+
 
 #  URL                             ROUTE                        PARAMS
 #  /                               public/index.php             

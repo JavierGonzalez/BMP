@@ -1,4 +1,4 @@
-<?php # simple_framework
+<?php # maximum_simplicity
 
 error_reporting(E_ALL ^ E_NOTICE);
 

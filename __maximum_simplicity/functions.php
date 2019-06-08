@@ -1,4 +1,4 @@
-<?php # simple_framework
+<?php # maximum_simplicity
 
 
 function injection_filter($danger_input) {
@@ -44,11 +44,13 @@ function crono($echo='') {
 		echo '<script>function Sc() { window.scrollTo(0,document.body.scrollHeight); }</script>';
 	}
 
-    if (is_array($echo))
+
+    echo '<br />'.++$crono['count'].'. &nbsp; '.date("Y-m-d H:i:s").' &nbsp; '.number_format(($crono_now-$crono['last'])*1000, 2).' ms &nbsp; '; 
+    
+    if (is_array($echo) OR is_object($echo))
         print_r2($echo);
-
-    echo '<br />'.++$crono['count'].'. &nbsp; '.date("Y-m-d H:i:s").' &nbsp; '.number_format(($crono_now-$crono['last'])*1000, 2).' ms &nbsp; '.$echo; 
-
+    else if ($echo!=='')
+        var_dump($echo);
 
     echo '<script>Sc();</script>';
 

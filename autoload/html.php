@@ -1,4 +1,4 @@
-<?php # BMP
+<?php # BMP — Javier González González
 
 
 function html_table($data, $config=false) {
@@ -30,6 +30,12 @@ function html_table($data, $config=false) {
                 $monospace = false;
                 if ($config[$key]['monospace'])
                     $monospace = ' class="monospace"';
+
+                if ($config[$key]['ucfirst'])
+                    $column = ucfirst($column);
+
+                if ($config[$key]['capital'])
+                    $column = strtoupper($column);
 
             $html .= '<td'.$td_extra.$monospace.' nowrap>'.$column.'</td>';
         }

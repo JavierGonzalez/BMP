@@ -7,9 +7,9 @@ define('DEBUG', true);
 
 define('BLOCK_WINDOW', 2016); // Blocks
 
-define('BLOCKCHAIN', 'BCH'); // The most similar to the original Bitcoin.
+define('BLOCKCHAIN', 'BCH');
 
-define('POWER_PRECISION', 6); // Decimals of %
+define('POWER_PRECISION', 5); // Decimals of %
 
 define('OP_RETURN_MAX_SIZE', 64); // Bytes
 

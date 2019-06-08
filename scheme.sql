@@ -1,9 +1,10 @@
--- BMP
+-- BMP — Javier González González
 
 
 DROP TABLE IF EXISTS `blocks`;
 DROP TABLE IF EXISTS `miners`;
 DROP TABLE IF EXISTS `actions`;
+
 DROP TABLE IF EXISTS `key_value`;
 
 
@@ -43,6 +44,7 @@ CREATE TABLE `miners` (
     `method`                varchar(64)               NOT NULL COMMENT 'value OR quota',
     `value`                 decimal(30,8)             NOT NULL COMMENT 'Bitcoins',
     `quota`                 int(8)                DEFAULT NULL COMMENT 'Number',
+    `nick`                  varchar(30)           DEFAULT NULL,
     `power`                 decimal(12,8)         DEFAULT NULL COMMENT 'Percentaje, updated with every block',
     `hashpower`             decimal(60,0)             NOT NULL COMMENT 'Hashes,     updated with every block',
     PRIMARY KEY (id),
@@ -63,7 +65,7 @@ CREATE TABLE `actions` (
     `time`                  datetime,
     `address`               varchar(64)               NOT NULL,
     `op_return`             longtext                  NOT NULL COMMENT 'hex',
-    `action_id`             varchar(10)               NOT NULL,
+    `action_id`             char(2)                   NOT NULL,
     `action`                varchar(50)               NOT NULL,
     `p1`                    varchar(300)          DEFAULT NULL,
     `p2`                    varchar(300)          DEFAULT NULL,
@@ -72,6 +74,7 @@ CREATE TABLE `actions` (
     `p5`                    varchar(300)          DEFAULT NULL,
     `p6`                    varchar(300)          DEFAULT NULL,
     `json`                  longtext              DEFAULT NULL,
+    `nick`                  varchar(30)           DEFAULT NULL,
     `power`                 decimal(12,8)         DEFAULT NULL COMMENT 'Percentage, immutable',
     `hashpower`             decimal(60,0)         DEFAULT NULL COMMENT 'Hashes,     immutable',
     PRIMARY KEY (id),
@@ -84,6 +87,7 @@ CREATE TABLE `actions` (
     KEY `power` (`power`),
     KEY `hashpower` (`hashpower`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `key_value` (
