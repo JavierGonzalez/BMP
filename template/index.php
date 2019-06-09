@@ -51,7 +51,7 @@ echo '
 
 <div id="content-left">
 	
-	<a href="/" style="font-size:50px;margin-left:50px;">BMP</a>
+	<a href="/" style="font-size:50px;margin-left:35px;">BMP</a>
 	
     <?php include('template/menu.php'); ?>
 	

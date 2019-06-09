@@ -35,7 +35,7 @@ $bmp_protocol = array(
             ),
 
             '03' => array(
-                'status'        => 'developing',
+                'status'        => 'implemented',
                 'action'        => 'miner_parameter',
                 'name'          => 'Set parameter miner',
                 'description'   => '',
@@ -53,7 +53,7 @@ $bmp_protocol = array(
             ),
 
             '05' => array(
-                'status'        => 'planned',
+                'status'        => 'developing',
                 'action'        => 'vote',
                 'name'          => 'Vote',
                 'description'   => 'All action can be voted, validity parallel voting independly.',
@@ -77,7 +77,7 @@ $bmp_protocol = array(
                 'action'        => 'voting_parameter',
                 'name'          => 'Voting parameter',
                 'description'   => '',
-                1 => array('size' =>  30, 'name'=>'txid', 'hex'=>true),
+                1 => array('size' =>  30, 'name'=>'txid',      'hex'=>true),
                 2 => array('size' =>  10, 'name'=>'parameter', 'hex'=>true),
                 3 => array('size' => 180, 'name'=>'value'),
             ),

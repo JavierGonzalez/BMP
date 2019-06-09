@@ -26,6 +26,8 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
 
 
 $config = array(
+        'th_background-color' => '#FFFF99',
+
         'status'    => array('capital' => true),
         'coinbase'  => array('align' => 'center'),
     );

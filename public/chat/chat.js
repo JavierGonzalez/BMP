@@ -87,36 +87,33 @@ function print_msg(data) {
         
         var date = new Date(Date.parse(value['time']));
         
+
+        if (value['nick'] !== null)
+            var nick = value['nick'].substr(0, 20);
+        else
+            var nick = value['address'].substr(-10, 10);
+
         html += '<tr>';
-
+        html += '<td style="color:#888;">' + value['height'] + '</td>';
+        html += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
+        html += '<td align=right title="Miner: ' + value['address'] + '" class="monospace"><a href="/info/miner/' + value['address'] + '" target="_blank">' + nick + '</a></td>';
+        
         if (value['action']=='chat') {
-
-            if (value['nick'] !== null)
-                var nick = value['nick'].substr(0, 20);
-            else
-                var nick = value['address'].substr(-10, 10);
-
-            html += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
-            html += '<td align=right title="Miner: ' + value['address'] + '" class="monospace"><a href="/info/miner/' + value['address'] + '" target="_blank">' + nick + '</a></td>';
-            html += '<td width="100%">' + value['p3'] + '</td>';
+            html += '<td width="100%" style="color:#222;">' + value['p3'] + '</td>';
 
         }
 
 
         if (value['action']=='miner_parameter') {
 
-            html += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
-    
-            html += '<td colspan=2 style="color:#00469A;">';
-            html += '<b>[' + value['action'].toUpperCase() + ']</b>&nbsp; ';
+            html += '<td style="color:#00469A;"><b>[' + value['p1'].toUpperCase() + ']</b>&nbsp; ';
             if (value['p1']=='nick') {
-                html += '<a href="/info/miner/' + value['address'] + '" target="_blank">' + value['address'].substr(-10, 10) + '</a> set nick: <i>' + value['p2'] + '</i>';    
+                html += 'set nick: <i>' + value['p2'] + '</i>';    
             }
             html += '</td>';
 
         }
 
-        html += '<td>' + value['height'] + '</td>';
         html += '<td align=right><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
         html += '</tr>';
         

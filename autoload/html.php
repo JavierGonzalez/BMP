@@ -5,9 +5,9 @@ function html_table($data, $config=false) {
 
     if (!is_array($data))
         return '';
-
+    
     // Header
-    $html .= '<tr>';
+    $html .= '<tr style="'.($config['th_background-color']?'background-color:'.$config['th_background-color'].';':'').'">';
     foreach ((array)$data[0] AS $key => $value) {
 
         if (isset($config[$key]['th']))

@@ -7,20 +7,20 @@ crono();
 if (get_new_block())
     echo '<meta http-equiv="refresh" content="0">';
 
-sql_insert('actions', get_mempool());
-
-sleep(15);
-
-sql_insert('actions', get_mempool());
-
-
-sleep(15);
-
-sql_insert('actions', get_mempool());
-
-
-crono();
-
-echo sql_error();
+crono(sql_insert('actions', get_mempool()));
+sleep(5);
+crono(sql_insert('actions', get_mempool()));
+sleep(5);
+crono(sql_insert('actions', get_mempool()));
+sleep(5);
+crono(sql_insert('actions', get_mempool()));
+sleep(5);
+crono(sql_insert('actions', get_mempool()));
+sleep(5);
+crono(sql_insert('actions', get_mempool()));
+sleep(5);
+crono(sql_insert('actions', get_mempool()));
+sleep(5);
+crono(sql_insert('actions', get_mempool()));
 
 exit;

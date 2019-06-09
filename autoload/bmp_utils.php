@@ -74,13 +74,6 @@ function get_new_block() {
 
 
 
-function block_delete($height) {
-    sql("DELETE FROM blocks  WHERE height = ".$height);
-    sql("DELETE FROM miners  WHERE height = ".$height);
-    sql("DELETE FROM actions WHERE height = ".$height);
-}
-
-
 function block_delete_from($height) {
     sql("DELETE FROM blocks  WHERE height >= ".$height);
     sql("DELETE FROM miners  WHERE height >= ".$height);

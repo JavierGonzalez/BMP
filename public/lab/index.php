@@ -2,12 +2,15 @@
 
 crono();
 
-exit;
 
-if (get_new_block())
-    echo '<meta http-equiv="refresh" content="0">';
-
-crono();
+crono(get_mempool());
+crono(get_mempool());
+crono(get_mempool());
+crono(get_mempool());
+crono(get_mempool());
+crono(get_mempool());
+crono(get_mempool());
+crono(get_mempool());
 
 exit;
 

@@ -1,0 +1,4 @@
+<?php # BMP
+
+
+echo 'voting';
