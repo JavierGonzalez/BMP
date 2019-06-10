@@ -2,27 +2,31 @@
 
 $_template['title'] = 'Protocol';
 
-echo html_h('BMP Protocol', 2);
 
 foreach ($bmp_protocol['actions'] AS $action_id => $action) {
 
-    $table[] = array(
+    $td = array(
             'status'        => $action['status'],
             'coinbase'      => ($action['coinbase']?html_b('x'):''),
             'action'        => $action['action'],
-            'name'          => $action['name'],
-            'description'   => $action['description'],
+            //'name'          => $action['name'],
 
             'BMP'           => $bmp_protocol['prefix'],
             'ACTION'        => $action_id,
         );
 
-    $table[0]['BMP']    = '';
-    $table[0]['ACTION'] = '';
     
-    $params = array();
+    for ($i=1;$i<=4;$i++)
+        $td['p'.$i] = ($action[$i]?$action[$i]['name'].'['.$action[$i]['size'].']':'');
+            
+    if ($txid_action_random = sql("SELECT txid AS ECHO FROM actions WHERE action = '".$action['action']."' ORDER BY RAND() LIMIT 1"))
+        $td['example'] = html_a('/action/'.$txid_action_random, 'Example');
 
+    $table[] = $td;
 }
+
+$table[0]['BMP'] = '';
+
 
 
 $config = array(
@@ -33,8 +37,20 @@ $config = array(
     );
 
 
-echo html_table($table, $config);
 
-echo '<hr /><br /><br /><br /><br />';
 
-print_r2($bmp_protocol);
+
+?>
+<br />
+<h2>BMP Protocol</h2>
+
+<ul>
+    <li>Power percentage is calculated with SHA-256 hashpower of the last <?=BLOCK_WINDOW?> BCH blocks.</li>
+    <li>Miners power is calculated proportionally with coinbase output addresses.</li>
+    <li>Transactions (actions) without hashpower are ignored.</li>
+    <li>Miners power changes with each block.</li>
+    <li>Actions power never changes.</li>
+</ul>
+
+
+<?=html_table($table, $config)?>

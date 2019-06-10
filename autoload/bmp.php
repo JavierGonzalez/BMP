@@ -222,12 +222,13 @@ function op_return_decode($op_return) {
 function get_mempool() {
     global $mempool_cache;
 
-    foreach (rpc_get_mempool() AS $txid)
+    foreach (rpc_get_mempool() AS $txid) {
+        crono($txid);
         if (!$mempool_cache[$txid] AND $mempool_cache[$txid] = true)
             if (!sql("SELECT id FROM actions WHERE txid = '".$txid."' LIMIT 1"))
                 if ($action = get_action($txid))
                     $actions[] = $action;
-
+    }
     return $actions;
 }
 

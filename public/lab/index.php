@@ -4,13 +4,6 @@ crono();
 
 
 crono(get_mempool());
-crono(get_mempool());
-crono(get_mempool());
-crono(get_mempool());
-crono(get_mempool());
-crono(get_mempool());
-crono(get_mempool());
-crono(get_mempool());
 
 exit;
 

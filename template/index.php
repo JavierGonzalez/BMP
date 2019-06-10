@@ -9,6 +9,8 @@ else
 	$_template['title'] = 'BMP';
 
 
+    
+$_template['lib_css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
 $_template['lib_css'][] = '/template/style.css';
 
 
@@ -29,7 +31,7 @@ $_template['js'] .= '
 
 <!--<link rel="shortcut icon" href="/template/favicon.ico" />-->
 
-
+<link rel="stylesheet" href="/lib/bootstrap-4.3.1/css/bootstrap.min.css">
 <?php
 
 foreach ((array)$_template['lib_css'] AS $file)
@@ -99,11 +101,16 @@ echo '
 </div>
 
 
+
 <script type="text/javascript" src="/lib/jquery-3.4.1.min.js"></script>
+<script src="/lib/popper-1.15.0.min.js"></script>
+<script src="/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+
 <?php
 foreach ((array)$_template['lib_js'] AS $file)
 	echo '<script type="text/javascript" src="'.$file.'"></script>'."\n";
 ?>
+
 <script type="text/javascript">
 <?=$_template['js']?>
 </script>

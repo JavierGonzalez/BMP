@@ -52,7 +52,7 @@ function chat_query_ajax() {
         var start = new Date().getTime();
 		$('#vpc_actividad').attr('src', '/public/chat/img/point_blue.png');
 
-		$.post('/chat/ajax/refresh?last=' + last, function(data) {
+		$.post('/chat/api/refresh?last=' + last, function(data) {
 
             if (data) {
                 $('#vpc_actividad').attr('src', '/public/chat/img/point_green.png');

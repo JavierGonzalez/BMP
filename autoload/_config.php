@@ -11,6 +11,6 @@ define('BLOCKCHAIN', 'BCH');
 
 define('POWER_PRECISION', 5); // Decimals of %
 
-define('OP_RETURN_MAX_SIZE', 64); // Bytes
+define('OP_RETURN_MAX_SIZE', 220); // Bytes
 
 define('FEE_PER_BYTE', 0.00002); // Shatoshis per byte

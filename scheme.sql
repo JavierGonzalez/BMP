@@ -5,8 +5,6 @@ DROP TABLE IF EXISTS `blocks`;
 DROP TABLE IF EXISTS `miners`;
 DROP TABLE IF EXISTS `actions`;
 
-DROP TABLE IF EXISTS `key_value`;
-
 
 CREATE TABLE `blocks` (
     `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
@@ -86,14 +84,4 @@ CREATE TABLE `actions` (
     KEY `p1` (`p1`),
     KEY `power` (`power`),
     KEY `hashpower` (`hashpower`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
-
-CREATE TABLE `key_value` (
-    `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
-    `key`                   varchar(900)              NOT NULL,
-    `value`                 longtext              DEFAULT NULL,
-    PRIMARY KEY (id),
-    KEY `key` (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

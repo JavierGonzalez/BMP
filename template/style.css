@@ -75,17 +75,12 @@ thead th, th {
 
 
 
-
-
-
-/*** PROVISIONAL ***/
-.quitar { display:none; } /* Elimina elementos del diseño antiguo para la transición */
-
 /*** ESTRUCTURA ***/
 body {
 	min-width:800px;
 	max-width:1600px;
-	cursor:default;
+    cursor:default;
+    line-height: 1.2;
 	color: #111;
 	font-size:15px;
 	font-family: "Arial", "Helvetica", sans-serif;
@@ -113,7 +108,7 @@ body {
 }
 
 #header {
-	height:99px;
+	height:61px;
 	border-bottom:1px solid #CCC;
 	/*box-shadow:inset -6px -6px 15px #F5F5F5;*/
 }
@@ -141,7 +136,7 @@ body {
 
 #content {
 	padding:0 10px 5px 20px;
-	min-height:480px;
+	min-height:540px;
 }
 
 #footer {
@@ -287,144 +282,13 @@ ul.breadcrumbs.alt1 li a { border-bottom:1px solid #CCC; }
 
 
 
-/*** CONTENIDO GENERAL ***/
 #vpc_actividad { cursor:pointer; }
-.votacion_desc_min {
-	max-height:220px;
-	overflow-y:auto;
-	/*box-shadow:inset -8px -8px 15px #FEFEFE;*/
-	border-bottom:1px dashed #DDD;
-}
-.vcc, .vc, .vcn, .vcnn { 
-	background-color:#EEE;
-	font-weight:bold;  
-	font-size:18px;
-	padding: 2px 5px 1px 4px;
-	border-radius: 6px;
-	-moz-border-radius: 6px; 
-	-webkit-border-radius: 6px;
-}
-.vcc { color:#EA9800; }
-.vc { color:orange; }
-.vcn { color:#FF3E43; }
-.vcnn { color:#D20000; }
-
-.form_textarea {
-	min-width:475px;
-	width:90%;
-	height:350px;
-	color:green;
-	font-weight:bold;
-}
-
-.amarillo, .azul {
-	background:#FFFFDD;
-	border:1px solid #FFD700;
-	padding:5px 10px 5px 10px; 
-	border-radius: 6px; 
-	-moz-border-radius: 6px; 
-	-webkit-border-radius: 6px;
-}
-.azul { 
-	border:1px solid #00CCFF;
-	background:#D3F7FE; 
-}
-.gris { color:#808080; }
-
-#pnick { 
-	position:absolute;
-	min-width:280px;
-	text-align:left; 
-	box-shadow: 6px 6px 15px #888;
-}
-#pnick b { color:green; }
-
-.pols { color:#ECC900; }
-
-.ciudadano, .desarrollador { color:#06f; }
-.turista { color:#66B3FF; }
-.validar { color:#96B7CF; }
-.expulsado { color:#FF8A8A; }
-.extrangero { color:#CCC; }
-
-.gbarra {
-	position: relative; /* IE is dumb */
-	width: 120px;
-	border: 1px solid #999;
-	padding: 0px;
-}
-.gbarra .barra {
-	display: block;
-	position: relative;
-	background: #CCC;
-	text-align: center;
-}
-.gbarra .barra span { position: absolute; left: 1em; }
 
 
 
-
-/*** CONTENIDO FORO ***/
 .code {
 	background-color:#000;
 	color: #5F5;
 	font-family:monospace;
 }
-.quote {
-	background: url('bg75.png') repeat;
-	border:1px solid #CCC;
-	font-size:15px;
-	border-right:none;
-	border-bottom:none;
-	border-radius: 12px; 
-	font-family:serif;
-	font-style:italic;
-	padding: 6px;
-}
-blockquote cite {
-	font-style: normal;
-	font-weight: bold;
-	display: block;
-	margin-bottom: 0;
-	border:none;
-}
-.citar { float: right; }
 
-
-/*** CONTENIDO DOCS ***/
-#doc_pad { text-align:justify; margin:20px; } /* Conjunto de hacks para normalizar el codigo html generado por Etherpad-lite */
-#doc_pad ul, #doc_pad ol { margin:4px 0 -4px 0; }
-#doc_pad li { text-align:left; margin:3px 0 4px 0; }
-#doc_pad ol ol { list-style-type: lower-roman; }
-.indent { list-style-type:none; }
-
-
-
-/*** CONTENIDO AYUDA ***/
-.ayuda {
-	display:inline-block;
-	cursor:help;
-	background-image:url('varios/help.png');
-	width:22px;
-	height:22px;
-}
-.ayudap {
-	margin:-10px 0 0 -90px;
-	position:absolute;
-	background:#FFFF95;
-	font-size:14px;
-	color:#666;
-	border:2px solid #FFFFFF;
-	cursor:help;
-	max-width:350px;
-	min-height:50px;
-	padding:6px 8px;
-	z-index:10;
-	border-radius:6px;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-}
-
-
-/*** HACKS (DOCUMENTAR) ***/
-strong, b {color:inherit;background:none;padding:0px;} /* Para anular una rareza de kickstart */
