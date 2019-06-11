@@ -1,6 +1,6 @@
 # The Bitcoin Mining Parliament
 
-BMP IS AN OPENSOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PARTIES
+THIS IS AN OPENSOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PARTIES
 
 ------
 
@@ -45,7 +45,7 @@ technologically at a faster rate.
 
 Voting with hashpower.
 
-Bitcoin is the safest voting system known to mankind.
+Bitcoin is the safest voting system known.
 
 BMP is a LAMP system (Linux, Apache, MySQL and PHP) completely on-chain.
 
