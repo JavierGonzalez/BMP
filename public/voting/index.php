@@ -4,7 +4,7 @@
 /*
 
 Features:
-- type + vote_type + random_options + question
+- vote_type + random_options + question
 
 (None)
 - type + option1

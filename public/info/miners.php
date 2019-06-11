@@ -2,6 +2,8 @@
 
 $_template['title'] = 'Miners';
 
+echo html_h($_template['title'], 2);
+
 
 $blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");
 
@@ -27,7 +29,7 @@ foreach ($data AS $key => $value) {
     if ($value['actions'] > 0)
         $data[$key]['miner'] = html_b($data[$key]['miner']);
 
-    $data[$key]['power']     = num($value['power'], POWER_PRECISION).'%';
+    $data[$key]['power']     = '<span title="'.$value['power'].'%">'.num($value['power'], POWER_PRECISION).'%</span>';
     $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/$blocks_num);
 }
 

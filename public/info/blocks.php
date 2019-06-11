@@ -2,11 +2,13 @@
 
 $_template['title'] = 'Blocks';
 
+echo html_h($_template['title'], 2);
+
 
 $data = sql("SELECT height, hash,
     (SELECT COUNT(*) FROM miners WHERE height = blocks.height) AS miners,
     (SELECT COUNT(*) FROM actions WHERE height = blocks.height) AS actions, 
-    pool, tx_count, time, 1 AS minutes, hashpower
+    pool, tx_count, time, 1 AS minutes, hashpower, power_by
     FROM blocks 
     ORDER BY height DESC");
 
@@ -26,7 +28,7 @@ foreach ($data AS $key => $value) {
     $data[$key]['tx_count']  = num($value['tx_count']);
 
     $data[$key]['hashpower'] = hashpower_humans($value['hashpower']);
-    $data[$key]['hash']      = substr($value['hash'],0,24).'..';
+    $data[$key]['hash']      = html_a('/info/block/'.$value['hash'], substr($value['hash'],0,24));
 
 }
 

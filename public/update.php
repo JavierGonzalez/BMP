@@ -1,7 +1,6 @@
 <?php # BMP
 
 
-
 crono();
 
 if (get_new_block())

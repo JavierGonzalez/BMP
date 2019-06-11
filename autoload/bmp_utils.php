@@ -1,11 +1,6 @@
 <?php # BMP — Javier González González
 
 
-function block_hashpower($block) {
-    return ($block['difficulty'] * pow(2,32) / 600); // Hashes per second.
-}
-
-
 
 function revert_bytes($hex) {
     $hex = str_split($hex, 2);

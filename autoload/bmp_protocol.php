@@ -7,6 +7,7 @@ $bmp_protocol = array(
         
         'actions' => array(
 
+
             ' ' => array(
                 'status'        => 'implemented',
                 'coinbase'      => true,
@@ -15,15 +16,18 @@ $bmp_protocol = array(
                 'description'   => 'By default, standard, P2Pool style',
             ),
 
+
             '01' => array(
-                'status'        => 'planned',
+                'status'        => 'implemented', // But not tested.
                 'coinbase'      => true,
                 'action'        => 'power_by_opreturn',
                 'name'          => 'Power signalling by OP_RETURN',
                 'description'   => 'Value independent signaling. Any number, best option.',
-                1 => array('size' => 32, 'name'=>'miner'),
-                2 => array('size' => 3, 'name'=>'number',  'hex'=>true),
+                1 => array('size' =>  3, 'name'=>'percentage',  'hex'=>true),
+                2 => array('size' => 34, 'name'=>'address'),
+                
             ),
+
 
             '02' => array(
                 'status'        => 'implemented',
@@ -35,6 +39,7 @@ $bmp_protocol = array(
                 3 => array('size' => 150, 'name'=>'msg'),
             ),
 
+
             '03' => array(
                 'status'        => 'implemented',
                 'action'        => 'miner_parameter',
@@ -44,6 +49,7 @@ $bmp_protocol = array(
                 2 => array('size' => 200, 'name'=>'value'),
             ),
 
+
             '04' => array(
                 'status'        => 'planned',
                 'action'        => 'bmp_parameter',
@@ -52,6 +58,7 @@ $bmp_protocol = array(
                 1 => array('size' =>  10, 'name'=>'key'),
                 2 => array('size' => 200, 'name'=>'value'),
             ),
+
 
             '05' => array(
                 'status'        => 'planned',
@@ -64,6 +71,7 @@ $bmp_protocol = array(
                 4 => array('size' => 160, 'name'=>'comment'),
             ),
 
+
             '06' => array(
                 'status'        => 'developing',
                 'action'        => 'voting',
@@ -74,6 +82,7 @@ $bmp_protocol = array(
                 3 => array('size' => 200, 'name'=>'question'),
             ),
 
+            
             '07' => array(
                 'status'        => 'developing',
                 'action'        => 'voting_parameter',

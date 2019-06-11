@@ -1,5 +1,5 @@
 
-<div id="footer-right">
+<div style="float:right;">
 
     The Bitcoin Mining Parliament
 
@@ -20,7 +20,7 @@
 </div>
 
 
-<div id="footer-left">
+<div>
 
     “Any needed rules and incentives can be enforced with this consensus mechanism.”<br />
     <a href="https://www.bitcoin.com/bitcoin.pdf" target="_blank" style="color:grey;" nowrap>Satoshi Nakamoto</a>

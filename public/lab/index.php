@@ -3,7 +3,11 @@
 crono();
 
 
-crono(get_mempool());
+
+if (get_new_block())
+    echo '<meta http-equiv="refresh" content="0">';
+
+crono();
 
 exit;
 

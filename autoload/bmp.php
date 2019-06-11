@@ -2,17 +2,21 @@
 
 
 function block_insert($height) {
-    set_time_limit(60*10);
+    set_time_limit(60*60);
 
     if (sql("SELECT id FROM blocks WHERE height = '".e($height)."' LIMIT 1"))   
         return false;
 
 
-    $block    = rpc_get_block($height);
-    $coinbase = rpc_get_transaction($block['tx'][0]);
+    $block = rpc_get_block($height);
+    $block_hashpower = $block['difficulty'] * pow(2,32) / 600; // Hashes per second.
+    
+    $coinbase = rpc_get_transaction($block['tx'][0]); 
+    $coinbase_info = coinbase_info($coinbase);
 
-            
-    /// Block
+
+    
+    /// BLOCK
     sql_insert('blocks', array(
             'chain'                 => BLOCKCHAIN,
             'height'                => $block['height'],
@@ -29,38 +33,32 @@ function block_insert($height) {
             'difficulty'            => $block['difficulty'],
             'coinbase'              => $coinbase['vin'][0]['coinbase'],
             'pool'                  => pool_decode(hex2bin($coinbase['vin'][0]['coinbase']))['name'],
-            'hashpower'             => block_hashpower($block, $coinbase),
+            'power_by'              => $coinbase_info['power_by'],
+            'quota_total'           => $coinbase_info['quota_total'],
+            'hashpower'             => $block_hashpower,
         ));
 
     foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
         block_delete($r['height']);
 
     
-    $power_by = 'value';
-    foreach ($coinbase['vout'] AS $tx_vout)
-        if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
-            $block_coinbase_value += $tx_vout['value'];
 
-
-    /// Miners
-    foreach ((array)$coinbase['vout'] AS $tx_vout)
-        if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
-            sql_insert('miners', array(
-                    'chain'         => BLOCKCHAIN,
-                    'txid'          => $coinbase['txid'],
-                    'height'        => $block['height'],
-                    'address'       => address_normalice($tx_vout['scriptPubKey']['addresses'][0]),
-                    'method'        => $power_by,
-                    'value'         => $tx_vout['value'],
-                    'quota'         => null,
-                    'power'         => null,
-                    'hashpower'     => ($output['block']['hashpower']*(($tx_vout['value']*100)/$block_coinbase_value))/100,
-                ));
+    /// MINERS
+    foreach ((array)$coinbase_info['miners'] AS $miner)
+        sql_insert('miners', array(
+                'chain'         => BLOCKCHAIN,
+                'txid'          => $coinbase['txid'],
+                'height'        => $block['height'],
+                'address'       => address_normalice($miner['address']),
+                'quota'         => $miner['quota'],
+                'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_info['quota_total']),
+            ));
     
     miners_power();
 
 
-    /// Actions
+
+    /// ACTIONS
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
             if ($action = get_action($txid, $block))
@@ -73,13 +71,51 @@ function block_insert($height) {
 }
 
 
+
 function miners_power() {
 
-    $hashpower_total = sql("SELECT SUM(hashpower) AS ECHO FROM blocks ORDER BY time DESC LIMIT ".BLOCK_WINDOW);
+    $hashpower_total = sql("SELECT SUM(hashpower) AS ECHO FROM miners");
 
-    sql("UPDATE miners SET power = ROUND((hashpower*100)/".$hashpower_total.", ".POWER_PRECISION.")");
+    sql("UPDATE miners SET power = (hashpower*100)/".$hashpower_total);
 
 }
+
+
+
+function coinbase_info($coinbase) {
+    global $bmp_protocol;
+
+    foreach ($coinbase['vout'] AS $tx_vout)
+        if (substr($tx_vout['scriptPubKey']['asm'],0,14)=='OP_RETURN '.$bmp_protocol['prefix'].'01')
+            $output['miners'][] = array(
+                    'address' => hex2bin(substr($tx_vout['scriptPubKey']['asm'],17,40)),
+                    'quota'   => trim(hex2bin(substr($tx_vout['scriptPubKey']['asm'],14,3))),
+                );
+
+
+    if ($output['miners']) {
+        $output['power_by'] = 'opreturn';
+    
+    } else {
+        $output['power_by'] = 'value';
+
+        foreach ($coinbase['vout'] AS $tx_vout)
+            if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
+                $output['miners'][] = array(
+                        'address' => $tx_vout['scriptPubKey']['addresses'][0],
+                        'quota'   => $tx_vout['value'],
+                    );
+
+    }
+    
+
+    foreach ($output['miners'] AS $miner)
+        $output['quota_total'] += $miner['quota'];
+
+
+    return $output;
+}
+
 
 
 function get_action($txid, $block=false) {
@@ -222,13 +258,12 @@ function op_return_decode($op_return) {
 function get_mempool() {
     global $mempool_cache;
 
-    foreach (rpc_get_mempool() AS $txid) {
-        crono($txid);
+    foreach (rpc_get_mempool() AS $txid)
         if (!$mempool_cache[$txid] AND $mempool_cache[$txid] = true)
             if (!sql("SELECT id FROM actions WHERE txid = '".$txid."' LIMIT 1"))
                 if ($action = get_action($txid))
                     $actions[] = $action;
-    }
+    
     return $actions;
 }
 
