@@ -6,20 +6,20 @@ THIS IS AN OPENSOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PAR
 
 ## Why
 
-Extract from [Bitcoin: A Peer-to-Peer Electronic Cash System](https://www.bitcoin.com/bitcoin.pdf) (2008-10):
+Extract from [Bitcoin: A Peer-to-Peer Electronic Cash System](https://www.bitcoin.com/bitcoin.pdf) by Satoshi Nakamoto (2008-10):
 
 > They vote with their CPU power, expressing their acceptance of
 valid blocks by working on extending them and rejecting invalid blocks by refusing to work on
 them. Any needed rules and incentives can be enforced with this consensus mechanism.
 
 
-Extract from [Miners are the executive power of Bitcoin](https://virtualpol.com/Miners_are_the_executive_power_of_Bitcoin_EN.pdf) (2017-10-31):
+Extract from [Miners are the executive power of Bitcoin](https://virtualpol.com/Miners_are_the_executive_power_of_Bitcoin_EN.pdf) by Javier González González (2017-10-31):
 
 > As a new form of executive power, it is likely that in the near future a virtual and transparent
 Bitcoin Mining Parliament (BMP) will be established. There each participant can have voice
 and vote in proportion to their percentage of demonstrable exahases per second.
 
-Extract from [The Bitcoin Mining Parliament](https://virtualpol.com/BMP_EN.pdf) (2018-06-15):
+Extract from [The Bitcoin Mining Parliament](https://virtualpol.com/BMP_EN.pdf) by Javier González González (2018-06-15):
 
 > Currently, the Bitcoin miners estimate consensus with inadequate coordination.
 
@@ -41,6 +41,19 @@ technologically at a faster rate.
 
 > For a successful global adoption to be possible, Bitcoin miners must coordinate effectively.
 
+Tweet from [Haipo Yang](https://twitter.com/yhaiyang/status/1027914585607626752) (2018-07-10):
+
+> We need stop the regular hard fork of Bitcoin Cash. We need stable Bitcoin protocol specificatoon, We need multiple implementation. There should not be dev decide but miner vote.
+
+Text by Jihan Wu (2018-07-30):
+
+> We need a decision making process for changing and improving the protocol.
+
+Extract from [ABC vs BSV Hash War (Part III)](https://medium.com/@jiangzhuoer/abc-vs-bsv-hash-war-part-iii-the-war-of-the-hash-power-45fef8010467) by Jiang Zhuoer (2018-11-14):
+
+> No matter the outcome, this war will display the power and influence of the hashrate and this would potentially put weight on the importance of hashrate in the ecosystem. This lays the ground of using hashrate as the deciding factor for future Bitcoin splits. BTC, BCH, BSV and other coins which have same consensus algorithm and yet splits will eventually be unified.
+
+
 ## How
 
 Voting with hashpower.
@@ -53,7 +66,7 @@ BMP connects to a Bitcoin Cash client by RPC, to read blocks and transactions.
 
 The on-chain information is transformed with PHP in 3 tables: blocks, miners and actions.
 
-Actions are created and issued in JavaScript with the Trezor API.
+Actions are created in JavaScript and send with the Trezor API.
 
 See more in [**BMP Protocol**](https://bmp.virtualpol.com/protocol).
 
@@ -63,7 +76,8 @@ See more in [**BMP Protocol**](https://bmp.virtualpol.com/protocol).
 
 ### Requirements for use
 
-...
+* Your address situated in a coinbase output in the last 2016 BCH blocks (hashpower required).
+* Trezor.
 
 ### Requirements to deploy
 
