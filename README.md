@@ -12,6 +12,9 @@ Extract from [Bitcoin: A Peer-to-Peer Electronic Cash System](https://www.bitcoi
 valid blocks by working on extending them and rejecting invalid blocks by refusing to work on
 them. Any needed rules and incentives can be enforced with this consensus mechanism.
 
+Tweet by [Roger Ver](https://twitter.com/rogerkver/status/649991677721972736) (2015-10-02):
+
+> If freedom is the why,  Bitcoin is the how.
 
 Extract from [Miners are the executive power of Bitcoin](https://virtualpol.com/Miners_are_the_executive_power_of_Bitcoin_EN.pdf) by Javier González González (2017-10-31):
 
@@ -41,7 +44,7 @@ technologically at a faster rate.
 
 > For a successful global adoption to be possible, Bitcoin miners must coordinate effectively.
 
-Tweet from [Haipo Yang](https://twitter.com/yhaiyang/status/1027914585607626752) (2018-07-10):
+Tweet by [Haipo Yang](https://twitter.com/yhaiyang/status/1027914585607626752) (2018-07-10):
 
 > We need stop the regular hard fork of Bitcoin Cash. We need stable Bitcoin protocol specificatoon, We need multiple implementation. There should not be dev decide but miner vote.
 
