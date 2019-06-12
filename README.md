@@ -44,11 +44,11 @@ technologically at a faster rate.
 
 > For a successful global adoption to be possible, Bitcoin miners must coordinate effectively.
 
-Tweet by [Haipo Yang](https://twitter.com/yhaiyang/status/1027914585607626752) (2018-07-10):
+Tweet by [Haipo Yang](https://twitter.com/yhaiyang/status/1027914585607626752) (2018-08-10):
 
 > We need stop the regular hard fork of Bitcoin Cash. We need stable Bitcoin protocol specificatoon, We need multiple implementation. There should not be dev decide but miner vote.
 
-Text by Jihan Wu (2018-07-30):
+Text by Jihan Wu (2018-08-30):
 
 > We need a decision making process for changing and improving the protocol.
 
