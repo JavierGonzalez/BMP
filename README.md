@@ -1,6 +1,6 @@
 # The Bitcoin Mining Parliament
 
-THIS IS AN OPENSOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PARTIES
+THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PARTIES.
 
 ------
 
@@ -8,9 +8,7 @@ THIS IS AN OPENSOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PAR
 
 Extract from [Bitcoin: A Peer-to-Peer Electronic Cash System](https://www.bitcoin.com/bitcoin.pdf) by Satoshi Nakamoto (2008-10):
 
-> They vote with their CPU power, expressing their acceptance of
-valid blocks by working on extending them and rejecting invalid blocks by refusing to work on
-them. Any needed rules and incentives can be enforced with this consensus mechanism.
+> Any needed rules and incentives can be enforced with this consensus mechanism.
 
 Tweet by [Roger Ver](https://twitter.com/rogerkver/status/649991677721972736) (2015-10-02):
 
@@ -69,9 +67,11 @@ BMP connects to a Bitcoin Cash client by RPC, to read blocks and transactions.
 
 The on-chain information is transformed with PHP in 3 tables: blocks, miners and actions.
 
-Actions are created in JavaScript and send with the Trezor API.
+Actions are composed in JavaScript and send with the Trezor API.
 
-See more in [**BMP Protocol**](https://bmp.virtualpol.com/protocol).
+Actions without hashpower are ignored.
+
+See more in: [**BMP Protocol**](https://bmp.virtualpol.com/protocol) and BMP paper in [English](https://virtualpol.com/BMP_EN.pdf), [Chinese](https://virtualpol.com/BMP_CN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
 
 ## What
 
@@ -87,6 +87,10 @@ See more in [**BMP Protocol**](https://bmp.virtualpol.com/protocol).
 ...
 
 ### How to deploy
+
+...
+
+### Known problems
 
 ...
 
