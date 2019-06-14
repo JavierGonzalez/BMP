@@ -88,13 +88,13 @@ function coinbase_info($coinbase) {
     foreach ($coinbase['vout'] AS $tx_vout)
         if (substr($tx_vout['scriptPubKey']['asm'],0,14)=='OP_RETURN '.$bmp_protocol['prefix'].'01')
             $output['miners'][] = array(
-                    'address' => hex2bin(substr($tx_vout['scriptPubKey']['asm'],17,40)),
-                    'quota'   => trim(hex2bin(substr($tx_vout['scriptPubKey']['asm'],14,3))),
+                    'address' => trim(hex2bin(substr($tx_vout['scriptPubKey']['asm'],17,40))), // Refact
+                    'quota'   => trim(hexdec( substr($tx_vout['scriptPubKey']['asm'],14, 3))),
                 );
 
 
     if ($output['miners']) {
-        $output['power_by'] = 'opreturn';
+        $output['power_by'] = 'opreturn'; // Refact
     
     } else {
         $output['power_by'] = 'value';
@@ -133,11 +133,11 @@ function get_action($txid, $block=false) {
 
     
     $power = sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower 
-                FROM miners WHERE address = '".e($tx_info['address'])."'")[0];
+                  FROM miners WHERE address = '".e($tx_info['address'])."'")[0];
 
 
     // Actions without hashpower are ignored.
-    if (!$power['power'])
+    if (!$power['hashpower'])
         return false;
 
 
@@ -149,12 +149,13 @@ function get_action($txid, $block=false) {
 
 
     if (!$block)
-        $action['time'] = date("Y-m-d H:i:s");
+        $action['time'] = date("Y-m-d H:i:s");                  // By BMP server
     else if ($action['action']=='chat')
-        $action['time'] = date("Y-m-d H:i:s", $action['p1']);
+        $action['time'] = date("Y-m-d H:i:s", $action['p1']);   // By user
     else
-        $action['time'] = date("Y-m-d H:i:s", $block['time']);
+        $action['time'] = date("Y-m-d H:i:s", $block['time']);  // By hashpower
 
+    
     if ($block AND sql("SELECT id FROM actions WHERE txid = '".$action['txid']."' LIMIT 1"))
         unset($action['time']);
 
@@ -238,13 +239,15 @@ function op_return_decode($op_return) {
     foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
         if (is_numeric($p)) {
             if ($parameter = substr($op_return, $counter*2, $v['size']*2)) {
-    
-                if (!$v['hex'])
+                $counter += $v['size'];
+
+                if ($v['parse']=='hex2bin')
                     $parameter = trim(injection_filter(hex2bin($parameter)));
 
-                $output['p'.$p] = $parameter;
+                if ($v['parse']=='hexdec')
+                    $parameter = trim(hexdec($parameter));
 
-                $counter += $v['size'];
+                $output['p'.$p] = $parameter;
             }
         }
     }
@@ -278,6 +281,6 @@ function actions_updates() {
 
 
 function block_delete($height) {
-    sql("DELETE FROM blocks WHERE height = ".$height);
+    sql("DELETE FROM blocks WHERE height = ".$height); // Refact
     sql("DELETE FROM miners WHERE height = ".$height);
 }

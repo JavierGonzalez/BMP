@@ -43,29 +43,6 @@ function sql_link() {
 
 
 
-function sql_close() {
-	global $sql;
-
-	foreach ((array)$sql['link'] AS $link)
-    	@mysqli_close($link);
-
-    unset($sql['link']);
-}
-
-
-
-function sql_error() {
-	$msg = @mysqli_error(sql_link());
-	return ($msg?$msg:'');
-}
-
-
-
-function e($danger_user_input) {
-	return mysqli_real_escape_string(sql_link(), $danger_user_input);
-}
-
-
 
 function sql($query) {
 
@@ -223,6 +200,25 @@ function sql_where($array=false, $operator='AND') {
 
 
 
+function sql_close() {
+	global $sql;
+
+	foreach ((array)$sql['link'] AS $link)
+    	@mysqli_close($link);
+
+    unset($sql['link']);
+}
 
 
 
+function sql_error() {
+	$msg = @mysqli_error(sql_link());
+	return ($msg?$msg:'');
+}
+
+
+
+
+function e($danger_user_input) {
+	return mysqli_real_escape_string(sql_link(), $danger_user_input);
+}

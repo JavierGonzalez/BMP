@@ -4,6 +4,10 @@ crono();
 
 
 
+var_dump(hexdec('40'));
+
+exit;
+
 if (get_new_block())
     echo '<meta http-equiv="refresh" content="0">';
 

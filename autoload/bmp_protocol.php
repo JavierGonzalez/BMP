@@ -12,85 +12,79 @@ $bmp_protocol = array(
                 'status'        => 'implemented',
                 'coinbase'      => true,
                 'action'        => 'power_by_value',
-                'name'          => 'Power signalling by value',
-                'description'   => 'By default, standard, P2Pool style',
+                'description'   => 'By default, standard, P2Pool style, without OP_RETURN.',
             ),
 
 
             '01' => array(
-                'status'        => 'implemented', // But not tested.
+                'status'        => 'implemented', // Not tested.
                 'coinbase'      => true,
                 'action'        => 'power_by_opreturn',
-                'name'          => 'Power signalling by OP_RETURN',
-                'description'   => 'Value independent signaling. Any number, best option.',
-                1 => array('size' =>  3, 'name'=>'percentage',  'hex'=>true),
-                2 => array('size' => 34, 'name'=>'address'),
-                
+                'description'   => 'Value independent HP signaling. Any number, best option.',
+                1 => array('size' =>  2, 'name'=>'quota',   'parse'=>'hexdec'),
+                2 => array('size' => 34, 'name'=>'address', 'parse'=>'hex2bin'),
             ),
 
 
             '02' => array(
                 'status'        => 'implemented',
                 'action'        => 'chat',
-                'name'          => 'Chat',
-                'description'   => 'IRC-like on-chain chat',
-                1 => array('size' =>  10, 'name'=>'time'),
-                2 => array('size' =>   2, 'name'=>'channel',  'hex'=>true),
-                3 => array('size' => 150, 'name'=>'msg'),
+                'description'   => '',
+                1 => array('size' =>   5, 'name'=>'time'),
+                2 => array('size' =>   1, 'name'=>'channel'),
+                3 => array('size' => 200, 'name'=>'msg', 'parse'=>'hex2bin'),
             ),
 
 
             '03' => array(
                 'status'        => 'implemented',
                 'action'        => 'miner_parameter',
-                'name'          => 'Set parameter miner',
                 'description'   => '',
-                1 => array('size' =>  10, 'name'=>'key'),
-                2 => array('size' => 200, 'name'=>'value'),
+                1 => array('size' =>  10, 'name'=>'key',   'parse'=>'hex2bin'),
+                2 => array('size' => 200, 'name'=>'value', 'parse'=>'hex2bin'),
             ),
 
 
             '04' => array(
-                'status'        => 'planned',
-                'action'        => 'bmp_parameter',
-                'name'          => 'Set parameter BMP',
-                'description'   => '',
-                1 => array('size' =>  10, 'name'=>'key'),
-                2 => array('size' => 200, 'name'=>'value'),
+                'status'        => 'developing',
+                'action'        => 'vote',
+                'description'   => 'All action can be voted, validity parallel voting independly.',
+                1 => array('size' =>  32, 'name'=>'txid'),
+                2 => array('size' =>   1, 'name'=>'direction', 'parse'=>'hex2bin'),
+                3 => array('size' =>   1, 'name'=>'validity',  'parse'=>'hex2bin'),
+                4 => array('size' => 160, 'name'=>'comment',   'parse'=>'hex2bin'),
             ),
 
 
             '05' => array(
-                'status'        => 'planned',
-                'action'        => 'vote',
-                'name'          => 'Vote',
-                'description'   => 'All action can be voted, validity parallel voting independly.',
-                1 => array('size' =>  32, 'name'=>'txid',      'hex'=>true),
-                2 => array('size' =>   1, 'name'=>'direction', 'hex'=>true),
-                3 => array('size' =>   1, 'name'=>'validity',  'hex'=>true),
-                4 => array('size' => 160, 'name'=>'comment'),
-            ),
-
-
-            '06' => array(
                 'status'        => 'developing',
                 'action'        => 'voting',
-                'name'          => 'Voting create',
                 'description'   => '',
-                1 => array('size' =>   1, 'name'=>'vote_type', 'hex'=>true),
-                2 => array('size' =>   1, 'name'=>'random', 'hex'=>true),
-                3 => array('size' => 200, 'name'=>'question'),
+                1 => array('size' =>   1, 'name'=>'type_voting'),
+                2 => array('size' =>   1, 'name'=>'type_vote'),
+                3 => array('size' =>   1, 'name'=>'parameters_num'),
+                4 => array('size' =>   1, 'name'=>'quorum'),
+                5 => array('size' =>   2, 'name'=>'blocks_duration'),
+                6 => array('size' => 200, 'name'=>'question', 'parse'=>'hex2bin'),
             ),
 
             
-            '07' => array(
+            '06' => array(
                 'status'        => 'developing',
                 'action'        => 'voting_parameter',
-                'name'          => 'Voting parameter',
                 'description'   => '',
-                1 => array('size' =>  32, 'name'=>'txid',      'hex'=>true),
-                2 => array('size' =>   2, 'name'=>'key'),
-                3 => array('size' => 160, 'name'=>'value'),
+                1 => array('size' =>  32, 'name'=>'txid'),
+                2 => array('size' =>   2, 'name'=>'type', 'parse'=>'hex2bin'),
+                3 => array('size' => 160, 'name'=>'text', 'parse'=>'hex2bin'),
+            ),
+
+
+            '07' => array(
+                'status'        => 'planned',
+                'action'        => 'bmp_parameter',
+                'description'   => '',
+                1 => array('size' =>  10, 'name'=>'key',   'parse'=>'hex2bin'),
+                2 => array('size' => 200, 'name'=>'value', 'parse'=>'hex2bin'),
             ),
 
 

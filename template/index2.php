@@ -51,39 +51,42 @@ echo '
 
 <body style="overflow-y:scroll;">
 
-<div id="content-left">
-	
-	<a href="/" style="font-size:50px;margin-left:35px;">BMP</a>
-	
-    <?php include('template/menu.php'); ?>
-	
-</div>
 
 
 
 
-<div id="content-right">
-
-    <div id="header-tab">
-        <ul class="ttabs left">
-            <?php 
-            foreach ((array)$_template['tabs'] AS $u => $a)
-                echo '<li'.($_SERVER['REQUEST_URI']===$u?' class="current"':'').'><a href="'.(!is_numeric($u)?$u:'#').'">'.$a.'</a></li>';
-            
-            ?>
-        </ul>
-    </div>
-
-	<div id="content">
-	    <?=$_['output_html_content']?>
-	</div>
-
-	<div id="footer">
-		<?php include('template/footer.php'); ?>
-	</div>
 
 
-</div>
+
+
+<table id="main_grid" border=1 width="100%" height="100%" style="margin:0;">
+
+<tr>
+<td rowspan=2 valign=top width="180" style="padding:0;">
+
+<a href="/" style="font-size:50px;margin-left:35px;">BMP</a>
+
+<?php include('template/menu.php'); ?>
+
+</td>
+<td valign=top>
+
+<?=$_['output_html_content']?>
+
+</td>
+</tr>
+
+<tr>
+<td valign=top height="100" style="padding:10px;">
+
+<?php include('template/footer.php'); ?>
+
+</td>
+</tr>
+
+
+</table>
+
 
 
 
@@ -102,3 +105,5 @@ foreach ((array)$_template['lib_js'] AS $file)
 
 </body>
 </html>
+
+

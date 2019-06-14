@@ -1,27 +1,30 @@
 
 
+<a href="/" style="font-size:40px;margin-left:45px;">BMP</a>
+
 
 <ul class="menu vertical">
 
 	<li id="menu-communications"><a href="/chat">Chat</a></li>
 
-	<li id="menu-info"><a href="/info/miners">Miners</a></li>
-    
-    <li id="menu-info"><a href="/info/actions">Actions</a></li>
-	
     <li id="menu-hashcracy"><a href="/voting">Voting</a></li>
 
-	<li id="menu-hashcracy"><a href="/protocol">Protocol</a></li>
+
+	<li id="menu-info"><a href="/info/miners">Miners</a></li>
+
+	<li id="menu-info"><a href="/protocol">Protocol</a></li>
 
 </ul>
 
 
 
-<div id="menu-next" style="color:#999;padding-top:60px;">
+
 
 <?php
 
 if (DEBUG) {
+
+    echo '<div id="menu-next" style="color:#999;padding-top:60px;">';
 
 	echo 'Height: '.sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
     echo '<br />';
@@ -45,10 +48,8 @@ if (DEBUG) {
 	
 	echo num((microtime(true)-$_['crono_start'])*1000).' ms &nbsp; ';
     echo num(memory_get_usage()/1000).' kb<br />';
+
+
+    echo '<span id="msg_error" style="color:red;font-size:10px;"></span>';
+    echo '</div>';
 }
-
-?>
-
-<span id="msg_error" style="color:red;font-size:10px;"></span>
-
-</div>

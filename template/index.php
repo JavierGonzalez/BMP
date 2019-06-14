@@ -9,7 +9,7 @@ else
 	$_template['title'] = 'BMP';
 
 
-    
+
 $_template['lib_css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
 $_template['lib_css'][] = '/template/style.css';
 
@@ -52,47 +52,35 @@ echo '
 <body style="overflow-y:scroll;">
 
 
+<div id="content_left">
+	
+    <?php include('template/menu.php'); ?>
+	
+</div>
 
 
 
+<div id="content_right">
 
+    <div id="top_right">
+        <?=$_template['top_right']?>
+    </div>
 
+	<div id="content">
+	    <?=$_['output_html_content']?>
+	</div>
 
+	<div id="footer">
+		<?php include('template/footer.php'); ?>
+	</div>
 
-<table id="main_grid" border=1 width="100%" height="100%" style="margin:0;">
-
-<tr>
-<td rowspan=2 valign=top width="180" style="padding:0;">
-
-<a href="/" style="font-size:50px;margin-left:35px;">BMP</a>
-
-<?php include('template/menu.php'); ?>
-
-</td>
-<td valign=top style="padding:0;">
-
-<?=$_['output_html_content']?>
-
-</td>
-</tr>
-
-<tr>
-<td valign=top height="100" style="padding:10px;">
-
-<?php include('template/footer.php'); ?>
-
-</td>
-</tr>
-
-
-</table>
-
+</div>
 
 
 
 <script type="text/javascript" src="/lib/jquery-3.4.1.min.js"></script>
-<script src="/lib/popper-1.15.0.min.js"></script>
-<script src="/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/lib/popper-1.15.0.min.js"></script>
+<script type="text/javascript" src="/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
 
 <?php
 foreach ((array)$_template['lib_js'] AS $file)
@@ -105,5 +93,3 @@ foreach ((array)$_template['lib_js'] AS $file)
 
 </body>
 </html>
-
-

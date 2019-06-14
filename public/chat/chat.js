@@ -31,9 +31,9 @@ $('#chat_form_msg').submit(function() {
     
     
 	var action  = '02';
-    var channel = '0000';
+    var channel = '00';
 
-	var op_return = bmp_protocol_prefix + action + bin2hex(timestamp) + channel + bin2hex(msg);
+	var op_return = bmp_protocol_prefix + action + timestamp + channel + bin2hex(msg);
 
 
 	result = blockchain_send_tx(op_return);

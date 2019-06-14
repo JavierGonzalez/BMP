@@ -1,15 +1,19 @@
 /* BMP */
 
 
+a { color:#0066cc; text-decoration:none; }
+a:hover { text-decoration:underline; }
 
 
+#top_right {
+    float:right;
+    margin:10px 8px 0 0;
+}
 
 
-
-
-
-
-
+#content_right h1, #content_right h2 {
+    margin-top:12px;
+}
 
 .monospace {
     font-family: monospace, monospace;
@@ -95,7 +99,7 @@ body {
 	font-size:15px;
 	font-family: "Arial", "Helvetica", sans-serif;
 }
-#content-left { 
+#content_left { 
 	position:absolute;
 	left:0px;
 	top:0px;
@@ -109,7 +113,7 @@ body {
 	box-shadow:inset -3px 11px 20px #EEE;
 }
 
-#content-right {
+#content_right {
 	background:#EEE;
 	position:absolute;
 	left:180px;
@@ -172,8 +176,7 @@ body {
 
 
 /*** GENERAL ***/
-a, a:link, a:active { color:#0066cc; text-decoration:none; }
-a:hover { text-decoration:underline; }
+
 
 
 

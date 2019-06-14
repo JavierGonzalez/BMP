@@ -2,7 +2,7 @@
 
 $_template['title'] = 'Actions';
 
-echo html_h($_template['title'], 2);
+echo html_h($_template['title'], 1);
 
 
 $blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");

@@ -2,7 +2,7 @@
 
 $_template['title'] = 'Blocks';
 
-echo html_h($_template['title'], 2);
+echo html_h($_template['title'], 1);
 
 
 $data = sql("SELECT height, hash,

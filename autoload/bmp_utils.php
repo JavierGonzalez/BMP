@@ -11,13 +11,13 @@ function revert_bytes($hex) {
 
 
 function pool_decode($coinbase) {
-    global $pools_json;
+    global $pools_json_cache;
 
-    if (!is_array($pools_json))
-        $pools_json = json_decode(file_get_contents('public/static/pools.json'), true);
+    if (!$pools_json_cache)
+        $pools_json_cache = json_decode(file_get_contents('public/static/pools.json'), true);
 
 
-    foreach ($pools_json['coinbase_tags'] AS $tag => $pool)
+    foreach ($pools_json_cache['coinbase_tags'] AS $tag => $pool)
         if (strpos($coinbase, $tag)!==false)
             return $pool;
 
@@ -27,11 +27,11 @@ function pool_decode($coinbase) {
 
 
 function address_normalice($address) {
+    
+    include_once('lib/cashaddress.php');
 
-    if (substr($address,0,12)=='bitcoincash:') {
-        include_once('lib/cashaddress.php');
+    if (substr($address,0,12)=='bitcoincash:')
         $address = \CashAddress\CashAddress::new2old($address, false);
-    }
 
     return trim($address);
 }
@@ -39,7 +39,7 @@ function address_normalice($address) {
 
 
 function hashpower_humans($hps, $decimals=4) {
-    return num($hps/1000000/1000000, $decimals).'&nbsp;TH/s';
+    return num($hps/1000000/1000000, $decimals).'&nbsp;TH/s'; // Refact
 }
 
 
@@ -54,7 +54,7 @@ function get_new_block() {
         return false;
     
     if (!$bmp_height)
-        $height = $rpc_height - BLOCK_WINDOW;
+        $height = $rpc_height - BLOCK_WINDOW; // Refact
     else
         $height = $bmp_height + 1;
     

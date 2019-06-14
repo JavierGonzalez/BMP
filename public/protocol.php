@@ -2,6 +2,10 @@
 
 $_template['title'] = 'Protocol';
 
+echo html_h('BMP Protocol');
+
+$_template['top_right'] .= ' '.html_button('https://github.com/JavierGonzalez/BMP',  'Code');
+
 
 $bmp_protocol['prefix'] = '9d';
 
@@ -12,14 +16,13 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
             'status'        => $action['status'],
             'coinbase'      => ($action['coinbase']?html_b('x'):''),
             'action'        => $action['action'],
-            //'name'        => $action['name'],
 
             'BMP'           => $bmp_protocol['prefix'],
             'ID'            => $action_id,
         );
 
     
-    for ($i=1;$i<=4;$i++)
+    for ($i=1;$i<=6;$i++)
         $td['p'.$i] = ($action[$i]?$action[$i]['name'].'['.$action[$i]['size'].']':'');
             
     if ($txid_action_random = sql("SELECT txid AS ECHO FROM actions WHERE action = '".$action['action']."' ORDER BY RAND() LIMIT 1"))
@@ -31,7 +34,6 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
 $table[0]['BMP'] = '';
 
 
-
 $config = array(
         'th_background-color' => '#FFFF99',
 
@@ -40,12 +42,7 @@ $config = array(
     );
 
 
-
 ?>
-
-<br />
-
-<h2>BMP Protocol</h2>
 
 <ul>
     <li>Power percentage is calculated with SHA-256 hashpower with last <?=num(BLOCK_WINDOW)?> BCH blocks.</li>

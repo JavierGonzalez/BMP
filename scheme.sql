@@ -82,6 +82,7 @@ CREATE TABLE `actions` (
     KEY `action_id` (`action_id`),
     KEY `action` (`action`),
     KEY `p1` (`p1`),
+    KEY `p2` (`p2`),
     KEY `power` (`power`),
     KEY `hashpower` (`hashpower`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

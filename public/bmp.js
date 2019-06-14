@@ -113,7 +113,7 @@ function blockchain_send_tx(op_return) {
                 data['value'] = value_output;
                 data['transactionHash'] = result.payload.txid;
                 miner_utxo(data);
-                console.log('BMP Transaction! ' + data['address'] + '  ' + result.payload.txid);
+                console.log('BMP TX:  ' + op_return + '  ' + data['address'] + '  ' + result.payload.txid);
             } else {
                 sessionStorage.clear();
             }

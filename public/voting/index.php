@@ -1,20 +1,19 @@
 <?php # BMP
 
+$_template['title'] = 'Voting';
 
-/*
+$_template['top_right'] .= '<a href="/voting/create" class="btn btn-primary">Create new voting</a>';
 
-Features:
-- vote_type + random_options + question
-
-(None)
-- type + option1
-- type + option2
-- type + option3
-
-- type start + num_blocks?
+?>
 
 
-*/
+<?=html_h($_template['title'], 1)?>
 
 
-echo 'voting';
+<br />
+
+<br />
+
+<hr />
+Voting table
+<hr />
