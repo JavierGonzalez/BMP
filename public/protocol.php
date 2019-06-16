@@ -36,8 +36,8 @@ $table[0]['BMP'] = '';
 
 $config = array(
         'th_background-color' => '#FFFF99',
-
-        'status'    => array('capital' => true),
+        
+        'status'    => array('capital' => true, 'monospace' => true),
         'coinbase'  => array('align' => 'center'),
     );
 

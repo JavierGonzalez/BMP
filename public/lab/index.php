@@ -3,8 +3,16 @@
 crono();
 
 
+function event($name) {
+    global $__events;
 
-var_dump(hexdec('40'));
+    
+
+    return 'OK';
+}
+
+crono(event());
+
 
 exit;
 

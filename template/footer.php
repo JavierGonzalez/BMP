@@ -1,5 +1,5 @@
 
-<div style="float:right;">
+<div style="float:right;text-align:center;">
 
     The Bitcoin Mining Parliament
 
@@ -10,8 +10,8 @@
     <a href="/protocol"><?=_('Protocol')?></a>
         · 
     <a href="https://github.com/JavierGonzalez/BMP" target="_blank"><?=_('Code')?></a>
-        · 
-    <a href="/about"><?=_('About')?></a>
+    <!--    · 
+    <a href="/about"><?=_('About')?></a>-->
 
     <br />
 
@@ -22,7 +22,8 @@
 
 <div>
 
-    “Any needed rules and incentives can be enforced with this consensus mechanism.”<br />
+    “Any needed rules and incentives can be enforced with this consensus mechanism.”
+    <br />
     <a href="https://www.bitcoin.com/bitcoin.pdf" target="_blank" style="color:grey;" nowrap>Satoshi Nakamoto</a>
 
 </div>

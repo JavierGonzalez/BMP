@@ -70,12 +70,14 @@ $_template['css'] .= '#voting_create td { padding:10px; }';
 
 <tr>
 
-    <td>Quorum</td>
+    <td valign=top>Quorum</td>
 
     <td valign="middle">
         <select id="type_vote" required>
-            <option value="2016">51%</option>
+            <option value="50">51%</option>
+            <option value="66">66%</option>
         </select>
+        <br /><br />
     </td>
 
 </tr>
@@ -93,6 +95,38 @@ $_template['css'] .= '#voting_create td { padding:10px; }';
     </td>
 
 </tr>
+
+
+
+<tr>
+
+    <td valign=top>Points</td>
+
+    <td valign="middle">
+        <input size=40 required /> +
+    </td>
+
+</tr>
+
+
+
+
+<tr>
+
+    <td valign=top>Options</td>
+
+    <td>
+        <input size=20 value="Blank" required /><br />
+        <input size=20 value="Yes" required /><br />
+        <input size=20 value="No" required /> +
+    </td>
+
+</tr>
+
+
+
+
+
 
 <tr>
 

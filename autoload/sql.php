@@ -1,4 +1,4 @@
-<?php
+<?php # BMP
 
 
 
@@ -104,7 +104,7 @@ function sql_insert($table, $rows) {
     if (count($values)>0)
         $res = sql("INSERT INTO `".e($table)."` (".implode(',', (array)$columns).") VALUES ".implode(",", (array)$values));
 
-
+        
 	if ($res===false)
 		return false;
 	else
@@ -144,16 +144,6 @@ function sql_update($table, $p, $w, $or_insert=false) {
 	}
 }
 
-
-
-function sql_key_value($key, $value=false) {
-
-	if ($value===false)
-		return sql("SELECT value FROM config WHERE name = '".e($key)."' LIMIT 1")[0];
-	else
-		return sql_update('config', array('name' => $key,'value' => $value), "name = '".e($key)."'", true);
-
-}
 
 
 
@@ -198,6 +188,17 @@ function sql_where($array=false, $operator='AND') {
 	return implode(' '.$operator.' ', $element);
 }
 
+
+
+
+function sql_key_value($key, $value=false) {
+
+	if ($value===false)
+		return sql("SELECT value FROM key_value WHERE name = '".e($key)."' LIMIT 1")[0]['value'];
+	else
+		return sql_update('key_value', array('name' => $key, 'value' => $value), "name = '".e($key)."'", true);
+
+}
 
 
 function sql_close() {

@@ -122,11 +122,15 @@ function get_action($txid, $block=false) {
 
     $tx = rpc_get_transaction($txid);
 
+    
     $action = array(
             'chain'     => BLOCKCHAIN,
             'txid'      => $tx['txid'],
-            'height'    => ($block?$block['height']:null),
         );
+    
+    if ($block)
+        $action['height'] = $block['height'];
+
 
     if (!$tx_info = get_action_tx($tx))
         return false;
@@ -241,10 +245,10 @@ function op_return_decode($op_return) {
             if ($parameter = substr($op_return, $counter*2, $v['size']*2)) {
                 $counter += $v['size'];
 
-                if ($v['parse']=='hex2bin')
+                if ($v['decode']=='hex2bin')
                     $parameter = trim(injection_filter(hex2bin($parameter)));
 
-                if ($v['parse']=='hexdec')
+                if ($v['decode']=='hexdec')
                     $parameter = trim(hexdec($parameter));
 
                 $output['p'.$p] = $parameter;

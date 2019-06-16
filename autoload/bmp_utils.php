@@ -61,9 +61,6 @@ function get_new_block() {
     
     $info = block_insert($height);
     
-    
-    print_r2($info);
-    
     return $info;
 }
 
