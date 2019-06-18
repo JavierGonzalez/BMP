@@ -2,16 +2,9 @@
 
 crono();
 
+block_delete_from(587000);
 
-function event($name) {
-    global $__events;
-
-    
-
-    return 'OK';
-}
-
-crono(event());
+crono();
 
 
 exit;

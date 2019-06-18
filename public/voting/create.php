@@ -5,11 +5,15 @@ $_template['title'] = 'Voting create';
 
 $_template['top_right'] .= '<a href="/voting" class="btn btn-outline-primary">Voting</a>';
 
-echo html_h($_template['title'], 1);
-
 $_template['css'] .= '#voting_create td { padding:10px; }';
 
+$_template['lib_js'][]  = '/public/voting/voting.js';
+$_template['lib_js'][]  = '/public/bmp.js';
+$_template['lib_js'][]  = '/lib/trezor-connect-7.js';
+
 ?>
+
+<h1><?=$_template['title']?></h1>
 
 <br />
 
@@ -18,25 +22,10 @@ $_template['css'] .= '#voting_create td { padding:10px; }';
 <table style="border:none;">
 
 
-<tr>
-
-    <td>Type of voting</td>
-
-    <td valign="middle">
-        <select id="type_voting" required>
-            <option value="00">Survey</option>
-            <option value="01">Executive</option>
-        </select>
-    </td>
-
-
-</tr>
-
-
 
 <tr>
 
-    <td>Type of vote</td>
+    <td align=right>Type of vote</td>
 
     <td valign="middle">
         <select id="type_vote" required>
@@ -56,28 +45,10 @@ $_template['css'] .= '#voting_create td { padding:10px; }';
 
 <tr>
 
-    <td>Voting time</td>
+    <td align=right>Voting finish</td>
 
     <td valign="middle">
-        <select id="type_vote" required>
-            <option value="2016">2016 blocks</option>
-        </select>
-    </td>
-
-</tr>
-
-
-
-<tr>
-
-    <td valign=top>Quorum</td>
-
-    <td valign="middle">
-        <select id="type_vote" required>
-            <option value="50">51%</option>
-            <option value="66">66%</option>
-        </select>
-        <br /><br />
+        In <input type="text" id="blocks_to_finish" value="<?=BLOCK_WINDOW?>" size=5 style="text-align:right;" /> blocks
     </td>
 
 </tr>
@@ -86,12 +57,13 @@ $_template['css'] .= '#voting_create td { padding:10px; }';
 
 
 
+
 <tr>
 
-    <td>Question</td>
+    <td align=right>Question</td>
 
     <td valign="middle">
-        <input size=40 focus required />
+        <input type="text" id="question" size=40 focus required style="font-weight:bold;" />
     </td>
 
 </tr>
@@ -100,10 +72,10 @@ $_template['css'] .= '#voting_create td { padding:10px; }';
 
 <tr>
 
-    <td valign=top>Points</td>
+    <td align=right valign=top>Points</td>
 
     <td valign="middle">
-        <input size=40 required /> +
+        <input class="parameter voting_point" size=40 /> +
     </td>
 
 </tr>
@@ -113,12 +85,11 @@ $_template['css'] .= '#voting_create td { padding:10px; }';
 
 <tr>
 
-    <td valign=top>Options</td>
+    <td align=right valign=top>Options</td>
 
     <td>
-        <input size=20 value="Blank" required /><br />
-        <input size=20 value="Yes" required /><br />
-        <input size=20 value="No" required /> +
+        <input class="parameter voting_option" size=20 value="Yes" required /><br />
+        <input class="parameter voting_option" size=20 value="No" required /> +
     </td>
 
 </tr>
@@ -133,7 +104,7 @@ $_template['css'] .= '#voting_create td { padding:10px; }';
 <td></td>
 
 <td>
-<button type="button" id="chat_button_send" class="btn btn-success">Execute</button>
+<button type="submit" class="btn btn-success">Execute</button>
 </td>
 
 

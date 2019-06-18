@@ -21,7 +21,8 @@ $('#chat_input_msg').keyup(function() {
 });
 
 
-$('#chat_form_msg').submit(function() {
+$('#chat_form_msg').submit(async function(e) {
+    e.preventDefault();
 
 	var timestamp = Math.round(new Date().getTime()/1000);
 
@@ -31,14 +32,12 @@ $('#chat_form_msg').submit(function() {
     
     
 	var action  = '02';
-    var channel = '00';
+    var channel = fill_hex('00',1);
 
 	var op_return = bmp_protocol_prefix + action + timestamp + channel + bin2hex(msg);
 
+    result = await blockchain_send_tx(op_return);
 
-	result = blockchain_send_tx(op_return);
-	
-	return false;
 });
 
 

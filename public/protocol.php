@@ -22,7 +22,7 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
         );
 
     
-    for ($i=1;$i<=6;$i++)
+    for ($i=1;$i<=5;$i++)
         $td['p'.$i] = ($action[$i]?$action[$i]['name'].'['.$action[$i]['size'].']':'');
             
     if ($txid_action_random = sql("SELECT txid AS ECHO FROM actions WHERE action = '".$action['action']."' ORDER BY RAND() LIMIT 1"))

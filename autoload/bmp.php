@@ -54,7 +54,7 @@ function block_insert($height) {
                 'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_info['quota_total']),
             ));
     
-    miners_power();
+    update_power();
 
 
 
@@ -64,7 +64,7 @@ function block_insert($height) {
             if ($action = get_action($txid, $block))
                 sql_update('actions', $action, "txid = '".$action['txid']."'", true); // Update (0-conf) or insert.
 
-    actions_updates();
+    update_actions();
     
 
     return true;
@@ -72,7 +72,7 @@ function block_insert($height) {
 
 
 
-function miners_power() {
+function update_power() {
 
     $hashpower_total = sql("SELECT SUM(hashpower) AS ECHO FROM miners");
 
@@ -88,8 +88,9 @@ function coinbase_info($coinbase) {
     foreach ($coinbase['vout'] AS $tx_vout)
         if (substr($tx_vout['scriptPubKey']['asm'],0,14)=='OP_RETURN '.$bmp_protocol['prefix'].'01')
             $output['miners'][] = array(
-                    'address' => trim(hex2bin(substr($tx_vout['scriptPubKey']['asm'],17,40))), // Refact
                     'quota'   => trim(hexdec( substr($tx_vout['scriptPubKey']['asm'],14, 3))),
+                    'address' => trim(hex2bin(substr($tx_vout['scriptPubKey']['asm'],17,40))), // Refact
+
                 );
 
 
@@ -102,8 +103,8 @@ function coinbase_info($coinbase) {
         foreach ($coinbase['vout'] AS $tx_vout)
             if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
                 $output['miners'][] = array(
-                        'address' => $tx_vout['scriptPubKey']['addresses'][0],
                         'quota'   => $tx_vout['value'],
+                        'address' => $tx_vout['scriptPubKey']['addresses'][0],
                     );
 
     }
@@ -246,12 +247,16 @@ function op_return_decode($op_return) {
                 $counter += $v['size'];
 
                 if ($v['decode']=='hex2bin')
-                    $parameter = trim(injection_filter(hex2bin($parameter)));
+                    $parameter = injection_filter(hex2bin($parameter));
 
                 if ($v['decode']=='hexdec')
-                    $parameter = trim(hexdec($parameter));
+                    $parameter = hexdec($parameter);
 
-                $output['p'.$p] = $parameter;
+                if ($v['decode']=='hextobase58')
+                    $parameter = hextobase58($parameter);
+                    
+
+                $output['p'.$p] = trim($parameter);
             }
         }
     }
@@ -275,7 +280,7 @@ function get_mempool() {
 }
 
 
-function actions_updates() {
+function update_actions() {
 
     // miner_parameter nick
     foreach (sql("SELECT address, p2 AS nick FROM actions WHERE action = 'miner_parameter' AND p1 = 'nick' ORDER BY time ASC") AS $r)

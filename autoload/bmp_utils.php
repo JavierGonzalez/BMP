@@ -70,4 +70,14 @@ function block_delete_from($height) {
     sql("DELETE FROM blocks  WHERE height >= ".$height);
     sql("DELETE FROM miners  WHERE height >= ".$height);
     sql("DELETE FROM actions WHERE height >= ".$height);
+    update_power();
+    update_actions();
+}
+
+
+function hextobase58($hex) {
+    include_once('lib/base58.php');
+    $base58 = new Base58;
+    
+    return $base58->encode($hex);
 }

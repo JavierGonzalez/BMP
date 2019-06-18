@@ -12,9 +12,9 @@ $data = sql("SELECT 0,
     COUNT(DISTINCT height) AS blocks, 
     address AS miner, 
     nick, 
-    (SELECT COUNT(*) FROM actions WHERE address = miners.address) AS actions,
     SUM(power) AS power, 
     SUM(hashpower) AS hashpower,
+    (SELECT COUNT(*) FROM actions WHERE address = miners.address) AS actions,
     (SELECT time FROM actions WHERE address = miners.address ORDER BY time DESC LIMIT 1) AS last_action
     FROM miners 
     GROUP BY address 
@@ -24,8 +24,9 @@ $data = sql("SELECT 0,
 foreach ($data AS $key => $value) {
     $data[$key][0] = ++$count;
 
-    $data[$key]['miner'] = html_a('/info/miner/'.$value['miner'], $value['miner']);
-    
+    $data[$key]['miner'] = html_a('/info/miner/'.$value['miner'], ($value['nick']?$value['nick']:$value['miner']));
+    unset($data[$key]['nick']);
+
     if ($value['actions'] > 0)
         $data[$key]['miner'] = html_b($data[$key]['miner']);
 
@@ -39,6 +40,6 @@ echo html_table($data, array(
         'miner'     => array('monospace' => true),
         'blocks'    => array('align' => 'right'),
         'power'     => array('align' => 'right', 'monospace' => true),
-        'hashpower' => array('align' => 'right', 'monospace' => true),
+        'hashpower' => array('align' => 'right'),
         'actions'   => array('align' => 'right'),
     ));
