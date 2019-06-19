@@ -4,7 +4,7 @@
 function block_insert($height) {
     set_time_limit(60*60);
 
-    if (sql("SELECT id FROM blocks WHERE height = '".e($height)."' LIMIT 1"))   
+    if (sql("SELECT id FROM blocks WHERE height = '".e($height)."' LIMIT 1"))
         return false;
 
 
@@ -90,7 +90,6 @@ function coinbase_info($coinbase) {
             $output['miners'][] = array(
                     'quota'   => trim(hexdec( substr($tx_vout['scriptPubKey']['asm'],14, 3))),
                     'address' => trim(hex2bin(substr($tx_vout['scriptPubKey']['asm'],17,40))), // Refact
-
                 );
 
 

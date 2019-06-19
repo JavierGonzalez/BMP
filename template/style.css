@@ -34,6 +34,44 @@ a.bmp_power, a:link.bmp_power, a:active.bmp_power {
 
 
 
+
+fieldset {
+    margin: 16px 4px 20px 0;
+    padding: 20px 10px 4px 20px;
+    box-shadow: 4px 4px 6px #DDD;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    border-radius: 5px;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+legend {
+    width:inherit;
+    border-radius: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background: #FFF;
+    padding: 2px 10px;
+    margin: 0 0 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* lib/kickstart/css/kickstart-menus.css */
 .menu{margin:0;padding:0;line-height:100%;font-size:0; position:relative;z-index:1000}
 .menu:after{clear:both;content:' ';display:block;font-size:0;line-height:0;visibility:hidden;width:0;height:0}

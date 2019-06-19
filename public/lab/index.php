@@ -1,8 +1,14 @@
 <?php
 
 crono();
+require_once('lib/spyc.php');
+crono();
+$bmp_protocol_yaml = spyc_load_file('bmp_protocol.yaml');
 
-block_delete_from(587000);
+crono($bmp_protocol_yaml);
+
+crono($bmp_protocol);
+
 
 crono();
 

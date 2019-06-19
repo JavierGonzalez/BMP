@@ -31,6 +31,7 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
     $table[] = $td;
 }
 
+$table[0]['ID']  = '';
 $table[0]['BMP'] = '';
 
 
@@ -54,3 +55,8 @@ $config = array(
 </ul>
 
 <?=html_table($table, $config)?>
+
+<br />
+<br />
+
+<em>* In ALPHA development. Changes will occur.</em>

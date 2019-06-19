@@ -5,18 +5,27 @@
 
 <ul class="menu vertical">
 
-	<li id="menu-communications"><a href="/chat">Chat</a></li>
+	<li><a href="/chat">Chat</a></li>
 
-    <li id="menu-hashcracy"><a href="/voting">Voting</a></li>
-
-
-	<li id="menu-info"><a href="/info/miners">Miners</a></li>
-
-	<li id="menu-info"><a href="/protocol">Protocol</a></li>
+    <li><a href="/voting">Voting</a></li>
 
 </ul>
 
 
+<ul class="menu vertical">
+
+	<li><a href="/info/blocks">Blocks</a></li>
+	<li><a href="/info/miners">Miners</a></li>
+    <li><a href="/info/actions">Actions</a></li>
+
+</ul>
+
+
+<ul class="menu vertical">
+
+	<li><a href="/protocol">Protocol</a></li>
+
+</ul>
 
 
 
@@ -26,6 +35,7 @@ if (DEBUG) {
 
     echo '<div id="menu-next" style="color:#999;padding-top:60px;">';
 
+    
 	echo 'Height: '.sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
     echo '<br />';
 

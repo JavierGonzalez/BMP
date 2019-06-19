@@ -65,7 +65,6 @@ function get_new_block() {
 }
 
 
-
 function block_delete_from($height) {
     sql("DELETE FROM blocks  WHERE height >= ".$height);
     sql("DELETE FROM miners  WHERE height >= ".$height);
@@ -80,4 +79,16 @@ function hextobase58($hex) {
     $base58 = new Base58;
     
     return $base58->encode($hex);
+}
+
+
+function action_parameters_pretty($action) {
+    global $bmp_protocol;
+
+    foreach ($bmp_protocol['actions'][$action['action_id']] AS $key => $value)
+        if (is_numeric($key))
+            if (isset($action['p'.$key]))
+                $parameters[$value['name']] = $action['p'.$key];
+    
+    return $parameters;
 }
