@@ -95,7 +95,8 @@ async function blockchain_send_tx(op_return) {
     if (result_tx.payload.error) {
         console.log('ERROR: ' + result_tx.payload.error);
         sessionStorage.clear();
-
+        alert('ERROR: ' + result_tx.payload.error);
+        
     } else {
         var data = miner_utxo();
         data['index'] = 0;

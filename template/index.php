@@ -79,8 +79,9 @@ echo '
 
 
 <script type="text/javascript" src="/lib/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="/lib/popper-1.15.0.min.js"></script>
 <script type="text/javascript" src="/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/template/script.js"></script>
+
 
 <?php
 foreach ((array)$_template['lib_js'] AS $file)

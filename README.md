@@ -71,15 +71,14 @@ Voting with hashpower -to discover consensus- in the most secure voting system k
 
 [BMP](https://bmp.virtualpol.com) is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, completely on-chain, verifiable and replicable.
 
-BMP is connected to a Bitcoin Cash client by RPC to read blocks and transactions. 
+BMP is connected to a Bitcoin Cash client by RPC to read blocks and transactions.
 
-On-chain data is transformed with PHP in 3 SQL tables: **[blocks](https://bmp.virtualpol.com/info/blocks)**, **[miners](https://bmp.virtualpol.com/info/miners)** and **[actions](https://bmp.virtualpol.com/info/actions)**.
+On-chain data is transformed with PHP in 3 SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
 
-Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (soon more hardware wallets).
-
-BMP does not store any private key. The entire BMP database is public information.
-
+Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future). 
 Actions without hashpower are ignored.
+
+BMP does not store any private key. The entire BMP database is public information. BMP can work isolated in local network without internet.
 
 More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in [Chinese](https://virtualpol.com/BMP_CN.pdf), [English](https://virtualpol.com/BMP_EN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
 
@@ -124,12 +123,14 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in
 #### Known problems
 
 * OP_RETURN size too small because Trezor hardware limits (?).
-* Chat moderation.
-* More Bitcoin clients support.
 * More hardware wallets support.
+* Chat moderation.
 * Asian characters.
 * Internationalization.
+* More Bitcoin clients support.
 * Auto-update blocks in reorg event.
+* Style/logo.
+* 0-conf latency (+10 sec).
 * Absolute power corrupts absolutely.
 
 ---

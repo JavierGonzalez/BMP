@@ -12,7 +12,7 @@ function block_insert($height) {
     $block_hashpower = $block['difficulty'] * pow(2,32) / 600; // Hashes per second.
     
     $coinbase = rpc_get_transaction($block['tx'][0]); 
-    $coinbase_info = coinbase_info($coinbase);
+    $coinbase_hashpower = coinbase_hashpower($coinbase);
 
 
     
@@ -33,8 +33,8 @@ function block_insert($height) {
             'difficulty'            => $block['difficulty'],
             'coinbase'              => $coinbase['vin'][0]['coinbase'],
             'pool'                  => pool_decode(hex2bin($coinbase['vin'][0]['coinbase']))['name'],
-            'power_by'              => $coinbase_info['power_by'],
-            'quota_total'           => $coinbase_info['quota_total'],
+            'power_by'              => $coinbase_hashpower['power_by'],
+            'quota_total'           => $coinbase_hashpower['quota_total'],
             'hashpower'             => $block_hashpower,
         ));
 
@@ -44,14 +44,14 @@ function block_insert($height) {
     
 
     /// MINERS
-    foreach ((array)$coinbase_info['miners'] AS $miner)
+    foreach ((array)$coinbase_hashpower['miners'] AS $miner)
         sql_insert('miners', array(
                 'chain'         => BLOCKCHAIN,
                 'txid'          => $coinbase['txid'],
                 'height'        => $block['height'],
                 'address'       => address_normalice($miner['address']),
                 'quota'         => $miner['quota'],
-                'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_info['quota_total']),
+                'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_hashpower['quota_total']),
             ));
     
     update_power();
@@ -82,7 +82,7 @@ function update_power() {
 
 
 
-function coinbase_info($coinbase) {
+function coinbase_hashpower($coinbase) {
     global $bmp_protocol;
 
     foreach ($coinbase['vout'] AS $tx_vout)
@@ -164,7 +164,9 @@ function get_action($txid, $block=false) {
         unset($action['time']);
 
 
-    if ($nick = sql("SELECT p2 AS ECHO FROM actions WHERE action = 'miner_parameter' AND p1 = 'nick' AND address = '".$action['address']."' ORDER BY time DESC LIMIT 1"))
+    if ($nick = sql("SELECT p2 AS ECHO FROM actions 
+                    WHERE action = 'miner_parameter' AND p1 = 'nick' AND address = '".$action['address']."' 
+                    ORDER BY time DESC LIMIT 1"))
         if (!is_array($nick))
             $action['nick'] = $nick;
 
@@ -185,8 +187,8 @@ function get_action_tx($tx) {
     if (substr($action['op_return'],0,2)!='6a')
         return false;
 
-    if (substr($action['op_return'],4,2)!=$bmp_protocol['prefix'] AND substr($action['op_return'],6,2)!=$bmp_protocol['prefix']) // Refact
-        return false;
+    if (!in_array($bmp_protocol['prefix'], array(substr($action['op_return'],4,2), substr($action['op_return'],6,2))))
+       return false; // Refact
 
 
     // OUTPUT ADDRESS (index = 0)
@@ -276,15 +278,6 @@ function get_mempool() {
                     $actions[] = $action;
     
     return $actions;
-}
-
-
-function update_actions() {
-
-    // miner_parameter nick
-    foreach (sql("SELECT address, p2 AS nick FROM actions WHERE action = 'miner_parameter' AND p1 = 'nick' ORDER BY time ASC") AS $r)
-        sql_update('miners', array('nick' => $r['nick']), "address = '".$r['address']."'");
-
 }
 
 

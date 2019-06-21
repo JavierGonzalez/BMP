@@ -34,10 +34,9 @@ a.bmp_power, a:link.bmp_power, a:active.bmp_power {
 
 
 
-
 fieldset {
     margin: 16px 4px 20px 0;
-    padding: 20px 10px 4px 20px;
+    padding: 20px 20px 4px 20px;
     box-shadow: 4px 4px 6px #DDD;
     border: 1px solid #ccc;
     background: #f7f7f7;
@@ -50,7 +49,7 @@ fieldset {
 legend {
     width:inherit;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 18px;
     border: 1px solid #ccc;
     background: #FFF;
     padding: 2px 10px;
@@ -86,7 +85,8 @@ legend {
 .menu li.has-menu a{padding-right:25px}
 .menu li.has-menu span.arrow{border-style:solid;border-width:5px;display:block;position:absolute;top:50%;right:5px;font-size:0;line-height:0;height:0;width:0}
 .menu li li.has-menu span.arrow{margin-top:-4px} 
-.menu.vertical{}.menu.vertical li{display:block}
+.menu.vertical{ margin-bottom:-1px;}
+.menu.vertical li{display:block}
 .menu.vertical li a{display:block}
 .menu.vertical ul{top:0;left:100%}
 .menu.vertical li.has-menu span.arrow{margin-top:-4px} 
@@ -144,11 +144,15 @@ body {
 	width:180px;
 }
 #menu-next {
+    color:#999;
+    text-align:right;
+    line-height:20px;
+
 	height:550px;
 	border-right:1px solid #CCC;
-	padding:4px 5px 10px 8px;
+	padding:22px 14px 10px 10px;
 	background:#F9F9F9;
-	box-shadow:inset -3px 11px 20px #EEE;
+	box-shadow:inset -2px 8px 20px #EEE;
 }
 
 #content_right {
@@ -267,9 +271,9 @@ h3 { font-size:18px; }
 #menu-noti.menu-sel .md { right:20px; font-size:22px; font-weight:bold; }
 .md {
 	color:#AAA;
-	font-size:18px;
+	font-size:14px;
 	position:absolute;
-	right:8px;
+	right:12px;
 }
 
 

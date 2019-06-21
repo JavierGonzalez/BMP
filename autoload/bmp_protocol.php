@@ -46,18 +46,18 @@ $bmp_protocol = array(
 
 
         '04' => array(
-            'status'        => 'developing',
+            'status'        => 'implemented',
             'action'        => 'vote',
             'description'   => 'All action can be voted, independent validity voting.',
             1 => array('size' =>  32, 'name'=>'txid'),
-            2 => array('size' =>   1, 'name'=>'voting_validity',  'decode'=>'hexdec', 'options'=>array(0=>'valid', 1=>'not_valid')),
+            2 => array('size' =>   1, 'name'=>'voting_validity',  'decode'=>'hexdec', 'options'=>array(0=>'not_valid', 1=>'valid')),
             3 => array('size' =>   1, 'name'=>'vote_direction',   'decode'=>'hexdec', 'options'=>array(0=>'neutral', 1=>'positive', 2=>'negative')),
             4 => array('size' => 160, 'name'=>'comment',          'decode'=>'hex2bin'),
         ),
 
 
         '05' => array(
-            'status'        => 'developing',
+            'status'        => 'implemented',
             'action'        => 'voting',
             'description'   => '',
             1 => array('size' =>   1, 'name'=>'type_voting',       'decode'=>'hexdec', 'options'=>array(0=>'default')),
@@ -69,7 +69,7 @@ $bmp_protocol = array(
 
         
         '06' => array(
-            'status'        => 'developing',
+            'status'        => 'implemented',
             'action'        => 'voting_parameter',
             'description'   => '',
             1 => array('size' =>  32, 'name'=>'txid'),
@@ -78,13 +78,45 @@ $bmp_protocol = array(
             4 => array('size' => 160, 'name'=>'text',   'decode'=>'hex2bin'),
         ),
 
-
         '07' => array(
             'status'        => 'planned',
             'action'        => 'bmp_parameter',
-            'description'   => '',
             1 => array('size' =>  10, 'name'=>'key',    'decode'=>'hex2bin'),
             2 => array('size' => 200, 'name'=>'value',  'decode'=>'hex2bin'),
+        ),
+
+        '08' => array(
+            'status'        => 'planned',
+            'action'        => 'cancel',
+        ),
+
+        '09' => array(
+            'status'        => 'planned',
+            'action'        => 'proposals',
+        ),
+
+
+        '0a' => array(
+            'status'        => 'planned',
+            'action'        => 'forum',
+        ),
+
+
+        '0b' => array(
+            'status'        => 'planned',
+            'action'        => 'documents',
+        ),
+
+
+        '0c' => array(
+            'status'        => 'planned',
+            'action'        => 'projects',
+        ),
+
+
+        '0d' => array(
+            'status'        => 'planned',
+            'action'        => 'teams',
         ),
 
 

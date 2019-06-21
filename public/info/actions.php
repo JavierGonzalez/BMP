@@ -7,13 +7,13 @@ echo html_h($_template['title'], 1);
 
 $blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");
 
-$data = sql("SELECT id, height, txid, time, address, action, action_id AS aid, p1, p2, p3, p4, p5, power, hashpower
+$data = sql("SELECT height, txid, time, address, action, action_id AS aid, p1, p2, p3, p4, p5, power, hashpower
     FROM actions  
     ORDER BY time DESC");
 
 
 foreach ($data AS $key => $value) {
-    $data[$key]['txid']      = html_a('/info/action/'.$value['txid'],   substr($value['txid'],0,10).'..');
+    $data[$key]['txid']      = html_a('/info/action/'.$value['txid'],   substr($value['txid'],0,10));
     $data[$key]['address']   = html_a('/info/miner/'.$value['address'], substr($value['address'],-10,10));
     
     $data[$key]['power']     = num($value['power'], POWER_PRECISION).'%';

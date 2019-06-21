@@ -2,9 +2,7 @@
 
 $_template['title'] = 'Protocol';
 
-echo html_h('BMP Protocol');
-
-$_template['top_right'] .= ' '.html_button('https://github.com/JavierGonzalez/BMP',  'Code');
+echo html_h('Protocol');
 
 
 $bmp_protocol['prefix'] = '9d';
@@ -36,7 +34,7 @@ $table[0]['BMP'] = '';
 
 
 $config = array(
-        'th_background-color' => '#FFFF99',
+        'th_background-color' => '#FFFFCC',
         
         'status'    => array('capital' => true, 'monospace' => true),
         'coinbase'  => array('align' => 'center'),
@@ -48,7 +46,7 @@ $config = array(
 <ul>
     <li>Power percentage is calculated with SHA-256 hashpower with last <?=num(BLOCK_WINDOW)?> BCH blocks.</li>
     <li>Miners power is calculated proportionally with coinbase output addresses.</li>
-    <li>Transactions (actions) without hashpower are ignored.</li>
+    <li>Actions -transactions- without hashpower are ignored.</li>
     <li>Miners power changes with each block.</li>
     <li>Actions power never changes.</li>
     <li>Code obeys hashpower.</li>
@@ -60,3 +58,7 @@ $config = array(
 <br />
 
 <em>* In ALPHA development. Changes will occur.</em>
+
+
+
+

@@ -4,9 +4,35 @@
 $txid = $_GET[1];
 
 
-$voting = sql("SELECT * FROM actions WHERE txid = '".e($txid)."' AND action = 'voting'  LIMIT 1")[0];
-$voting['p'] = action_parameters_pretty($voting);
+if ($txid_option = sql("SELECT p1 AS ECHO FROM actions WHERE action = 'voting_parameter' AND p2 = 2 AND txid = '".$txid."' LIMIT 1"))
+    redirect('/voting/'.$txid_option);
 
+
+$voting = get_voting($txid);
+
+
+function get_voting($txid) {
+
+    $voting = sql("SELECT * FROM actions WHERE txid = '".e($txid)."' AND action = 'voting'  LIMIT 1")[0];
+    
+    $voting['p'] = action_parameters_pretty($voting);
+    
+    $voting['points']  = sql("SELECT * FROM actions WHERE action = 'voting_parameter' AND p1 = '".e($txid)."' AND p2 = 1 ORDER BY p3 ASC");
+    $voting['options'] = sql("SELECT * FROM actions WHERE action = 'voting_parameter' AND p1 = '".e($txid)."' AND p2 = 2 ORDER BY p3 ASC");
+
+
+    if ((count($voting['points']) + count($voting['options'])) != $voting['p3'])
+        return false;
+
+    $voting['options'] = array_merge(array(array('txid'=>$txid, 'p4'=>'NULL')), $voting['options']);
+
+    return $voting;
+}
+
+
+$_template['lib_js'][]  = '/public/voting/voting.js';
+$_template['lib_js'][]  = '/public/bmp.js';
+$_template['lib_js'][]  = '/lib/trezor-connect-7.js';
 
 
 ?>
@@ -23,7 +49,7 @@ $voting['p'] = action_parameters_pretty($voting);
 
 <ol>
 <?php
-foreach (sql("SELECT p4 FROM actions WHERE p1 = '".e($txid)."' AND action = 'voting_parameter' AND p2 = 1 ORDER BY p3 ASC") AS $r)
+foreach ($voting['points'] AS $r)
     echo '<li>'.html_h($r['p4'], 3).'</li>';
 ?>
 </ol>
@@ -40,28 +66,47 @@ foreach (sql("SELECT p4 FROM actions WHERE p1 = '".e($txid)."' AND action = 'vot
 <legend>Vote</legend>
 
 
-<form>
+<form id="voting_vote">
+
 <p>
-<select name="voto" style="font-size:20px;white-space:normal;max-width:400px;">
-    <option value="0" selected="selected">NULL</option>
-    <option value="1">Yes</option>
-    <option value="2">No</option>
+<select id="voting_option" style="font-size:22px;white-space:normal;max-width:400px;">
+    <option value="<?=$txid?>" selected>NULL</option>
+
+<?php
+foreach ($voting['options'] AS $r)
+    echo '<option value="'.$r['txid'].'">'.$r['p4'].'</option>';
+?>
+
 </select> 
 </p>
 
-<p>
-<input id="validez_true" type="radio" name="validez" value="true" class="radio"> 
-<label for="validez_true">Voting valid.</label><br />
+<br />
 
-<input id="validez_false" type="radio" name="validez" value="false" class="radio"> 
-<label for="validez_false">Voting not valid.</label>
-</p>
+<table border=0>
+
+<tr>
+<td>
+
+<input type="submit" value="Vote" class="btn btn-success" />
+
+</td>
+<td style="padding-top:8px;">
+
+<input id="rv_1" type="radio" name="voting_validity" value="1" class="radio" required /> 
+<label for="rv_1">This voting is valid.</label>
+<br />
+<input id="rv_0" type="radio" name="voting_validity" value="0" class="radio" required /> 
+<label for="rv_0">This voting is not valid.</label>
+
+</td>
+</tr>
 
 
+</table>
 
-<p><button class="btn btn-primary disabled">Vote</button></p> 
 
-<p><input type="text" name="mensaje" value="" size="60" maxlength="60" placeholder="Optional comment..."></p>
+<p><input type="text" id="voting_comment" maxlength="60" value="" style="width:100%;padding:4px;" placeholder="Comment..." /></p>
+
 
 </form>
 
@@ -79,8 +124,26 @@ foreach (sql("SELECT p4 FROM actions WHERE p1 = '".e($txid)."' AND action = 'vot
 
 <ul>
 <?php
-foreach (sql("SELECT p4 FROM actions WHERE p1 = '".e($txid)."' AND action = 'voting_parameter' AND p2 = 2 ORDER BY p3 ASC") AS $r)
-    echo '<li>'.$r['p4'].'</li>';
+
+$options_votes[] = $txid; // NULL
+foreach ($voting['options'] AS $r)
+    $options_votes[] = $r['txid'];
+
+
+$result = sql("SELECT address, p1
+                FROM actions 
+                WHERE action = 'vote' AND p1 IN ('".implode("','", $options_votes)."')
+                ORDER BY time ASC");
+
+// One vote per miner, last prevails.
+foreach ($result AS $r)
+    $voting_votes_txid[$r['address']] = $r['p1'];
+
+foreach ($voting_votes_txid AS $miner => $vote_txid)
+    $voting_result[$vote_txid]++; 
+
+foreach ($voting['options'] AS $r)
+    echo '<li>'.$r['p4'].' ('.($voting_result[$r['txid']]?$voting_result[$r['txid']]:0).')</li>';
 ?>
 </ul>
 

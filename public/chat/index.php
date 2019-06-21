@@ -60,7 +60,7 @@ $_template['tabs'] = array(
 </td>
 
 <td>
-	<button type="button" id="chat_button_send" style="width:100px;" class="btn btn-success btn-sm">Execute</button>
+	<input type="submit" style="width:100px;" class="btn btn-success btn-sm" value="Execute" />
 </td>
 
 

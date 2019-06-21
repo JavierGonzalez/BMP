@@ -13,7 +13,7 @@ $proof['bmp'] = array(
 );
 
 $proof['miner'] = sql("SELECT height, (SELECT hash FROM blocks WHERE height = miners.height LIMIT 1) AS block_hash, 
-    txid, address, method, power, hashpower 
+    txid, address, power, hashpower 
     FROM miners WHERE address = '".e($_GET[2])."'");
 
 

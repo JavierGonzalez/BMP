@@ -113,7 +113,17 @@ function print_msg(data) {
 
         }
 
-        html += '<td align=right><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
+
+        if (value['action']=='vote') {
+
+            html += '<td style="color:#00469A;"><b>[VOTE]</b>&nbsp; ';
+            html += '<a href="/voting/' + value['p1'] + '">Voting</a>';
+            html += '</td>';
+
+        }
+
+
+        html += '<td align=right nowrap><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '% HP</a></td>';
         html += '</tr>';
         
 
