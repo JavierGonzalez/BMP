@@ -1,5 +1,4 @@
-<?php # BMP
-
+<?php # BMP — Javier González González
 
 define('BMP_VERSION', '2019.06-alpha');
 

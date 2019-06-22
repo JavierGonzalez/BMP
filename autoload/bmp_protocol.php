@@ -90,31 +90,26 @@ $bmp_protocol = array(
             'action'        => 'cancel',
         ),
 
+
         '09' => array(
-            'status'        => 'planned',
-            'action'        => 'proposals',
-        ),
-
-
-        '0a' => array(
             'status'        => 'planned',
             'action'        => 'forum',
         ),
 
 
-        '0b' => array(
+        '0a' => array(
             'status'        => 'planned',
             'action'        => 'documents',
         ),
 
 
-        '0c' => array(
+        '0b' => array(
             'status'        => 'planned',
             'action'        => 'projects',
         ),
 
 
-        '0d' => array(
+        '0c' => array(
             'status'        => 'planned',
             'action'        => 'teams',
         ),

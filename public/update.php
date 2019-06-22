@@ -1,4 +1,4 @@
-<?php # BMP
+<?php # BMP — Javier González González
 
 
 $beat_last = sql_key_value('beat_last');

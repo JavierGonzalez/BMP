@@ -4,14 +4,14 @@
 function block_insert($height) {
     set_time_limit(60*60);
 
-    if (sql("SELECT id FROM blocks WHERE height = '".e($height)."' LIMIT 1"))
+    if (sql("SELECT id FROM blocks WHERE height = ".e($height)))
         return false;
 
 
     $block = rpc_get_block($height);
     $block_hashpower = $block['difficulty'] * pow(2,32) / 600; // Hashes per second.
     
-    $coinbase = rpc_get_transaction($block['tx'][0]); 
+    $coinbase = rpc_get_transaction($block['tx'][0]);
     $coinbase_hashpower = coinbase_hashpower($coinbase);
 
 
@@ -62,7 +62,7 @@ function block_insert($height) {
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
             if ($action = get_action($txid, $block))
-                sql_update('actions', $action, "txid = '".$action['txid']."'", true); // Update (0-conf) or insert.
+                sql_update('actions', $action, "txid = '".$action['txid']."'", true); // Update (0-conf) or insert (1-conf).
 
     update_actions();
     
@@ -85,6 +85,8 @@ function update_power() {
 function coinbase_hashpower($coinbase) {
     global $bmp_protocol;
 
+
+    // Power signalled in coinbase OP_RETURN?
     foreach ($coinbase['vout'] AS $tx_vout)
         if (substr($tx_vout['scriptPubKey']['asm'],0,14)=='OP_RETURN '.$bmp_protocol['prefix'].'01')
             $output['miners'][] = array(
@@ -174,6 +176,7 @@ function get_action($txid, $block=false) {
 }
 
 
+
 function get_action_tx($tx) {
     global $bmp_protocol;
 
@@ -214,6 +217,7 @@ function get_action_tx($tx) {
 }
 
 
+
 function op_return_decode($op_return) {
     global $bmp_protocol;
     
@@ -225,7 +229,7 @@ function op_return_decode($op_return) {
         
     if (substr($op_return,4,2)===$bmp_protocol['prefix']) // Refact
         $metadata_start_bytes = 3;
-    else if (substr($op_return,6,2)===$bmp_protocol['prefix'])
+    else if (substr($op_return,6,2)===$bmp_protocol['prefix']) // Refact
         $metadata_start_bytes = 4;
         
     if (!$metadata_start_bytes)
@@ -262,10 +266,9 @@ function op_return_decode($op_return) {
         }
     }
 
-    $output['json'] = null;
-
     return $output;
 }
+
 
 
 function get_mempool() {
@@ -281,7 +284,8 @@ function get_mempool() {
 }
 
 
+
 function block_delete($height) {
-    sql("DELETE FROM blocks WHERE height = ".$height); // Refact
+    sql("DELETE FROM blocks WHERE height = ".$height);
     sql("DELETE FROM miners WHERE height = ".$height);
 }

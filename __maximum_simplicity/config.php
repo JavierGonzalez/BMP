@@ -1,4 +1,4 @@
-<?php # maximum_simplicity
+<?php # maximum_simplicity — Javier González González
 
 error_reporting(E_ALL ^ E_NOTICE);
 

@@ -1,4 +1,4 @@
-<?php # BMP
+<?php # BMP — Javier González González
 
 $_template['title'] = 'Miner: '.$_GET[2];
 

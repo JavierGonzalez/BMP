@@ -1,4 +1,4 @@
-<?php # maximum_simplicity
+<?php # maximum_simplicity — Javier González González
 
 
 function injection_filter($danger_input) {

@@ -69,6 +69,12 @@ Extract from [ABC vs BSV Hash War (Part III)](https://medium.com/@jiangzhuoer/ab
 
 Voting with hashpower -to discover consensus- in the most secure voting system known.
 
+## What
+
+#### https://bmp.virtualpol.com
+
+<br />
+
 [BMP](https://bmp.virtualpol.com) is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, completely on-chain, verifiable and replicable.
 
 BMP is connected to a Bitcoin Cash client by RPC to read blocks and transactions.
@@ -82,12 +88,6 @@ BMP does not store any private key. The entire BMP database is public informatio
 
 More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in [Chinese](https://virtualpol.com/BMP_CN.pdf), [English](https://virtualpol.com/BMP_EN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
 
-
-## What
-
-#### https://bmp.virtualpol.com
-
-<br />
 
 #### Requirements to participate
 

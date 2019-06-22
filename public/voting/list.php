@@ -1,39 +1,35 @@
-<?php # BMP
+<?php # BMP — Javier González González
 
 $_template['title'] = 'Voting';
-
 $_template['top_right'] .= '<a href="/voting/create" class="btn btn-primary">Create new voting</a>';
 
 
-echo html_h($_template['title'], 1);
+
+$votings = sql("SELECT txid FROM actions WHERE action = 'voting' ORDER BY height DESC, time DESC");
+
+foreach ($votings AS $r)
+    if ($voting = action_voting_info($r['txid']))
+        $table[] = array(
+                'time'    => date('Y-m-d', strtotime($voting['time'])),
+                'voting'  => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
+                'votes'   => $voting['votes'],
+                'power'   => $voting['power'],
+            );
 
 
+$config = array(
+        'votes'    => array('align' => 'right', 'num' => 0),
+        'power'    => array('align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'),
+    );
 
 
-$blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");
+?>
+
+<h1>Voting</h1>
 
 
-$data = sql("SELECT txid, p5,
-    (SELECT COUNT(*) FROM actions WHERE action = 'vote' AND p1 = a.txid) AS votes,
-    (SELECT COUNT(*) FROM actions WHERE action = 'voting_parameter' AND p2 = 2 AND  p1 = a.txid) AS options
-    FROM actions AS a
-    WHERE action = 'voting' AND p5 != ''
-    ORDER BY time DESC");
+<div style="font-size:18px;">
 
+<?=html_table($table, $config)?>
 
-foreach ($data AS $key => $value) {
-
-    $table[] = array(
-            'voting'  => html_a('/voting/'.$value['txid'], html_b($value['p5'])),
-            'options' => $value['options'],
-            'votes'   => $value['votes'],
-        );
-}
-
-
-echo html_table($table, array(
-        'votes'   => array('align' => 'right'),
-        'options'   => array('align' => 'right'),
-        'power'     => array('align' => 'right', 'monospace' => true),
-        'hashpower' => array('align' => 'right'),
-    ));
+</div>

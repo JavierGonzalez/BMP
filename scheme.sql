@@ -4,6 +4,7 @@
 DROP TABLE IF EXISTS `blocks`;
 DROP TABLE IF EXISTS `miners`;
 DROP TABLE IF EXISTS `actions`;
+
 DROP TABLE IF EXISTS `key_value`;
 
 

@@ -1,5 +1,4 @@
-<?php # BMP
-
+<?php # BMP — Javier González González
 
 
 function rpc_connect() {
@@ -33,6 +32,8 @@ function rpc_get_transaction($txid) {
     $b = rpc_connect();
     return $b->getrawtransaction($txid, 1);
 }
+
+
 
 function rpc_get_mempool() {
     $b = rpc_connect();

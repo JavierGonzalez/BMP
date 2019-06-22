@@ -1,5 +1,4 @@
-<?php # BMP
-
+<?php # BMP — Javier González González
 
 
 function sql_connect($server_sql=false) {
@@ -40,7 +39,6 @@ function sql_link() {
 
 	return $sql['link'][0];
 }
-
 
 
 
@@ -146,7 +144,6 @@ function sql_update($table, $p, $w, $or_insert=false) {
 
 
 
-
 function sql_primary_key($table) {
 	
 	$a = sql("SHOW KEYS FROM ".e($table)." WHERE Key_name = 'PRIMARY'");
@@ -190,7 +187,6 @@ function sql_where($array=false, $operator='AND') {
 
 
 
-
 function sql_key_value($key, $value=false) {
 
 	if ($value===false)
@@ -199,6 +195,7 @@ function sql_key_value($key, $value=false) {
 		return sql_update('key_value', array('name' => $key, 'value' => $value), "name = '".e($key)."'", true);
 
 }
+
 
 
 function sql_close() {
@@ -216,7 +213,6 @@ function sql_error() {
 	$msg = @mysqli_error(sql_link());
 	return ($msg?$msg:'');
 }
-
 
 
 

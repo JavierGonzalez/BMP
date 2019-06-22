@@ -8,7 +8,7 @@ function html_table($data, $config=false) {
     
     // Header
     $html .= '<tr style="'.($config['th_background-color']?'background-color:'.$config['th_background-color'].';':'').'">';
-    foreach ((array)$data[0] AS $key => $value) {
+    foreach ((array)$data[key($data)] AS $key => $value) {
 
         if (isset($config[$key]['th']))
             $key = $config[$key]['th'];
@@ -24,20 +24,32 @@ function html_table($data, $config=false) {
         foreach ($row AS $key => $column) {
             $td_extra = '';
             
+            if (is_array($column))
+                $column = implode(', ', $column);
+                
             if ($config[$key]['align'])
                 $td_extra .= ' align="'.$config[$key]['align'].'"';
 
-                $monospace = false;
-                if ($config[$key]['monospace'])
-                    $monospace = ' class="monospace"';
+            if ($config[$key]['monospace'])
+                $td_extra .= ' class="monospace"';
 
-                if ($config[$key]['ucfirst'])
-                    $column = ucfirst($column);
+            if ($config[$key]['ucfirst'])
+                $column = ucfirst($column);
 
-                if ($config[$key]['capital'])
-                    $column = strtoupper($column);
+            if ($config[$key]['capital'])
+                $column = strtoupper($column);
+            
+            if (is_numeric($config[$key]['num']))
+                $column = num($column,$config[$key]['num']);
 
-            $html .= '<td'.$td_extra.$monospace.' nowrap>'.$column.'</td>';
+            if ($config[$key]['before'])
+                $column = $config[$key]['before'].$column;
+
+            if ($config[$key]['after'])
+                $column = $column.$config[$key]['after'];
+
+
+            $html .= '<td'.$td_extra.' nowrap>'.$column.'</td>';
         }
         $html .= '</tr>';
     }
