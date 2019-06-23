@@ -38,8 +38,19 @@ function address_normalice($address) {
 
 
 
-function hashpower_humans($hps, $decimals=4) {
-    return num($hps/1000000/1000000, $decimals).'&nbsp;TH/s'; // Refact
+function hashpower_humans($hps, $decimals=0) {
+
+    $prefix = array(
+               1000000000000000000 => 'E',
+                  1000000000000000 => 'P',
+                     1000000000000 => 'T',
+                        1000000000 => 'G',
+                           1000000 => 'M',
+        );
+
+    foreach ($prefix AS $x => $p)
+        if ($hps/$x >= 10)
+            return num($hps/$x, $decimals).'&nbsp;'.$p.'H/s';
 }
 
 

@@ -8,8 +8,7 @@ echo html_h($_template['title'], 1);
 $blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");
 
 
-$data = sql("SELECT 0, 
-    COUNT(DISTINCT height) AS blocks, 
+$data = sql("SELECT COUNT(DISTINCT height) AS blocks, 
     address AS miner, 
     nick, 
     SUM(power) AS power, 
@@ -22,7 +21,6 @@ $data = sql("SELECT 0,
 
 
 foreach ($data AS $key => $value) {
-    $data[$key][0] = ++$count;
 
     $data[$key]['miner'] = html_a('/info/miner/'.$value['miner'], ($value['nick']?$value['nick']:$value['miner']));
     unset($data[$key]['nick']);

@@ -3,11 +3,6 @@
 
     The Bitcoin Mining Parliament
     <br />
-    <a href="https://virtualpol.com/Miners_are_the_executive_power_of_Bitcoin_EN.pdf" target="_blank">Theory</a> · 
-    <a href="https://virtualpol.com/BMP_EN.pdf" target="_blank">Paper</a> · 
-    <a href="/protocol">Protocol</a> · 
-    <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a>
-    <br />
     BMP <?=BMP_VERSION?>
 
 </div>

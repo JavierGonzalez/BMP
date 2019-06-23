@@ -64,13 +64,15 @@ echo '
 
     <div id="top_right">
         <?=$_template['top_right']?>
+
+        <a href="#" class="btn btn-success">Login</a>
     </div>
 
 	<div id="content">
 	    <?=$_['output_html_content']?>
 	</div>
 
-	<div id="footer">
+	<div id="footer" style="color:#777;">
 		<?php include('template/footer.php'); ?>
 	</div>
 

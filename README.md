@@ -22,11 +22,6 @@ Tweet by [Roger Ver](https://twitter.com/rogerkver/status/649991677721972736) (2
 Extract from [Miners are the executive power of Bitcoin](https://virtualpol.com/Miners_are_the_executive_power_of_Bitcoin_EN.pdf) by Javier González González (2017-10-31)
 <br />
 
-> I'm not sure you understand how the Bitcoin protocol works. Segwit2x failed because there were no miners to mine it.
-
-Tweet by [Jeff Garzik](https://twitter.com/jgarzik/status/936172695485665280) (2017-11-30)
-<br />
-
 > Currently, the Bitcoin miners estimate consensus with inadequate coordination.
 > 
 > This causes contentious hardforks that divide the blockchain, fracture the community, create confusion and damage adoption. Miners can take responsibility, better than anyone else, for preventing the risk of such events happening again.
@@ -55,7 +50,7 @@ Tweet by [Olivier Janssens](https://twitter.com/olivierjanss/status/102801634237
 
 >We need a decision making process for changing and improving the protocol.
 
-Specification by Jihan Wu (2018-07-30)
+Specification by Jihan Wu (2018-08-30)
 <br />
 
 
@@ -67,7 +62,9 @@ Extract from [ABC vs BSV Hash War (Part III)](https://medium.com/@jiangzhuoer/ab
 
 ## How
 
-Voting with hashpower -to discover consensus- in the most secure voting system known.
+Talking and voting with hashpower -to discover consensus- in the most secure voting system known.
+
+
 
 ## What
 
@@ -75,16 +72,15 @@ Voting with hashpower -to discover consensus- in the most secure voting system k
 
 <br />
 
-[BMP](https://bmp.virtualpol.com) is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, completely on-chain, verifiable and replicable.
+[BMP](https://bmp.virtualpol.com) is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, hashpower driven, completely on-chain, verifiable and replicable.
 
 BMP is connected to a Bitcoin Cash client by RPC to read blocks and transactions.
 
-On-chain data is transformed with PHP in 3 SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
+On-chain input data is transformed [with this PHP](https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp.php) in 3 SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
 
-Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future). 
-Actions without hashpower are ignored.
+Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future). Actions without hashpower are ignored.
 
-BMP does not store any private key. The entire BMP database is public information. BMP can work isolated in local network without internet.
+BMP does not store private keys. The entire BMP database is public information. BMP can work isolated without internet.
 
 More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in [Chinese](https://virtualpol.com/BMP_CN.pdf), [English](https://virtualpol.com/BMP_EN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
 
@@ -94,10 +90,21 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in
 1. Your address in a coinbase output in the last `2,016` blocks of BCH.
 2. Trezor hardware wallet.
 
+
+#### Hashpower signaling
+
+1. **power_by_value** 
+By default, BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all blocks and with P2Pool even the smallest miner can participate right now.
+
+2. **power_by_opreturn**
+In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more directions by putting them in the OP_RETURN output of the coinbase. This ignores the value and allows the delegation of hashpower simply.
+
+Of course, miners can easily delegate hashpower to anyone else.
+
 #### Requirements to deploy
 
-1. Bitcoin ABC client with `-txindex`
-2. GNU/Linux
+1. Bitcoin ABC client, with `-txindex`
+2. GNU/Linux operative
 3. Apache
 4. MariaDB or MySQL database
 5. PHP
@@ -105,7 +112,7 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in
 #### Tested environment
 
 * x86_64 SSD
-* CentOS 7.6 
+* GNU/Linux CentOS 7.6 
 * PHP 7.1
 * MariaDB 5.5
 * Chrome 74.0
@@ -122,15 +129,16 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in
 
 #### Known problems
 
+* Style/logo.
 * OP_RETURN size too small because Trezor hardware limits (?).
 * More hardware wallets support.
-* Chat moderation.
+* More Bitcoin clients support.
+* IRC-like classic attacks.
 * Asian characters.
 * Internationalization.
-* More Bitcoin clients support.
 * Auto-update blocks in reorg event.
-* Style/logo.
 * 0-conf latency (+10 sec).
+* Verifiability can be better.
 * Absolute power corrupts absolutely.
 
 ---

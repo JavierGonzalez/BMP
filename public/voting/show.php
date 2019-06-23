@@ -17,11 +17,10 @@ $_template['lib_js'][]  = '/lib/trezor-connect-7.js';
 
 ?>
 
-
-<div style="width:700px;">
-
-
 <h1>Voting</h1>
+
+
+<table border=0 width="100%"><tr><td valign="top" style="min-width:500px;">
 
 
 <fieldset>
@@ -38,6 +37,33 @@ foreach ($voting['points'] AS $text)
 
 
 
+
+
+
+<fieldset>
+<legend>Result</legend>
+
+<span style="float:right;">
+
+<?=html_table(array(array('validity'=>$voting['validity']['valid'].' valid'), array('validity' => $voting['validity']['not_valid'].' not valid')))?>
+</span>
+
+
+<?php
+
+$config = array(
+        'votes'     => array('align' => 'right', 'num' => 0),
+        'power'     => array('align' => 'right', 'num' => POWER_PRECISION, 'after' => '%', 'bold' => true),
+        'hashpower' => array('align' => 'right', 'function' => 'hashpower_humans'),
+    );
+
+echo html_table($voting['options'], $config);
+
+?>
+
+<br />
+
+</fieldset>
 
 
 
@@ -97,25 +123,10 @@ foreach ($voting['options'] AS $option_txid => $r)
 
 
 
-<fieldset>
-<legend>Result</legend>
-
-<?php
-
-$config = array(
-        'votes'    => array('align' => 'right', 'num' => 0),
-        'power'    => array('align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'),
-    );
-
-echo html_table($voting['options'], $config);
-
-?>
-
-<br />
-
-</fieldset>
+</td><td valign="top" style="font-size:11px;">
 
 
+<?=print_r2(json_encode($voting, JSON_PRETTY_PRINT))?>
 
 
-</div>
+</td></tr></table>

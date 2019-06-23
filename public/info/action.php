@@ -22,5 +22,4 @@ $proof['action']['p'] = action_parameters_pretty($action);
 $proof['miner']  = sql("SELECT height, (SELECT hash FROM blocks WHERE height = miners.height LIMIT 1) AS block_hash, txid, address, power, hashpower FROM miners WHERE address = '".$action['address']."' ORDER BY height ASC");
 
 
-
 print_r2($proof);

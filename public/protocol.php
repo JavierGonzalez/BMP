@@ -25,6 +25,7 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
             
     if ($txid_action_random = sql("SELECT txid AS ECHO FROM actions WHERE action = '".$action['action']."' ORDER BY RAND() LIMIT 1"))
         $td['example'] = html_a('/info/action/'.$txid_action_random, 'Example');
+    
 
     $table[] = $td;
 }
@@ -34,7 +35,7 @@ $table[0]['BMP'] = '';
 
 
 $config = array(
-        'th_background-color' => '#FFFFCC',
+        'th_background-color' => '#FFFFDD',
         
         'status'    => array('capital' => true, 'monospace' => true),
         'coinbase'  => array('align' => 'center'),
@@ -42,6 +43,8 @@ $config = array(
 
 
 ?>
+
+
 
 <ul>
     <li>Power percentage is calculated with SHA-256 hashpower with last <?=num(BLOCK_WINDOW)?> BCH blocks.</li>
@@ -52,12 +55,16 @@ $config = array(
     <li>Code obeys hashpower.</li>
 </ul>
 
+<div class="monospace">
+
 <?=html_table($table, $config)?>
 
 <br />
 <br />
 
 <em>* In ALPHA development. Changes will occur.</em>
+
+</div>
 
 
 

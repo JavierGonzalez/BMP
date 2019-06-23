@@ -12,7 +12,7 @@ foreach ($votings AS $r)
         $table[] = array(
                 'time'    => date('Y-m-d', strtotime($voting['time'])),
                 'voting'  => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
-                'votes'   => $voting['votes'],
+                'votes'   => $voting['votes_num'],
                 'power'   => $voting['power'],
             );
 
@@ -28,7 +28,7 @@ $config = array(
 <h1>Voting</h1>
 
 
-<div style="font-size:18px;">
+<div style="font-size:18px;line-height:30px;">
 
 <?=html_table($table, $config)?>
 

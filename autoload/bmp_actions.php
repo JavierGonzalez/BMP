@@ -41,10 +41,12 @@ function action_voting_info($txid) {
             'option'    => 'NULL',
             'votes'     => 0,
             'power'     => 0,
+            'hashpower'     => 0,
         );
     
-    $voting['votes'] = 0;
+    $voting['votes_num'] = 0;
     $voting['power'] = 0;
+    $voting['hashpower'] = 0;
 
     $voting['validity'] = array(
             'valid'     => 0,
@@ -52,7 +54,7 @@ function action_voting_info($txid) {
         );
 
     foreach (sql("SELECT txid, p2 AS type, p4 AS text FROM actions 
-        WHERE action = 'voting_parameter' AND p1 = '".e($txid)."' ORDER BY height ASC, p3 ASC") AS $r) {
+        WHERE action = 'voting_parameter' AND p1 = '".e($txid)."' ORDER BY height ASC, p3 ASC, time ASC") AS $r) {
         $parameters_num++;
 
         if ($r['type']==1)
@@ -63,6 +65,7 @@ function action_voting_info($txid) {
                     'option'    => $r['text'],
                     'votes'     => 0,
                     'power'     => 0,
+                    'hashpower' => 0,
                 );
         
     }
@@ -76,26 +79,33 @@ function action_voting_info($txid) {
     foreach ($voting['options'] AS $option_txid => $r)
         $options_votes[] = $option_txid;
 
-    $result = sql("SELECT address, p1 AS option_txid, p2 AS voting_validity, 
-                    (SELECT SUM(power) FROM miners WHERE address = actions.address) AS power
+    
+    $blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");
+
+    $result = sql("SELECT txid, address, p1 AS option_txid, p2 AS voting_validity, 
+                    (SELECT SUM(power) FROM miners WHERE address = actions.address) AS power,
+                    (SELECT SUM(hashpower) FROM miners WHERE address = actions.address) AS hashpower
                     FROM actions 
                     WHERE action = 'vote' 
                     AND p1 IN ('".implode("','", $options_votes)."')
+                    AND height IS NOT NULL
                     AND height <= ".$voting['height_finish']."
                     ORDER BY height ASC, time ASC");
 
     // One vote per miner, replace by last.
     foreach ($result AS $r)
-        $voting_votes_txid[$r['address']] = $r;
+        $voting['votes'][$r['address']] = $r;
 
-    foreach ($voting_votes_txid AS $miner => $vote) {
-        $voting['votes']++;
+    foreach ($voting['votes'] AS $miner => $vote) {
+        $voting['votes_num']++;
         $voting['power'] += $vote['power'];
+        $voting['hashpower'] += $vote['hashpower'];
 
         $voting['validity'][($vote['voting_validity']==='1'?'valid':'not_valid')]++;
 
         $voting['options'][$vote['option_txid']]['votes']++;
         $voting['options'][$vote['option_txid']]['power'] += $vote['power'];
+        $voting['options'][$vote['option_txid']]['hashpower'] += $vote['hashpower']/$blocks_num;
     }
 
 

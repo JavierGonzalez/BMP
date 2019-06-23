@@ -194,14 +194,14 @@ function get_action_tx($tx) {
        return false; // Refact
 
 
-    // OUTPUT ADDRESS (index = 0)
+    // ADDRESS (index = 0)
     $action['address'] = $tx['vout'][0]['scriptPubKey']['addresses'][0];
 
     if (!$action['address'])
         return false;
 
 
-    // OUTPUT ADDRESS is in PREV OUTPUT ADDRESS
+    // ADDRESS is in PREV OUTPUT
     $tx_prev = rpc_get_transaction($tx['vin'][0]['txid']);
     foreach ($tx_prev['vout'] AS $tx_vout)
         if ($action['address']===$tx_vout['scriptPubKey']['addresses'][0])

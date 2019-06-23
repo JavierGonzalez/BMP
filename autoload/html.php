@@ -33,14 +33,18 @@ function html_table($data, $config=false) {
             if ($config[$key]['monospace'])
                 $td_extra .= ' class="monospace"';
 
+            if ($config[$key]['function'])
+                $column = call_user_func($config[$key]['function'], $column);
+
+            if (is_numeric($config[$key]['num']))
+                $column = num($column,$config[$key]['num']);
+
             if ($config[$key]['ucfirst'])
                 $column = ucfirst($column);
 
             if ($config[$key]['capital'])
                 $column = strtoupper($column);
             
-            if (is_numeric($config[$key]['num']))
-                $column = num($column,$config[$key]['num']);
 
             if ($config[$key]['before'])
                 $column = $config[$key]['before'].$column;
@@ -48,6 +52,8 @@ function html_table($data, $config=false) {
             if ($config[$key]['after'])
                 $column = $column.$config[$key]['after'];
 
+            if ($config[$key]['bold'])
+                $column = '<b>'.$column.'</b>';
 
             $html .= '<td'.$td_extra.' nowrap>'.$column.'</td>';
         }

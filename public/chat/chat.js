@@ -1,7 +1,7 @@
 // BMP
 
 
-last = '2009-01-03 18:15';
+last = '2009-01-03 18:15:00';
 ajax_refresh = true;
 refresh = '';
 chat_delay = 2000;

@@ -88,32 +88,43 @@ $bmp_protocol = array(
         '08' => array(
             'status'        => 'planned',
             'action'        => 'cancel',
+            1 => array('size' =>  32, 'name'=>'action'),
         ),
 
 
         '09' => array(
-            'status'        => 'planned',
+            'status'        => 'idea',
+            'action'        => 'private_msg',
+        ),
+
+        '0a' => array(
+            'status'        => 'idea',
             'action'        => 'forum',
         ),
 
 
-        '0a' => array(
-            'status'        => 'planned',
+        '0b' => array(
+            'status'        => 'idea',
             'action'        => 'documents',
         ),
 
 
-        '0b' => array(
-            'status'        => 'planned',
+        '0c' => array(
+            'status'        => 'idea',
+            'action'        => 'teams',
+        ),
+
+
+        '0d' => array(
+            'status'        => 'idea',
             'action'        => 'projects',
         ),
 
 
-        '0c' => array(
-            'status'        => 'planned',
-            'action'        => 'teams',
+        '0e' => array(
+            'status'        => 'idea',
+            'action'        => 'funding',
         ),
-
 
     ),
 );
