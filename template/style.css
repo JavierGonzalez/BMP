@@ -6,7 +6,8 @@ a:hover { text-decoration:underline; }
 
 
 #top_right {
-    float:right;
+    right:10px;
+    position:absolute;
     margin:10px 8px 0 0;
 }
 

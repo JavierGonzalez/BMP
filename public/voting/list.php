@@ -10,10 +10,12 @@ $votings = sql("SELECT txid FROM actions WHERE action = 'voting' ORDER BY height
 foreach ($votings AS $r)
     if ($voting = action_voting_info($r['txid']))
         $table[] = array(
-                'time'    => date('Y-m-d', strtotime($voting['time'])),
-                'voting'  => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
-                'votes'   => $voting['votes_num'],
-                'power'   => $voting['power'],
+                'time'          => date('Y-m-d', strtotime($voting['time'])),
+                //'height'        => $voting['height'],
+                'height_finish' => $voting['height_finish'],
+                'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
+                'votes'         => $voting['votes_num'],
+                'power'         => $voting['power'],
             );
 
 

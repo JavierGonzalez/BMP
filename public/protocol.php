@@ -2,11 +2,6 @@
 
 $_template['title'] = 'Protocol';
 
-echo html_h('Protocol');
-
-
-$bmp_protocol['prefix'] = '9d';
-
 
 foreach ($bmp_protocol['actions'] AS $action_id => $action) {
 
@@ -44,7 +39,7 @@ $config = array(
 
 ?>
 
-
+<h1>Protocol</h1>
 
 <ul>
     <li>Power percentage is calculated with SHA-256 hashpower with last <?=num(BLOCK_WINDOW)?> BCH blocks.</li>
@@ -55,17 +50,12 @@ $config = array(
     <li>Code obeys hashpower.</li>
 </ul>
 
-<div class="monospace">
 
 <?=html_table($table, $config)?>
 
-<br />
-<br />
 
-<em>* In ALPHA development. Changes will occur.</em>
+<br /><br />
 
-</div>
-
-
-
+<em>* In ALPHA development. Changes will occur.</em><br />
+<em>* Code specs in <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank">code here</a>.</em>
 

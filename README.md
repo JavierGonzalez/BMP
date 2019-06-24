@@ -62,7 +62,7 @@ Extract from [ABC vs BSV Hash War (Part III)](https://medium.com/@jiangzhuoer/ab
 
 ## How
 
-Talking and voting with hashpower -to discover consensus- in the most secure voting system known.
+Talking and voting with hashpower -to discover consensus- in the most secure voting system known by mankind.
 
 
 
@@ -72,17 +72,16 @@ Talking and voting with hashpower -to discover consensus- in the most secure vot
 
 <br />
 
-[BMP](https://bmp.virtualpol.com) is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, hashpower driven, completely on-chain, verifiable and replicable.
+[BMP](https://bmp.virtualpol.com) is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, completely on-chain, verifiable, replicable and driven by hashpower.
 
-BMP is connected to a Bitcoin Cash client by RPC to read blocks and transactions.
-
+BMP is connected to a Bitcoin Cash client by RPC to read blocks and transactions. 
 On-chain input data is transformed [with this PHP](https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp.php) in 3 SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
 
 Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future). Actions without hashpower are ignored.
 
 BMP does not store private keys. The entire BMP database is public information. BMP can work isolated without internet.
 
-More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in [Chinese](https://virtualpol.com/BMP_CN.pdf), [English](https://virtualpol.com/BMP_EN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
+More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and paper in [Chinese](https://virtualpol.com/BMP_CN.pdf), [English](https://virtualpol.com/BMP_EN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
 
 
 #### Requirements to participate
@@ -97,7 +96,7 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and BMP paper in
 By default, BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all blocks and with P2Pool even the smallest miner can participate right now.
 
 2. **power_by_opreturn**
-In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more directions by putting them in the OP_RETURN output of the coinbase. This ignores the value and allows the delegation of hashpower simply.
+In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more addresses in OP_RETURN output coinbase. This ignores the value and allows the delegation of hashpower with simplicity.
 
 Of course, miners can easily delegate hashpower to anyone else.
 
@@ -121,7 +120,7 @@ Of course, miners can easily delegate hashpower to anyone else.
 
 #### How to deploy
 
-1. Put the BMP code in the `www` http directory.
+1. Put the BMP code in the `www` httpd public directory.
 2. Configure RPC and SQL access by creating `autoload/_password.php`.
 3. Execute `scheme.sql` in a new database.
 4. Set a `crontab` every minute with: `curl http://localhost/update`.
@@ -137,8 +136,8 @@ Of course, miners can easily delegate hashpower to anyone else.
 * Asian characters.
 * Internationalization.
 * Auto-update blocks in reorg event.
+* Better verifiability.
 * 0-conf latency (+10 sec).
-* Verifiability can be better.
 * Absolute power corrupts absolutely.
 
 ---

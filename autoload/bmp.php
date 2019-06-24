@@ -18,7 +18,7 @@ function block_insert($height) {
     
     /// BLOCK
     sql_insert('blocks', array(
-            'chain'                 => BLOCKCHAIN,
+            'blockchain'            => BLOCKCHAIN,
             'height'                => $block['height'],
             'hash'                  => $block['hash'],
             'size'                  => $block['size'],
@@ -46,7 +46,7 @@ function block_insert($height) {
     /// MINERS
     foreach ((array)$coinbase_hashpower['miners'] AS $miner)
         sql_insert('miners', array(
-                'chain'         => BLOCKCHAIN,
+                'blockchain'    => BLOCKCHAIN,
                 'txid'          => $coinbase['txid'],
                 'height'        => $block['height'],
                 'address'       => address_normalice($miner['address']),
@@ -90,13 +90,13 @@ function coinbase_hashpower($coinbase) {
     foreach ($coinbase['vout'] AS $tx_vout)
         if (substr($tx_vout['scriptPubKey']['asm'],0,14)=='OP_RETURN '.$bmp_protocol['prefix'].'01')
             $output['miners'][] = array(
-                    'quota'   => trim(hexdec( substr($tx_vout['scriptPubKey']['asm'],14, 3))),
-                    'address' => trim(hex2bin(substr($tx_vout['scriptPubKey']['asm'],17,40))), // Refact
+                    'quota'   => trim(hexdec(     substr($tx_vout['scriptPubKey']['asm'],14, 3))),
+                    'address' => trim(hextobase58(substr($tx_vout['scriptPubKey']['asm'],17,40))),
                 );
 
 
     if ($output['miners']) {
-        $output['power_by'] = 'opreturn'; // Refact
+        $output['power_by'] = 'opreturn';
     
     } else {
         $output['power_by'] = 'value';
@@ -126,8 +126,8 @@ function get_action($txid, $block=false) {
 
     
     $action = array(
-            'chain'     => BLOCKCHAIN,
-            'txid'      => $tx['txid'],
+            'blockchain'    => BLOCKCHAIN,
+            'txid'          => $tx['txid'],
         );
     
     if ($block)

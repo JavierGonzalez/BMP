@@ -6,7 +6,7 @@ $_template['title'] = 'Action: '.$_GET[2];
 $proof['bmp'] = array(
         'title'         => 'BMP '.$_template['title'],
         'version'       => BMP_VERSION,
-        'chain'         => BLOCKCHAIN,
+        'blockchain'    => BLOCKCHAIN,
         'block_window'  => BLOCK_WINDOW,
     );
 

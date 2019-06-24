@@ -18,7 +18,7 @@ function html_table($data, $config=false) {
     $html .= '</tr>';
     
     
-    // Content
+    // Rows
     foreach ($data AS $row) {
         $html .= '<tr>';
         foreach ($row AS $key => $column) {
@@ -44,7 +44,6 @@ function html_table($data, $config=false) {
 
             if ($config[$key]['capital'])
                 $column = strtoupper($column);
-            
 
             if ($config[$key]['before'])
                 $column = $config[$key]['before'].$column;
@@ -73,6 +72,7 @@ function html_a($url, $text, $blank=false) {
 function html_b($text) {
     return '<b>'.$text.'</b>';
 }
+
 
 function html_h($text, $num=1) {
     return '<h'.$num.'>'.$text.'</h'.$num.'>';

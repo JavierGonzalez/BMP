@@ -1,7 +1,6 @@
 <?php # BMP — Javier González González
 
 
-
 function num($number, $decimals=0) { 
     return number_format($number, $decimals, '.', ',');
 }

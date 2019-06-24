@@ -1,13 +1,11 @@
 <?php # BMP — Javier González González
 
 
-
 function revert_bytes($hex) {
     $hex = str_split($hex, 2);
     $hex = array_reverse($hex);
     return implode('', $hex);
 }
-
 
 
 function pool_decode($coinbase) {
@@ -25,7 +23,6 @@ function pool_decode($coinbase) {
 }
 
 
-
 function address_normalice($address) {
     
     include_once('lib/cashaddress.php');
@@ -37,22 +34,23 @@ function address_normalice($address) {
 }
 
 
-
 function hashpower_humans($hps, $decimals=0) {
+
+    if (!is_numeric($hps) OR $hps==0)
+        return '';
 
     $prefix = array(
                1000000000000000000 => 'E',
                   1000000000000000 => 'P',
                      1000000000000 => 'T',
                         1000000000 => 'G',
-                           1000000 => 'M',
         );
 
     foreach ($prefix AS $x => $p)
-        if ($hps/$x >= 10)
+        if ($hps/$x >= 10 OR $x==1000000000)
             return num($hps/$x, $decimals).'&nbsp;'.$p.'H/s';
-}
 
+}
 
 
 function get_new_block() {

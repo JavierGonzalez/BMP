@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS `key_value`;
 
 CREATE TABLE `blocks` (
     `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
-    `chain`                 char(3)                   NOT NULL COMMENT 'Ticker',
+    `blockchain`            char(3)                   NOT NULL COMMENT 'Ticker',
     `height`                int(8) UNSIGNED           NOT NULL,
     `hash`                  char(64)                  NOT NULL,
     `size`                  decimal(20,0)             NOT NULL,
@@ -26,11 +26,11 @@ CREATE TABLE `blocks` (
     `coinbase`              varchar(900)          DEFAULT NULL,
     `pool`                  varchar(100)          DEFAULT NULL,
     `signals`               varchar(900)          DEFAULT NULL,
-    `power_by`              varchar(20)               NOT NULL COMMENT 'value OR opreturn',
+    `power_by`              varchar(20)               NOT NULL COMMENT 'value | opreturn',
     `quota_total`           decimal(30,8)             NOT NULL,
     `hashpower`             decimal(60,0)             NOT NULL,
     PRIMARY KEY (id),
-    KEY `chain` (`chain`),
+    KEY `blockchain` (`blockchain`),
     KEY `height` (`height`),
     KEY `time` (`time`),
     KEY `hashpower` (`hashpower`)
@@ -39,7 +39,7 @@ CREATE TABLE `blocks` (
 
 CREATE TABLE `miners` (
     `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
-    `chain`                 char(3)                   NOT NULL COMMENT 'Ticker',
+    `blockchain`            char(3)                   NOT NULL COMMENT 'Ticker',
     `txid`                  char(64)                  NOT NULL,
     `height`                int(8) UNSIGNED           NOT NULL,
     `address`               varchar(64)               NOT NULL,
@@ -48,7 +48,8 @@ CREATE TABLE `miners` (
     `power`                 decimal(12,8)         DEFAULT NULL COMMENT 'Percentage, updated with every block',
     `hashpower`             decimal(60,0)             NOT NULL COMMENT 'Hashes',
     PRIMARY KEY (id),
-    KEY `chain` (`chain`),
+    KEY `blockchain` (`blockchain`),
+    KEY `txid` (`txid`),
     KEY `height` (`height`),
     KEY `address` (`address`),
     KEY `power` (`power`),
@@ -59,7 +60,7 @@ CREATE TABLE `miners` (
 
 CREATE TABLE `actions` (
     `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
-    `chain`                 char(3)                   NOT NULL COMMENT 'Ticker',
+    `blockchain`            char(3)                   NOT NULL COMMENT 'Ticker',
     `txid`                  char(64)                  NOT NULL,
     `height`                int(8) UNSIGNED       DEFAULT NULL,
     `time`                  datetime,
@@ -74,19 +75,19 @@ CREATE TABLE `actions` (
     `p5`                    varchar(300)          DEFAULT NULL,
     `p6`                    varchar(300)          DEFAULT NULL,
     `json`                  longtext              DEFAULT NULL,
-    `nick`                  varchar(30)           DEFAULT NULL,
+    `nick`                  varchar(50)           DEFAULT NULL,
     `power`                 decimal(12,8)             NOT NULL COMMENT 'Percentage, immutable',
     `hashpower`             decimal(60,0)             NOT NULL COMMENT 'Hashes,     immutable',
     PRIMARY KEY (id),
-    KEY `chain` (`chain`),
+    KEY `blockchain` (`blockchain`),
+    KEY `txid` (`txid`),
     KEY `height` (`height`),
     KEY `time` (`time`),
-    KEY `action_id` (`action_id`),
+    KEY `address` (`address`),
     KEY `action` (`action`),
     KEY `p1` (`p1`),
     KEY `p2` (`p2`),
-    KEY `power` (`power`),
-    KEY `hashpower` (`hashpower`)
+    KEY `p3` (`p3`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 

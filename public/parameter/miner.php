@@ -4,8 +4,6 @@ $_template['title'] = 'Miner parameter';
 
 
 $_template['lib_js'][]  = '/public/parameter/miner.js';
-$_template['lib_js'][]  = '/public/bmp.js';
-$_template['lib_js'][]  = 'https://connect.trezor.io/7/trezor-connect.js';
 
 
 $_template['tabs'] = array(
@@ -33,7 +31,7 @@ $_template['tabs'] = array(
 </td>
 
 <td>
-	<button type="button" style="width:100px;">Execute</button>
+	<button type="button" class="executive_action btn btn-success btn-sm">Execute</button>
 </td>
 
 

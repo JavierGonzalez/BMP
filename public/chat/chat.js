@@ -123,7 +123,8 @@ function print_msg(data) {
         }
 
 
-        html += '<td align=right nowrap><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '% HP</a></td>';
+        html += '<td align=right nowrap><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
+        html += '<td align=right nowrap>' + value['hashpower'] + '</td>';
         html += '</tr>';
         
 

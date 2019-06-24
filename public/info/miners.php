@@ -5,9 +5,6 @@ $_template['title'] = 'Miners';
 echo html_h($_template['title'], 1);
 
 
-$blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");
-
-
 $data = sql("SELECT COUNT(DISTINCT height) AS blocks, 
     address AS miner, 
     nick, 
@@ -29,7 +26,7 @@ foreach ($data AS $key => $value) {
         $data[$key]['miner'] = html_b($data[$key]['miner']);
 
     $data[$key]['power']     = '<span title="'.$value['power'].'%">'.num($value['power'], POWER_PRECISION).'%</span>';
-    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/$blocks_num);
+    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/BLOCK_WINDOW);
 }
 
 

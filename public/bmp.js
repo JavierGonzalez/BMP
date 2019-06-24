@@ -1,6 +1,28 @@
 // BMP — Javier González González
 
 
+
+$(document).ready(function() {
+    print_login();
+});
+
+
+
+function print_login() {
+
+    if (miner_utxo()) {
+        $('#print_login').html('<a href="/parameter/miner">' + miner_utxo()['address'].substr(-10, 10) + '</a> <button class="btn btn-warning" onclick="clean_miner_utxo()">Logout</button>');
+        $('.executive_action').prop('disabled', false);
+    } else {
+        $('#print_login').html('<button class="btn btn-warning" onclick="get_miner_utxo()">Login</button>');
+        $('.executive_action').prop('disabled', true);
+    }
+
+
+}
+
+
+
 function miner_utxo(data=null) {
 
     if (data) {
@@ -41,12 +63,20 @@ async function get_miner_utxo() {
                 } else {
                     sessionStorage.clear();
                     console.log('BMP MINER UTXO: not found!');
+                    alert("Coinbase UTXO not found.");
                 }
 
             }
         );
     }
 
+    print_login();
+}
+
+
+function clean_miner_utxo() {
+    sessionStorage.clear();
+    print_login();
 }
 
 
@@ -77,7 +107,7 @@ async function blockchain_send_tx(op_return) {
             ],
             outputs: [
                 {
-                    address: miner_utxo()['address'],
+                    address: miner_utxo()['address_cash'],
                     amount: value_output,
                     script_type: 'PAYTOADDRESS',
                 },
@@ -94,8 +124,8 @@ async function blockchain_send_tx(op_return) {
 
     if (result_tx.payload.error) {
         console.log('ERROR: ' + result_tx.payload.error);
-        sessionStorage.clear();
         alert('ERROR: ' + result_tx.payload.error);
+        // sessionStorage.clear();
         
     } else {
         var data = miner_utxo();

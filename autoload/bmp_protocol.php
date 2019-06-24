@@ -87,7 +87,7 @@ $bmp_protocol = array(
 
         '08' => array(
             'status'        => 'planned',
-            'action'        => 'cancel',
+            'action'        => 'idea',
             1 => array('size' =>  32, 'name'=>'action'),
         ),
 

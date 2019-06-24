@@ -6,8 +6,6 @@ $_template['title'] = 'Chat';
 $_template['lib_css'][] = '/public/chat/chat.css';
 
 $_template['lib_js'][]  = '/public/chat/chat.js';
-$_template['lib_js'][]  = '/public/bmp.js';
-$_template['lib_js'][]  = '/lib/trezor-connect-7.js';
 $_template['lib_js'][]  = '/lib/date.format.js';
 
 
@@ -56,11 +54,11 @@ $_template['tabs'] = array(
 </td>
 
 <td valign="middle">
-	<input type="text" id="chat_input_msg" name="msg" value="" tabindex="1" autocomplete="off" size="65" maxlength="64" style="margin-left:0;width:98%;" autofocus required />
+	<input type="text" id="chat_input_msg" name="msg" value="" tabindex="1" autocomplete="off" size="65" maxlength="70" style="margin-left:0;width:98%;" autofocus required />
 </td>
 
 <td>
-	<input type="submit" style="width:100px;" class="btn btn-success btn-sm" value="Execute" />
+	<input type="submit" style="width:100px;" class="executive_action btn btn-success btn-sm" value="Execute" />
 </td>
 
 

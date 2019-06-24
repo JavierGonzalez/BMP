@@ -63,9 +63,8 @@ echo '
 <div id="content_right">
 
     <div id="top_right">
-        <?=$_template['top_right']?>
-
-        <a href="#" class="btn btn-success">Login</a>
+        <?=$_template['top_right']?> 
+        <span id="print_login"></span>
     </div>
 
 	<div id="content">
@@ -82,8 +81,8 @@ echo '
 
 <script type="text/javascript" src="/lib/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/template/script.js"></script>
-
+<script type="text/javascript" src="/public/bmp.js"></script>
+<script type="text/javascript" src="/lib/trezor-connect-7.js"></script>
 
 <?php
 foreach ((array)$_template['lib_js'] AS $file)

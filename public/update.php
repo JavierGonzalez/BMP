@@ -1,6 +1,7 @@
 <?php # BMP — Javier González González
 
 
+
 $beat_last = sql_key_value('beat_last');
 
 crono('beat_last: '.$beat_last);
@@ -9,9 +10,9 @@ if ($beat_last AND $beat_last >= time()-50)
     exit;
 
 
-set_time_limit(60*60*2);
+set_time_limit(60*60*24);
 
-for ($i=0;$i<=1200;$i++) {
+for ($i=0;$i<=2000;$i++) {
     beat();
     sleep(3);
 }

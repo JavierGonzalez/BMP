@@ -8,8 +8,6 @@ $_template['top_right'] .= '<a href="/voting" class="btn btn-outline-primary">Vo
 $_template['css'] .= '#voting_create td { padding:10px; }';
 
 $_template['lib_js'][]  = '/public/voting/voting.js';
-$_template['lib_js'][]  = '/public/bmp.js';
-$_template['lib_js'][]  = '/lib/trezor-connect-7.js';
 
 ?>
 
@@ -54,15 +52,12 @@ $_template['lib_js'][]  = '/lib/trezor-connect-7.js';
 
 
 
-
-
-
 <tr>
 
     <td align=right>Question</td>
 
     <td valign="middle">
-        <input type="text" id="question" size=40 focus required style="font-weight:bold;" />
+        <input type="text" id="question" size=40 maxlength="70" focus required style="font-weight:bold;" />
     </td>
 
 </tr>
@@ -74,7 +69,7 @@ $_template['lib_js'][]  = '/lib/trezor-connect-7.js';
     <td align=right valign=top>Points</td>
 
     <td valign="middle">
-        <input class="parameter voting_point" size=40 /> +
+        <input class="parameter voting_point" size=40 maxlength="42" /> +
     </td>
 
 </tr>
@@ -87,8 +82,8 @@ $_template['lib_js'][]  = '/lib/trezor-connect-7.js';
     <td align=right valign=top>Options</td>
 
     <td>
-        <input class="parameter voting_option" size=20 value="Yes" required /><br />
-        <input class="parameter voting_option" size=20 value="No" required /> +
+        <input class="parameter voting_option" size=20 maxlength="42" value="Yes" required /><br />
+        <input class="parameter voting_option" size=20 maxlength="42" value="No" required /> +
     </td>
 
 </tr>
@@ -103,7 +98,7 @@ $_template['lib_js'][]  = '/lib/trezor-connect-7.js';
 <td></td>
 
 <td>
-<button type="submit" class="btn btn-success">Execute</button>
+<button type="submit" class="executive_action btn btn-success">Execute</button>
 </td>
 
 
