@@ -59,3 +59,4 @@ $config = array(
 <em>* In ALPHA development. Changes will occur.</em><br />
 <em>* Code specs in <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank">code here</a>.</em>
 
+<br /><br />

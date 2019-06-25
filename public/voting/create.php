@@ -3,8 +3,6 @@
 $_template['title'] = 'Voting create';
 
 
-$_template['top_right'] .= '<a href="/voting" class="btn btn-outline-primary">Voting</a>';
-
 $_template['css'] .= '#voting_create td { padding:10px; }';
 
 $_template['lib_js'][]  = '/public/voting/voting.js';

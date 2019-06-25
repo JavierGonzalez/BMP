@@ -34,6 +34,13 @@ function action_voting_info($txid) {
     FROM actions WHERE txid = '".e($txid)."' AND action = 'voting' LIMIT 1")[0];
 
     $voting['height_finish'] = $voting['height'] + $voting['blocks_to_finish'];
+    
+    $last_height = sql("SELECT height FROM blocks ORDER BY height DESC LIMIT 1")[0]['height'];
+    
+    $voting['status'] = ($voting['height_finish']>=$last_height?'open':'close');
+    
+    if ($voting['status']=='open')
+        $voting['close_in'] = $voting['height_finish']-$last_height;
 
     $voting['points'] = array();
 
@@ -88,9 +95,8 @@ function action_voting_info($txid) {
                     FROM actions 
                     WHERE action = 'vote' 
                     AND p1 IN ('".implode("','", $options_votes)."')
-                    AND height IS NOT NULL
-                    AND height <= ".$voting['height_finish']."
-                    ORDER BY height ASC, time ASC");
+                    AND (height <= ".$voting['height_finish'].($voting['status']=='open'?' OR height IS NULL':'').")
+                    ORDER BY ".($voting['status']=='close'?'height ASC, ':'')."time ASC");
 
     // One vote per miner, replace by last.
     foreach ($result AS $r)
@@ -101,7 +107,7 @@ function action_voting_info($txid) {
         $voting['power'] += $vote['power'];
         $voting['hashpower'] += $vote['hashpower'];
 
-        $voting['validity'][($vote['voting_validity']==='1'?'valid':'not_valid')]++;
+        $voting['validity'][($vote['voting_validity']==='1'?'valid':'not_valid')] += $vote['power'];
 
         $voting['options'][$vote['option_txid']]['votes']++;
         $voting['options'][$vote['option_txid']]['power'] += $vote['power'];

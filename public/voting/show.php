@@ -10,6 +10,7 @@ if ($txid_option = sql("SELECT p1 AS ECHO FROM actions WHERE action = 'voting_pa
 
 $voting = action_voting_info($txid);
 
+$_template['title'] = 'Voting: '.$voting['question'];
 
 $_template['lib_js'][]  = '/public/voting/voting.js';
 
@@ -31,6 +32,7 @@ foreach ($voting['points'] AS $text)
 ?>
 </ol>
 
+
 </fieldset>
 
 
@@ -43,7 +45,6 @@ foreach ($voting['points'] AS $text)
 
 <span style="float:right;">
 
-<?=html_table(array(array('validity'=>$voting['validity']['valid'].' valid'), array('validity' => $voting['validity']['not_valid'].' not valid')))?>
 </span>
 
 
@@ -61,10 +62,12 @@ echo html_table($voting['options'], $config);
 
 <br />
 
+<legend style="float:right;font-size:14px;margin-bottom:-14px;">Validity <?=num($voting['validity']['valid'],POWER_PRECISION)?>%</legend>
+
 </fieldset>
 
 
-
+<?php if ($voting['status']=='open') { ?>
 
 <fieldset>
 <legend>Vote</legend>
@@ -107,15 +110,19 @@ foreach ($voting['options'] AS $option_txid => $r)
 </table>
 
 
-<p><input type="text" id="voting_comment" maxlength="42" value="" style="width:100%;padding:4px;" placeholder="Comment..." /></p>
+<p><input type="text" id="voting_comment" maxlength="42" value="" autocomplete="off" style="width:100%;padding:4px;" placeholder="Comment..." /></p>
 
 
 </form>
 
 
 
+<legend style="float:right;font-size:14px;margin-bottom:-14px;">Closed in <?=$voting['close_in']?> blocks</legend>
+
 </fieldset>
 
+
+<?php } ?>
 
 
 

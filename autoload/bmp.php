@@ -2,7 +2,6 @@
 
 
 function block_insert($height) {
-    set_time_limit(60*60);
 
     if (sql("SELECT id FROM blocks WHERE height = ".e($height)))
         return false;

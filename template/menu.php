@@ -56,8 +56,11 @@ function menu_active($url) {
 <div id="menu-next">
 
 <p>
-    <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
     <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank">README</a><br />
+    <br />
+    <a href="https://virtualpol.com/Miners_are_the_executive_power_of_Bitcoin_EN.pdf" target="_blank">Theory</a><br /> 
+    <a href="https://virtualpol.com/BMP_EN.pdf" target="_blank">Paper</a><br />
+    <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
     <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a><br />
 </p>
 
@@ -67,16 +70,7 @@ function menu_active($url) {
 
 if (DEBUG) {
 
-	$blocks = sql("SELECT COUNT(*) AS num, SUM(hashpower) AS hashpower FROM blocks")[0];
-	if ($blocks['num']>0)
-        echo hashpower_humans(($blocks['hashpower'] / $blocks['num']), 0).'<br />';
-/*
-    echo round(100-sql("SELECT ROUND(SUM(miners.power), ".POWER_PRECISION.") AS ECHO FROM miners 
-        LEFT JOIN actions ON actions.address = miners.address WHERE actions.id IS NULL"), POWER_PRECISION).'% HP';
-*/
-    
 	echo num(memory_get_usage()/1000).' kb &nbsp;'.num((microtime(true)-$_['crono_start'])*1000).' ms<br />';
-
     
 }
 

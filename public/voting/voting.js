@@ -21,6 +21,11 @@ $('#voting_vote').submit(async function(e) {
 $('#voting_create').submit(async function(e) {
     e.preventDefault();
 
+
+    var c = confirm("\n * This action requires multiple consecutive transactions.");
+    if (c != true)
+        return false;
+
     var parameters_num = 0;
     $(".parameter").each(async function(index) {
             parameters_num++;

@@ -62,22 +62,22 @@ Extract from [ABC vs BSV Hash War (Part III)](https://medium.com/@jiangzhuoer/ab
 
 ## How
 
-Talking and voting with hashpower -to discover consensus- in the most secure voting system known by mankind.
-
+Talking and voting with hashpower -to discover consensus- in the most secure voting system known.
 
 
 ## What
 
-#### https://bmp.virtualpol.com
+#### [bmp.virtualpol.com](https://bmp.virtualpol.com)
 
 <br />
 
 [BMP](https://bmp.virtualpol.com) is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, completely on-chain, verifiable, replicable and driven by hashpower.
 
-BMP is connected to a Bitcoin Cash client by RPC to read blocks and transactions. 
-On-chain input data is transformed [with this PHP](https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp.php) in 3 SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
+BMP works connected to a Bitcoin Cash client by RPC to read blocks and transactions. 
+Blockchain data is transformed [with this PHP](https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp.php) in 3 SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
+Actions without hashpower are ignored.
 
-Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future). Actions without hashpower are ignored.
+Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future).
 
 BMP does not store private keys. The entire BMP database is public information. BMP can work isolated without internet.
 
@@ -100,6 +100,7 @@ In order not to interfere with mining operations, there is a second method that 
 
 Of course, miners can easily delegate hashpower to anyone else.
 
+
 #### Requirements to deploy
 
 1. Bitcoin ABC client, with `-txindex`
@@ -114,6 +115,7 @@ Of course, miners can easily delegate hashpower to anyone else.
 * GNU/Linux CentOS 7.6 
 * PHP 7.1
 * MariaDB 5.5
+* Firefox 67.0
 * Chrome 74.0
 * Trezor Model T 2.1
 * Bitcoin ABC 0.19.7
@@ -137,9 +139,9 @@ Of course, miners can easily delegate hashpower to anyone else.
 * Internationalization.
 * Auto-update blocks in reorg event.
 * Better verifiability.
-* 0-conf latency (+10 sec).
+* 0-conf latency (+7 sec).
 * Absolute power corrupts absolutely.
 
 ---
 
-[Javier González González](https://www.linkedin.com/in/javiergonzalezgonzalez/)<br />BMP Architect
+[Javier González González](https://twitter.com/JavierGonzalez)<br />BMP Architect

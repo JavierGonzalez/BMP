@@ -1,7 +1,6 @@
 <?php # BMP — Javier González González
 
 $_template['title'] = 'Voting';
-$_template['top_right'] .= '<a href="/voting/create" class="btn btn-primary">Create new voting</a>';
 
 
 
@@ -10,8 +9,10 @@ $votings = sql("SELECT txid FROM actions WHERE action = 'voting' ORDER BY height
 foreach ($votings AS $r)
     if ($voting = action_voting_info($r['txid']))
         $table[] = array(
+                'status'        => ucfirst($voting['status']),
+                
                 'time'          => date('Y-m-d', strtotime($voting['time'])),
-                //'height'        => $voting['height'],
+                //'height'      => $voting['height'],
                 'height_finish' => $voting['height_finish'],
                 'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
                 'votes'         => $voting['votes_num'],
@@ -30,8 +31,12 @@ $config = array(
 <h1>Voting</h1>
 
 
-<div style="font-size:18px;line-height:30px;">
+<div style="font-size:20px;line-height:30px;">
 
 <?=html_table($table, $config)?>
 
 </div>
+
+<br /><br /><br />
+
+<a href="/voting/create" class="btn btn-primary">Create new voting</a>

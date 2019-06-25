@@ -15,8 +15,9 @@ $_template['tabs'] = array(
 
 ?>
 
-<h2>Miner parameter:</h2>
+<h1>Miner</h1>
 
+<h2>Parameter</h2>
 
 <form id="miner_parameter_nick">
 

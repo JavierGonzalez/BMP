@@ -1,9 +1,17 @@
 // BMP — Javier González González
 
 
-
 $(document).ready(function() {
     print_login();
+
+    window.TrezorConnect.on('DEVICE_EVENT', (event) => {
+        if (event.type === 'device-connect') {
+            print_login();
+        } else if (event.type === 'device-disconnect') {
+            miner_logout();
+        }
+    });
+
 });
 
 
@@ -11,16 +19,14 @@ $(document).ready(function() {
 function print_login() {
 
     if (miner_utxo()) {
-        $('#print_login').html('<a href="/parameter/miner">' + miner_utxo()['address'].substr(-10, 10) + '</a> <button class="btn btn-warning" onclick="clean_miner_utxo()">Logout</button>');
+        $('#print_login').html('<a href="/parameter/miner">' + miner_utxo()['address'].substr(-10, 10) + '</a> <button class="btn btn-warning" onclick="miner_logout()">Logout</button>');
         $('.executive_action').prop('disabled', false);
     } else {
-        $('#print_login').html('<button class="btn btn-warning" onclick="get_miner_utxo()">Login</button>');
+        $('#print_login').html('<button class="btn btn-warning" onclick="get_miner_utxo(true)">Login</button>');
         $('.executive_action').prop('disabled', true);
     }
 
-
 }
-
 
 
 function miner_utxo(data=null) {
@@ -37,20 +43,27 @@ function miner_utxo(data=null) {
 
 
 
-async function get_miner_utxo() {
+async function get_miner_utxo(confirmation=false) {
 
-   TrezorConnect = window.TrezorConnect;
+    if (confirmation == true) {
+        var c = confirm("\n *** REQUIREMENTS TO PARTICIPATE ***\n\n1. Your address in a coinbase in the last 2,016 BCH blocks.\n\n2. Trezor hardware wallet.\n\n3. Do not block external browser popup or adblocks.");
+        if (c != true)
+            return false;
+    }
 
-   TrezorConnect.manifest({
-       email: 'gonzo@virtualpol.com',
-       appUrl: 'https://bmp.virtualpol.com'
-   });
+    
+    TrezorConnect = window.TrezorConnect;
+
+    TrezorConnect.manifest({
+        email: 'gonzo@virtualpol.com',
+        appUrl: 'https://bmp.virtualpol.com'
+    });
 
 
 
-   result_utxo = await TrezorConnect.getAccountInfo({
-       coin: 'bch',
-   });
+    result_utxo = await TrezorConnect.getAccountInfo({
+        coin: 'bch',
+    });
 
 
     if (result_utxo.payload.utxo) {
@@ -74,7 +87,7 @@ async function get_miner_utxo() {
 }
 
 
-function clean_miner_utxo() {
+function miner_logout() {
     sessionStorage.clear();
     print_login();
 }
