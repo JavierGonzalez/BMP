@@ -18,6 +18,9 @@ $_template['js'] .= '
         bmp_protocol_prefix = "'.$bmp_protocol['prefix'].'";
     ';
 
+if ($blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks"))
+    if ($blocks_num!=BLOCK_WINDOW)
+        $_template['top_right'] .= 'UPDATING... '.num($blocks_num).' blocks &nbsp; ';
 
 ?><!DOCTYPE html>
 <html lang="en">

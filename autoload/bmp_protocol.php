@@ -21,8 +21,8 @@ $bmp_protocol = array(
             'coinbase'      => true,
             'action'        => 'power_by_opreturn',
             'description'   => 'Value-independent HP signaling. Any number, best option.',
-            1 => array('size' =>  2, 'name'=>'quota',    'decode'=>'hexdec'),
-            2 => array('size' => 34, 'name'=>'address',  'decode'=>'hextobase58'),
+            1 => array('size' =>  2, 'name'=>'quota',       'decode'=>'hexdec'),
+            2 => array('size' => 34, 'name'=>'address',     'decode'=>'hextobase58'),
         ),
 
 
@@ -31,8 +31,8 @@ $bmp_protocol = array(
             'action'        => 'chat',
             'description'   => '',
             1 => array('size' =>   5, 'name'=>'time'),
-            2 => array('size' =>   1, 'name'=>'channel',  'decode'=>'hexdec', 'options'=>array(0=>'main', 1=>'bmp')),
-            3 => array('size' => 200, 'name'=>'msg',      'decode'=>'hex2bin'),
+            2 => array('size' =>   1, 'name'=>'channel',    'decode'=>'hexdec', 'options'=>array(0=>'bmp', /*1=>'main'*/)),
+            3 => array('size' => 200, 'name'=>'msg',        'decode'=>'hex2bin'),
         ),
 
 
@@ -40,8 +40,8 @@ $bmp_protocol = array(
             'status'        => 'implemented',
             'action'        => 'miner_parameter',
             'description'   => '',
-            1 => array('size' =>  10, 'name'=>'key',    'decode'=>'hex2bin', 'options'=>array('nick', 'email', 'location')),
-            2 => array('size' => 200, 'name'=>'value',  'decode'=>'hex2bin'),
+            1 => array('size' =>  10, 'name'=>'key',        'decode'=>'hex2bin', 'options'=>array('nick', 'email')),
+            2 => array('size' => 200, 'name'=>'value',      'decode'=>'hex2bin'),
         ),
 
 
@@ -50,9 +50,10 @@ $bmp_protocol = array(
             'action'        => 'vote',
             'description'   => 'All action can be voted, independent validity voting.',
             1 => array('size' =>  32, 'name'=>'txid'),
-            2 => array('size' =>   1, 'name'=>'voting_validity',  'decode'=>'hexdec', 'options'=>array(0=>'not_valid', 1=>'valid')),
-            3 => array('size' =>   1, 'name'=>'vote_direction',   'decode'=>'hexdec', 'options'=>array(0=>'neutral', 1=>'positive', 2=>'negative')),
-            4 => array('size' => 160, 'name'=>'comment',          'decode'=>'hex2bin'),
+            2 => array('size' =>   1, 'name'=>'type_vote',        'decode'=>'hexdec', 'options'=>array(0=>'action', 1=>'one_election', /*2=>'multiple', 3=>'preferential_3', 4=>'preferential_5', 5=>'preferential_10'*/)),
+            3 => array('size' =>   1, 'name'=>'voting_validity',  'decode'=>'hexdec', 'options'=>array(0=>'not_valid', 1=>'valid')),
+            4 => array('size' =>   1, 'name'=>'vote',             'decode'=>'hexdec'),
+            5 => array('size' => 160, 'name'=>'comment',          'decode'=>'hex2bin'),
         ),
 
 
@@ -61,7 +62,7 @@ $bmp_protocol = array(
             'action'        => 'voting',
             'description'   => '',
             1 => array('size' =>   1, 'name'=>'type_voting',       'decode'=>'hexdec', 'options'=>array(0=>'default')),
-            2 => array('size' =>   1, 'name'=>'type_vote',         'decode'=>'hexdec', 'options'=>array(0=>'one_election',1=>'multiple', 2=>'preferential_3', 3=>'preferential_5', 4=>'preferential_10')),
+            2 => array('size' =>   1, 'name'=>'type_vote',         'decode'=>'hexdec', 'options'=>array(1=>'one_election', /*2=>'multiple', 3=>'preferential_3', 4=>'preferential_5', 5=>'preferential_10'*/)),
             3 => array('size' =>   1, 'name'=>'parameters_num',    'decode'=>'hexdec'),
             4 => array('size' =>   3, 'name'=>'blocks_to_finish',  'decode'=>'hexdec'),
             5 => array('size' => 200, 'name'=>'question',          'decode'=>'hex2bin'),
@@ -73,10 +74,13 @@ $bmp_protocol = array(
             'action'        => 'voting_parameter',
             'description'   => '',
             1 => array('size' =>  32, 'name'=>'txid'),
-            2 => array('size' =>   1, 'name'=>'type',   'decode'=>'hexdec', 'options'=>array(1=>'point', 2=>'option')),
+            2 => array('size' =>   1, 'name'=>'type',   'decode'=>'hexdec', 'options'=>array(0=>'point', 1=>'option')),
             3 => array('size' =>   1, 'name'=>'order',  'decode'=>'hexdec'),
             4 => array('size' => 160, 'name'=>'text',   'decode'=>'hex2bin'),
         ),
+
+
+
 
         '07' => array(
             'status'        => 'planned',
@@ -85,9 +89,12 @@ $bmp_protocol = array(
             2 => array('size' => 200, 'name'=>'value',  'decode'=>'hex2bin'),
         ),
 
+
+
+
         '08' => array(
-            'status'        => 'planned',
-            'action'        => 'idea',
+            'status'        => 'idea',
+            'action'        => 'cancel',
             1 => array('size' =>  32, 'name'=>'action'),
         ),
 

@@ -2,17 +2,17 @@
 
 
 function rpc_connect() {
-    global $b;
+    global $_rpc;
 
-    if (!$b) {
+    if (!$_rpc) {
         require_once('lib/easybitcoin.php');
         $sb = parse_url(URL_BCH);
-        $b = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
-        if (!$b)
-            echo $b->error();
+        $_rpc = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
+        if (!$_rpc)
+            echo $_rpc->error();
     }
-    
-    return $b;
+
+    return $_rpc;
 }
 
 
@@ -27,8 +27,12 @@ function rpc_get_block($hash) {
 
 
 function rpc_get_transaction($txid) {
+
     $b = rpc_connect();
-    return $b->getrawtransaction($txid, 1);
+
+    $bottleneck = $b->getrawtransaction($txid, 1);
+
+    return $bottleneck;
 }
 
 

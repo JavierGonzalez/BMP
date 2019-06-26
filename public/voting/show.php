@@ -1,12 +1,6 @@
 <?php # BMP — Javier González González
 
-
 $txid = e($_GET[1]);
-
-// Redirect url option to voting.
-if ($txid_option = sql("SELECT p1 AS ECHO FROM actions WHERE action = 'voting_parameter' AND p2 = 2 AND txid = '".e($txid)."' LIMIT 1"))
-    redirect('/voting/'.$txid_option);
-
 
 $voting = action_voting_info($txid);
 
@@ -56,7 +50,15 @@ $config = array(
         'hashpower' => array('align' => 'right', 'function' => 'hashpower_humans'),
     );
 
-echo html_table($voting['options'], $config);
+foreach ($voting['options'] AS $option)
+    $print_options[] = array(
+            'option'    => $option['option'],
+            'votes'     => $option['votes'],
+            'power'     => $option['power'],
+            'hashpower' => $option['hashpower'],
+        );
+
+echo html_table($print_options, $config);
 
 ?>
 
@@ -75,12 +77,15 @@ echo html_table($voting['options'], $config);
 
 <form id="voting_vote">
 
+<input type="hidden" id="voting_txid" value="<?=$voting['txid']?>" />
+<input type="hidden" id="voting_type_vote" value="1" />
+
 <p>
 <select id="voting_option" style="font-size:22px;white-space:normal;max-width:400px;">
 
 <?php
 foreach ($voting['options'] AS $option_txid => $r)
-    echo '<option value="'.$option_txid.'">'.$r['option'].'</option>';
+    echo '<option value="'.$r['vote'].'">'.$r['option'].'</option>';
 ?>
 
 </select> 
@@ -110,7 +115,7 @@ foreach ($voting['options'] AS $option_txid => $r)
 </table>
 
 
-<p><input type="text" id="voting_comment" maxlength="42" value="" autocomplete="off" style="width:100%;padding:4px;" placeholder="Comment..." /></p>
+<p><input type="text" id="voting_comment" maxlength="41" value="" autocomplete="off" style="width:100%;padding:4px;" placeholder="Comment..." /></p>
 
 
 </form>

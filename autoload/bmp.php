@@ -12,7 +12,9 @@ function block_insert($height) {
     
     $coinbase = rpc_get_transaction($block['tx'][0]);
     $coinbase_hashpower = coinbase_hashpower($coinbase);
-
+    
+    if (!$coinbase)
+        return false;
 
     
     /// BLOCK
@@ -56,13 +58,13 @@ function block_insert($height) {
     update_power();
 
 
-
+crono('A');
     /// ACTIONS
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
             if ($action = get_action($txid, $block))
                 sql_update('actions', $action, "txid = '".$action['txid']."'", true); // Update (0-conf) or insert (1-conf).
-
+crono('B');
     update_actions();
     
 
@@ -170,7 +172,7 @@ function get_action($txid, $block=false) {
                     ORDER BY time DESC LIMIT 1"))
         if (!is_array($nick))
             $action['nick'] = $nick;
-
+        
     return $action;
 }
 
@@ -205,11 +207,11 @@ function get_action_tx($tx) {
     foreach ($tx_prev['vout'] AS $tx_vout)
         if ($action['address']===$tx_vout['scriptPubKey']['addresses'][0])
             $address_valid = true;
-    
+   
     if (!$address_valid)
         return false;
 
-    
+
     $action['address'] = address_normalice($action['address']);
 
     return $action;
@@ -258,9 +260,14 @@ function op_return_decode($op_return) {
 
                 if ($v['decode']=='hextobase58')
                     $parameter = hextobase58($parameter);
-                    
+                
+                $parameter = trim($parameter);
 
-                $output['p'.$p] = trim($parameter);
+                if (is_array($v['options']))
+                    if (!array_key_exists($parameter, $v['options']))
+                        return false;
+
+                $output['p'.$p] = $parameter;
             }
         }
     }

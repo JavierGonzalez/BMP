@@ -47,7 +47,7 @@ function hashpower_humans($hps, $decimals=0) {
         );
 
     foreach ($prefix AS $x => $p)
-        if ($hps/$x >= 10 OR $x==1000000000)
+        if ($hps/$x >= 10 OR $p=='G')
             return num($hps/$x, $decimals).'&nbsp;'.$p.'H/s';
 
 }
@@ -57,20 +57,20 @@ function get_new_block() {
     
     $rpc_height = rpc_get_info()['blocks'];
     
-    $bmp_height = sql("SELECT height FROM blocks ORDER BY height DESC LIMIT 1")[0]['height'];
+    $bmp_height = sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
     
-    if ($rpc_height==$bmp_height)
+    if (!is_numeric($rpc_height) OR $rpc_height==$bmp_height)
         return false;
     
     if (!$bmp_height)
-        $height = $rpc_height - BLOCK_WINDOW; // Refact
+        $height = $rpc_height - BLOCK_WINDOW;
     else
         $height = $bmp_height + 1;
     
     
-    $info = block_insert($height);
+    block_insert($height);
     
-    return $info;
+    return true;
 }
 
 

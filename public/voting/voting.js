@@ -8,9 +8,10 @@ $('#voting_vote').submit(async function(e) {
 
     var op_return = bmp_protocol_prefix;
     op_return += '04';                                              // action: vote
-    op_return += $("#voting_option").val();                         // txid   
+    op_return += $("#voting_txid").val();                           // txid   
+    op_return += fill_hex(dechex($("#voting_type_vote").val()),1);  // type_vote
     op_return += fill_hex(dechex($("#voting_vote input[name='voting_validity']:checked").val()),1);   // voting_validity
-    op_return += fill_hex(dechex(1),1);                             // vote_direction (positive)
+    op_return += fill_hex(dechex($("#voting_option").val()),1);     // vote
     op_return += bin2hex($('#voting_comment').val());               // comment
     result_tx1 = await blockchain_send_tx(op_return);
     
@@ -45,24 +46,27 @@ $('#voting_create').submit(async function(e) {
     if (!result_tx1)
         return false;
 
-    var order = 0;
+    var order = [];
+    order[0] = 0;
+    order[1] = 0;
     
     var parameters_tx = [];
     $(".parameter").each(function(index) {
             if ($(this).val()) {
-                order++;
 
                 if ($(this).hasClass('voting_point'))
-                    var type = 1;
+                    var type = 0;
 
                 if ($(this).hasClass('voting_option'))
-                    var type = 2;
+                    var type = 1;
+                
+                order[type]++;
 
                 var op_return = bmp_protocol_prefix;
                 op_return += '06';                                  // action: voting_parameter
                 op_return += result_tx1.txid;                       // txid
                 op_return += fill_hex(dechex(type),1);              // type
-                op_return += fill_hex(dechex(order),1);             // order
+                op_return += fill_hex(dechex(order[type]),1);       // order
                 op_return += bin2hex($(this).val());                // text
                 parameters_tx.push(op_return);
 

@@ -25,10 +25,10 @@ $_template['lib_js'][]  = '/public/voting/voting.js';
 
     <td valign="middle">
         <select id="type_vote" required>
-            <option value="00">One election</option>
-            <option value="01" disabled>Multiple approval</option>
-            <option value="02" disabled>Preferential with 3 votes</option>
-            <option value="03" disabled>Preferential with 5 votes</option>
+            <option value="01">One election</option>
+            <option value="02" disabled>Multiple approval</option>
+            <option value="03" disabled>Preferential with 3 votes</option>
+            <option value="04" disabled>Preferential with 5 votes</option>
         </select>
     </td>
 

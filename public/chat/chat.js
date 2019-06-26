@@ -1,4 +1,4 @@
-// BMP
+// BMP — Javier González González
 
 
 last = '2009-01-03 18:15:00';
