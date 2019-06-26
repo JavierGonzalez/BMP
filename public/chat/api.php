@@ -14,7 +14,23 @@ if ($_GET[2]=='refresh' AND $_GET['last']) {
         LIMIT 1000");
 
 
-    foreach ($echo['msg'] AS $key => $value)
+    foreach ($echo['msg'] AS $key => $value) {
         $echo['msg'][$key]['hashpower'] = hashpower_humans($value['hashpower']/BLOCK_WINDOW);
-    
+
+
+        if ($value['action']=='vote')
+            if ($question = sql("SELECT p5 AS ECHO FROM actions WHERE action = 'voting' AND txid = '".$value['p1']."' LIMIT 1"))
+                $echo['msg'][$key]['question'] = $question;
+
+
+    }
+
+
+
+
+
+
+
+
+
 }

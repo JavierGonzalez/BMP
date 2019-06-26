@@ -70,8 +70,8 @@ async function get_miner_utxo(confirmation=false) {
         await $.post('/api/miner_utxo', { utxo: result_utxo.payload.utxo },
             async function(data){
 
-                if (data['miner_utxo']['transactionHash']) {
-                    console.log('BMP MINER UTXO: ' + data['miner_utxo']['transactionHash'] + ' ' + data['miner_utxo']['address']);
+                if (data['miner_utxo']['address']) {
+                    console.log('BMP MINER UTXO FOUND! ' + data['miner_utxo']['address'] + ' ' + data['miner_utxo']['transactionHash']);
                     miner_utxo(data['miner_utxo']);
                 } else {
                     sessionStorage.clear();

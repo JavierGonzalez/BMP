@@ -67,7 +67,9 @@ $_template['lib_js'][]  = '/public/voting/voting.js';
     <td align=right valign=top>Points</td>
 
     <td valign="middle">
-        <input class="parameter voting_point" size=40 maxlength="42" /> +
+        <ol id="voting_points">
+            <li><input class="parameter voting_point" size=40 maxlength="42" /> <a href="#" style="font-size:18px;" onclick="voting_add_point();"><b>+</b></a></li>
+        </ol>
     </td>
 
 </tr>
@@ -79,9 +81,10 @@ $_template['lib_js'][]  = '/public/voting/voting.js';
 
     <td align=right valign=top>Options</td>
 
-    <td>
+    <td id="voting_options">
+        <input class="" size=20 maxlength="42" value="NULL" disabled /><br />
         <input class="parameter voting_option" size=20 maxlength="42" value="Yes" required /><br />
-        <input class="parameter voting_option" size=20 maxlength="42" value="No" required /> +
+        <input class="parameter voting_option" size=20 maxlength="42" value="No" required />  <a href="#" style="font-size:18px;" onclick="voting_add_option();"><b>+</b></a>
     </td>
 
 </tr>

@@ -117,7 +117,7 @@ function print_msg(data) {
         if (value['action']=='vote') {
 
             html += '<td style="color:#00469A;"><b>[VOTE]</b>&nbsp; ';
-            html += '<a href="/voting/' + value['p1'] + '">Voting</a>';
+            html += '<a href="/voting/' + value['p1'] + '">' + value['question'] + '</a>';
             html += '</td>';
 
         }

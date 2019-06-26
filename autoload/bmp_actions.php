@@ -11,23 +11,7 @@ function update_actions() {
 }
 
 
-function action_parameters_pretty($action) {
-    global $bmp_protocol;
-
-    foreach ((array)$bmp_protocol['actions'][$action['action_id']] AS $key => $value)
-        if (is_numeric($key))
-            if (isset($action['p'.$key]))
-                $parameters[$value['name']] = $action['p'.$key];
-    
-    return $parameters;
-}
-
-
-
-
-
-
-function action_voting_info($txid) {
+function action_voting_info($txid) { // Refact
 
     $voting = sql("SELECT txid, height, time, address, 
     p1 AS type_voting, p2 AS type_vote, p3 AS parameters_num, p4 AS blocks_to_finish, p5 AS question 
@@ -102,7 +86,7 @@ function action_voting_info($txid) {
     foreach ($result AS $r)
         $voting['votes'][$r['address']] = $r;
 
-    foreach ($voting['votes'] AS $miner => $vote) {
+    foreach ((array)$voting['votes'] AS $miner => $vote) {
         $voting['votes_num']++;
         $voting['power'] += $vote['power'];
         $voting['hashpower'] += $vote['hashpower'];
@@ -119,9 +103,13 @@ function action_voting_info($txid) {
 }
 
 
+function action_parameters_pretty($action) {
+    global $bmp_protocol;
 
-
-
-
-
-
+    foreach ((array)$bmp_protocol['actions'][$action['action_id']] AS $key => $value)
+        if (is_numeric($key))
+            if (isset($action['p'.$key]))
+                $parameters[$value['name']] = $action['p'.$key];
+    
+    return $parameters;
+}

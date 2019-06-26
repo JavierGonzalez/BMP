@@ -57,9 +57,6 @@ function menu_active($url) {
 
 <p>
     <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank">README</a><br />
-    <br />
-    <a href="https://virtualpol.com/Miners_are_the_executive_power_of_Bitcoin_EN.pdf" target="_blank">Theory</a><br /> 
-    <a href="https://virtualpol.com/BMP_EN.pdf" target="_blank">Paper</a><br />
     <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
     <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a><br />
 </p>

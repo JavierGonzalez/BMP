@@ -26,6 +26,8 @@ $('#voting_create').submit(async function(e) {
     if (c != true)
         return false;
 
+    $('.executive_action').prop('disabled', true);
+
     var parameters_num = 0;
     $(".parameter").each(async function(index) {
             parameters_num++;
@@ -57,11 +59,11 @@ $('#voting_create').submit(async function(e) {
                     var type = 2;
 
                 var op_return = bmp_protocol_prefix;
-                op_return += '06';                                      // action: voting_parameter
-                op_return += result_tx1.txid;                           // txid
-                op_return += fill_hex(dechex(type),1);                  // type
-                op_return += fill_hex(dechex(order),1);                 // order
-                op_return += bin2hex($(this).val());                    // text
+                op_return += '06';                                  // action: voting_parameter
+                op_return += result_tx1.txid;                       // txid
+                op_return += fill_hex(dechex(type),1);              // type
+                op_return += fill_hex(dechex(order),1);             // order
+                op_return += bin2hex($(this).val());                // text
                 parameters_tx.push(op_return);
 
             }
@@ -77,3 +79,19 @@ $('#voting_create').submit(async function(e) {
 $('#chat_input_msg').keyup(function() {
 	$('#op_return_preview').text(bin2hex($(this).val()));
 });
+
+
+
+
+function voting_add_point() {
+
+    $('#voting_points').append('<li><input class="parameter voting_point" size=40 maxlength="42" /></li>');
+    return false;
+}
+
+
+function voting_add_option() {
+
+    $('#voting_options').append('<br /><input class="parameter voting_option" size=20 maxlength="42" value="" required />');
+    return false;
+}
