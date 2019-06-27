@@ -55,7 +55,7 @@ $_template['lib_js'][]  = '/public/voting/voting.js';
     <td align=right>Question</td>
 
     <td valign="middle">
-        <input type="text" id="question" size=40 maxlength="70" focus required style="font-weight:bold;" />
+        <input type="text" id="question" size=40 maxlength="70" autocomplete="off" focus required style="font-weight:bold;" />
     </td>
 
 </tr>

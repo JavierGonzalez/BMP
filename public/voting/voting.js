@@ -22,17 +22,18 @@ $('#voting_vote').submit(async function(e) {
 $('#voting_create').submit(async function(e) {
     e.preventDefault();
 
+    var parameters_num = 0;
+    $(".parameter").each(async function(index) {
+            if ($(this).val())
+                parameters_num++;
+        });
 
-    var c = confirm("\n * This action requires multiple consecutive transactions.");
+    var c = confirm("\nThis action requires " + (1 + parameters_num) + " consecutive transactions.");
     if (c != true)
         return false;
 
     $('.executive_action').prop('disabled', true);
 
-    var parameters_num = 0;
-    $(".parameter").each(async function(index) {
-            parameters_num++;
-        });
 
     var op_return = bmp_protocol_prefix;
     op_return += '05';                                              // action: voting

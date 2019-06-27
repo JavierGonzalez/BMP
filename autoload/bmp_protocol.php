@@ -9,17 +9,17 @@ $bmp_protocol = array(
 
 
         '00' => array(
-            'status'        => 'implemented',
-            'coinbase'      => true,
             'action'        => 'power_by_value',
+            'coinbase'      => true,
+            'status'        => 'implemented',
             'description'   => 'By default, standard, P2Pool style, without OP_RETURN.',
         ),
 
 
         '01' => array(
-            'status'        => 'implemented',
-            'coinbase'      => true,
             'action'        => 'power_by_opreturn',
+            'coinbase'      => true,
+            'status'        => 'implemented',
             'description'   => 'Value-independent HP signaling. Any number, best option.',
             1 => array('size' =>  2, 'name'=>'quota',       'decode'=>'hexdec'),
             2 => array('size' => 34, 'name'=>'address',     'decode'=>'hextobase58'),
@@ -27,8 +27,8 @@ $bmp_protocol = array(
 
 
         '02' => array(
-            'status'        => 'implemented',
             'action'        => 'chat',
+            'status'        => 'implemented',
             'description'   => '',
             1 => array('size' =>   5, 'name'=>'time'),
             2 => array('size' =>   1, 'name'=>'channel',    'decode'=>'hexdec', 'options'=>array(0=>'bmp', /*1=>'main'*/)),
@@ -37,8 +37,8 @@ $bmp_protocol = array(
 
 
         '03' => array(
-            'status'        => 'implemented',
             'action'        => 'miner_parameter',
+            'status'        => 'implemented',
             'description'   => '',
             1 => array('size' =>  10, 'name'=>'key',        'decode'=>'hex2bin', 'options'=>array('nick', 'email')),
             2 => array('size' => 200, 'name'=>'value',      'decode'=>'hex2bin'),
@@ -46,8 +46,8 @@ $bmp_protocol = array(
 
 
         '04' => array(
-            'status'        => 'implemented',
             'action'        => 'vote',
+            'status'        => 'implemented',
             'description'   => 'All action can be voted, independent validity voting.',
             1 => array('size' =>  32, 'name'=>'txid'),
             2 => array('size' =>   1, 'name'=>'type_vote',        'decode'=>'hexdec', 'options'=>array(0=>'action', 1=>'one_election', /*2=>'multiple', 3=>'preferential_3', 4=>'preferential_5', 5=>'preferential_10'*/)),
@@ -58,20 +58,20 @@ $bmp_protocol = array(
 
 
         '05' => array(
-            'status'        => 'implemented',
             'action'        => 'voting',
+            'status'        => 'implemented',
             'description'   => '',
             1 => array('size' =>   1, 'name'=>'type_voting',       'decode'=>'hexdec', 'options'=>array(0=>'default')),
             2 => array('size' =>   1, 'name'=>'type_vote',         'decode'=>'hexdec', 'options'=>array(1=>'one_election', /*2=>'multiple', 3=>'preferential_3', 4=>'preferential_5', 5=>'preferential_10'*/)),
             3 => array('size' =>   1, 'name'=>'parameters_num',    'decode'=>'hexdec'),
-            4 => array('size' =>   3, 'name'=>'blocks_to_finish',  'decode'=>'hexdec'),
+            4 => array('size' =>   3, 'name'=>'blocks_to_finish',  'decode'=>'hexdec', 'min'=>144),
             5 => array('size' => 200, 'name'=>'question',          'decode'=>'hex2bin'),
         ),
 
         
         '06' => array(
-            'status'        => 'implemented',
             'action'        => 'voting_parameter',
+            'status'        => 'implemented',
             'description'   => '',
             1 => array('size' =>  32, 'name'=>'txid'),
             2 => array('size' =>   1, 'name'=>'type',   'decode'=>'hexdec', 'options'=>array(0=>'point', 1=>'option')),
@@ -83,8 +83,8 @@ $bmp_protocol = array(
 
 
         '07' => array(
-            'status'        => 'planned',
             'action'        => 'bmp_parameter',
+            'status'        => 'planned',
             1 => array('size' =>  10, 'name'=>'key',    'decode'=>'hex2bin'),
             2 => array('size' => 200, 'name'=>'value',  'decode'=>'hex2bin'),
         ),
@@ -93,44 +93,44 @@ $bmp_protocol = array(
 
 
         '08' => array(
-            'status'        => 'idea',
             'action'        => 'cancel',
+            'status'        => 'idea',
             1 => array('size' =>  32, 'name'=>'action'),
         ),
 
 
         '09' => array(
-            'status'        => 'idea',
             'action'        => 'private_msg',
+            'status'        => 'idea',
         ),
 
         '0a' => array(
-            'status'        => 'idea',
             'action'        => 'forum',
+            'status'        => 'idea',
         ),
 
 
         '0b' => array(
-            'status'        => 'idea',
             'action'        => 'documents',
+            'status'        => 'idea',
         ),
 
 
         '0c' => array(
-            'status'        => 'idea',
             'action'        => 'teams',
+            'status'        => 'idea',
         ),
 
 
         '0d' => array(
-            'status'        => 'idea',
             'action'        => 'projects',
+            'status'        => 'idea',
         ),
 
 
         '0e' => array(
-            'status'        => 'idea',
             'action'        => 'funding',
+            'status'        => 'idea',
         ),
 
     ),

@@ -135,10 +135,10 @@ Of course, miners can easily delegate hashpower to anyone else.
 * More hardware wallets support.
 * More Bitcoin clients support.
 * IRC-like classic attacks.
-* Asian characters.
 * Internationalization.
-* Auto-update blocks in reorg event.
+* Auto-update blocks in reorg events.
 * Better verifiability.
+* TX read latency (+42 ms).
 * 0-conf latency (+7 sec).
 * Absolute power corrupts absolutely.
 

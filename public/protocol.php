@@ -17,7 +17,11 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
     
     for ($i=1;$i<=5;$i++)
         $td['p'.$i] = ($action[$i]?$action[$i]['name'].'['.$action[$i]['size'].']':'');
-            
+    
+
+    if ($actions_num = sql("SELECT COUNT(*) AS ECHO FROM actions WHERE action = '".$action['action']."'"))
+        $td['num'] = $actions_num;
+
     if ($txid_action_random = sql("SELECT txid AS ECHO FROM actions WHERE action = '".$action['action']."' ORDER BY RAND() LIMIT 1"))
         $td['example'] = html_a('/info/action/'.$txid_action_random, 'Example');
     
@@ -31,7 +35,7 @@ $table[0]['BMP'] = '';
 
 $config = array(
         'th_background-color' => '#FFFFDD',
-        
+        'num'       => array('align' => 'right'),
         'status'    => array('capital' => true, 'monospace' => true),
         'coinbase'  => array('align' => 'center'),
     );

@@ -80,7 +80,8 @@ function print_msg(data) {
         return false;
 
 	data['msg'].forEach(function(value, key, array) {
-
+        var tr_show = true;
+        
         if (value['height'] == null)
             value['height'] = '';
         
@@ -92,41 +93,45 @@ function print_msg(data) {
         else
             var nick = value['address'].substr(-10, 10);
 
-        html += '<tr>';
-        html += '<td style="color:#888;">' + value['height'] + '</td>';
-        html += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
-        html += '<td align=right class="monospace"><a href="/info/miner/' + value['address'] + '" target="_blank">' + nick + '</a></td>';
+        var td = '';
+        td += '<td style="color:#888;">' + value['height'] + '</td>';
+        td += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
+        td += '<td align=right class="monospace"><a href="/info/miner/' + value['address'] + '" target="_blank">' + nick + '</a></td>';
         
         if (value['action']=='chat') {
-            html += '<td width="100%" style="color:#222;">' + value['p3'] + '</td>';
+            td += '<td width="100%" style="color:#222;">' + value['p3'] + '</td>';
 
         }
 
 
         if (value['action']=='miner_parameter') {
 
-            html += '<td style="color:#00469A;"><b>[' + value['p1'].toUpperCase() + ']</b>&nbsp; ';
+            td += '<td style="color:#00469A;"><b>[' + value['p1'].toUpperCase() + ']</b>&nbsp; ';
             if (value['p1']=='nick') {
-                html += 'set nick: <i>' + value['p2'] + '</i>';    
+                td += 'set nick: <i>' + value['p2'] + '</i>';    
             }
-            html += '</td>';
+            td += '</td>';
 
         }
 
 
         if (value['action']=='vote') {
 
-            html += '<td style="color:#00469A;"><b>[VOTE]</b>&nbsp; ';
-            html += '<a href="/voting/' + value['p1'] + '">' + value['question'] + '</a>';
-            html += '</td>';
+            td += '<td style="color:#00469A;"><b>[VOTE]</b>&nbsp; ';
+            td += '<a href="/voting/' + value['p1'] + '">' + value['question'] + '</a>';
+            td += '</td>';
 
+            if (!value['question'])
+                tr_show = false;
         }
 
 
-        html += '<td align=right nowrap><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
-        html += '<td align=right nowrap>' + value['hashpower'] + '</td>';
-        html += '</tr>';
+        td += '<td align=right nowrap><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
+        td += '<td align=right nowrap>' + value['hashpower'] + '</td>';
         
+        
+        if (tr_show)
+            html += '<tr>' + td + '</tr>';
 
 		last = value['time'];
 	});

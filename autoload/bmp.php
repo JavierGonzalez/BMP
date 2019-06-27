@@ -58,13 +58,13 @@ function block_insert($height) {
     update_power();
 
 
-crono('A');
+
     /// ACTIONS
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
             if ($action = get_action($txid, $block))
                 sql_update('actions', $action, "txid = '".$action['txid']."'", true); // Update (0-conf) or insert (1-conf).
-crono('B');
+
     update_actions();
     
 
@@ -124,7 +124,6 @@ function coinbase_hashpower($coinbase) {
 function get_action($txid, $block=false) {
 
     $tx = rpc_get_transaction($txid);
-
     
     $action = array(
             'blockchain'    => BLOCKCHAIN,
@@ -141,10 +140,10 @@ function get_action($txid, $block=false) {
     
     $power = sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower 
                   FROM miners WHERE address = '".e($tx_info['address'])."'")[0];
-
+    
 
     // Actions without hashpower are ignored.
-    if (!$power['hashpower'])
+    if (!$power['hashpower'] OR round($power['power'], POWER_PRECISION)<=0)
         return false;
 
 
@@ -265,6 +264,14 @@ function op_return_decode($op_return) {
 
                 if (is_array($v['options']))
                     if (!array_key_exists($parameter, $v['options']))
+                        return false;
+
+                if ($v['min'])
+                    if ($parameter < $v['min'])
+                        return false;
+
+                if ($v['max'])
+                    if ($parameter > $v['max'])
                         return false;
 
                 $output['p'.$p] = $parameter;
