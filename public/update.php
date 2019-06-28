@@ -1,12 +1,11 @@
 <?php # BMP — Javier González González
 
 
-
 $beat_last = sql_key_value('beat_last');
 
 crono('beat_last: '.$beat_last);
 
-if ($beat_last AND $beat_last >= time()-50)
+if ($beat_last AND $beat_last >= time()-(60*4))
     exit;
 
 

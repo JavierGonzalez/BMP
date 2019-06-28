@@ -26,7 +26,7 @@ $('#chat_form_msg').submit(async function(e) {
 
 	var timestamp = Math.round(new Date().getTime()/1000);
 
-	var msg = $('#chat_input_msg').val();
+	var msg = $('#chat_input_msg').val().trim();
 	$('#chat_input_msg').val('');
 	$('#op_return_preview').text('');
     
@@ -118,7 +118,7 @@ function print_msg(data) {
         if (value['action']=='vote') {
 
             td += '<td style="color:#00469A;"><b>[VOTE]</b>&nbsp; ';
-            td += '<a href="/voting/' + value['p1'] + '">' + value['question'] + '</a>';
+            td += value['question'];
             td += '</td>';
 
             if (!value['question'])

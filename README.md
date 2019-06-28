@@ -96,7 +96,7 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and paper in [Ch
 By default, BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all blocks and with P2Pool even the smallest miner can participate right now.
 
 2. **power_by_opreturn**
-In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more addresses in OP_RETURN output coinbase. This ignores the value and allows the delegation of hashpower with simplicity.
+In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more addresses in coinbase OP_RETURN output. This ignores the value and allows the delegation of hashpower with simplicity.
 
 Of course, miners can easily delegate hashpower to anyone else.
 
@@ -137,8 +137,8 @@ Of course, miners can easily delegate hashpower to anyone else.
 * IRC-like classic attacks.
 * Internationalization.
 * Auto-update blocks in reorg events.
-* Better verifiability.
-* TX read latency (+42 ms).
+* More clear verifiability.
+* RPC TX read latency (+40 ms).
 * 0-conf latency (+7 sec).
 * Absolute power corrupts absolutely.
 

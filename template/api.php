@@ -1,4 +1,4 @@
-<?php # maximum_simplicity
+<?php # BMP — Javier González González
 
 
 header('Content-type:application/json;charset=utf-8');

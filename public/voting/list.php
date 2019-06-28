@@ -39,4 +39,4 @@ $config = array(
 
 <br /><br /><br />
 
-<a href="/voting/create" class="btn btn-secondary">Create new voting</a>
+<a href="/voting/create" class="btn btn-primary">Create new voting</a>

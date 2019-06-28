@@ -1,4 +1,4 @@
-// BMP
+// BMP — Javier González González
 
 
 $('#miner_parameter_nick').submit(function() {
@@ -7,7 +7,7 @@ $('#miner_parameter_nick').submit(function() {
 
     var key = 'nick';
 
-    var parameter = $('#miner_parameter_nick_value').val();
+    var parameter = $('#miner_parameter_nick_value').val().trim();
 
     var op_return = bmp_protocol_prefix + action + bin2hex(formatted_string('          ', key)) + bin2hex(parameter);
 

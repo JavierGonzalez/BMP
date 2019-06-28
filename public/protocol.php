@@ -1,7 +1,7 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Protocol';
 
+$_template['title'] = 'Protocol';
 
 foreach ($bmp_protocol['actions'] AS $action_id => $action) {
 
@@ -60,7 +60,7 @@ $config = array(
 
 <br /><br />
 
-<em>* In ALPHA development. Changes will occur.</em><br />
-<em>* Code specs in <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank">code here</a>.</em>
+<em>* In BETA development. Changes will occur.</em><br />
+<em>* Specs in code <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank">here</a>.</em>
 
 <br /><br />

@@ -3,8 +3,8 @@
 
 function block_insert($height) {
 
-    if (sql("SELECT id FROM blocks WHERE height = ".e($height)))
-        return false;
+    if (sql("SELECT id FROM blocks WHERE height >= ".e($height)))
+        exit;
 
 
     $block = rpc_get_block($height);
@@ -63,7 +63,7 @@ function block_insert($height) {
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
             if ($action = get_action($txid, $block))
-                sql_update('actions', $action, "txid = '".$action['txid']."'", true); // Update (0-conf) or insert (1-conf).
+                sql_update('actions', $action, "txid = '".e($action['txid'])."'", true); // Update (0-conf) or insert (1-conf).
 
     update_actions();
     
@@ -87,7 +87,7 @@ function coinbase_hashpower($coinbase) {
     global $bmp_protocol;
 
 
-    // Power signalled in coinbase OP_RETURN?
+    // There are power signalled in coinbase OP_RETURN?
     foreach ($coinbase['vout'] AS $tx_vout)
         if (substr($tx_vout['scriptPubKey']['asm'],0,14)=='OP_RETURN '.$bmp_protocol['prefix'].'01')
             $output['miners'][] = array(
@@ -143,7 +143,7 @@ function get_action($txid, $block=false) {
     
 
     // Actions without hashpower are ignored.
-    if (!$power['hashpower'] OR round($power['power'], POWER_PRECISION)<=0)
+    if (!$power['hashpower'] OR round($power['power'], POWER_PRECISION)==0)
         return false;
 
 

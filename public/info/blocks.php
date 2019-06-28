@@ -39,4 +39,5 @@ echo html_table($data, array(
         'hash'          => array('monospace' => true),
         'tx_count'      => array('align'     => 'right', 'th' => 'TX'),
         'minutes'       => array('align'     => 'right'),
+        'hashpower'     => array('align'     => 'right'),
     ));

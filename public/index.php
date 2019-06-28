@@ -1,3 +1,8 @@
+<?php # BMP — Javier González González
+
+include('public/chat/index.php'); 
+
+/*
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,5 +19,4 @@
 
 </body>
 </html>
-
-<?php exit;
+*/

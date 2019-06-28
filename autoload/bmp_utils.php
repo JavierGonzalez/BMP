@@ -1,6 +1,36 @@
 <?php # BMP — Javier González González
 
 
+function get_new_block() {
+    
+    $rpc_height = rpc_get_info()['blocks'];
+    
+    $bmp_height = sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
+    
+    if (!is_numeric($rpc_height) OR $rpc_height==$bmp_height)
+        return false;
+    
+    if ($bmp_height)
+        $height = $bmp_height + 1;
+    else
+        $height = BMP_GENESIS_BLOCK;
+        
+
+    block_insert($height);
+    
+    return true;
+}
+
+
+function block_delete_from($height) {
+    sql("DELETE FROM blocks  WHERE height >= ".e($height));
+    sql("DELETE FROM miners  WHERE height >= ".e($height));
+    sql("DELETE FROM actions WHERE height >= ".e($height));
+    update_power();
+    update_actions();
+}
+
+
 function revert_bytes($hex) {
     $hex = str_split($hex, 2);
     $hex = array_reverse($hex);
@@ -40,6 +70,7 @@ function hashpower_humans($hps, $decimals=0) {
         return '';
 
     $prefix = array(
+            1000000000000000000000 => 'Z',
                1000000000000000000 => 'E',
                   1000000000000000 => 'P',
                      1000000000000 => 'T',
@@ -53,39 +84,8 @@ function hashpower_humans($hps, $decimals=0) {
 }
 
 
-function get_new_block() {
-    
-    $rpc_height = rpc_get_info()['blocks'];
-    
-    $bmp_height = sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
-    
-    if (!is_numeric($rpc_height) OR $rpc_height==$bmp_height)
-        return false;
-    
-    if (!$bmp_height)
-        $height = $rpc_height - BLOCK_WINDOW;
-    else
-        $height = $bmp_height + 1;
-    
-    
-    block_insert($height);
-    
-    return true;
-}
-
-
-function block_delete_from($height) {
-    sql("DELETE FROM blocks  WHERE height >= ".$height);
-    sql("DELETE FROM miners  WHERE height >= ".$height);
-    sql("DELETE FROM actions WHERE height >= ".$height);
-    update_power();
-    update_actions();
-}
-
-
 function hextobase58($hex) {
     include_once('lib/base58.php');
     $base58 = new Base58;
-    
     return $base58->encode($hex);
 }

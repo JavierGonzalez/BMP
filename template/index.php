@@ -1,4 +1,4 @@
-<?php # maximum_simplicity
+<?php # BMP — Javier González González
 
 header('Content-Type: text/html; charset=utf-8');
 
@@ -17,10 +17,6 @@ $_template['lib_css'][] = '/template/style.css';
 $_template['js'] .= '
         bmp_protocol_prefix = "'.$bmp_protocol['prefix'].'";
     ';
-
-if ($blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks"))
-    if ($blocks_num!=BLOCK_WINDOW)
-        $_template['top_right'] .= 'UPDATING... '.num($blocks_num).' blocks &nbsp; ';
 
 ?><!DOCTYPE html>
 <html lang="en">

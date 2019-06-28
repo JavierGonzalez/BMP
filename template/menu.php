@@ -18,7 +18,7 @@ function menu_active($url) {
 <ul class="menu vertical">
 
     <li<?=menu_active('/chat')?>>
-        <a href="/chat">Chat</a>
+        <a href="/">Chat</a>
     </li>
 
     <li<?=menu_active('/voting')?>>
@@ -64,6 +64,15 @@ function menu_active($url) {
 <br /><br />
 
 <?php
+
+
+if ($blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks"))
+    if ($blocks_num!=BLOCK_WINDOW)
+        echo 'Updating...<div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: '.round(($blocks_num*100)/BLOCK_WINDOW,2).'%" aria-valuenow="'.round(($blocks_num*100)/BLOCK_WINDOW,2).'" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>'.num($blocks_num).'&nbsp;blocks of '.BLOCK_WINDOW.'<br /><br />';
+
+
 
 if (DEBUG) {
 

@@ -1,5 +1,4 @@
-// BMP
-
+// BMP — Javier González González
 
 
 
@@ -41,7 +40,7 @@ $('#voting_create').submit(async function(e) {
     op_return += fill_hex($('#type_vote').val(),1);                 // type_vote
     op_return += fill_hex(dechex(parameters_num),1);                // parameters_num
     op_return += fill_hex(dechex($('#blocks_to_finish').val()),3);  // blocks_to_finish
-    op_return += bin2hex($('#question').val());                     // question
+    op_return += bin2hex($('#question').val().trim());              // question
     result_tx1 = await blockchain_send_tx(op_return);
 
     if (!result_tx1)
@@ -68,7 +67,7 @@ $('#voting_create').submit(async function(e) {
                 op_return += result_tx1.txid;                       // txid
                 op_return += fill_hex(dechex(type),1);              // type
                 op_return += fill_hex(dechex(order[type]),1);       // order
-                op_return += bin2hex($(this).val());                // text
+                op_return += bin2hex($(this).val().trim());         // text
                 parameters_tx.push(op_return);
 
             }
@@ -87,16 +86,13 @@ $('#chat_input_msg').keyup(function() {
 
 
 
-
 function voting_add_point() {
-
     $('#voting_points').append('<li><input class="parameter voting_point" size=40 maxlength="42" /></li>');
     return false;
 }
 
 
 function voting_add_option() {
-
-    $('#voting_options').append('<br /><input class="parameter voting_option" size=20 maxlength="42" value="" required />');
+    $('#voting_options').append('<br /><input class="parameter voting_option" size=20 maxlength="42" value="" />');
     return false;
 }

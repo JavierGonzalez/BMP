@@ -19,7 +19,7 @@ if ($_GET[2]=='refresh' AND $_GET['last']) {
         if ($value['action']=='vote')
             if ($voting = action_voting_info($value['p1']))
                 if ($voting['question'])
-                    $echo['msg'][$key]['question'] = $voting['question'].' ('.$voting['options'][$value['p4']]['option'].')';
+                    $echo['msg'][$key]['question'] = '<a href="/voting/'.$voting['txid'].'">'.$voting['question'].'</a> ('.$voting['options'][$value['p4']]['option'].')';
 
     }
 

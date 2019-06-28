@@ -3,7 +3,7 @@
 
 $bmp_protocol = array(
     
-    'prefix' => '00', // 9d 
+    'prefix' => '9d', 
     
     'actions' => array(
 
@@ -12,7 +12,7 @@ $bmp_protocol = array(
             'action'        => 'power_by_value',
             'coinbase'      => true,
             'status'        => 'implemented',
-            'description'   => 'By default, standard, P2Pool style, without OP_RETURN.',
+            'description'   => 'By default, P2Pool style, without OP_RETURN.',
         ),
 
 
