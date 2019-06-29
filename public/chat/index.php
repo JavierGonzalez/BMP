@@ -1,6 +1,6 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Chat';
+// $_template['title'] = 'Chat';
 
 
 $_template['lib_css'][] = '/public/chat/chat.css';

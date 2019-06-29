@@ -75,7 +75,9 @@ Talking and voting with hashpower -to discover consensus- in the most secure vot
 
 BMP works connected to a Bitcoin Cash client by RPC to read blocks and transactions. 
 Blockchain data is transformed [with this PHP](https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp.php) in 3 SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
-Actions without hashpower are ignored.
+
+
+Actions without hashpower are ignored. Miners power changes with each block. Actions power never changes.
 
 Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future).
 
@@ -104,7 +106,7 @@ Of course, miners can easily delegate hashpower to anyone else.
 #### Requirements to deploy
 
 1. Bitcoin ABC client, with `-txindex`
-2. GNU/Linux operative
+2. GNU/Linux
 3. Apache
 4. MariaDB or MySQL database
 5. PHP

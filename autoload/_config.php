@@ -3,7 +3,7 @@
 
 define('BMP_VERSION', '0.1-beta');
 
-define('DEBUG', true);
+define('DEBUG', false);
 
 define('BLOCKCHAIN', 'BCH');
 
