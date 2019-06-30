@@ -17,4 +17,9 @@ $proof['miner'] = sql("SELECT height, (SELECT hash FROM blocks WHERE height = mi
     FROM miners WHERE address = '".e($_GET[2])."'");
 
 
-print_r2($proof);
+
+echo '<span style="font-size:11px;">';
+
+print_r2(json_encode($proof, JSON_PRETTY_PRINT));
+
+echo '</span>';
