@@ -100,7 +100,7 @@ By default, BMP calculates the hashpower percentage of each output address with 
 2. **power_by_opreturn**
 In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more addresses in coinbase OP_RETURN output. This ignores the value and allows the delegation of hashpower with simplicity.
 
-Of course, miners can easily delegate hashpower to anyone else.
+In this way, miners can easily delegate hashpower to anyone else.
 
 
 #### Requirements to deploy

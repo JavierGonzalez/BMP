@@ -5,7 +5,7 @@ function injection_filter($danger_input) {
     $output = trim(strip_tags($danger_input));
     if (get_magic_quotes_gpc())
         $output = stripslashes($output);
-    return e($output);
+    return $output;
 }
 
 
@@ -45,7 +45,8 @@ function crono($echo='') {
 	}
 
 
-    echo '<br />'.++$crono['count'].'. &nbsp; '.date("Y-m-d H:i:s").' &nbsp; '.number_format(($crono_now-$crono['last'])*1000, 1).' ms &nbsp; '; 
+    echo '<br />'.++$crono['count'].'. &nbsp; '.date("Y-m-d H:i:s").' &nbsp; ';
+    echo number_format(($crono_now-$crono['last'])*1000, 1).' ms &nbsp; '; 
     
     if (is_array($echo) OR is_object($echo))
         print_r2($echo);

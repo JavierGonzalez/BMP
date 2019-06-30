@@ -63,7 +63,7 @@ function block_insert($height) {
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
             if ($action = get_action($txid, $block))
-                sql_update('actions', $action, "txid = '".e($action['txid'])."'", true); // Update (0-conf) or insert (1-conf).
+                sql_update('actions', $action, "txid = '".e($action['txid'])."'", true);
 
     update_actions();
     
@@ -91,8 +91,8 @@ function coinbase_hashpower($coinbase) {
     foreach ($coinbase['vout'] AS $tx_vout)
         if (substr($tx_vout['scriptPubKey']['asm'],0,14)=='OP_RETURN '.$bmp_protocol['prefix'].'01')
             $output['miners'][] = array(
-                    'quota'   => trim(hexdec(     substr($tx_vout['scriptPubKey']['asm'],14, 3))),
-                    'address' => trim(hextobase58(substr($tx_vout['scriptPubKey']['asm'],17,40))),
+                    'quota'   => trim(hexdec(     substr($tx_vout['scriptPubKey']['asm'], 14,  3))),
+                    'address' => trim(hextobase58(substr($tx_vout['scriptPubKey']['asm'], 17, 40))),
                 );
 
 
@@ -245,37 +245,36 @@ function op_return_decode($op_return) {
             'action'    => $bmp_protocol['actions'][$action_id]['action'],
         );
 
-    $counter = $metadata_start_bytes+1;
+    $counter = $metadata_start_bytes + 1;
+
     foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
-        if (is_numeric($p)) {
-            if ($parameter = substr($op_return, $counter*2, $v['size']*2)) {
-                $counter += $v['size'];
+        if ($p AND $parameter = substr($op_return, $counter*2, $v['size']*2)) {
+            $counter += $v['size'];
 
-                if ($v['decode']=='hex2bin')
-                    $parameter = injection_filter(hex2bin($parameter));
+            if ($v['decode']=='hex2bin')
+                $parameter = injection_filter(hex2bin($parameter));
 
-                if ($v['decode']=='hexdec')
-                    $parameter = hexdec($parameter);
+            if ($v['decode']=='hexdec')
+                $parameter = hexdec($parameter);
 
-                if ($v['decode']=='hextobase58')
-                    $parameter = hextobase58($parameter);
-                
-                $parameter = trim($parameter);
+            if ($v['decode']=='hextobase58')
+                $parameter = hextobase58($parameter);
+            
+            $parameter = trim($parameter);
 
-                if (is_array($v['options']))
-                    if (!array_key_exists($parameter, $v['options']))
-                        return false;
+            if (is_array($v['options']))
+                if (!array_key_exists($parameter, $v['options']))
+                    return false;
 
-                if ($v['min'])
-                    if ($parameter < $v['min'])
-                        return false;
+            if ($v['min'])
+                if ($parameter < $v['min'])
+                    return false;
 
-                if ($v['max'])
-                    if ($parameter > $v['max'])
-                        return false;
+            if ($v['max'])
+                if ($parameter > $v['max'])
+                    return false;
 
-                $output['p'.$p] = $parameter;
-            }
+            $output['p'.$p] = $parameter;
         }
     }
 

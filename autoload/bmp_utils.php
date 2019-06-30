@@ -42,7 +42,7 @@ function pool_decode($coinbase) {
     global $pools_json_cache;
 
     if (!$pools_json_cache)
-        $pools_json_cache = json_decode(file_get_contents('public/static/pools.json'), true);
+        $pools_json_cache = json_decode(file_get_contents('lib/pools.json'), true);
 
 
     foreach ($pools_json_cache['coinbase_tags'] AS $tag => $pool)
