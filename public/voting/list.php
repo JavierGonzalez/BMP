@@ -17,12 +17,14 @@ foreach ($votings AS $r)
                 'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
                 'votes'         => $voting['votes_num'],
                 'power'         => $voting['power'],
+                'validity'      => $voting['validity']['valid'],
             );
 
 
 $config = array(
         'votes'    => array('align' => 'right', 'num' => 0),
         'power'    => array('align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'),
+        'validity' => array('align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'),
     );
 
 

@@ -32,6 +32,16 @@ $_template['tabs'] = array(
 <div style="margin-top:600px;color:#666;">
 
 <table id="chat_msg">
+<tr>
+    <th>Height</th>
+    <th>Time</th>
+    <th>Miner</th>
+    <th></th>
+    <th>Power</th>
+    <th>Hashpower</th>
+</tr>
+
+
 </table>
 
 
