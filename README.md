@@ -119,7 +119,7 @@ In this way, miners can easily delegate hashpower to anyone else.
 * MariaDB 5.5
 * Firefox 67.0
 * Chrome 74.0
-* Trezor Model T 2.1
+* Trezor One
 * Bitcoin ABC 0.19.7
 
 #### How to deploy

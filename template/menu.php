@@ -74,10 +74,8 @@ if ($blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks"))
 
 
 
-if (DEBUG) {
-
+if (DEV===true) {
 	echo num(memory_get_usage()/1000).' kb &nbsp;'.num((microtime(true)-$_['crono_start'])*1000).' ms<br />';
-    
 }
 
 echo '</div>';

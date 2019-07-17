@@ -3,7 +3,7 @@
 
 $bmp_protocol = array(
     
-    'prefix' => '9d', 
+    'prefix' => (DEV===true?'00':'9d'),
     
     'actions' => array(
 

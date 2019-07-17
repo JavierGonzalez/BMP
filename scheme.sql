@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS `key_value`;
 
 
 CREATE TABLE `blocks` (
-    `id`                    int(8) UNSIGNED           NOT NULL AUTO_INCREMENT,
+    `id`                    bigint(16) UNSIGNED       NOT NULL AUTO_INCREMENT,
     `blockchain`            char(3)                   NOT NULL COMMENT 'Ticker',
     `height`                int(8) UNSIGNED           NOT NULL,
     `hash`                  char(64)                  NOT NULL,
