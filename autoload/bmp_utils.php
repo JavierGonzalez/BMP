@@ -3,7 +3,7 @@
 
 function get_new_block() {
     
-    $rpc_height = rpc_get_info()['blocks'];
+    $rpc_height = rpc_get_best_height();
     
     $bmp_height = sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1");
     

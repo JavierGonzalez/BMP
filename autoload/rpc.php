@@ -42,9 +42,9 @@ function rpc_get_mempool() {
 }
 
 
-function rpc_get_info() {
+function rpc_get_best_height() {
     $b = rpc_connect();
-    return $b->getinfo();
+    return $b->getblock($b->getbestblockhash())['height'];
 }
 
 
