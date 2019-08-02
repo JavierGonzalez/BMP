@@ -1,14 +1,14 @@
 <?php # BMP — Javier González González
 
 
-function rpc_connect() {
+function rpc_connect($blockchain='BCH') {
     global $_rpc;
 
-    if (!$_rpc) {
+    if (!$_rpc[$blockchain]) {
         require_once('lib/easybitcoin.php');
         $sb = parse_url(URL_BCH);
-        $_rpc = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
-        if (!$_rpc)
+        $_rpc[$blockchain] = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
+        if (!$_rpc[$blockchain])
             echo $_rpc->error();
     }
 

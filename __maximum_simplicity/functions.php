@@ -28,7 +28,7 @@ function print_r2($print, $echo=true) {
 
 
 
-function crono($echo='') {
+function ___($echo='') {
     global $crono;
 	
 	$crono_now = microtime(true);

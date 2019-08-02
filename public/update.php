@@ -3,7 +3,7 @@
 
 $beat_last = sql_key_value('beat_last');
 
-crono('beat_last: '.$beat_last);
+___('beat_last: '.$beat_last);
 
 if ($beat_last >= time()-(60*4))
     exit;

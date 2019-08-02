@@ -188,12 +188,31 @@ function sql_where($array=false, $operator='AND') {
 
 
 function sql_key_value($key, $value=false) {
-
 	if ($value===false)
-		return sql("SELECT value FROM key_value WHERE name = '".e($key)."' LIMIT 1")[0]['value'];
-	else
-		return sql_update('key_value', array('name' => $key, 'value' => $value), "name = '".e($key)."'", true);
+		return sql("SELECT value AS ECHO FROM key_value WHERE name = '".e($key)."' LIMIT 1");
+	else {
+        sql_update('key_value', array('name' => $key, 'value' => $value), "name = '".e($key)."'", true);
+		return sql_key_value($key);
+    }
+}
 
+
+
+function sql_lock($tables) {
+    
+    if (!is_array($tables))
+        return false;
+
+    foreach ($tables AS $table)
+        $elm[] = $table.' WRITE';
+
+    sql("LOCK TABLES ".implode(', ', $elm));
+}
+
+
+
+function sql_unlock() {
+    sql("UNLOCK TABLES");
 }
 
 
