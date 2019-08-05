@@ -89,10 +89,10 @@ function coinbase_hashpower($coinbase) {
 
     // There are power signalled in coinbase OP_RETURN?
     foreach ($coinbase['vout'] AS $tx_vout)
-        if (substr($tx_vout['scriptPubKey']['asm'],0,14)=='OP_RETURN '.$bmp_protocol['prefix'].'01')
+        if ($rd = op_return_decode($tx_vout['scriptPubKey']['hex']))
             $output['miners'][] = array(
-                    'quota'   => trim(hexdec(     substr($tx_vout['scriptPubKey']['asm'], 14,  3))),
-                    'address' => trim(hextobase58(substr($tx_vout['scriptPubKey']['asm'], 17, 40))),
+                    'quota'   => $rd['p1'],
+                    'address' => address_normalice($rd['p2']),
                 );
 
 
@@ -111,10 +111,8 @@ function coinbase_hashpower($coinbase) {
 
     }
     
-
     foreach ($output['miners'] AS $miner)
         $output['quota_total'] += $miner['quota'];
-
 
     return $output;
 }
