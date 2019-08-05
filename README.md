@@ -81,9 +81,21 @@ Actions without hashpower are ignored. Miners power changes with each block. Act
 
 Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future).
 
-BMP does not store private keys. The entire BMP database is public information. BMP can work isolated without internet.
+BMP does not store private keys. The entire BMP database is public information.
 
 More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and paper in [Chinese](https://virtualpol.com/BMP_CN.pdf), [English](https://virtualpol.com/BMP_EN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
+
+
+#### Features
+
+* Hardware-wallet authentication.
+* Real-time chat with hashpower.
+* Nick change.
+* Voting creation with multiple points and options.
+* Votes with hashpower.
+* Rectifiable votes.
+* Verifiable.
+* On-chain.
 
 
 #### Requirements to participate
@@ -113,7 +125,7 @@ In this way, miners can easily delegate hashpower to anyone else.
 
 #### Tested environment
 
-* x86_64 SSD
+* x86_64 NVME
 * GNU/Linux CentOS 7.6 
 * PHP 7.1
 * MariaDB 5.5
@@ -139,8 +151,7 @@ In this way, miners can easily delegate hashpower to anyone else.
 * IRC-like classic attacks.
 * Internationalization.
 * Auto-update blocks in reorg events.
-* More clear verifiability.
-* RPC TX read latency (+40 ms).
+* More easy verifiability.
 * 0-conf latency (+7 sec).
 * Absolute power corrupts absolutely.
 

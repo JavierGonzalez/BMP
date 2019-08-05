@@ -199,7 +199,7 @@ function sql_key_value($key, $value=false) {
 
 
 function sql_lock($tables) {
-    
+
     if (!is_array($tables))
         return false;
 
@@ -207,6 +207,8 @@ function sql_lock($tables) {
         $elm[] = $table.' WRITE';
 
     sql("LOCK TABLES ".implode(', ', $elm));
+
+    @register_shutdown_function('sql_unlock');
 }
 
 
