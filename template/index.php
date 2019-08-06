@@ -67,7 +67,7 @@ echo '
     </div>
 
 	<div id="content">
-	    <?=$_['output_html_content']?>
+	    <?=$_output_html_content?>
 	</div>
 
 	<div id="footer" style="color:#777;">

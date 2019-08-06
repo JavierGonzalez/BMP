@@ -9,7 +9,6 @@
     <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a>
     <br />
     BMP <?=BMP_VERSION?>
-
 </div>
 
 

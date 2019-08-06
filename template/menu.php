@@ -69,13 +69,11 @@ function menu_active($url) {
 if ($blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks"))
     if ($blocks_num!=BLOCK_WINDOW)
         echo 'Updating...<div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: '.round(($blocks_num*100)/BLOCK_WINDOW,2).'%" aria-valuenow="'.round(($blocks_num*100)/BLOCK_WINDOW,2).'" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>'.num($blocks_num).'&nbsp;blocks of '.BLOCK_WINDOW.'<br /><br />';
+            <div class="progress-bar" role="progressbar" style="width: '.round(($blocks_num*100)/BLOCK_WINDOW,2).'%" aria-valuenow="'.round(($blocks_num*100)/BLOCK_WINDOW,2).'" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>'.num($blocks_num).'&nbsp;blocks of '.BLOCK_WINDOW.'<br /><br />';
 
 
 
-if (DEV===true) {
-	echo num(memory_get_usage()/1000).' kb &nbsp;'.num((microtime(true)-$_['crono_start'])*1000).' ms<br />';
-}
+echo '<div style="position:absolute;bottom:6px;">'.num((hrtime(true)-$_['crono'])/100000).' ms &nbsp; '.ram().'</div>';
 
 echo '</div>';

@@ -27,8 +27,8 @@ function block_insert($height) {
             'version_hex'           => $block['versionHex'],
             'previousblockhash'     => $block['previousblockhash'],
             'merkleroot'            => $block['merkleroot'],
-            'time'                  => date("Y-m-d H:i:s", $block['time']),
-            'time_median'           => date("Y-m-d H:i:s", $block['mediantime']),
+            'time'                  => date('Y-m-d H:i:s', $block['time']),
+            'time_median'           => date('Y-m-d H:i:s', $block['mediantime']),
             'bits'                  => $block['bits'],
             'nonce'                 => $block['nonce'],
             'difficulty'            => $block['difficulty'],
@@ -153,22 +153,22 @@ function get_action($txid, $block=false) {
 
 
     if (!$block)
-        $action['time'] = date("Y-m-d H:i:s");                  // By BMP server
+        $action['time'] = date('Y-m-d H:i:s');                  // By BMP server
     else if ($action['action']=='chat')
-        $action['time'] = date("Y-m-d H:i:s", $action['p1']);   // By user
+        $action['time'] = date('Y-m-d H:i:s', $action['p1']);   // By user
     else
-        $action['time'] = date("Y-m-d H:i:s", $block['time']);  // By hashpower
+        $action['time'] = date('Y-m-d H:i:s', $block['time']);  // By hashpower
 
     
     if ($block AND sql("SELECT id FROM actions WHERE txid = '".$action['txid']."' LIMIT 1"))
         unset($action['time']);
 
 
-    if ($nick = sql("SELECT p2 AS ECHO FROM actions 
+    $nick = sql("SELECT p2 AS ECHO FROM actions 
                     WHERE action = 'miner_parameter' AND p1 = 'nick' AND address = '".$action['address']."' 
-                    ORDER BY time DESC LIMIT 1"))
-        if (!is_array($nick))
-            $action['nick'] = $nick;
+                    ORDER BY time DESC LIMIT 1");
+    if ($nick AND !is_array($nick))
+        $action['nick'] = $nick;
         
     return $action;
 }
@@ -264,13 +264,11 @@ function op_return_decode($op_return) {
                 if (!array_key_exists($parameter, $v['options']))
                     return false;
 
-            if ($v['min'])
-                if ($parameter < $v['min'])
-                    return false;
+            if ($v['min'] AND $parameter < $v['min'])
+                return false;
 
-            if ($v['max'])
-                if ($parameter > $v['max'])
-                    return false;
+            if ($v['max'] AND $parameter > $v['max'])
+                return false;
 
             $output['p'.$p] = $parameter;
         }

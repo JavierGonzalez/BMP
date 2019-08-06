@@ -2,37 +2,37 @@
 
 
 
-function ___($echo='') {
-    global $crono;
-	
-	$crono_now = microtime(true);
-	
-    if (!isset($crono['last'])) {
-		ob_end_flush();
-		// ini_set('memory_limit', '15G');
-		// set_time_limit(24*60*60);
-		// apache_setenv('no-gzip', '1');
-		
-		$crono['last'] = $crono_now;
+function ___($echo='', $scroll_down=false) {
+	$now = hrtime(true);
+    global $_;
 
-		echo '<script>function Sc() { window.scrollTo(0,document.body.scrollHeight); }</script>';
+    if (!$_['crono'])
+        $_['crono'] = $now;
+
+    if ($scroll_down) {
+        if (function_exists('apache_setenv'))
+            @apache_setenv('no-gzip', 1);
+
+		ob_end_flush();
+		echo '<script>function Az1() { window.scrollTo(0,document.body.scrollHeight); }</script>';
 	}
 
 
-    echo '<br />'.++$crono['count'].'. &nbsp; '.date("Y-m-d H:i:s").' &nbsp; ';
-    echo number_format(($crono_now-$crono['last'])*1000, 1).' ms &nbsp; '; 
+    echo '<br />'.++$_['crono_count'].'. &nbsp; '.date('Y-m-d H:i:s').' &nbsp; ';
+    echo number_format(($now-$_['crono'])/1000000, 2).' ms &nbsp; ';
     
     if (is_array($echo) OR is_object($echo))
         print_r2($echo);
     else if ($echo!=='')
         var_dump($echo);
+    
+    if ($scroll_down) {
+        echo '<script>Az1();</script>';
+        flush();
+        ob_flush();
+    }
 
-    echo '<script>Sc();</script>';
-
-	$crono['last'] = microtime(true);
-	
-	flush();
-	ob_flush();
+    $_['crono'] = hrtime(true);
 }
 
 
@@ -76,7 +76,7 @@ function every($seconds=60, $id=0) {
 
 
 function ram() {
-    return round(memory_get_usage(true)/1024/1024).' MB';
+    return number_format(memory_get_usage(true)/1024).' kb';
 }
 
 
@@ -91,4 +91,10 @@ function redirect($url='/') {
 function shell($command) {
     $GLOBALS['shell_output'] = trim(shell_exec($command.' 2>&1'));
     return $GLOBALS['shell_output'];
+}
+
+
+
+function num($number, $decimals=0) { 
+    return number_format($number, $decimals, '.', ',');
 }

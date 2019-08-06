@@ -1,8 +1,7 @@
 <?php # maximum_simplicity — Javier González González
 
 
-$_ = array();
-$_['crono_start'] = microtime(true);
+$_['crono'] = hrtime(true);
 
 
 ob_start(NULL, 1024*1024*10);
@@ -25,9 +24,8 @@ if (isset($_['template']['output']))
     include('template/'.$_['template']['output'].'.php');    
 
 
-$_['output_html_content'] = ob_get_contents();
+$_output_html_content = ob_get_contents();
 ob_end_clean();
 include('template/index.php');
-
 
 exit;

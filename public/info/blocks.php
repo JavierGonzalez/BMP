@@ -19,7 +19,7 @@ foreach ($data AS $key => $value) {
         $data[$key]['actions']  = html_b($value['actions']);
 
     if (!$time_last)
-        $time_last = date("Y-m-d H:i:s");
+        $time_last = date('Y-m-d H:i:s');
 
     $duration = strtotime($time_last) - strtotime($value['time']);
     $data[$key]['minutes'] = num($duration/60,0);
