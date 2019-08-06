@@ -28,7 +28,7 @@ foreach ($data AS $key => $value) {
     $data[$key]['tx_count']  = num($value['tx_count']);
 
     $data[$key]['hashpower'] = hashpower_humans($value['hashpower']);
-    $data[$key]['hash']      = html_a('/info/block/'.$value['hash'], substr($value['hash'],0,24));
+    $data[$key]['hash']      = substr($value['hash'],0,24);
 
 }
 

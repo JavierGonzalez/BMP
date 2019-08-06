@@ -4,6 +4,8 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 ---
 
+###### A Hashpower Voting System for Bitcoin Global Adoption.
+
 ## Why
 
 > Any needed rules and incentives can be enforced with this consensus mechanism.
@@ -91,11 +93,10 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and paper in [Ch
 * Hardware-wallet authentication.
 * Real-time chat with hashpower.
 * Nick change.
-* Voting creation with multiple points and options.
+* Voting with multiple config, points and options.
 * Votes with hashpower.
-* Rectifiable votes.
-* Verifiable.
-* On-chain.
+* Rectifiable votes (in open voting).
+* 100% verifiable on-chain.
 
 
 #### Requirements to participate
@@ -120,41 +121,41 @@ In this way, miners can easily delegate hashpower to anyone else.
 1. Bitcoin ABC client, with `-txindex`
 2. GNU/Linux
 3. Apache
-4. MariaDB or MySQL database
+4. MariaDB database
 5. PHP
 
 #### Tested environment
 
 * x86_64 NVME
-* GNU/Linux CentOS 7.6 
-* PHP 7.1
+* GNU/Linux CentOS 7.6
+* PHP 7.3
 * MariaDB 5.5
-* Firefox 67.0
-* Chrome 74.0
+* MySQL 5
+* Firefox 67
+* Chrome 74
 * Trezor One
-* Bitcoin ABC 0.19.7
+* Bitcoin ABC 0.19.10
+* Bitcoin Core 0.18.0
+* Bitcoin SV 0.2.1
 
 #### How to deploy
 
 1. Put the BMP code in the `www` httpd public directory.
-2. Configure RPC and SQL access by creating `autoload/_password.php`.
-3. Execute `scheme.sql` in a new database.
-4. Set a `crontab` every minute with: `curl http://localhost/update`.
+2. Configure RPC and SQL access by renaming `autoload/_password.php`.
+3. Execute `scheme.sql` in a new SQL database.
+4. Set a `crontab` every minute with: `curl https://bmp.domain.com/update`.
 5. Wait synchronization.
 
 #### Known problems
 
-* Style/logo.
+* Logo.
 * OP_RETURN size too small because Trezor hardware limits (?).
 * More hardware wallets support.
-* More Bitcoin clients support.
 * IRC-like classic attacks.
 * Internationalization.
-* Auto-update blocks in reorg events.
-* More easy verifiability.
-* 0-conf latency (+7 sec).
+* 0-conf latency (+5 sec).
 * Absolute power corrupts absolutely.
 
 ---
 
-[Javier González González](https://twitter.com/JavierGonzalez)<br />BMP Architect
+[Javier González González](https://twitter.com/JavierGonzalez)<br />gonzo@virtualpol.com<br />BMP Architect

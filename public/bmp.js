@@ -22,7 +22,7 @@ function print_login() {
         $('#print_login').html('<a href="/parameter/miner">' + miner_utxo()['address'].substr(-10, 10) + '</a> <button class="btn btn-warning" onclick="miner_logout()">Logout</button>');
         $('.executive_action').prop('disabled', false);
     } else {
-        $('#print_login').html('<button class="btn btn-warning" onclick="get_miner_utxo(true)">Login</button>');
+        $('#print_login').html('<button class="btn btn-warning" onclick="get_miner_utxo(true)">Enter</button>');
         $('.executive_action').prop('disabled', true);
     }
 
@@ -46,7 +46,7 @@ function miner_utxo(data=null) {
 async function get_miner_utxo(confirmation=false) {
 
     if (confirmation == true) {
-        var c = confirm("\n *** REQUIREMENTS TO PARTICIPATE ***\n\n1. Your address in a coinbase in the last 2,016 BCH blocks.\n\n2. Trezor hardware wallet.\n\n3. Do not block external browser popup or adblocks.");
+        var c = confirm("\n *** REQUIREMENTS TO PARTICIPATE ***\n\n1. Your address in a coinbase in the last 2,016 BCH blocks.\n\n2. Trezor hardware wallet.\n\n3. Do not block pop-up windows in the browser.");
         if (c != true)
             return false;
     }

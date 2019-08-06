@@ -3,14 +3,14 @@
 
 $_template['title'] = 'Protocol';
 
-foreach ($bmp_protocol['actions'] AS $action_id => $action) {
+foreach (BMP_PROTOCOL['actions'] AS $action_id => $action) {
 
     $td = array(
             'status'        => $action['status'],
             'coinbase'      => ($action['coinbase']?html_b('x'):''),
             'action'        => $action['action'],
 
-            'BMP'           => $bmp_protocol['prefix'],
+            'BMP'           => BMP_PROTOCOL['prefix'],
             'ID'            => $action_id,
         );
 
@@ -18,14 +18,12 @@ foreach ($bmp_protocol['actions'] AS $action_id => $action) {
     for ($i=1;$i<=5;$i++)
         $td['p'.$i] = ($action[$i]?$action[$i]['name'].'['.$action[$i]['size'].']':'');
     
-
-    if ($actions_num = sql("SELECT COUNT(*) AS ECHO FROM actions WHERE action = '".$action['action']."'"))
-        $td['num'] = $actions_num;
-
-    if ($txid_action_random = sql("SELECT txid AS ECHO FROM actions WHERE action = '".$action['action']."' ORDER BY RAND() LIMIT 1"))
-        $td['example'] = html_a('/info/action/'.$txid_action_random, 'Example');
     
-
+    if ($txid_action_random = sql("SELECT txid AS ECHO FROM actions WHERE action = '".$action['action']."' ORDER BY RAND() LIMIT 1")) {
+        $actions_num = sql("SELECT COUNT(*) AS ECHO FROM actions WHERE action = '".$action['action']."'");
+        $td['example'] = html_a('/info/action/'.$txid_action_random, 'Example ('.$actions_num.')');
+    }
+    
     $table[] = $td;
 }
 
@@ -61,6 +59,6 @@ $config = array(
 <br /><br />
 
 <em>* In BETA development. Changes will occur.</em><br />
-<em>* Specs in code <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank">here</a>.</em>
+<em>* More specs in code <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank"><b>here</b></a>.</em>
 
 <br /><br />

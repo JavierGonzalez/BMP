@@ -89,8 +89,7 @@ function redirect($url='/') {
 
 
 function shell($command) {
-    $GLOBALS['shell_output'] = trim(shell_exec($command.' 2>&1'));
-    return $GLOBALS['shell_output'];
+    return trim(shell_exec($command.' 2>&1'));
 }
 
 

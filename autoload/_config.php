@@ -3,7 +3,7 @@
 
 define('BMP_VERSION', '0.1-beta');
 
-define('BLOCKCHAIN', 'BCH');
+define('BLOCKCHAIN_ACTIONS', 'BCH');
 
 define('BLOCK_WINDOW', 2016); // Blocks
 

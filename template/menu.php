@@ -74,6 +74,6 @@ if ($blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks"))
 
 
 
-echo '<div style="position:absolute;bottom:6px;">'.num((hrtime(true)-$_['crono'])/100000).' ms &nbsp; '.ram().'</div>';
+echo '<div style="position:absolute;bottom:16px;">'.num((hrtime(true)-$_['crono'])/100000).' ms &nbsp; '.ram().'</div>';
 
 echo '</div>';

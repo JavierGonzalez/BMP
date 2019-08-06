@@ -109,9 +109,8 @@ function action_voting_info($txid) { // Refact
 
 
 function action_parameters_pretty($action) {
-    global $bmp_protocol;
 
-    foreach ((array)$bmp_protocol['actions'][$action['action_id']] AS $key => $value)
+    foreach (BMP_PROTOCOL['actions'][$action['action_id']] AS $key => $value)
         if (is_numeric($key))
             if (isset($action['p'.$key]))
                 $parameters[$value['name']] = $action['p'.$key];

@@ -2,7 +2,7 @@
 
 
 function sql_connect($server_sql=false) {
-    global $sql;
+    global $_sql;
 
     if (!$server_sql)
         $server_sql = URL_SQL;
@@ -15,7 +15,7 @@ function sql_connect($server_sql=false) {
 
 	$sql_link = @mysqli_connect($p['host'], $p['user'], $p['pass'], str_replace('/', '', $p['path']), $p['port']);
     
-    $sql['link'][] = $sql_link;
+    $_sql['link'][] = $sql_link;
     
 	if (!$sql_link) {
 		echo '<span title="'.sql_error().'">ERROR: Database connect error.</span>';
@@ -32,12 +32,12 @@ function sql_connect($server_sql=false) {
 
 
 function sql_link() {
-	global $sql;
+	global $_sql;
 
-	if (!$sql['link'])
+	if (!$_sql['link'])
         sql_connect();
 
-	return $sql['link'][0];
+	return $_sql['link'][0];
 }
 
 
@@ -198,10 +198,10 @@ function sql_key_value($key, $value=false) {
 
 
 
-function sql_lock($tables) {
+function sql_lock($tables=false) {
 
     if (!is_array($tables))
-        return false;
+        $tables = sql_get_tables();
 
     foreach ($tables AS $table)
         $elm[] = $table.' WRITE';

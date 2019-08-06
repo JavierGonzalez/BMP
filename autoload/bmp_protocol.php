@@ -1,7 +1,7 @@
 <?php # BMP — Javier González González
 
 
-$bmp_protocol = array(
+define('BMP_PROTOCOL', array(
     
     'prefix' => (DEV===true?'00':'9d'),
     
@@ -64,7 +64,7 @@ $bmp_protocol = array(
             1 => array('size' =>   1, 'name'=>'type_voting',       'decode'=>'hexdec', 'options'=>array(0=>'default')),
             2 => array('size' =>   1, 'name'=>'type_vote',         'decode'=>'hexdec', 'options'=>array(1=>'one_election', /*2=>'multiple', 3=>'preferential_3', 4=>'preferential_5', 5=>'preferential_10'*/)),
             3 => array('size' =>   1, 'name'=>'parameters_num',    'decode'=>'hexdec'),
-            4 => array('size' =>   3, 'name'=>'blocks_to_finish',  'decode'=>'hexdec', 'min'=>144),
+            4 => array('size' =>   3, 'name'=>'blocks_to_finish',  'decode'=>'hexdec', 'min'=>1),
             5 => array('size' => 200, 'name'=>'question',          'decode'=>'hex2bin'),
         ),
 
@@ -134,4 +134,4 @@ $bmp_protocol = array(
         ),
 
     ),
-);
+));

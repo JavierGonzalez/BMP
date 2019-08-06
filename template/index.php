@@ -15,7 +15,7 @@ $_template['lib_css'][] = '/template/style.css';
 
 
 $_template['js'] .= '
-        bmp_protocol_prefix = "'.$bmp_protocol['prefix'].'";
+        bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";
     ';
 
 ?><!DOCTYPE html>

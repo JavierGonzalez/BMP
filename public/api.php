@@ -10,7 +10,7 @@ function miner_utxo_find($utxo) {
     $utxo['address'] = address_normalice($tx['vout'][$utxo['index']]['scriptPubKey']['addresses'][0]);
     $utxo['address_cash'] = $tx['vout'][$utxo['index']]['scriptPubKey']['addresses'][0];
 
-    if ($utxo['address'])
+    if ($tx AND $utxo['address'])
         if (sql("SELECT address FROM miners WHERE address = '".e($utxo['address'])."' LIMIT 1"))
             return $utxo;
 

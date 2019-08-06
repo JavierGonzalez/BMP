@@ -1,11 +1,8 @@
 <?php # BMP — Javier González González
 
 
-function rpc_connect($blockchain=false) {
+function rpc_connect($blockchain=BLOCKCHAIN_ACTIONS) {
     global $_rpc;
-
-    if ($blockchain===false)
-        $blockchain = BLOCKCHAIN;
 
     if (!$_rpc[$blockchain]) {
         require_once('lib/easybitcoin.php');

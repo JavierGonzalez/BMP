@@ -1,4 +1,2 @@
 autoload/_passwords.php
 lab.php
-temp/*
-*.log

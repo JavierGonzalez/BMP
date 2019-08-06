@@ -1,16 +1,17 @@
 <?php # BMP — Javier González González
 
 
-function block_insert($height) {
+function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
-    if (sql("SELECT id FROM blocks WHERE height >= ".e($height)))
+    
+    if (sql("SELECT id FROM blocks WHERE blockchain = '".$blockchain."' AND height >= ".e($height)))
         exit;
 
 
-    $block = rpc_get_block($height);
-    $block_hashpower = $block['difficulty'] * pow(2,32) / 600; // Hashes per second.
+    $block = rpc_get_block($height, $blockchain);
+    $block_hashpower = $block['difficulty'] * pow(2,32) / 600; // Hashpower = Hashes per second.
     
-    $coinbase = rpc_get_transaction($block['tx'][0]);
+    $coinbase = rpc_get_transaction($block['tx'][0], $blockchain);
     $coinbase_hashpower = coinbase_hashpower($coinbase);
     
     if (!$coinbase)
@@ -19,7 +20,7 @@ function block_insert($height) {
     
     /// BLOCK
     sql_insert('blocks', array(
-            'blockchain'            => BLOCKCHAIN,
+            'blockchain'            => $blockchain,
             'height'                => $block['height'],
             'hash'                  => $block['hash'],
             'size'                  => $block['size'],
@@ -39,15 +40,15 @@ function block_insert($height) {
             'hashpower'             => $block_hashpower,
         ));
 
-    foreach (sql("SELECT height FROM blocks ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
-        block_delete($r['height']);
+    foreach (sql("SELECT height FROM blocks WHERE blockchain = '".$blockchain."' ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
+        block_delete($r['height'], $blockchain);
 
     
 
     /// MINERS
     foreach ((array)$coinbase_hashpower['miners'] AS $miner)
         sql_insert('miners', array(
-                'blockchain'    => BLOCKCHAIN,
+                'blockchain'    => $blockchain,
                 'txid'          => $coinbase['txid'],
                 'height'        => $block['height'],
                 'address'       => address_normalice($miner['address']),
@@ -58,12 +59,15 @@ function block_insert($height) {
     update_power();
 
 
+    if ($blockchain !== BLOCKCHAIN_ACTIONS)
+        return true;
+
 
     /// ACTIONS
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
-            if ($action = get_action($txid, $block))
-                sql_update('actions', $action, "txid = '".e($action['txid'])."'", true);
+            if ($action = get_action($txid, $blockchain, $block))
+                sql_update('actions', $action, "txid = '".$action['txid']."'", true);
 
     update_actions();
     
@@ -75,17 +79,15 @@ function block_insert($height) {
 
 function update_power() {
 
-    $hashpower_total = sql("SELECT SUM(hashpower) AS ECHO FROM miners");
+    $total_hashpower = sql("SELECT SUM(hashpower) AS ECHO FROM miners");
 
-    sql("UPDATE miners SET power = (hashpower*100)/".$hashpower_total);
+    sql("UPDATE miners SET power = (hashpower*100)/".$total_hashpower);
 
 }
 
 
 
 function coinbase_hashpower($coinbase) {
-    global $bmp_protocol;
-
 
     // There are power signalled in coinbase OP_RETURN?
     foreach ($coinbase['vout'] AS $tx_vout)
@@ -119,12 +121,12 @@ function coinbase_hashpower($coinbase) {
 
 
 
-function get_action($txid, $block=false) {
+function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
 
-    $tx = rpc_get_transaction($txid);
+    $tx = rpc_get_transaction($txid, $blockchain);
     
     $action = array(
-            'blockchain'    => BLOCKCHAIN,
+            'blockchain'    => BLOCKCHAIN_ACTIONS,
             'txid'          => $tx['txid'],
         );
     
@@ -132,12 +134,12 @@ function get_action($txid, $block=false) {
         $action['height'] = $block['height'];
 
 
-    if (!$tx_info = get_action_tx($tx))
+    if (!$tx_info = get_action_tx($tx, $blockchain))
         return false;
 
     
     $power = sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower 
-                  FROM miners WHERE address = '".e($tx_info['address'])."'")[0];
+                  FROM miners WHERE address = '".$tx_info['address']."'")[0];
     
 
     // Actions without hashpower are ignored.
@@ -175,8 +177,7 @@ function get_action($txid, $block=false) {
 
 
 
-function get_action_tx($tx) {
-    global $bmp_protocol;
+function get_action_tx($tx, $blockchain=BLOCKCHAIN_ACTIONS) {
 
     if (count($tx['vout'])!==2)
         return false;
@@ -188,8 +189,8 @@ function get_action_tx($tx) {
     if (substr($action['op_return'],0,2)!='6a')
         return false;
 
-    if (!in_array($bmp_protocol['prefix'], array(substr($action['op_return'],4,2), substr($action['op_return'],6,2))))
-       return false; // Refact
+    if (!in_array(BMP_PROTOCOL['prefix'], array(substr($action['op_return'],4,2), substr($action['op_return'],6,2))))
+       return false;  // Refact
 
 
     // ADDRESS (index = 0)
@@ -200,7 +201,7 @@ function get_action_tx($tx) {
 
 
     // ADDRESS is in PREV OUTPUT
-    $tx_prev = rpc_get_transaction($tx['vin'][0]['txid']);
+    $tx_prev = rpc_get_transaction($tx['vin'][0]['txid'], $blockchain);
     foreach ($tx_prev['vout'] AS $tx_vout)
         if ($action['address']===$tx_vout['scriptPubKey']['addresses'][0])
             $address_valid = true;
@@ -217,7 +218,6 @@ function get_action_tx($tx) {
 
 
 function op_return_decode($op_return) {
-    global $bmp_protocol;
     
     if (!ctype_xdigit($op_return))
         return false;
@@ -225,9 +225,9 @@ function op_return_decode($op_return) {
     if (substr($op_return,0,2)!=='6a')
         return false;
         
-    if (substr($op_return,4,2)===$bmp_protocol['prefix']) // Refact
+    if (substr($op_return,4,2)===BMP_PROTOCOL['prefix']) // Refact
         $metadata_start_bytes = 3;
-    else if (substr($op_return,6,2)===$bmp_protocol['prefix']) // Refact
+    else if (substr($op_return,6,2)===BMP_PROTOCOL['prefix']) // Refact
         $metadata_start_bytes = 4;
         
     if (!$metadata_start_bytes)
@@ -235,17 +235,17 @@ function op_return_decode($op_return) {
 
     $action_id  = substr($op_return, $metadata_start_bytes*2, 2);
 
-    if (!$bmp_protocol['actions'][$action_id])
+    if (!BMP_PROTOCOL['actions'][$action_id])
         return false;
 
     $output = array(
             'action_id' => $action_id,
-            'action'    => $bmp_protocol['actions'][$action_id]['action'],
+            'action'    => BMP_PROTOCOL['actions'][$action_id]['action'],
         );
 
     $counter = $metadata_start_bytes + 1;
 
-    foreach ($bmp_protocol['actions'][$action_id] AS $p => $v) {
+    foreach (BMP_PROTOCOL['actions'][$action_id] AS $p => $v) {
         if ($p AND $parameter = substr($op_return, $counter*2, $v['size']*2)) {
             $counter += $v['size'];
 
@@ -279,13 +279,13 @@ function op_return_decode($op_return) {
 
 
 
-function get_mempool() {
+function get_mempool($blockchain=BLOCKCHAIN_ACTIONS) {
     global $mempool_cache;
 
-    foreach (rpc_get_mempool() AS $txid)
+    foreach (rpc_get_mempool($blockchain) AS $txid)
         if (!$mempool_cache[$txid] AND $mempool_cache[$txid] = true)
             if (!sql("SELECT id FROM actions WHERE txid = '".$txid."' LIMIT 1"))
-                if ($action = get_action($txid))
+                if ($action = get_action($txid, $blockchain))
                     $actions[] = $action;
     
     return $actions;
@@ -293,7 +293,7 @@ function get_mempool() {
 
 
 
-function block_delete($height) {
-    sql("DELETE FROM blocks WHERE height = ".$height);
-    sql("DELETE FROM miners WHERE height = ".$height);
+function block_delete($height, $blockchain=BLOCKCHAIN_ACTIONS) {
+    sql("DELETE FROM blocks WHERE blockchain = '".$blockchain."' AND height = ".$height);
+    sql("DELETE FROM miners WHERE blockchain = '".$blockchain."' AND height = ".$height);
 }
