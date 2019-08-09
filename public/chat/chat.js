@@ -131,7 +131,7 @@ function print_msg(data) {
         
         
         if (tr_show)
-            html += '<tr>' + td + '</tr>';
+            html += '<tr>' + td + '</tr>\n';
 
 		last = value['time'];
 	});

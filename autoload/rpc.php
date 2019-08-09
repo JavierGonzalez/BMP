@@ -1,20 +1,25 @@
 <?php # BMP — Javier González González
 
 
-function rpc_connect($blockchain=BLOCKCHAIN_ACTIONS) {
-    global $_rpc;
+function rpc_connect($blockchain=false) {
+    global $__rpc;
 
-    if (!$_rpc[$blockchain]) {
+    if (!$blockchain)
+        $blockchain = BLOCKCHAIN_ACTIONS;
+
+    if (!$__rpc[$blockchain]) {
         require_once('lib/easybitcoin.php');
 
         $sb = parse_url(constant('URL_RPC_'.$blockchain));
-        $_rpc[$blockchain] = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
+        $__rpc[$blockchain] = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
 
-        if (!$_rpc[$blockchain])
-            echo $_rpc[$blockchain]->error();
+        if (!$__rpc[$blockchain])
+            echo $__rpc[$blockchain]->error();
     }
 
-    return $_rpc[$blockchain];
+    $__rpc['count']++;
+
+    return $__rpc[$blockchain];
 }
 
 

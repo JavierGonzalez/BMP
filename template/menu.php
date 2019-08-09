@@ -3,7 +3,7 @@
 
 
 function menu_active($url) {
-    if (strpos($_SERVER['REQUEST_URI'], $url) !== false)
+    if (strpos($_SERVER['REQUEST_URI'], $url) !== false OR ($url=='/chat' AND $_SERVER['REQUEST_URI']=='/'))
         return ' style="background:#FFFFBB;"';
 }
 
@@ -25,6 +25,9 @@ function menu_active($url) {
         <a href="/voting">Voting</a>
     </li>
 
+    <li<?=menu_active('/stats')?>>
+        <a href="/stats">Stats</a>
+    </li>
 </ul>
 
 
@@ -32,19 +35,19 @@ function menu_active($url) {
 
 	<li<?=menu_active('/info/blocks')?>>
         <a href="/info/blocks">Blocks
-        <span class="md"><?=num(sql("SELECT height AS ECHO FROM blocks ORDER BY height DESC LIMIT 1"))?></span>
+        <span class="md"><?=hashpower_humans(sql_key_value('cache_blocks_num'), 'E')?></span>
         </a>
     </li>
 	
     <li<?=menu_active('/info/miners')?>>
         <a href="/info/miners">Miners
-        <span class="md"><?=num(sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners"))?></span>
+        <span class="md"><?=num(sql_key_value('cache_miners_num'))?></span>
         </a>
     </li>
     
     <li<?=menu_active('/info/actions')?>>
         <a href="/info/actions">Actions
-        <span class="md"><?=num(sql("SELECT COUNT(*) AS ECHO FROM actions"))?></span>
+        <span class="md"><?=num(sql_key_value('cache_actions_num'))?></span>
         </a>
     </li>
 
@@ -61,19 +64,11 @@ function menu_active($url) {
     <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a><br />
 </p>
 
-<br /><br />
 
-<?php
-
-
-if ($blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks"))
-    if ($blocks_num!=BLOCK_WINDOW)
-        echo 'Updating...<div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: '.round(($blocks_num*100)/BLOCK_WINDOW,2).'%" aria-valuenow="'.round(($blocks_num*100)/BLOCK_WINDOW,2).'" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>'.num($blocks_num).'&nbsp;blocks of '.BLOCK_WINDOW.'<br /><br />';
+<div style="position:fixed;bottom:20px;">
+    <?=implode('<br />', __profiler($__['crono_start']))?>
+</div>
 
 
+</div>
 
-echo '<div style="position:absolute;bottom:16px;">'.num((hrtime(true)-$_['crono'])/100000).' ms &nbsp; '.ram().'</div>';
-
-echo '</div>';

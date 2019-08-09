@@ -1,8 +1,8 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Miners';
+$__template['title'] = 'Miners';
 
-echo html_h($_template['title'], 1);
+echo html_h($__template['title'], 1);
 
 
 $data = sql("SELECT COUNT(DISTINCT height) AS blocks, 

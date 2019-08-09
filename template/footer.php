@@ -18,3 +18,6 @@
     <br />
     <a href="https://www.bitcoin.com/bitcoin.pdf" target="_blank" style="color:#888;" nowrap>Satoshi Nakamoto</a>
 </div>
+
+
+

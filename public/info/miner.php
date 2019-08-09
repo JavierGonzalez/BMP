@@ -1,10 +1,10 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Miner: '.$_GET[2];
+$__template['title'] = 'Miner: '.$_GET[2];
 
 
 $proof['bmp'] = array(
-    'title'         => $_template['title'],
+    'title'         => $__template['title'],
     'version'       => BMP_VERSION,
     'block_window'  => BLOCK_WINDOW,
 );

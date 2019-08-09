@@ -1,13 +1,18 @@
 <?php # BMP — Javier González González
 
 
-$_template['title'] = 'Protocol';
+$__template['title'] = 'Protocol';
 
 foreach (BMP_PROTOCOL['actions'] AS $action_id => $action) {
 
     $td = array(
             'status'        => $action['status'],
             'coinbase'      => ($action['coinbase']?html_b('x'):''),
+            
+            'BTC'           => ($action['coinbase']?html_b('x'):''),
+            'BCH'           => ($action['status']=='implemented'?html_b('x'):''),
+            'BSV'           => ($action['coinbase']?html_b('x'):''),
+            
             'action'        => $action['action'],
 
             'BMP'           => BMP_PROTOCOL['prefix'],
@@ -38,13 +43,16 @@ $config = array(
         'coinbase'  => array('align' => 'center'),
     );
 
+foreach (BLOCKCHAINS AS $blockchain)
+    $config[$blockchain] = array('align' => 'center');
+
 
 ?>
 
 <h1>Protocol</h1>
 
 <ul>
-    <li>Power percentage is calculated with SHA-256 hashpower with last <?=num(BLOCK_WINDOW)?> BCH blocks.</li>
+    <li>Power percentage is calculated with all Bitcoin SHA-256 hashpower in last 2016 blocks.</li>
     <li>Miners power is calculated proportionally with coinbase output addresses.</li>
     <li>Actions -transactions- without hashpower are ignored.</li>
     <li>Miners power changes with each block.</li>

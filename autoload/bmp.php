@@ -2,10 +2,10 @@
 
 
 function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
-
+    ini_set('memory_limit', '10G');
     
-    if (sql("SELECT id FROM blocks WHERE blockchain = '".$blockchain."' AND height >= ".e($height)))
-        exit;
+    if (sql("SELECT id FROM blocks WHERE blockchain = '".$blockchain."' AND height = ".e($height)))
+        return false;
 
 
     $block = rpc_get_block($height, $blockchain);
@@ -34,7 +34,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
             'nonce'                 => $block['nonce'],
             'difficulty'            => $block['difficulty'],
             'coinbase'              => $coinbase['vin'][0]['coinbase'],
-            'pool'                  => pool_decode(hex2bin($coinbase['vin'][0]['coinbase']))['name'],
+            'pool'                  => pool_decode(hex2bin($coinbase['vin'][0]['coinbase']), $coinbase_hashpower)['name'],
             'power_by'              => $coinbase_hashpower['power_by'],
             'quota_total'           => $coinbase_hashpower['quota_total'],
             'hashpower'             => $block_hashpower,
@@ -59,7 +59,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
     update_power();
 
 
-    if ($blockchain !== BLOCKCHAIN_ACTIONS)
+    if ($blockchain != BLOCKCHAIN_ACTIONS)
         return true;
 
 
@@ -91,10 +91,10 @@ function coinbase_hashpower($coinbase) {
 
     // There are power signalled in coinbase OP_RETURN?
     foreach ($coinbase['vout'] AS $tx_vout)
-        if ($rd = op_return_decode($tx_vout['scriptPubKey']['hex']))
+        if ($miner_by_opreturn = op_return_decode($tx_vout['scriptPubKey']['hex']))
             $output['miners'][] = array(
-                    'quota'   => $rd['p1'],
-                    'address' => address_normalice($rd['p2']),
+                    'quota'   => $miner_by_opreturn['p1'],
+                    'address' => address_normalice($miner_by_opreturn['p2']),
                 );
 
 
@@ -216,9 +216,9 @@ function get_action_tx($tx, $blockchain=BLOCKCHAIN_ACTIONS) {
 }
 
 
-
+// 6a1000036e69636b20202020202054657374
 function op_return_decode($op_return) {
-    
+
     if (!ctype_xdigit($op_return))
         return false;
         
@@ -246,7 +246,8 @@ function op_return_decode($op_return) {
     $counter = $metadata_start_bytes + 1;
 
     foreach (BMP_PROTOCOL['actions'][$action_id] AS $p => $v) {
-        if ($p AND $parameter = substr($op_return, $counter*2, $v['size']*2)) {
+        if (is_numeric($p) AND $parameter = substr($op_return, $counter*2, $v['size']*2)) {
+
             $counter += $v['size'];
 
             if ($v['decode']=='hex2bin')
@@ -260,9 +261,8 @@ function op_return_decode($op_return) {
             
             $parameter = trim($parameter);
 
-            if (is_array($v['options']))
-                if (!array_key_exists($parameter, $v['options']))
-                    return false;
+            if (is_array($v['options']) AND !array_key_exists($parameter, $v['options']))
+                return false;
 
             if ($v['min'] AND $parameter < $v['min'])
                 return false;
@@ -280,10 +280,10 @@ function op_return_decode($op_return) {
 
 
 function get_mempool($blockchain=BLOCKCHAIN_ACTIONS) {
-    global $mempool_cache;
+    global $__mempool_cache;
 
     foreach (rpc_get_mempool($blockchain) AS $txid)
-        if (!$mempool_cache[$txid] AND $mempool_cache[$txid] = true)
+        if (!$__mempool_cache[$txid] AND $__mempool_cache[$txid] = true)
             if (!sql("SELECT id FROM actions WHERE txid = '".$txid."' LIMIT 1"))
                 if ($action = get_action($txid, $blockchain))
                     $actions[] = $action;

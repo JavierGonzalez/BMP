@@ -2,37 +2,62 @@
 
 
 
+function __profiler($hrtime=false) {
+    global $__, $__sql, $__rpc;
+
+    if (!$hrtime)
+        $hrtime = $__['crono'];
+
+    $output[] = num((hrtime(true)-$hrtime)/1000/1000).' ms';
+    
+    if (is_numeric($__sql['count']))
+        $output[] = num($__sql['count']).' sql';
+    
+    if (is_numeric($__rpc['count']))
+        $output[] = num($__rpc['count']).' rpc';
+
+    $output[] = num(memory_get_usage(false)/1024).' kb';
+    
+    return $output;
+}
+
+
+
+// For debug and benchmarking.
 function ___($echo='', $scroll_down=false) {
 	$now = hrtime(true);
-    global $_;
-
-    if (!$_['crono'])
-        $_['crono'] = $now;
-
-    if ($scroll_down) {
-        if (function_exists('apache_setenv'))
-            @apache_setenv('no-gzip', 1);
-
-		ob_end_flush();
-		echo '<script>function Az1() { window.scrollTo(0,document.body.scrollHeight); }</script>';
-	}
+    global $__;
 
 
-    echo '<br />'.++$_['crono_count'].'. &nbsp; '.date('Y-m-d H:i:s').' &nbsp; ';
-    echo number_format(($now-$_['crono'])/1000000, 2).' ms &nbsp; ';
-    
-    if (is_array($echo) OR is_object($echo))
+    echo '<br />'."\n";
+    echo ++$__['___'].'. &nbsp; '.date('Y-m-d H:i:s').' &nbsp; '.implode(' &nbsp; ', __profiler()).' &nbsp; ';
+
+
+    if (is_string($echo))
+        echo $echo;
+    else if (is_array($echo) OR is_object($echo))
         print_r2($echo);
-    else if ($echo!=='')
+    else
         var_dump($echo);
     
+
     if ($scroll_down) {
-        echo '<script>Az1();</script>';
+
+        if ($__['___']==1) {
+            
+            if (function_exists('apache_setenv'))
+                @apache_setenv('no-gzip', 1);
+
+            ob_end_flush();
+            echo '<script>function __sd() { window.scrollTo(0,document.body.scrollHeight); }</script>';
+        }
+
+        echo '<script>__sd();</script>';
         flush();
         ob_flush();
     }
 
-    $_['crono'] = hrtime(true);
+    $__['crono'] = hrtime(true);
 }
 
 
@@ -75,12 +100,6 @@ function every($seconds=60, $id=0) {
 
 
 
-function ram() {
-    return number_format(memory_get_usage(true)/1024).' kb';
-}
-
-
-
 function redirect($url='/') {
     header('Location: '.$url);
     exit;
@@ -95,5 +114,5 @@ function shell($command) {
 
 
 function num($number, $decimals=0) { 
-    return number_format($number, $decimals, '.', ',');
+    return number_format((float)$number, $decimals, '.', ',');
 }

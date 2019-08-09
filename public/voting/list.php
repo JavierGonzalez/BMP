@@ -1,6 +1,6 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Voting';
+$__template['title'] = 'Voting';
 
 
 
@@ -8,11 +8,10 @@ $votings = sql("SELECT txid FROM actions WHERE action = 'voting' ORDER BY height
 
 foreach ($votings AS $r)
     if ($voting = action_voting_info($r['txid']))
-        $table[] = array(
+        $table[$voting['status']][] = array(
                 'status'        => ucfirst($voting['status']),
                 
                 'time'          => date('Y-m-d', strtotime($voting['time'])),
-                //'height'      => $voting['height'],
                 'height_finish' => $voting['height_finish'],
                 'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
                 'votes'         => $voting['votes_num'],
@@ -35,7 +34,9 @@ $config = array(
 
 <div style="font-size:20px;line-height:30px;">
 
-<?=html_table($table, $config)?>
+<?=html_table($table['open'], $config)?>
+
+<?=html_table($table['close'], $config)?>
 
 </div>
 

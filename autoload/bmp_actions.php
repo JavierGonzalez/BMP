@@ -8,6 +8,11 @@ function update_actions() {
     foreach (sql("SELECT address, p2 AS nick FROM actions WHERE action = 'miner_parameter' AND p1 = 'nick' ORDER BY time ASC") AS $r)
         sql_update('miners', array('nick' => $r['nick']), "address = '".$r['address']."'");
 
+    // Menu caches
+    sql_key_value('cache_blocks_num',  round(sql("SELECT SUM(hashpower) AS ECHO FROM blocks")/BLOCK_WINDOW));
+    sql_key_value('cache_miners_num',  sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners"));
+    sql_key_value('cache_actions_num', sql("SELECT COUNT(*) AS ECHO FROM actions"));
+
 }
 
 
@@ -19,9 +24,9 @@ function action_voting_info($txid) { // Refact
 
     $voting['height_finish'] = $voting['height'] + $voting['blocks_to_finish'];
     
-    $last_height = sql("SELECT height FROM blocks ORDER BY height DESC LIMIT 1")[0]['height'];
+    $last_height = sql("SELECT height FROM blocks WHERE blockchain = '".BLOCKCHAIN_ACTIONS."' ORDER BY height DESC LIMIT 1")[0]['height'];
     
-    $voting['status'] = ($voting['height_finish']>=$last_height?'open':'close');
+    $voting['status'] = ($voting['height_finish']>=$last_height || !$voting['height']?'open':'close');
     
     if ($voting['status']=='open')
         $voting['close_in'] = $voting['height_finish']-$last_height;
@@ -74,7 +79,7 @@ function action_voting_info($txid) { // Refact
         return false;
 
     
-    $blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");
+    $blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks WHERE blockchain = '".BLOCKCHAIN_ACTIONS."'");
 
     $result = sql("SELECT txid, address, p2 AS type_vote, p3 AS voting_validity, p4 AS vote,
                     (SELECT SUM(power) FROM miners WHERE address = actions.address) AS power,
@@ -99,7 +104,7 @@ function action_voting_info($txid) { // Refact
         $voting['validity'][($vote['voting_validity']==='1'?'valid':'not_valid')] += $vote['power'];
 
         $voting['options'][$vote['vote']]['votes']++;
-        $voting['options'][$vote['vote']]['power']      += $vote['power'];
+        $voting['options'][$vote['vote']]['power']      += round($vote['power'], POWER_PRECISION);
         $voting['options'][$vote['vote']]['hashpower']  += $vote['hashpower']/$blocks_num;
     }
 

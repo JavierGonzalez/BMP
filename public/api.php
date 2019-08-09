@@ -1,7 +1,7 @@
 <?php # BMP — Javier González González
 
 
-$_['template']['output'] = 'api';
+$__['template']['output'] = 'api';
 
 
 function miner_utxo_find($utxo) {

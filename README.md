@@ -4,7 +4,16 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 ---
 
-###### A Hashpower Voting System for Bitcoin Global Adoption.
+##### BMP is a Hashpower Voting System for Bitcoin Global Adoption
+- [x] Hardware-wallet auth.
+- [x] Multi-blockchain SHA-256 merge.
+- [x] Real-time hashpower chat.
+- [x] Nick change.
+- [x] Voting, with multiple points and options.
+- [x] Votes with hashpower.
+- [x] Rectifiable votes (in open votings).
+- [x] 100% verifiable, on-chain, open-source.
+
 
 ## Why
 
@@ -64,65 +73,57 @@ Extract from [ABC vs BSV Hash War (Part III)](https://medium.com/@jiangzhuoer/ab
 
 ## How
 
-Talking and voting with hashpower -to discover consensus- in the most secure voting system known.
+Talking and voting with hashpower -to discover consensus- in the most secure voting system ever known.
 
 
 ## What
 
-#### [bmp.virtualpol.com](https://bmp.virtualpol.com)
+#### [bmp.virtualpol.com](https://bmp.virtualpol.com) [version 0.2-beta]
 
 <br />
 
-[BMP](https://bmp.virtualpol.com) is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, completely on-chain, verifiable, replicable and driven by hashpower.
+[BMP](https://bmp.virtualpol.com) is a voting system, completely on-chain, verifiable, replicable and driven by hashpower. A robust and expandable base system. Merge all Bitcoin SHA-256 hashpower. Expanding the vision of Satoshi Nakamoto [whitepaper](https://www.bitcoin.com/bitcoin.pdf).
 
-BMP works connected to a Bitcoin Cash client by RPC to read blocks and transactions. 
-Blockchain data is transformed [with this PHP](https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp.php) in 3 SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
+BMP is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system connected to a multiple Bitcoin client -via RPC- to read blocks and transactions. Blockchain data is processed [with this PHP](https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp.php) in three SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
 
 
-Actions without hashpower are ignored. Miners power changes with each block. Actions power never changes.
+Actions are stored in Bitcoin Cash (BCH) because is fast, cheap and stable. 
+
+Actions without hashpower are ignored. Miners power (%) changes with each block. Actions power never changes.
 
 Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future).
 
-BMP does not store private keys. The entire BMP database is public information.
+BMP does not store private keys and the database is public information.
 
-More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and paper in [Chinese](https://virtualpol.com/BMP_CN.pdf), [English](https://virtualpol.com/BMP_EN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
-
-
-#### Features
-
-* Hardware-wallet authentication.
-* Real-time chat with hashpower.
-* Nick change.
-* Voting with multiple config, points and options.
-* Votes with hashpower.
-* Rectifiable votes (in open voting).
-* 100% verifiable on-chain.
+More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and the BMP paper in [English](https://virtualpol.com/BMP_EN.pdf), [Chinese](https://virtualpol.com/BMP_CN.pdf) and [Spanish](https://virtualpol.com/BMP_ES.pdf).
 
 
 #### Requirements to participate
 
-1. Your address in a coinbase output in the last `2,016` blocks of BCH.
+1. Your address in a coinbase output in the last `2,016` blocks of BTC, BCH or BSV.
 2. Trezor hardware wallet.
 
 
 #### Hashpower signaling
 
 1. **power_by_value** 
-By default, BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all blocks and with P2Pool even the smallest miner can participate right now.
+By default, BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all blocks. With P2Pool, even the smallest miner can participate, right now.
 
 2. **power_by_opreturn**
 In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more addresses in coinbase OP_RETURN output. This ignores the value and allows the delegation of hashpower with simplicity.
 
-In this way, miners can easily delegate hashpower to anyone else.
-
+In this way, with simplicity, miners can delegate hashpower in other people to participate.
 
 #### Requirements to deploy
 
-1. Bitcoin ABC client, with `-txindex`
-2. GNU/Linux
-3. Apache
-4. MariaDB database
-5. PHP
+1. GNU/Linux
+2. Apache
+3. MariaDB SQL database
+4. PHP
+5. Bitcoin BCH client, with `-txindex` (main for actions)
+6. Bitcoin BTC client
+7. Bitcoin BSV client
+
 
 #### Tested environment
 
@@ -144,7 +145,7 @@ In this way, miners can easily delegate hashpower to anyone else.
 2. Configure RPC and SQL access by renaming `autoload/_password.php`.
 3. Execute `scheme.sql` in a new SQL database.
 4. Set a `crontab` every minute with: `curl https://bmp.domain.com/update`.
-5. Wait synchronization.
+5. Wait synchronizations.
 
 #### Known problems
 

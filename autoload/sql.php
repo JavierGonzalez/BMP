@@ -2,7 +2,7 @@
 
 
 function sql_connect($server_sql=false) {
-    global $_sql;
+    global $__sql;
 
     if (!$server_sql)
         $server_sql = URL_SQL;
@@ -15,7 +15,7 @@ function sql_connect($server_sql=false) {
 
 	$sql_link = @mysqli_connect($p['host'], $p['user'], $p['pass'], str_replace('/', '', $p['path']), $p['port']);
     
-    $_sql['link'][] = $sql_link;
+    $__sql['link'][] = $sql_link;
     
 	if (!$sql_link) {
 		echo '<span title="'.sql_error().'">ERROR: Database connect error.</span>';
@@ -32,19 +32,20 @@ function sql_connect($server_sql=false) {
 
 
 function sql_link() {
-	global $_sql;
+	global $__sql;
 
-	if (!$_sql['link'])
+	if (!$__sql['link'])
         sql_connect();
 
-	return $_sql['link'][0];
+	return $__sql['link'][0];
 }
 
 
 
 function sql($query) {
-
-	$result = mysqli_query(sql_link(), $query);
+    global $__sql;
+	
+    $result = mysqli_query(sql_link(), $query);
     
     if ($result===true OR $result===false) 
         return $result;
@@ -56,6 +57,8 @@ function sql($query) {
 	if (isset($output[0]['ECHO']))
 		return $output[0]['ECHO'];
 
+    $__sql['count']++;
+    
     return $output;
 }
 
@@ -220,12 +223,12 @@ function sql_unlock() {
 
 
 function sql_close() {
-	global $sql;
+	global $__sql;
 
-	foreach ((array)$sql['link'] AS $link)
-    	@mysqli_close($link);
+	foreach ((array)$__sql['link'] AS $link)
+        mysqli_close($link);
 
-    unset($sql['link']);
+    unset($__sql['link']);
 }
 
 

@@ -1,6 +1,6 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Action: '.$_GET[2];
+$__template['title'] = 'Action: '.$_GET[2];
 
 
 $proof['bmp'] = array(

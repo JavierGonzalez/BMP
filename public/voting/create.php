@@ -1,15 +1,15 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Voting create';
+$__template['title'] = 'Voting create';
 
 
-$_template['css'] .= '#voting_create td { padding:10px; }';
+$__template['css'] .= '#voting_create td { padding:10px; }';
 
-$_template['lib_js'][]  = '/public/voting/voting.js';
+$__template['lib_js'][]  = '/public/voting/voting.js';
 
 ?>
 
-<h1><?=$_template['title']?></h1>
+<h1><?=$__template['title']?></h1>
 
 <br />
 

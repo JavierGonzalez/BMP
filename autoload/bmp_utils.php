@@ -3,9 +3,15 @@
 
 
 function get_new_blocks() {
+    $output = false;
+    
     foreach (BLOCKCHAINS AS $blockchain)
-        get_new_block($blockchain);
+        if (get_new_block($blockchain))
+            $output = true;
+
+    return $output;
 }
+
 
 
 function get_new_block($blockchain=BLOCKCHAIN_ACTIONS) {
@@ -19,12 +25,14 @@ function get_new_block($blockchain=BLOCKCHAIN_ACTIONS) {
     
     if ($bmp_height)
         $height = $bmp_height + 1;
-    else
+    else if ($blockchain==BLOCKCHAIN_ACTIONS)
         $height = BMP_GENESIS_BLOCK;
+    else
+        $height = rpc_get_best_height($blockchain)-BLOCK_WINDOW;
     
-    sql_lock(['blocks', 'miners', 'actions']);
-    block_insert($height);
-    sql_unlock();
+
+    block_insert($height, $blockchain);
+
 
     return true;
 }
@@ -46,16 +54,19 @@ function revert_bytes($hex) {
 }
 
 
-function pool_decode($coinbase) {
-    global $pools_json_cache;
+function pool_decode($coinbase, $coinbase_hashpower=false) {
+    global $__pools_json_cache;
 
-    if (!$pools_json_cache)
-        $pools_json_cache = json_decode(file_get_contents('lib/pools.json'), true);
+    if (!$__pools_json_cache)
+        $__pools_json_cache = json_decode(file_get_contents('lib/pools.json'), true);
 
 
-    foreach ($pools_json_cache['coinbase_tags'] AS $tag => $pool)
+    foreach ($__pools_json_cache['coinbase_tags'] AS $tag => $pool)
         if (strpos($coinbase, $tag)!==false)
             return $pool;
+
+    if (count($coinbase_hashpower['miners'])>=20) // Hack
+        return array('name' => 'P2Pool');
 
     return null;
 }
@@ -63,32 +74,42 @@ function pool_decode($coinbase) {
 
 function address_normalice($address) {
     
-    include_once('lib/cashaddress.php');
-
-    if (substr($address,0,12)=='bitcoincash:')
+    if (substr($address,0,12)=='bitcoincash:') {
+        include_once('lib/cashaddress.php');
         $address = \CashAddress\CashAddress::new2old($address, false);
+    }
 
     return trim($address);
 }
 
 
-function hashpower_humans($hps, $decimals=0) {
+function hashpower_humans($hps, $unit=false, $decimals=0) {
 
     if (!is_numeric($hps) OR $hps==0)
         return '';
 
-    $prefix = array(
-            1000000000000000000000 => 'Z',
-               1000000000000000000 => 'E',
-                  1000000000000000 => 'P',
-                     1000000000000 => 'T',
-                        1000000000 => 'G',
+    $units = array(
+            'E' => 1000000000000000000,
+            'P' =>    1000000000000000,
+            'T' =>       1000000000000,
         );
+    
+    if ($units[$unit])
+        return num($hps/$units[$unit], $decimals).'&nbsp;'.$unit.'H/s';
 
-    foreach ($prefix AS $x => $p)
-        if ($hps/$x >= 10 OR $p=='G')
-            return num($hps/$x, $decimals).'&nbsp;'.$p.'H/s';
+    foreach ($units AS $u => $x)
+        if ($hps/$x>=100 OR $u=='T')
+            return num($hps/$x, $decimals).'&nbsp;'.$u.'H/s';
 
+}
+
+
+function hashpower_humans_phs($hps, $decimals=0) {
+
+    if (!is_numeric($hps) OR $hps==0)
+        return '';
+
+    return num($hps/1000000000000000, $decimals).'&nbsp;PH/s';
 }
 
 

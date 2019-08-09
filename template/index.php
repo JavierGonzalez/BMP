@@ -1,20 +1,23 @@
 <?php # BMP — Javier González González
 
+$__output_html = ob_get_contents();
+ob_end_clean();
+
 header('Content-Type: text/html; charset=utf-8');
 
 
-if ($_template['title'])
-	$_template['title'] = 'BMP | '.$_template['title'];
+if ($__template['title'])
+	$__template['title'] = 'BMP | '.$__template['title'];
 else
-	$_template['title'] = 'BMP';
+	$__template['title'] = 'BMP';
 
 
 
-$_template['lib_css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
-$_template['lib_css'][] = '/template/style.css';
+$__template['lib_css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
+$__template['lib_css'][] = '/template/style.css';
 
 
-$_template['js'] .= '
+$__template['js'] .= '
         bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";
     ';
 
@@ -22,24 +25,25 @@ $_template['js'] .= '
 <html lang="en">
 <head>
 
-<title><?=$_template['title']?></title>
+<title><?=$__template['title']?></title>
 
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-<meta name="description" content="<?=$_template['title']?>" />
 
+<meta name="description" content="<?=$__template['title']?>" />
+<meta name="author" content="Javier González González — gonzo@virtualpol.com" />
 
-<!--<link rel="shortcut icon" href="/template/favicon.ico" />-->
+<link rel="shortcut icon" href="/template/favicon.ico" />
 
-<link rel="stylesheet" href="/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" enctype="text/css" href="/lib/bootstrap-4.3.1/css/bootstrap.min.css">
 <?php
 
-foreach ((array)$_template['lib_css'] AS $file)
-	echo '<link rel="stylesheet" type="text/css" href="'.$file.'" media="all" />'."\n";
+foreach ((array)$__template['lib_css'] AS $file)
+	echo '<link rel="stylesheet" enctype="text/css" href="'.$file.'" media="all" />'."\n";
 
 
 echo '
 <style type="text/css">
-'.$_template['css'].'
+'.$__template['css'].'
 </style>';
 
 
@@ -62,12 +66,15 @@ echo '
 <div id="content_right">
 
     <div id="top_right">
-        <?=$_template['top_right']?> 
+        
+        <?=$__template['top_right']?> 
+        
         <span id="print_login"></span>
+
     </div>
 
 	<div id="content">
-	    <?=$_output_html_content?>
+	    <?=$__output_html?>
 	</div>
 
 	<div id="footer" style="color:#777;">
@@ -78,18 +85,18 @@ echo '
 
 
 
-<script type="text/javascript" src="/lib/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/public/bmp.js"></script>
-<script type="text/javascript" src="/lib/trezor-connect-7.js"></script>
+<script type="text/javascript" enctype="application/javascript" src="/lib/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" enctype="application/javascript" src="/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" enctype="application/javascript" src="/public/bmp.js"></script>
+<script type="text/javascript" enctype="application/javascript" src="/lib/trezor-connect-7.js"></script>
 
 <?php
-foreach ((array)$_template['lib_js'] AS $file)
-	echo '<script type="text/javascript" src="'.$file.'"></script>'."\n";
+foreach ((array)$__template['lib_js'] AS $file)
+	echo '<script type="text/javascript" enctype="application/javascript" src="'.$file.'"></script>'."\n";
 ?>
 
 <script type="text/javascript">
-<?=$_template['js']?>
+<?=$__template['js']?>
 </script>
 
 </body>

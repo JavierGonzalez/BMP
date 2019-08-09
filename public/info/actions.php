@@ -1,13 +1,11 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Actions';
+$__template['title'] = 'Actions';
 
-echo html_h($_template['title'], 1);
+echo html_h($__template['title'], 1);
 
 
-$blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks");
-
-$data = sql("SELECT height, txid, time, address, action, action_id AS aid, p1, p2, p3, p4, p5, power, hashpower
+$data = sql("SELECT blockchain, height, txid, time, address, power, hashpower, action, action_id AS aid, p1, p2, p3, p4, p5
     FROM actions  
     ORDER BY time DESC");
 
@@ -17,7 +15,7 @@ foreach ($data AS $key => $value) {
     $data[$key]['address']   = html_a('/info/miner/'.$value['address'], substr($value['address'],-10,10));
     
     $data[$key]['power']     = num($value['power'], POWER_PRECISION).'%';
-    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/$blocks_num);
+    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/BLOCK_WINDOW);
 }
 
 

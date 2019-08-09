@@ -4,9 +4,9 @@ $txid = e($_GET[1]);
 
 $voting = action_voting_info($txid);
 
-$_template['title'] = 'Voting: '.$voting['question'];
+$__template['title'] = 'Voting: '.$voting['question'];
 
-$_template['lib_js'][]  = '/public/voting/voting.js';
+$__template['lib_js'][]  = '/public/voting/voting.js';
 
 ?>
 
@@ -18,6 +18,8 @@ $_template['lib_js'][]  = '/public/voting/voting.js';
 
 <fieldset>
 <legend style="font-size:22px;font-weight:bold;"><?=$voting['question']?></legend>
+
+<legend style="float:right;font-size:14px;margin-top:-46px;"><?=strtoupper($voting['status'])?></legend>
 
 <ol>
 <?php

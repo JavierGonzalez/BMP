@@ -2,11 +2,15 @@
 
 
 function html_table($data, $config=false) {
-
+    
     if (!is_array($data))
         return '';
-    
+
+
     // Header
+    if ($config['tr_th_extra'])
+        $html .= $config['tr_th_extra'];
+
     $html .= '<tr style="'.($config['th_background-color']?'background-color:'.$config['th_background-color'].';':'').'">';
     foreach ((array)$data[key($data)] AS $key => $value) {
 
@@ -15,7 +19,7 @@ function html_table($data, $config=false) {
 
         $html .= '<th>'.ucfirst($key).'</th>';
     }
-    $html .= '</tr>';
+    $html .= '</tr>'."\n";
     
     
     // Rows
@@ -32,6 +36,9 @@ function html_table($data, $config=false) {
 
             if ($config[$key]['monospace'])
                 $td_extra .= ' class="monospace"';
+
+            if ($config[$key]['background_color'])
+                $td_extra .= ' style="background-color:'.$config[$key]['background_color'].';"';
 
             if ($config[$key]['function'])
                 $column = call_user_func($config[$key]['function'], $column);
@@ -56,11 +63,11 @@ function html_table($data, $config=false) {
 
             $html .= '<td'.$td_extra.' nowrap>'.$column.'</td>';
         }
-        $html .= '</tr>';
+        $html .= '</tr>'."\n";
     }
     
 
-    return '<table>'.$html.'</table>';
+    return "\n\n".'<table>'.$html.'</table>'."\n\n";
 }
 
 

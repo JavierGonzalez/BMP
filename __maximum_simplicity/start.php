@@ -1,31 +1,25 @@
 <?php # maximum_simplicity — Javier González González
 
 
-$_['crono'] = hrtime(true);
+$__['crono'] = hrtime(true);
+$__['crono_start'] = $__['crono'];
 
-
-ob_start(NULL, 1024*1024*10);
+ob_start(NULL, 10485760);
 
 
 include('__maximum_simplicity/config.php');
 
-
 include('__maximum_simplicity/functions.php');
 
-
-foreach (glob('autoload/*.php') AS $_file)
-    include($_file);
-
+foreach (glob('autoload/*.php') AS $__file)
+    include($__file);
 
 include('__maximum_simplicity/router.php');
 
 
-if (isset($_['template']['output']))
-    include('template/'.$_['template']['output'].'.php');    
-
-
-$_output_html_content = ob_get_contents();
-ob_end_clean();
-include('template/index.php');
+if (isset($__['template']['output']))
+    include('template/'.$__['template']['output'].'.php');    
+else
+    include('template/index.php');
 
 exit;

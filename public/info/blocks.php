@@ -1,29 +1,22 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Blocks';
+$__template['title'] = 'Blocks';
 
-echo html_h($_template['title'], 1);
+echo html_h($__template['title'], 1);
 
 
-$data = sql("SELECT height, hash,
+$data = sql("SELECT blockchain, height, hash,
     (SELECT COUNT(*) FROM miners WHERE height = blocks.height) AS miners,
     (SELECT COUNT(*) FROM actions WHERE height = blocks.height) AS actions, 
-    pool, tx_count, time, 1 AS minutes, hashpower, power_by
+    pool, tx_count, time, hashpower, power_by, coinbase
     FROM blocks 
-    ORDER BY height DESC");
+    ORDER BY time DESC, height DESC");
 
 
 foreach ($data AS $key => $value) {
 
     if ($value['actions'])
         $data[$key]['actions']  = html_b($value['actions']);
-
-    if (!$time_last)
-        $time_last = date('Y-m-d H:i:s');
-
-    $duration = strtotime($time_last) - strtotime($value['time']);
-    $data[$key]['minutes'] = num($duration/60,0);
-    $time_last = $value['time'];
 
     $data[$key]['tx_count']  = num($value['tx_count']);
 
@@ -38,6 +31,5 @@ echo html_table($data, array(
         'actions'       => array('align'     => 'right'),
         'hash'          => array('monospace' => true),
         'tx_count'      => array('align'     => 'right', 'th' => 'TX'),
-        'minutes'       => array('align'     => 'right'),
         'hashpower'     => array('align'     => 'right'),
     ));

@@ -1,12 +1,12 @@
 <?php # BMP — Javier González González
 
-$_template['title'] = 'Miner parameter';
+$__template['title'] = 'Miner parameter';
 
 
-$_template['lib_js'][]  = '/public/parameter/miner.js';
+$__template['lib_js'][]  = '/public/parameter/miner.js';
 
 
-$_template['tabs'] = array(
+$__template['tabs'] = array(
         '/info/blocks'   => _('Blocks'),
         '/info/miners'   => _('Miners'),
         '/info/actions'  => _('Actions'),
@@ -32,7 +32,7 @@ $_template['tabs'] = array(
 </td>
 
 <td>
-	<button type="button" class="executive_action btn btn-success btn-sm">Execute</button>
+	<input type="submit" class="executive_action btn btn-success btn-sm" value="Execute" />
 </td>
 
 

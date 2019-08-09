@@ -40,7 +40,7 @@ define('BMP_PROTOCOL', array(
             'action'        => 'miner_parameter',
             'status'        => 'implemented',
             'description'   => '',
-            1 => array('size' =>  10, 'name'=>'key',        'decode'=>'hex2bin', 'options'=>array('nick', 'email')),
+            1 => array('size' =>  10, 'name'=>'key',        'decode'=>'hex2bin', 'options'=>array('nick'=>'nick', 'email'=>'email')),
             2 => array('size' => 200, 'name'=>'value',      'decode'=>'hex2bin'),
         ),
 
@@ -80,15 +80,12 @@ define('BMP_PROTOCOL', array(
         ),
 
 
-
-
         '07' => array(
             'action'        => 'bmp_parameter',
-            'status'        => 'planned',
+            'status'        => 'idea',
             1 => array('size' =>  10, 'name'=>'key',    'decode'=>'hex2bin'),
             2 => array('size' => 200, 'name'=>'value',  'decode'=>'hex2bin'),
         ),
-
 
 
 

@@ -1,15 +1,15 @@
 <?php # BMP — Javier González González
 
-// $_template['title'] = 'Chat';
+// $__template['title'] = 'Chat';
 
 
-$_template['lib_css'][] = '/public/chat/chat.css';
+$__template['lib_css'][] = '/public/chat/chat.css';
 
-$_template['lib_js'][]  = '/public/chat/chat.js';
-$_template['lib_js'][]  = '/lib/date.format.js';
+$__template['lib_js'][]  = '/public/chat/chat.js';
+$__template['lib_js'][]  = '/lib/date.format.js';
 
 
-$_template['tabs'] = array(
+$__template['tabs'] = array(
         '/info/blocks'   => _('Blocks'),
         '/info/miners'   => _('Miners'),
         '/info/actions'  => _('Actions'),

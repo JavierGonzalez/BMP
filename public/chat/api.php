@@ -1,7 +1,7 @@
 <?php # BMP — Javier González González
 
 
-$_['template']['output'] = 'api';
+$__['template']['output'] = 'api';
 
 
 if ($_GET[2]=='refresh' AND $_GET['last']) {
