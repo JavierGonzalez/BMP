@@ -26,8 +26,8 @@ function rpc_connect($blockchain=false) {
 function rpc_get_block($hash, $blockchain=false) {
     $b = rpc_connect($blockchain);
 
-    if (strlen($hash)!==64)
-        $hash = $b->getblockhash($hash);
+    if (is_numeric($hash) AND strlen($hash)!==64)
+        $hash = $b->getblockhash((int)$hash);
 
     return $b->getblock($hash);
 }

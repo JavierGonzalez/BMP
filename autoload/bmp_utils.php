@@ -62,7 +62,7 @@ function pool_decode($coinbase, $coinbase_hashpower=false) {
 
 
     foreach ($__pools_json_cache['payout_addresses'] AS $address => $pool)
-        foreach ($coinbase['vout'] AS $vout)
+        foreach ((array)$coinbase['vout'] AS $vout)
             if ($address === $vout['scriptPubKey']['addresses'][0])
                 return $pool;
 
