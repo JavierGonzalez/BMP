@@ -47,6 +47,8 @@ function sql($query) {
 	
     $result = mysqli_query(sql_link(), $query);
     
+    $__sql['count']++;
+
     if ($result===true OR $result===false) 
         return $result;
     
@@ -56,8 +58,6 @@ function sql($query) {
     
 	if (isset($output[0]['ECHO']))
 		return $output[0]['ECHO'];
-
-    $__sql['count']++;
     
     return $output;
 }
