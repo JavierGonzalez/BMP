@@ -9,7 +9,9 @@ function update_actions() {
         sql_update('miners', array('nick' => $r['nick']), "address = '".$r['address']."'");
 
     // Menu caches
-    sql_key_value('cache_blocks_num',  round(sql("SELECT SUM(hashpower) AS ECHO FROM blocks")/BLOCK_WINDOW));
+    $hashpower_total = sql("SELECT SUM(hashpower) AS ECHO FROM blocks");
+    if (is_numeric($hashpower_total))
+        sql_key_value('cache_blocks_num',  round($hashpower_total/BLOCK_WINDOW));
     sql_key_value('cache_miners_num',  sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners"));
     sql_key_value('cache_actions_num', sql("SELECT COUNT(*) AS ECHO FROM actions"));
 

@@ -2,10 +2,11 @@
 
 
 function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
-    ini_set('memory_limit', '10G');
-    
+
     if (sql("SELECT id FROM blocks WHERE blockchain = '".$blockchain."' AND height = ".e($height)))
         return false;
+
+    ini_set('memory_limit', '10G');
 
 
     $block = rpc_get_block($height, $blockchain);
@@ -216,7 +217,7 @@ function get_action_tx($tx, $blockchain=BLOCKCHAIN_ACTIONS) {
 }
 
 
-// 6a1000036e69636b20202020202054657374
+
 function op_return_decode($op_return) {
 
     if (!ctype_xdigit($op_return))

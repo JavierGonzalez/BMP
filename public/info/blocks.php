@@ -8,7 +8,7 @@ echo html_h($__template['title'], 1);
 $data = sql("SELECT blockchain, height, hash,
     (SELECT COUNT(*) FROM miners WHERE height = blocks.height) AS miners,
     (SELECT COUNT(*) FROM actions WHERE height = blocks.height) AS actions, 
-    pool, tx_count, time, hashpower, power_by, coinbase
+    pool, tx_count, time, hashpower, power_by
     FROM blocks 
     ORDER BY time DESC, height DESC");
 

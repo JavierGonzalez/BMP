@@ -7,7 +7,7 @@ ___('beat_last: '.$beat_last);
 
 if ($beat_last >= time()-(60*2))
     exit;
-
+    
 
 set_time_limit(60*60*24);
 
