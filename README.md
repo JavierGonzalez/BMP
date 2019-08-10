@@ -4,7 +4,7 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 ---
 
-##### BMP is a Hashpower Voting System for Bitcoin Global Adoption
+#### BMP is a Hashpower Voting System for Bitcoin Global Adoption
 - [x] Hardware-wallet auth.
 - [x] Multi-blockchain SHA-256 merge.
 - [x] Real-time hashpower chat.
