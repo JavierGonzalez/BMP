@@ -61,11 +61,19 @@ function pool_decode($coinbase, $coinbase_hashpower=false) {
         $__pools_json_cache = json_decode(file_get_contents('lib/pools.json'), true);
 
 
+    foreach ($__pools_json_cache['payout_addresses'] AS $address => $pool)
+        foreach ($coinbase['vout'] AS $vout)
+            if ($address === $vout['scriptPubKey']['addresses'][0])
+                return $pool;
+
+
+    $coinbase_text = hex2bin($coinbase['vin'][0]['coinbase']);
     foreach ($__pools_json_cache['coinbase_tags'] AS $tag => $pool)
-        if (strpos($coinbase, $tag)!==false)
+        if (strpos($coinbase_text, $tag)!==false)
             return $pool;
 
-    if (count($coinbase_hashpower['miners'])>=20) // Hack
+
+    if (count((array)$coinbase_hashpower['miners'])>=20) // Hack
         return array('name' => 'P2Pool');
 
     return null;
