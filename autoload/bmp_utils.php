@@ -113,11 +113,7 @@ function hashpower_humans($hps, $unit=false, $decimals=0) {
 
 
 function hashpower_humans_phs($hps, $decimals=0) {
-
-    if (!is_numeric($hps) OR $hps==0)
-        return '';
-
-    return num($hps/1000000000000000, $decimals).'&nbsp;PH/s';
+    return hashpower_humans($hps, 'P', $decimals);
 }
 
 

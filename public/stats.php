@@ -20,9 +20,10 @@ foreach (BLOCKCHAINS AS $blockchain) {
     $data[] = array(
             'blockchain'    => $blockchain,
             'sync'          => ($blocks_ahead?num($blocks_ahead):'✔'),
-            'height BMP'    => $last_block['height'],
-            'height RPC'    => $last_height,
+            'BMP'           => $last_block['height'],
+            'RPC'           => $last_height,
             'time'          => $last_block['time'],
+            'TX/s'          => num((sql("SELECT SUM(tx_count) AS ECHO FROM blocks WHERE blockchain = '".$blockchain."'")/(BLOCK_WINDOW*6*60)), 1).' TX/s',
             'miners'        => $miners['miners'],
             'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], POWER_PRECISION).'%</span>',
             'hashpower'     => hashpower_humans($miners['hashpower']/BLOCK_WINDOW),
@@ -35,9 +36,10 @@ foreach (BLOCKCHAINS AS $blockchain) {
 $data[] = array(
             'blockchain'    => '',
             'sync'          => '',
-            'height BMP'    => '',
-            'height RPC'    => '',
+            'BMP'           => '',
+            'RPC'           => '',
             'time'          => '',
+            'TX/s'          => '',
             'miners'        => '<b>'.$total_miners.'</b>',
             'power'         => '<b>100%</b>',
             'hashpower'     => '<b>'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</b>',
@@ -48,6 +50,7 @@ $data[] = array(
 $config = array(
         ''          => array('align' => 'right',  'th' => '&nbsp;'),
         'sync'      => array('align' => 'right'),
+        'TX/s'      => array('align' => 'right'),
         'miners'    => array('align' => 'right'),
         'power'     => array('align' => 'right', 'monospace' => true),
         'hashpower' => array('align' => 'right'),
