@@ -18,7 +18,6 @@ foreach (BLOCKCHAINS AS $blockchain) {
     $blocks_ahead = $last_height-$last_block['height'];
 
     $data[] = array(
-            'blockchain'    => $blockchain,
             'sync'          => ($blocks_ahead?num($blocks_ahead):'✔'),
             'BMP'           => $last_block['height'],
             'RPC'           => $last_height,
@@ -27,22 +26,22 @@ foreach (BLOCKCHAINS AS $blockchain) {
             'miners'        => $miners['miners'],
             'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], POWER_PRECISION).'%</span>',
             'hashpower'     => hashpower_humans($miners['hashpower']/BLOCK_WINDOW),
+            'blockchain'    => $blockchain,
         );
 
-    $total_miners += $miners['miners'];
     $total_hashpower += $miners['hashpower'];
 }
 
 $data[] = array(
-            'blockchain'    => '',
             'sync'          => '',
             'BMP'           => '',
             'RPC'           => '',
             'time'          => '',
             'TX/s'          => '',
-            'miners'        => '<b>'.$total_miners.'</b>',
-            'power'         => '<b>100%</b>',
+            'miners'        => '<b>'.num(sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners")).'</b>',
+            'power'         => '',
             'hashpower'     => '<b>'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</b>',
+            'blockchain'    => '',
         );
 
 
