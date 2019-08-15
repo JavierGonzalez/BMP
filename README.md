@@ -104,17 +104,6 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and the BMP pape
 2. Trezor hardware wallet.
 
 
-#### Hashpower signaling
-
-1. **power_by_value** 
-By default, BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all blocks. With P2Pool, even the smallest miner can participate, right now.
-
-2. **power_by_opreturn**
-In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more addresses in coinbase OP_RETURN output. This ignores the value and allows the delegation of hashpower with simplicity.
-
-In this way, with simplicity, miners can delegate hashpower in other people to participate.
-
-
 #### Manual action to participate
 
 * Standard transaction in BCH.
@@ -126,6 +115,17 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 The BMP facilitates the OP_RETURN `hex`.
 
 Examples: [chat](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fca6622d117e4d6b4149a3855de780295e852e471504b937c14), [vote](https://blockchair.com/bitcoin-cash/transaction/2c4219ce4533759a5886839d03494420e92c5add807c010c4b507b347b3b0e21).
+
+
+#### Hashpower signaling
+
+1. **power_by_value** 
+By default, BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all blocks. With P2Pool, even the smallest miner can participate, right now.
+
+2. **power_by_opreturn**
+In order not to interfere with mining operations, there is a second method that allows to signal hashpower quotas in one or more addresses in coinbase OP_RETURN output. This ignores the value and allows the delegation of hashpower with simplicity.
+
+In this way, with simplicity, miners can delegate hashpower in other people to participate.
 
 
 #### Requirements to deploy
@@ -158,9 +158,10 @@ Examples: [chat](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fc
 
 1. Put the BMP code in the `www` httpd public directory.
 2. Configure RPC and SQL access by renaming `autoload/_password.php`.
-3. Execute `scheme.sql` in a new SQL database.
-4. Set a `crontab` every minute with: `curl https://bmp.domain.com/update`.
-5. Wait synchronizations.
+3. Wait Bitcoin clients synchronization (BTC, BCH and BSV).
+4. Execute `scheme.sql` in a new SQL database.
+5. Set a `crontab` every minute with: `curl https://bmp.domain.com/update`.
+6. Wait BMP synchronization.
 
 #### Known problems
 
