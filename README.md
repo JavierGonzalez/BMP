@@ -114,13 +114,27 @@ In order not to interfere with mining operations, there is a second method that 
 
 In this way, with simplicity, miners can delegate hashpower in other people to participate.
 
+
+#### Manual action to participate
+
+* Standard transaction in BCH.
+* Target address in coinbase VOUT in the last 2016 blocks of BTC, BCH and/or BSV.
+* Target address in TX_PREV VOUT (Any index).
+* Target address in VOUT INDEX=0.
+* OP_RETURN payload in VOUT INDEX=1 according to [BMP Protocol](https://bmp.virtualpol.com/protocol) (Prefix = 9d).
+
+The BMP facilitates the OP_RETURN `hex`.
+
+Examples: [chat](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fca6622d117e4d6b4149a3855de780295e852e471504b937c14), [vote](https://blockchair.com/bitcoin-cash/transaction/2c4219ce4533759a5886839d03494420e92c5add807c010c4b507b347b3b0e21).
+
+
 #### Requirements to deploy
 
 1. GNU/Linux
 2. Apache
-3. MariaDB SQL database
+3. MariaDB or MySQL SQL database
 4. PHP
-5. Bitcoin BCH client, with `-txindex` (main for actions)
+5. Bitcoin BCH client, with `-txindex` (for actions)
 6. Bitcoin BTC client
 7. Bitcoin BSV client
 
@@ -138,6 +152,7 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 * Bitcoin ABC 0.19.10
 * Bitcoin Core 0.18.0
 * Bitcoin SV 0.2.1
+* P2Pool
 
 #### How to deploy
 

@@ -52,7 +52,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
                 'blockchain'    => $blockchain,
                 'txid'          => $coinbase['txid'],
                 'height'        => $block['height'],
-                'address'       => address_normalice($miner['address']),
+                'address'       => $miner['address'],
                 'quota'         => $miner['quota'],
                 'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_hashpower['quota_total']),
             ));
@@ -109,7 +109,7 @@ function coinbase_hashpower($coinbase) {
             if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
                 $output['miners'][] = array(
                         'quota'   => $tx_vout['value'],
-                        'address' => $tx_vout['scriptPubKey']['addresses'][0],
+                        'address' => address_normalice($tx_vout['scriptPubKey']['addresses'][0]),
                     );
 
     }

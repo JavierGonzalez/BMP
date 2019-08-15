@@ -42,7 +42,7 @@ $__template['tabs'] = array(
 
 <td></td>
 <td colspan=2>
-<span id="miner_parameter_nick_preview" style="font-family:monospace, monospace;font-size:13px;"></span>
+<span id="op_return_preview" class="monospace" style="font-size:13px;"></span>
 </td>
 
 </tr>

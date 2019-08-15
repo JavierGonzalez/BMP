@@ -95,6 +95,9 @@ function miner_logout() {
 
 async function blockchain_send_tx(op_return) {
 
+    if (op_return == '' || !op_return)
+        return false;
+
     if (!miner_utxo())
         await get_miner_utxo();
 

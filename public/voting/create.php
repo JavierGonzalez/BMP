@@ -95,6 +95,8 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
 
 </table>
 
+<span id="op_return_preview" class="monospace" style="font-size:13px;">Preview in development...</span>
+
 <br />
 
 </form>

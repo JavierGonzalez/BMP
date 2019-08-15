@@ -22,8 +22,7 @@ $__template['tabs'] = array(
 
 
 <div id="vpc_u">
-	<ul id="chat_list">
-	</ul>
+	<ul id="chat_list"></ul>
 </div>
 
 
@@ -60,7 +59,7 @@ $__template['tabs'] = array(
 <tr>
 
 <td width="46" align="right" valign="middle">
-<img id="vpc_actividad" onclick="actualizar_ahora();" src="/public/chat/img/point_grey.png" width=16 height=16 style="margin-top:4px;" />
+<img id="vpc_actividad" src="/public/chat/img/point_grey.png" width=16 height=16 style="margin-top:4px;" />
 </td>
 
 <td valign="middle">
@@ -72,19 +71,13 @@ $__template['tabs'] = array(
 </td>
 
 
-<!--
-<td align="right" nowrap="nowrap" valign="middle" title="Marcar para ocultar eventos del chat">
-	<input id="cfilter" name="cfilter" value="1" type="checkbox" OnClick="chat_filtro_change(chat_filtro);" /> <label for="cfilter" class="inline">'._('Hide events').'</label>
-</td>
--->
-
 </tr>
 
 <tr>
 
 <td></td>
 <td colspan=2>
-<span id="op_return_preview" style="font-family:monospace, monospace;font-size:13px;"></span>
+<span id="op_return_preview" class="monospace" style="font-size:13px;"></span>
 </td>
 
 </tr>

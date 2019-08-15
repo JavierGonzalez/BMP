@@ -2,19 +2,55 @@
 
 
 
+$('#voting_vote, #rv_1, #rv_0').change(function() {
+	$('#op_return_preview').text(bmp_op_return_vote());
+});
+
+$('#voting_comment').keyup(function() {
+	$('#op_return_preview').text(bmp_op_return_vote());
+});
+
+
+function bmp_op_return_vote() {
+
+    var action          = '04'; // vote
+    var txid            = $("#voting_txid").val();
+    var type_vote       = fill_hex(dechex($("#voting_type_vote").val()),1);
+    var voting_validity = fill_hex(dechex($("#voting_vote input[name='voting_validity']:checked").val()),1);
+    var vote            = fill_hex(dechex($("#voting_option").val()),1);
+    var comment         = bin2hex($('#voting_comment').val());
+
+    if (!$("#voting_vote input[name='voting_validity']:checked").val())
+        return '';
+
+    return bmp_protocol_prefix + action + txid + type_vote + voting_validity + vote + comment;
+}
+
+
+
 $('#voting_vote').submit(async function(e) {
     e.preventDefault();
 
-    var op_return = bmp_protocol_prefix;
-    op_return += '04';                                              // action: vote
-    op_return += $("#voting_txid").val();                           // txid   
-    op_return += fill_hex(dechex($("#voting_type_vote").val()),1);  // type_vote
-    op_return += fill_hex(dechex($("#voting_vote input[name='voting_validity']:checked").val()),1);   // voting_validity
-    op_return += fill_hex(dechex($("#voting_option").val()),1);     // vote
-    op_return += bin2hex($('#voting_comment').val());               // comment
-    result_tx1 = await blockchain_send_tx(op_return);
-    
+    result_tx1 = await blockchain_send_tx(bmp_op_return_vote());
 });
+
+
+
+///////
+
+
+function bmp_op_return_voting() {
+    // IN DEVELOPMENT...
+
+    var parameters_num = 0;
+    $(".parameter").each(async function(index) {
+            if ($(this).val())
+                parameters_num++;
+        });
+
+
+    return false;
+}
 
 
 
@@ -80,9 +116,6 @@ $('#voting_create').submit(async function(e) {
 
 
 
-$('#chat_input_msg').keyup(function() {
-	$('#op_return_preview').text(bin2hex($(this).val()));
-});
 
 
 

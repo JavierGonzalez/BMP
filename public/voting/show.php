@@ -119,6 +119,7 @@ foreach ($voting['options'] AS $option_txid => $r)
 
 <p><input type="text" id="voting_comment" maxlength="41" value="" autocomplete="off" style="width:100%;padding:4px;" placeholder="Comment..." /></p>
 
+<span id="op_return_preview" class="monospace" style="font-size:13px;"></span>
 
 </form>
 

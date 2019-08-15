@@ -66,7 +66,7 @@ foreach (BLOCKCHAINS AS $blockchain)
 
 <br /><br />
 
-<em>* In BETA development. Changes will occur.</em><br />
-<em>* More specs in code <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank"><b>here</b></a>.</em>
-
-<br /><br />
+<ul>
+    <li>More detailed specification <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank"><b>in code</b></a>.</li>
+    <li>In BETA development. Changes will occur.</li>
+</ul>

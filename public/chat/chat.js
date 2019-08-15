@@ -8,7 +8,6 @@ chat_delay = 2000;
 chat_scroll = 0;
 
 
-
 window.onload = function(){
 	scroll_down();
 	refresh = setTimeout(chat_query_ajax, chat_delay); 
@@ -16,28 +15,31 @@ window.onload = function(){
 }
 
 
+
+function bmp_op_return_chat() {
+
+	var action      = '02';
+    var timestamp   = Math.round(new Date().getTime()/1000);
+	var channel     = fill_hex('00',1);
+    var msg         = bin2hex($('#chat_input_msg').val().trim());
+
+    return bmp_protocol_prefix + action + timestamp + channel + msg;
+}
+
+
+
 $('#chat_input_msg').keyup(function() {
-	$('#op_return_preview').text(bin2hex($(this).val()));
+	$('#op_return_preview').text(bmp_op_return_chat());
 });
 
 
 $('#chat_form_msg').submit(async function(e) {
     e.preventDefault();
 
-	var timestamp = Math.round(new Date().getTime()/1000);
+	result = await blockchain_send_tx(bmp_op_return_chat());
 
-	var msg = $('#chat_input_msg').val().trim();
 	$('#chat_input_msg').val('');
 	$('#op_return_preview').text('');
-    
-    
-	var action  = '02';
-    var channel = fill_hex('00',1);
-
-	var op_return = bmp_protocol_prefix + action + timestamp + channel + bin2hex(msg);
-
-    result = await blockchain_send_tx(op_return);
-
 });
 
 
