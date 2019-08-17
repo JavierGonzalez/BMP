@@ -43,7 +43,7 @@ $config = array(
         'coinbase'  => array('align' => 'center'),
     );
 
-foreach (BLOCKCHAINS AS $blockchain)
+foreach (BLOCKCHAINS AS $blockchain => $config)
     $config[$blockchain] = array('align' => 'center');
 
 

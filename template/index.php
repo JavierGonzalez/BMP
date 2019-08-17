@@ -9,7 +9,7 @@ header('Content-Type: text/html; charset=utf-8');
 if ($__template['title'])
 	$__template['title'] = 'BMP | '.$__template['title'];
 else
-	$__template['title'] = 'BMP';
+	$__template['title'] = 'Bitcoin Mining Parliament';
 
 
 

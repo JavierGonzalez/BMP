@@ -15,12 +15,15 @@ function update_actions() {
     sql_key_value('cache_miners_num',  sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners"));
     sql_key_value('cache_actions_num', sql("SELECT COUNT(*) AS ECHO FROM actions"));
 
+
+    sql_key_value('cache_chat_num', sql("SELECT COUNT(DISTINCT address) AS ECHO FROM actions WHERE action = 'chat'"));
+
 }
 
 
 function action_voting_info($txid) { // Refact
 
-    $voting = sql("SELECT txid, height, time, address, 
+    $voting = sql("SELECT blockchain, txid, height, time, address, 
     p1 AS type_voting, p2 AS type_vote, p3 AS parameters_num, p4 AS blocks_to_finish, p5 AS question 
     FROM actions WHERE txid = '".e($txid)."' AND action = 'voting' LIMIT 1")[0];
 
@@ -36,6 +39,7 @@ function action_voting_info($txid) { // Refact
     $voting['points'] = array();
 
     $voting['options'][] = array(
+            'blockchain'=> $voting['blockchain'],
             'txid'      => $txid,
             'vote'      => '0',
             'option'    => 'NULL',
@@ -53,17 +57,18 @@ function action_voting_info($txid) { // Refact
             'not_valid' => 0,    
         );
 
-    foreach (sql("SELECT txid, p2 AS type, p3, p4 AS text 
+    foreach (sql("SELECT blockchain, txid, p2 AS type, p3, p4 AS text 
         FROM actions WHERE action = 'voting_parameter' AND p1 = '".e($txid)."' 
         ORDER BY p2 ASC, p3 ASC") AS $r) {
         
         $parameters_num++;
 
         if ($r['type']==0)
-            $voting['points'][] = $r['text'];
+            $voting['points'][] = $r;
 
         if ($r['type']==1)
             $voting['options'][$r['p3']] = array(
+                    'blockchain'=> $r['blockchain'],
                     'txid'      => $r['txid'],
                     'vote'      => $r['p3'],
                     'option'    => $r['text'],
@@ -83,7 +88,7 @@ function action_voting_info($txid) { // Refact
     
     $blocks_num = sql("SELECT COUNT(*) AS ECHO FROM blocks WHERE blockchain = '".BLOCKCHAIN_ACTIONS."'");
 
-    $result = sql("SELECT txid, address, p2 AS type_vote, p3 AS voting_validity, p4 AS vote,
+    $result = sql("SELECT blockchain, txid, address, p2 AS type_vote, p3 AS voting_validity, p4 AS vote,
                     (SELECT SUM(power) FROM miners WHERE address = actions.address) AS power,
                     (SELECT SUM(hashpower) FROM miners WHERE address = actions.address) AS hashpower
                     FROM actions 

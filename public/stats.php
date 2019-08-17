@@ -6,7 +6,7 @@ echo html_h($__template['title'], 1);
 
 
 
-foreach (BLOCKCHAINS AS $blockchain) {
+foreach (BLOCKCHAINS AS $blockchain => $config) {
 
     $last_block = sql("SELECT * FROM blocks WHERE blockchain = '".$blockchain."' ORDER BY height DESC LIMIT 1")[0];
 
@@ -63,7 +63,7 @@ echo html_table($data, $config);
 
 
 
-foreach (BLOCKCHAINS AS $blockchain)
+foreach (BLOCKCHAINS AS $blockchain => $config)
     $select_artisan[] = "0 AS power_".$blockchain.", (SUM(IF(blockchain='".$blockchain."',hashpower,0))/".BLOCK_WINDOW.") AS hashpower_".$blockchain;
 
 $data = sql("SELECT pool, 0 AS power, (SUM(hashpower)/".BLOCK_WINDOW.") AS hashpower, ".implode(',', $select_artisan)." FROM blocks GROUP BY pool ORDER BY hashpower DESC");
@@ -87,7 +87,7 @@ $config = array(
         'hashpower' => array('align' => 'right', 'function' => 'hashpower_humans_phs', 'th' => 'Hashpower'),
     );
 
-foreach (BLOCKCHAINS AS $blockchain) {
+foreach (BLOCKCHAINS AS $blockchain => $value) {
     $config[    'power_'.$blockchain] = array('th' => 'Power', 'align' => 'right');
     $config['hashpower_'.$blockchain] = array('th' => 'Hashpower', 'align' => 'right', 'function' => 'hashpower_humans_phs');
 }

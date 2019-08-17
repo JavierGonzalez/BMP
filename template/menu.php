@@ -18,7 +18,9 @@ function menu_active($url) {
 <ul class="menu vertical">
 
     <li<?=menu_active('/chat')?>>
-        <a href="/">Chat</a>
+        <a href="/">Chat
+        <span class="md"><?=num(sql_key_value('cache_chat_num'))?></span>
+        </a>
     </li>
 
     <li<?=menu_active('/voting')?>>

@@ -23,8 +23,8 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
 
 <ol>
 <?php
-foreach ($voting['points'] AS $text)
-    echo '<li>'.html_h($text, 3).'</li>';
+foreach ($voting['points'] AS $point)
+    echo '<li>'.html_h($point['text'], 3).'</li>';
 ?>
 </ol>
 
