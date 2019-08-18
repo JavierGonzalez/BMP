@@ -18,6 +18,7 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
     $blocks_ahead = $last_height-$last_block['height'];
 
     $data[] = array(
+            'blockchain'    => $blockchain,
             'sync'          => ($blocks_ahead?num($blocks_ahead):'✔'),
             'BMP'           => $last_block['height'],
             'RPC'           => $last_height,
@@ -26,13 +27,13 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
             'miners'        => $miners['miners'],
             'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], POWER_PRECISION).'%</span>',
             'hashpower'     => hashpower_humans($miners['hashpower']/BLOCK_WINDOW),
-            'blockchain'    => $blockchain,
         );
 
     $total_hashpower += $miners['hashpower'];
 }
 
 $data[] = array(
+            'blockchain'    => '',
             'sync'          => '',
             'BMP'           => '',
             'RPC'           => '',
@@ -41,7 +42,6 @@ $data[] = array(
             'miners'        => '<b>'.num(sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners")).'</b>',
             'power'         => '',
             'hashpower'     => '<b>'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</b>',
-            'blockchain'    => '',
         );
 
 
@@ -82,7 +82,7 @@ foreach ($data AS $id => $r)
 
 
 $config = array(
-        'tr_th_extra' => '<tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th><th colspan=2 style="text-align:center;">'.implode('</th><th colspan=2 style="text-align:center;">', BLOCKCHAINS).'</th></tr>',
+        'tr_th_extra' => '<tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th><th colspan=2 style="text-align:center;">'.implode('</th><th colspan=2 style="text-align:center;">', array_keys(BLOCKCHAINS)).'</th></tr>',
         'power'     => array('align' => 'right'),
         'hashpower' => array('align' => 'right', 'function' => 'hashpower_humans_phs', 'th' => 'Hashpower'),
     );
