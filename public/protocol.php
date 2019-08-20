@@ -37,15 +37,14 @@ $table[0]['BMP'] = '';
 
 
 $config = array(
-        'th_background-color' => '#FFFFDD',
+        'th_background_color' => '#FFFFDD',
         'num'       => array('align' => 'right'),
-        'status'    => array('capital' => true, 'monospace' => true),
+        'status'    => array('capital' => true, 'monospace' => true, 'tr_background_color' => array('implemented' => '#ffeead')),
         'coinbase'  => array('align' => 'center'),
     );
 
-foreach (BLOCKCHAINS AS $blockchain => $config)
+foreach (BLOCKCHAINS AS $blockchain => $value)
     $config[$blockchain] = array('align' => 'center');
-
 
 ?>
 

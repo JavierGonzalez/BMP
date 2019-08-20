@@ -25,8 +25,10 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
             'time'          => $last_block['time'],
             'TX/s'          => num((sql("SELECT SUM(tx_count) AS ECHO FROM blocks WHERE blockchain = '".$blockchain."'")/(BLOCK_WINDOW*6*60)), 1).' TX/s',
             'miners'        => $miners['miners'],
-            'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], POWER_PRECISION).'%</span>',
+            'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], 2).'%</span>',
             'hashpower'     => hashpower_humans($miners['hashpower']/BLOCK_WINDOW),
+            'blockchain2'   => $blockchain,
+            
         );
 
     $total_hashpower += $miners['hashpower'];
@@ -42,17 +44,19 @@ $data[] = array(
             'miners'        => '<b>'.num(sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners")).'</b>',
             'power'         => '',
             'hashpower'     => '<b>'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</b>',
+            'blockchain2'   => '',
         );
 
 
 
 $config = array(
-        ''          => array('align' => 'right',  'th' => '&nbsp;'),
-        'sync'      => array('align' => 'right'),
-        'TX/s'      => array('align' => 'right'),
-        'miners'    => array('align' => 'right'),
-        'power'     => array('align' => 'right', 'monospace' => true),
-        'hashpower' => array('align' => 'right'),
+        ''              => array('align' => 'right',  'th' => '&nbsp;'),
+        'sync'          => array('align' => 'right'),
+        'TX/s'          => array('align' => 'right'),
+        'miners'        => array('align' => 'right'),
+        'power'         => array('align' => 'right', 'monospace' => true),
+        'hashpower'     => array('align' => 'right'),
+        'blockchain2'   => array('th' => ''),
     );
 
 

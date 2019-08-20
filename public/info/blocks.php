@@ -14,7 +14,7 @@ $data = sql("SELECT blockchain, height, hash,
 
 
 foreach ($data AS $key => $value) {
-
+    
     if ($value['actions'])
         $data[$key]['actions']  = html_b($value['actions']);
 
@@ -25,8 +25,11 @@ foreach ($data AS $key => $value) {
 
 }
 
+foreach (BLOCKCHAINS AS $blockchain => $value)
+    $blockchain_colors[$blockchain] = $value['background_color'];
 
 echo html_table($data, array(
+        'blockchain'    => array('tr_background_color' => $blockchain_colors),
         'miners'        => array('align'     => 'right'),
         'actions'       => array('align'     => 'right'),
         'hash'          => array('monospace' => true),

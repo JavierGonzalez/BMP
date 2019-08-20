@@ -11,7 +11,7 @@ function html_table($data, $config=false) {
     if ($config['tr_th_extra'])
         $html .= $config['tr_th_extra'];
 
-    $html .= '<tr style="'.($config['th_background-color']?'background-color:'.$config['th_background-color'].';':'').'">';
+    $html .= '<tr style="'.($config['th_background_color']?'background-color:'.$config['th_background_color'].';':'').'">';
     foreach ((array)$data[key($data)] AS $key => $value) {
 
         if (isset($config[$key]['th']))
@@ -24,7 +24,8 @@ function html_table($data, $config=false) {
     
     // Rows
     foreach ($data AS $row) {
-        $html .= '<tr>';
+        $tr_extra = '';
+        $td = '';
         foreach ($row AS $key => $column) {
             $td_extra = '';
             
@@ -39,6 +40,10 @@ function html_table($data, $config=false) {
 
             if ($config[$key]['background_color'])
                 $td_extra .= ' style="background-color:'.$config[$key]['background_color'].';"';
+
+            if ($config[$key]['tr_background_color'])
+                if ($config[$key]['tr_background_color'][$column])
+                    $tr_extra .= ' style="background-color:'.$config[$key]['tr_background_color'][$column].';"';
 
             if ($config[$key]['function'])
                 $column = call_user_func($config[$key]['function'], $column);
@@ -61,9 +66,9 @@ function html_table($data, $config=false) {
             if ($config[$key]['bold'])
                 $column = '<b>'.$column.'</b>';
 
-            $html .= '<td'.$td_extra.' nowrap>'.$column.'</td>';
+            $td .= '<td'.$td_extra.' nowrap>'.$column.'</td>';
         }
-        $html .= '</tr>'."\n";
+        $html .= '<tr'.$tr_extra.'>'.$td.'</tr>'."\n";
     }
     
 
