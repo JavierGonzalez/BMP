@@ -8,23 +8,23 @@ $votings = sql("SELECT txid FROM actions WHERE action = 'voting' ORDER BY height
 
 foreach ($votings AS $r)
     if ($voting = action_voting_info($r['txid']))
-        $table[$voting['status']][] = array(
-                'status'        => ucfirst($voting['status']),
-                
-                'time'          => date('Y-m-d', strtotime($voting['time'])),
-                'height_finish' => $voting['height_finish'],
-                'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
-                'votes'         => $voting['votes_num'],
-                'power'         => $voting['power'],
-                'validity'      => $voting['validity']['valid'],
-            );
+        $table[$voting['status']][] = [
+            'status'        => ucfirst($voting['status']),
+            
+            'time'          => date('Y-m-d', strtotime($voting['time'])),
+            'height_finish' => $voting['height_finish'],
+            'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
+            'votes'         => $voting['votes_num'],
+            'power'         => $voting['power'],
+            'validity'      => $voting['validity']['valid'],
+            ];
 
 
-$config = array(
-        'votes'    => array('align' => 'right', 'num' => 0),
-        'power'    => array('align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'),
-        'validity' => array('align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'),
-    );
+$config = [
+    'votes'    => ['align' => 'right', 'num' => 0],
+    'power'    => ['align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'],
+    'validity' => ['align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'],
+    ];
 
 
 ?>

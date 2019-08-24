@@ -20,26 +20,26 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
     
     /// BLOCK
-    sql_insert('blocks', array(
-            'blockchain'            => $blockchain,
-            'height'                => $block['height'],
-            'hash'                  => $block['hash'],
-            'size'                  => $block['size'],
-            'tx_count'              => count($block['tx']),
-            'version_hex'           => $block['versionHex'],
-            'previousblockhash'     => $block['previousblockhash'],
-            'merkleroot'            => $block['merkleroot'],
-            'time'                  => date('Y-m-d H:i:s', $block['time']),
-            'time_median'           => date('Y-m-d H:i:s', $block['mediantime']),
-            'bits'                  => $block['bits'],
-            'nonce'                 => $block['nonce'],
-            'difficulty'            => $block['difficulty'],
-            'coinbase'              => $coinbase['vin'][0]['coinbase'],
-            'pool'                  => pool_decode($coinbase, $coinbase_hashpower)['name'],
-            'power_by'              => $coinbase_hashpower['power_by'],
-            'quota_total'           => $coinbase_hashpower['quota_total'],
-            'hashpower'             => $block_hashpower,
-        ));
+    sql_insert('blocks', [
+        'blockchain'            => $blockchain,
+        'height'                => $block['height'],
+        'hash'                  => $block['hash'],
+        'size'                  => $block['size'],
+        'tx_count'              => count($block['tx']),
+        'version_hex'           => $block['versionHex'],
+        'previousblockhash'     => $block['previousblockhash'],
+        'merkleroot'            => $block['merkleroot'],
+        'time'                  => date('Y-m-d H:i:s', $block['time']),
+        'time_median'           => date('Y-m-d H:i:s', $block['mediantime']),
+        'bits'                  => $block['bits'],
+        'nonce'                 => $block['nonce'],
+        'difficulty'            => $block['difficulty'],
+        'coinbase'              => $coinbase['vin'][0]['coinbase'],
+        'pool'                  => pool_decode($coinbase, $coinbase_hashpower)['name'],
+        'power_by'              => $coinbase_hashpower['power_by'],
+        'quota_total'           => $coinbase_hashpower['quota_total'],
+        'hashpower'             => $block_hashpower,
+        ]);
 
     foreach (sql("SELECT height FROM blocks WHERE blockchain = '".$blockchain."' ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
         block_delete($r['height'], $blockchain);
@@ -48,14 +48,14 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
     /// MINERS
     foreach ((array)$coinbase_hashpower['miners'] AS $miner)
-        sql_insert('miners', array(
-                'blockchain'    => $blockchain,
-                'txid'          => $coinbase['txid'],
-                'height'        => $block['height'],
-                'address'       => $miner['address'],
-                'quota'         => $miner['quota'],
-                'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_hashpower['quota_total']),
-            ));
+        sql_insert('miners', [
+            'blockchain'    => $blockchain,
+            'txid'          => $coinbase['txid'],
+            'height'        => $block['height'],
+            'address'       => $miner['address'],
+            'quota'         => $miner['quota'],
+            'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_hashpower['quota_total']),
+            ]);
     
     update_power();
 
@@ -90,13 +90,13 @@ function update_power() {
 
 function coinbase_hashpower($coinbase) {
 
-    // There are power signalled in coinbase OP_RETURN?
+    // Power by OP_RETURN in coinbase.
     foreach ($coinbase['vout'] AS $tx_vout)
-        if ($miner_by_opreturn = op_return_decode($tx_vout['scriptPubKey']['hex']))
-            $output['miners'][] = array(
-                    'quota'   => $miner_by_opreturn['p1'],
-                    'address' => address_normalice($miner_by_opreturn['p2']),
-                );
+        if ($coinbase_action = op_return_decode($tx_vout['scriptPubKey']['hex']))
+            $output['miners'][] = [
+                'quota'   => $coinbase_action['p1'],
+                'address' => address_normalice($coinbase_action['p2']),
+                ];
 
 
     if ($output['miners']) {
@@ -107,10 +107,10 @@ function coinbase_hashpower($coinbase) {
 
         foreach ($coinbase['vout'] AS $tx_vout)
             if ($tx_vout['value']>0 AND $tx_vout['scriptPubKey']['addresses'][0])
-                $output['miners'][] = array(
-                        'quota'   => $tx_vout['value'],
-                        'address' => address_normalice($tx_vout['scriptPubKey']['addresses'][0]),
-                    );
+                $output['miners'][] = [
+                    'quota'   => $tx_vout['value'],
+                    'address' => address_normalice($tx_vout['scriptPubKey']['addresses'][0]),
+                    ];
 
     }
     
@@ -126,10 +126,10 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
 
     $tx = rpc_get_transaction($txid, $blockchain);
     
-    $action = array(
+    $action = [
             'blockchain'    => BLOCKCHAIN_ACTIONS,
             'txid'          => $tx['txid'],
-        );
+        ];
     
     if ($block)
         $action['height'] = $block['height'];
@@ -144,7 +144,7 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
     
 
     // Actions without hashpower are ignored.
-    if (!$power['hashpower'] OR round($power['power'], POWER_PRECISION)==0)
+    if (!$power['hashpower'])
         return false;
 
 
@@ -156,11 +156,11 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
 
 
     if (!$block)
-        $action['time'] = date('Y-m-d H:i:s');                  // By BMP server
-    else if ($action['action']=='chat')
-        $action['time'] = date('Y-m-d H:i:s', $action['p1']);   // By user
+        $action['time'] = date('Y-m-d H:i:s');                      // By BMP server
+    else if ($action['action']=='chat' AND $action['p1']<=time())
+        $action['time'] = date('Y-m-d H:i:s', $action['p1']);       // By user
     else
-        $action['time'] = date('Y-m-d H:i:s', $block['time']);  // By hashpower
+        $action['time'] = date('Y-m-d H:i:s', $block['time']);      // By hashpower
 
     
     if ($block AND sql("SELECT id FROM actions WHERE txid = '".$action['txid']."' LIMIT 1"))
@@ -168,10 +168,11 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
 
 
     $nick = sql("SELECT p2 AS ECHO FROM actions 
-                    WHERE action = 'miner_parameter' AND p1 = 'nick' AND address = '".$action['address']."' 
-                    ORDER BY time DESC LIMIT 1");
+        WHERE action = 'miner_parameter' AND p1 = 'nick' AND address = '".$action['address']."' 
+        ORDER BY time DESC LIMIT 1");
     if ($nick AND !is_array($nick))
         $action['nick'] = $nick;
+        
         
     return $action;
 }
@@ -190,7 +191,7 @@ function get_action_tx($tx, $blockchain=BLOCKCHAIN_ACTIONS) {
     if (substr($action['op_return'],0,2)!='6a')
         return false;
 
-    if (!in_array(BMP_PROTOCOL['prefix'], array(substr($action['op_return'],4,2), substr($action['op_return'],6,2))))
+    if (!in_array(BMP_PROTOCOL['prefix'], [substr($action['op_return'],4,2), substr($action['op_return'],6,2)]))
        return false;  // Refact
 
 
@@ -239,10 +240,10 @@ function op_return_decode($op_return) {
     if (!BMP_PROTOCOL['actions'][$action_id])
         return false;
 
-    $output = array(
-            'action_id' => $action_id,
-            'action'    => BMP_PROTOCOL['actions'][$action_id]['action'],
-        );
+    $output = [
+        'action_id' => $action_id,
+        'action'    => BMP_PROTOCOL['actions'][$action_id]['action'],
+        ];
 
     $counter = $metadata_start_bytes + 1;
 

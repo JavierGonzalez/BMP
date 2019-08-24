@@ -17,47 +17,46 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
 
     $blocks_ahead = $last_height-$last_block['height'];
 
-    $data[] = array(
-            'blockchain'    => $blockchain,
-            'sync'          => ($blocks_ahead?num($blocks_ahead):'✔'),
-            'BMP'           => $last_block['height'],
-            'RPC'           => $last_height,
-            'time'          => $last_block['time'],
-            'TX/s'          => num((sql("SELECT SUM(tx_count) AS ECHO FROM blocks WHERE blockchain = '".$blockchain."'")/(BLOCK_WINDOW*6*60)), 1).' TX/s',
-            'miners'        => $miners['miners'],
-            'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], 2).'%</span>',
-            'hashpower'     => hashpower_humans($miners['hashpower']/BLOCK_WINDOW),
-            'blockchain2'   => $blockchain,
-            
-        );
+    $data[] = [
+        'blockchain'    => $blockchain,
+        'sync'          => ($blocks_ahead?num($blocks_ahead):'✔'),
+        'BMP'           => $last_block['height'],
+        'RPC'           => $last_height,
+        'time'          => $last_block['time'],
+        'TX/s'          => num((sql("SELECT SUM(tx_count) AS ECHO FROM blocks WHERE blockchain = '".$blockchain."'")/(BLOCK_WINDOW*6*60)), 1).' TX/s',
+        'miners'        => $miners['miners'],
+        'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], 2).'%</span>',
+        'hashpower'     => hashpower_humans($miners['hashpower']/BLOCK_WINDOW),
+        'blockchain2'   => $blockchain,   
+        ];
 
     $total_hashpower += $miners['hashpower'];
 }
 
-$data[] = array(
-            'blockchain'    => '',
-            'sync'          => '',
-            'BMP'           => '',
-            'RPC'           => '',
-            'time'          => '',
-            'TX/s'          => '',
-            'miners'        => '<b>'.num(sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners")).'</b>',
-            'power'         => '',
-            'hashpower'     => '<b>'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</b>',
-            'blockchain2'   => '',
-        );
+$data[] = [
+        'blockchain'    => '',
+        'sync'          => '',
+        'BMP'           => '',
+        'RPC'           => '',
+        'time'          => '',
+        'TX/s'          => '',
+        'miners'        => '<b>'.num(sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners")).'</b>',
+        'power'         => '',
+        'hashpower'     => '<b>'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</b>',
+        'blockchain2'   => '',
+        ];
 
 
 
-$config = array(
-        ''              => array('align' => 'right',  'th' => '&nbsp;'),
-        'sync'          => array('align' => 'right'),
-        'TX/s'          => array('align' => 'right'),
-        'miners'        => array('align' => 'right'),
-        'power'         => array('align' => 'right', 'monospace' => true),
-        'hashpower'     => array('align' => 'right'),
-        'blockchain2'   => array('th' => ''),
-    );
+$config = [
+    ''              => ['align' => 'right',  'th' => '&nbsp;'],
+    'sync'          => ['align' => 'right'],
+    'TX/s'          => ['align' => 'right'],
+    'miners'        => ['align' => 'right'],
+    'power'         => ['align' => 'right', 'monospace' => true],
+    'hashpower'     => ['align' => 'right'],
+    'blockchain2'   => ['th' => ''],
+    ];
 
 
 echo html_table($data, $config);
@@ -85,15 +84,15 @@ foreach ($data AS $id => $r)
 
 
 
-$config = array(
-        'tr_th_extra' => '<tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th><th colspan=2 style="text-align:center;">'.implode('</th><th colspan=2 style="text-align:center;">', array_keys(BLOCKCHAINS)).'</th></tr>',
-        'power'     => array('align' => 'right'),
-        'hashpower' => array('align' => 'right', 'function' => 'hashpower_humans_phs', 'th' => 'Hashpower'),
-    );
+$config = [
+    'tr_th_extra' => '<tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th><th colspan=2 style="text-align:center;">'.implode('</th><th colspan=2 style="text-align:center;">', array_keys(BLOCKCHAINS)).'</th></tr>',
+    'power'     => ['align' => 'right'],
+    'hashpower' => ['align' => 'right', 'function' => 'hashpower_humans_phs', 'th' => 'Hashpower'],
+    ];
 
 foreach (BLOCKCHAINS AS $blockchain => $value) {
-    $config[    'power_'.$blockchain] = array('th' => 'Power', 'align' => 'right');
-    $config['hashpower_'.$blockchain] = array('th' => 'Hashpower', 'align' => 'right', 'function' => 'hashpower_humans_phs');
+    $config[    'power_'.$blockchain] = ['th' => 'Power', 'align' => 'right'];
+    $config['hashpower_'.$blockchain] = ['th' => 'Hashpower', 'align' => 'right', 'function' => 'hashpower_humans_phs'];
 }
 
 echo html_table($data, $config);

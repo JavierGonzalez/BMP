@@ -1,13 +1,10 @@
-
-<?php
+<?php # BMP — Javier González González
 
 
 function menu_active($url) {
     if (strpos($_SERVER['REQUEST_URI'], $url) !== false OR ($url=='/chat' AND $_SERVER['REQUEST_URI']=='/'))
         return ' style="background:#FFFFBB;"';
 }
-
-
 
 ?>
 
@@ -60,6 +57,10 @@ function menu_active($url) {
 
 <div id="menu-next">
 
+
+<?=(DEV?'<span style="float:left;writing-mode:vertical-lr;-webkit-transform:rotate(180deg);color:red;font-size:20px;">
+    PRE-PRODUCTION</span>':'')?>
+
 <p>
     <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank">README</a><br />
     <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
@@ -70,7 +71,6 @@ function menu_active($url) {
 <div style="position:fixed;bottom:20px;">
     <?=implode('<br />', __profiler($__['crono_start']))?>
 </div>
-
 
 </div>
 

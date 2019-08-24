@@ -5,19 +5,13 @@ $__template['title'] = 'Protocol';
 
 foreach (BMP_PROTOCOL['actions'] AS $action_id => $action) {
 
-    $td = array(
-            'status'        => $action['status'],
-            'coinbase'      => ($action['coinbase']?html_b('x'):''),
-            
-            'BTC'           => ($action['coinbase']?html_b('x'):''),
-            'BCH'           => ($action['status']=='implemented'?html_b('x'):''),
-            'BSV'           => ($action['coinbase']?html_b('x'):''),
-            
-            'action'        => $action['action'],
-
-            'BMP'           => BMP_PROTOCOL['prefix'],
-            'ID'            => $action_id,
-        );
+    $td = [
+        'status'        => $action['status'],
+        'coinbase'      => $action['coinbase']?html_b('x'):'',
+        'action'        => $action['action'],
+        'bmp'           => BMP_PROTOCOL['prefix'],
+        'id'            => $action_id,
+        ];
 
     
     for ($i=1;$i<=5;$i++)
@@ -32,26 +26,28 @@ foreach (BMP_PROTOCOL['actions'] AS $action_id => $action) {
     $table[] = $td;
 }
 
-$table[0]['ID']  = '';
-$table[0]['BMP'] = '';
+$table[0]['id']  = '';
+$table[0]['bmp'] = '';
 
 
-$config = array(
-        'th_background_color' => '#FFFFDD',
-        'num'       => array('align' => 'right'),
-        'status'    => array('capital' => true, 'monospace' => true, 'tr_background_color' => array('implemented' => '#ffeead')),
-        'coinbase'  => array('align' => 'center'),
-    );
+$config = [
+    'th_background_color' => '#FFFFDD',
+    'num'       => ['align' => 'right'],
+    'status'    => ['capital' => true, 'monospace' => true, 'tr_background_color' => ['implemented' => '#ffeead']],
+    'coinbase'  => ['align' => 'center'],
+    'bmp'       => ['th' => 'BMP'],
+    'id'        => ['th' => 'ID'],
+    ];
 
 foreach (BLOCKCHAINS AS $blockchain => $value)
-    $config[$blockchain] = array('align' => 'center');
+    $config[$blockchain] = ['align' => 'center'];
 
 ?>
 
 <h1>Protocol</h1>
 
 <ul>
-    <li>Power percentage is calculated with all Bitcoin SHA-256 hashpower in last 2016 blocks.</li>
+    <li>Power percentage is calculated with the last 2,016 blocks of BTC, BCH and BSV.</li>
     <li>Miners power is calculated proportionally with coinbase output addresses.</li>
     <li>Actions -transactions- without hashpower are ignored.</li>
     <li>Miners power changes with each block.</li>
@@ -68,4 +64,5 @@ foreach (BLOCKCHAINS AS $blockchain => $value)
 <ul>
     <li>More detailed specification <a href="https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp_protocol.php" target="_blank"><b>in code</b></a>.</li>
     <li>In BETA development. Changes will occur.</li>
+    <li>BMP <?=BMP_VERSION?></li>
 </ul>

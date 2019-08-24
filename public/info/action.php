@@ -3,12 +3,12 @@
 $__template['title'] = 'Action: '.$_GET[2];
 
 
-$proof['bmp'] = array(
-        'title'                 => $__template['title'],
-        'version'               => BMP_VERSION,
-        'block_window'          => BLOCK_WINDOW,
-        'blockchains'           => array_keys(BLOCKCHAINS),
-    );
+$proof['bmp'] = [
+    'title'                 => $__template['title'],
+    'version'               => BMP_VERSION,
+    'block_window'          => BLOCK_WINDOW,
+    'blockchains'           => array_keys(BLOCKCHAINS),
+    ];
 
 
 

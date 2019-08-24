@@ -30,11 +30,11 @@ foreach ($data AS $key => $value) {
 }
 
 
-echo html_table($data, array(
-        0           => array('align' => 'right',  'th' => '&nbsp;'),
-        'miner'     => array('monospace' => true),
-        'blocks'    => array('align' => 'right'),
-        'power'     => array('align' => 'right', 'monospace' => true),
-        'hashpower' => array('align' => 'right'),
-        'actions'   => array('align' => 'right'),
-    ));
+echo html_table($data, [
+    0           => ['align' => 'right',  'th' => '&nbsp;'],
+    'miner'     => ['monospace' => true],
+    'blocks'    => ['align' => 'right'],
+    'power'     => ['align' => 'right', 'monospace' => true],
+    'hashpower' => ['align' => 'right'],
+    'actions'   => ['align' => 'right'],
+    ]);

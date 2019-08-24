@@ -52,7 +52,7 @@ function sql($query) {
     if ($result===true OR $result===false) 
         return $result;
     
-    $output = array();
+    $output = [];
     while ($r = mysqli_fetch_array($result, MYSQLI_ASSOC))
         $output[] = $r;
     
@@ -70,13 +70,13 @@ function sql_insert($table, $rows) {
 		return false;
 
 	if (!is_array($rows[0]))
-		$rows = array($rows);
+		$rows = [$rows];
 
 	if (count($rows)==0)
 		return false;
 
 	foreach ($rows AS $row_id => $row) {
-		$columns_values = array();
+		$columns_values = [];
 
 
 		foreach ($row AS $key => $value) {
@@ -97,7 +97,7 @@ function sql_insert($table, $rows) {
 
 		if (++$values_num>=5000) {
 			sql("INSERT INTO `".e($table)."` (".implode(',', (array)$columns).") VALUES ".implode(",", (array)$values));
-			$values 	= array();
+			$values 	= [];
 			$values_num = 0;
         }
 	}
@@ -128,7 +128,7 @@ function sql_update($table, $p, $w, $or_insert=false) {
             return sql_insert($table, $p);
             
 	} else {
-		$a = array();
+		$a = [];
 		foreach ($p AS $key => $value) {
 			if ($value==='++')
 				$a[] = "`".e($key)."` = `".e($key)."` + 1";
@@ -157,7 +157,7 @@ function sql_primary_key($table) {
 
 
 function sql_get_tables() {
-	$tables = array();
+	$tables = [];
 	foreach (sql("SHOW TABLES") AS $r)
 		$tables[] = current($r);
 
@@ -174,7 +174,7 @@ function sql_where($array=false, $operator='AND') {
 	if (count($array)==0)
 		return '1';
 
-	$element = array();
+	$element = [];
 	foreach ((array)$array AS $item) {
 		if ($item[1]=='IN') {
 			foreach ((array)$item[2] AS $key=>$value)
@@ -195,7 +195,7 @@ function sql_key_value($key, $value=false) {
 	if ($value===false)
 		return sql("SELECT value AS ECHO FROM key_value WHERE name = '".e($key)."' LIMIT 1");
     
-    sql_update('key_value', array('name' => $key, 'value' => $value), "name = '".e($key)."'", true);
+    sql_update('key_value', ['name' => $key, 'value' => $value], "name = '".e($key)."'", true);
 	return $value;
 }
 

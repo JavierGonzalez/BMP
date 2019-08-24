@@ -1,4 +1,4 @@
-<?php # maximum_simplicity — Javier González González
+<?php # maximum_simplicity
 
 
 
@@ -23,14 +23,14 @@ function __profiler($hrtime=false) {
 
 
 
-// For debug and benchmarking.
+// For debug or benchmark.
 function ___($echo='', $scroll_down=false) {
-	$now = hrtime(true);
-    global $__;
+	global $__;
 
+    $hrtime = $__['crono'];
 
     echo '<br />'."\n";
-    echo ++$__['___'].'. &nbsp; '.date('Y-m-d H:i:s').' &nbsp; '.implode(' &nbsp; ', __profiler()).' &nbsp; ';
+    echo ++$__['___'].'. &nbsp; '.date('Y-m-d H:i:s').' &nbsp; '.implode(' &nbsp; ', __profiler($hrtime)).' &nbsp; ';
 
 
     if (is_string($echo))
@@ -42,11 +42,10 @@ function ___($echo='', $scroll_down=false) {
     
 
     if ($scroll_down) {
-
         if ($__['___']==1) {
-            
-            if (function_exists('apache_setenv'))
+            if (function_exists('apache_setenv')) {
                 @apache_setenv('no-gzip', 1);
+            }
 
             ob_end_flush();
             echo '<script>function __sd() { window.scrollTo(0,document.body.scrollHeight); }</script>';

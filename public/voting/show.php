@@ -46,19 +46,19 @@ foreach ($voting['points'] AS $point)
 
 <?php
 
-$config = array(
-        'votes'     => array('align' => 'right', 'num' => 0),
-        'power'     => array('align' => 'right', 'num' => POWER_PRECISION, 'after' => '%', 'bold' => true),
-        'hashpower' => array('align' => 'right', 'function' => 'hashpower_humans'),
-    );
+$config = [
+    'votes'     => ['align' => 'right', 'num' => 0],
+    'power'     => ['align' => 'right', 'num' => POWER_PRECISION, 'after' => '%', 'bold' => true],
+    'hashpower' => ['align' => 'right', 'function' => 'hashpower_humans'],
+    ];
 
 foreach ($voting['options'] AS $option)
-    $print_options[] = array(
-            'option'    => $option['option'],
-            'votes'     => $option['votes'],
-            'power'     => $option['power'],
-            'hashpower' => $option['hashpower'],
-        );
+    $print_options[] = [
+        'option'    => $option['option'],
+        'votes'     => $option['votes'],
+        'power'     => $option['power'],
+        'hashpower' => $option['hashpower'],
+        ];
 
 echo html_table($print_options, $config);
 

@@ -1,6 +1,7 @@
+<?php # BMP — Javier González González ?>
+
 
 <div style="float:right;text-align:center;">
-
     The Bitcoin Mining Parliament
     <br />
     <a href="https://virtualpol.com/Miners_are_the_executive_power_of_Bitcoin_EN.pdf" target="_blank">Theory</a> ·  
@@ -11,13 +12,8 @@
     BMP <?=BMP_VERSION?>
 </div>
 
-
-
 <div>
     “Any needed rules and incentives can be enforced with this consensus mechanism.”
     <br />
     <a href="https://www.bitcoin.com/bitcoin.pdf" target="_blank" style="color:#888;" nowrap>Satoshi Nakamoto</a>
 </div>
-
-
-

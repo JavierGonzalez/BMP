@@ -1,9 +1,6 @@
 <?php # BMP — Javier González González
 
 
-$__['template']['output'] = 'api';
-
-
 function miner_utxo_find($utxo) {
     $tx = rpc_get_transaction($utxo['transactionHash']);
             

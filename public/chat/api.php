@@ -1,9 +1,6 @@
 <?php # BMP — Javier González González
 
 
-$__['template']['output'] = 'api';
-
-
 if ($_GET[2]=='refresh' AND $_GET['last']) {
 
 	$echo['msg'] = sql("SELECT id, txid, height, time, address, nick, action, 

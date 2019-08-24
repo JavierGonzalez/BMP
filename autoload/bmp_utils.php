@@ -74,7 +74,7 @@ function pool_decode($coinbase, $coinbase_hashpower=false) {
 
 
     if (count((array)$coinbase_hashpower['miners'])>=20) // Hack
-        return array('name' => 'P2Pool');
+        return ['name' => 'P2Pool'];
 
     return null;
 }
@@ -96,11 +96,11 @@ function hashpower_humans($hps, $unit=false, $decimals=0) {
     if (!is_numeric($hps) OR $hps==0)
         return '';
 
-    $units = array(
-            'E' => 1000000000000000000,
-            'P' =>    1000000000000000,
-            'T' =>       1000000000000,
-        );
+    $units = [
+        'E' => 1000000000000000000,
+        'P' =>    1000000000000000,
+        'T' =>       1000000000000,
+        ];
     
     if ($units[$unit])
         return num($hps/$units[$unit], $decimals).'&nbsp;'.$unit.'H/s';

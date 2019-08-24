@@ -1,25 +1,24 @@
 <?php # BMP — Javier González González
 
-$__output_html = ob_get_contents();
-ob_end_clean();
-
-header('Content-Type: text/html; charset=utf-8');
-
 
 if ($__template['title'])
 	$__template['title'] = 'BMP | '.$__template['title'];
 else
 	$__template['title'] = 'Bitcoin Mining Parliament';
 
-
-
 $__template['lib_css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
 $__template['lib_css'][] = '/template/style.css';
 
+$__template['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";'."\n";
 
-$__template['js'] .= '
-        bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";
-    ';
+
+$__template['lib_js'] = array_merge([
+    '/lib/jquery-3.4.1.min.js',
+    '/lib/bootstrap-4.3.1/js/bootstrap.min.js',
+    '/public/bmp.js',
+    '/lib/trezor-connect-7.js',
+    ], (array)$__template['lib_js']);
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -40,12 +39,10 @@ $__template['js'] .= '
 foreach ((array)$__template['lib_css'] AS $file)
 	echo '<link rel="stylesheet" enctype="text/css" href="'.$file.'" media="all" />'."\n";
 
-
 echo '
-<style type="text/css">
-'.$__template['css'].'
-</style>';
-
+    <style type="text/css">
+    '.$__template['css'].'
+    </style>';
 
 ?>
 
@@ -65,6 +62,7 @@ echo '
 
 <div id="content_right">
 
+
     <div id="top_right">
         
         <?=$__template['top_right']?> 
@@ -73,25 +71,27 @@ echo '
 
     </div>
 
+
 	<div id="content">
+    
 	    <?=$__output_html?>
+
 	</div>
 
+
 	<div id="footer" style="color:#777;">
+
 		<?php include('template/footer.php'); ?>
+
 	</div>
 
 </div>
 
 
 
-<script type="text/javascript" enctype="application/javascript" src="/lib/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" enctype="application/javascript" src="/lib/bootstrap-4.3.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" enctype="application/javascript" src="/public/bmp.js"></script>
-<script type="text/javascript" enctype="application/javascript" src="/lib/trezor-connect-7.js"></script>
 
 <?php
-foreach ((array)$__template['lib_js'] AS $file)
+foreach ($__template['lib_js'] AS $file)
 	echo '<script type="text/javascript" enctype="application/javascript" src="'.$file.'"></script>'."\n";
 ?>
 

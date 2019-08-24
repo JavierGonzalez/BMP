@@ -1,3 +1,3 @@
-<?php # maximum_simplicity — Javier González González
+<?php # maximum_simplicity
 
 include('__maximum_simplicity/start.php');

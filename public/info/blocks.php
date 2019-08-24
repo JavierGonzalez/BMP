@@ -28,11 +28,11 @@ foreach ($data AS $key => $value) {
 foreach (BLOCKCHAINS AS $blockchain => $value)
     $blockchain_colors[$blockchain] = $value['background_color'];
 
-echo html_table($data, array(
-        'blockchain'    => array('tr_background_color' => $blockchain_colors),
-        'miners'        => array('align'     => 'right'),
-        'actions'       => array('align'     => 'right'),
-        'hash'          => array('monospace' => true),
-        'tx_count'      => array('align'     => 'right', 'th' => 'TX'),
-        'hashpower'     => array('align'     => 'right'),
-    ));
+echo html_table($data, [
+    'blockchain'    => ['tr_background_color' => $blockchain_colors],
+    'miners'        => ['align'     => 'right'],
+    'actions'       => ['align'     => 'right'],
+    'hash'          => ['monospace' => true],
+    'tx_count'      => ['align'     => 'right', 'th' => 'TX'],
+    'hashpower'     => ['align'     => 'right'],
+    ]);

@@ -19,11 +19,11 @@ foreach ($data AS $key => $value) {
 }
 
 
-echo html_table($data, array(
-        'txid'      => array('monospace' => true),
-        'blocks'    => array('align' => 'right'),
-        'address'   => array('monospace' => true, 'th' => 'Miner'),
-        'power'     => array('align' => 'right'),
-        'hashpower' => array('align' => 'right'),
-    ));
+echo html_table($data, [
+    'txid'      => ['monospace' => true],
+    'blocks'    => ['align' => 'right'],
+    'address'   => ['monospace' => true, 'th' => 'Miner'],
+    'power'     => ['align' => 'right'],
+    'hashpower' => ['align' => 'right'],
+    ]);
     

@@ -1,9 +1,9 @@
-<?php # maximum_simplicity — Javier González González
+<?php # maximum_simplicity
 
 
 #  URL                             ROUTE                        PARAMS
 #  /                               public/index.php             
-#  /example/more/abc?param=true    public/example/more.php      $_GET[1] = 'abc';  $_GET['param'] = true;
+#  /example/more/abc?param=true    public/example/more.php      $_GET[1] = 'abc'; $_GET['param'] = true;
 #  /example?param=true             public/example.php           $_GET['param'] = true;
 #  /example/abc                    public/example.php           $_GET[1] = 'abc';
 #  /example/abc                    public/example/index.php     $_GET[1] = 'abc';
@@ -20,11 +20,11 @@ if (!$_GET[0])
     $_GET[0] = 'index';
 
 
-$public = array(
-        'public/'.file_filter($_GET[0]).'/'.file_filter($_GET[1]).'.php',
-        'public/'.file_filter($_GET[0]).'.php',
-        'public/'.file_filter($_GET[0]).'/index.php',
-    );
+$public = [
+    'public/'.file_filter($_GET[0]).'/'.file_filter($_GET[1]).'.php',
+    'public/'.file_filter($_GET[0]).'.php',
+    'public/'.file_filter($_GET[0]).'/index.php',
+    ];
 
 
 if (!isset($_GET[1]))
@@ -45,6 +45,6 @@ foreach ($public AS $_module) {
 
 
 if (!$module_found) {
-    header("HTTP/1.0 404 Not Found");
+    header('HTTP/1.0 404 Not Found');
     redirect();
 }

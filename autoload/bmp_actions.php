@@ -6,7 +6,7 @@ function update_actions() {
 
     // miner_parameter nick
     foreach (sql("SELECT address, p2 AS nick FROM actions WHERE action = 'miner_parameter' AND p1 = 'nick' ORDER BY time ASC") AS $r)
-        sql_update('miners', array('nick' => $r['nick']), "address = '".$r['address']."'");
+        sql_update('miners', ['nick' => $r['nick']], "address = '".$r['address']."'");
 
     // Menu caches
     $hashpower_total = sql("SELECT SUM(hashpower) AS ECHO FROM blocks");
@@ -36,26 +36,26 @@ function action_voting_info($txid) { // Refact
     if ($voting['status']=='open')
         $voting['close_in'] = $voting['height_finish']-$last_height;
 
-    $voting['points'] = array();
+    $voting['points'] = [];
 
-    $voting['options'][] = array(
-            'blockchain'=> $voting['blockchain'],
-            'txid'      => $txid,
-            'vote'      => '0',
-            'option'    => 'NULL',
-            'votes'     => 0,
-            'power'     => 0,
-            'hashpower' => 0,
-        );
+    $voting['options'][] = [
+        'blockchain'=> $voting['blockchain'],
+        'txid'      => $txid,
+        'vote'      => '0',
+        'option'    => 'NULL',
+        'votes'     => 0,
+        'power'     => 0,
+        'hashpower' => 0,
+        ];
     
     $voting['votes_num'] = 0;
     $voting['power'] = 0;
     $voting['hashpower'] = 0;
 
-    $voting['validity'] = array(
-            'valid'     => 0,
-            'not_valid' => 0,    
-        );
+    $voting['validity'] = [
+        'valid'     => 0,
+        'not_valid' => 0,    
+        ];
 
     foreach (sql("SELECT blockchain, txid, p2 AS type, p3, p4 AS text 
         FROM actions WHERE action = 'voting_parameter' AND p1 = '".e($txid)."' 
@@ -67,15 +67,15 @@ function action_voting_info($txid) { // Refact
             $voting['points'][] = $r;
 
         if ($r['type']==1)
-            $voting['options'][$r['p3']] = array(
-                    'blockchain'=> $r['blockchain'],
-                    'txid'      => $r['txid'],
-                    'vote'      => $r['p3'],
-                    'option'    => $r['text'],
-                    'votes'     => 0,
-                    'power'     => 0,
-                    'hashpower' => 0,
-                );
+            $voting['options'][$r['p3']] = [
+                'blockchain' => $r['blockchain'],
+                'txid'       => $r['txid'],
+                'vote'       => $r['p3'],
+                'option'     => $r['text'],
+                'votes'      => 0,
+                'power'      => 0,
+                'hashpower'  => 0,
+                ];
         
         if ($r['type']==2)
             return false;

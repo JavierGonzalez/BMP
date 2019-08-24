@@ -3,11 +3,11 @@
 $__template['title'] = 'Miner: '.$_GET[2];
 
 
-$proof['bmp'] = array(
+$proof['bmp'] = [
     'title'         => $__template['title'],
     'version'       => BMP_VERSION,
     'block_window'  => BLOCK_WINDOW,
-);
+    ];
 
 $proof['miner'] = sql("SELECT blockchain, height, (SELECT hash FROM blocks WHERE height = miners.height LIMIT 1) AS block_hash, 
     txid, address, power, hashpower 
