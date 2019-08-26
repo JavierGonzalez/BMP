@@ -1,16 +1,13 @@
 <?php # BMP — Javier González González
 
 
-if ($__template['title'])
-	$__template['title'] = 'BMP | '.$__template['title'];
-else
-	$__template['title'] = 'Bitcoin Mining Parliament';
+$__template['title'] = 'BMP'.($__template['title']?' | '.$__template['title']:'');
+
 
 $__template['lib_css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
 $__template['lib_css'][] = '/template/style.css';
 
 $__template['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";'."\n";
-
 
 $__template['lib_js'] = array_merge([
     '/lib/jquery-3.4.1.min.js',

@@ -127,8 +127,8 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
     $tx = rpc_get_transaction($txid, $blockchain);
     
     $action = [
-            'blockchain'    => BLOCKCHAIN_ACTIONS,
-            'txid'          => $tx['txid'],
+        'blockchain'    => BLOCKCHAIN_ACTIONS,
+        'txid'          => $tx['txid'],
         ];
     
     if ($block)

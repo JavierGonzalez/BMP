@@ -41,6 +41,9 @@ function html_table($data, $config=false) {
             if ($config[$key]['background_color'])
                 $td_extra .= ' style="background-color:'.$config[$key]['background_color'].';"';
 
+            if ($config[$key]['height'])
+                $td_extra .= ' style="height:'.$config[$key]['height'].'px;"';
+
             if ($config[$key]['tr_background_color'])
                 if ($config[$key]['tr_background_color'][$column])
                     $tr_extra .= ' style="background-color:'.$config[$key]['tr_background_color'][$column].';"';
