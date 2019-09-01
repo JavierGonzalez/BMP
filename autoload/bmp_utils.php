@@ -17,6 +17,9 @@ function get_new_blocks() {
 function get_new_block($blockchain=BLOCKCHAIN_ACTIONS) {
     
     $height_rpc = rpc_get_best_height($blockchain);
+    if (!$height_rpc)
+        exit;
+
     $height_bmp = sql("SELECT height AS ECHO FROM blocks WHERE blockchain = '".$blockchain."' ORDER BY height DESC LIMIT 1");
     
     if (!is_numeric($height_rpc) OR $height_rpc==$height_bmp)
