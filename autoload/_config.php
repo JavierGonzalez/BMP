@@ -10,7 +10,7 @@ define('BLOCKCHAINS', [
     'BTC' => [
         'name'              => 'Bitcoin Core',
         'bmp_genesis'       => 580670,
-        'background_color'  => '#E2BF4E',
+        'background_color'  => '#FFDF00',
         ], 
     
     'BCH' => [
@@ -23,7 +23,7 @@ define('BLOCKCHAINS', [
     'BSV' => [
         'name'              => 'Bitcoin SV',
         'bmp_genesis'       => 586842,
-        'background_color'  => '#FFDF00'
+        'background_color'  => '#E2BF4E'
         ], 
     
     ]);

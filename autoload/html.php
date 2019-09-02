@@ -11,13 +11,18 @@ function html_table($data, $config=false) {
     if ($config['tr_th_extra'])
         $html .= $config['tr_th_extra'];
 
+
     $html .= '<tr style="'.($config['th_background_color']?'background-color:'.$config['th_background_color'].';':'').'">';
     foreach ((array)$data[key($data)] AS $key => $value) {
+        $th_extra = '';
+
+        if ($config[$key]['background_color'])
+            $th_extra .= ' style="background-color:'.$config[$key]['background_color'].';"';
 
         if (isset($config[$key]['th']))
             $key = $config[$key]['th'];
 
-        $html .= '<th>'.ucfirst($key).'</th>';
+        $html .= '<th'.$th_extra.'>'.ucfirst($key).'</th>';
     }
     $html .= '</tr>'."\n";
     

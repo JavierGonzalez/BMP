@@ -23,6 +23,7 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
         'BMP'           => $last_block['height'],
         'RPC'           => $last_height,
         'time'          => $last_block['time'],
+        'mempool'       => rpc_get_mempool_info($blockchain)['size'],
         'TX/s'          => num((sql("SELECT SUM(tx_count) AS ECHO FROM blocks WHERE blockchain = '".$blockchain."'")/(BLOCK_WINDOW*6*60)), 1).' TX/s',
         'miners'        => $miners['miners'],
         'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], 2).'%</span>',
@@ -31,6 +32,7 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
         ];
 
     $total_hashpower += $miners['hashpower'];
+    $blockchain_colors[$blockchain] = $config['background_color'];
 }
 
 $data[] = [
@@ -39,6 +41,7 @@ $data[] = [
         'BMP'           => '',
         'RPC'           => '',
         'time'          => '',
+        'mempool'       => '',
         'TX/s'          => '',
         'miners'        => '<b>'.num(sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners")).'</b>',
         'power'         => '',
@@ -47,11 +50,14 @@ $data[] = [
         ];
 
 
+    
 
 $config = [
+    'blockchain'    => ['th' => '', 'tr_background_color' => $blockchain_colors],
     ''              => ['align' => 'right',  'th' => '&nbsp;'],
     'sync'          => ['align' => 'right'],
     'TX/s'          => ['align' => 'right'],
+    'mempool'       => ['align' => 'right', 'function' => 'num'],
     'miners'        => ['align' => 'right'],
     'power'         => ['align' => 'right', 'monospace' => true],
     'hashpower'     => ['align' => 'right'],
@@ -91,8 +97,8 @@ $config = [
     ];
 
 foreach (BLOCKCHAINS AS $blockchain => $value) {
-    $config[    'power_'.$blockchain] = ['th' => 'Power', 'align' => 'right'];
-    $config['hashpower_'.$blockchain] = ['th' => 'Hashpower', 'align' => 'right', 'function' => 'hashpower_humans_phs'];
+    $config[    'power_'.$blockchain] = ['th' => 'Power', 'align' => 'right', 'background_color' => $value['background_color'] ];
+    $config['hashpower_'.$blockchain] = ['th' => 'Hashpower', 'align' => 'right', 'function' => 'hashpower_humans_phs', 'background_color' => $value['background_color'] ];
 }
 
 echo html_table($data, $config);

@@ -44,6 +44,11 @@ function rpc_get_mempool($blockchain=false) {
     return $b->getrawmempool();
 }
 
+function rpc_get_mempool_info($blockchain=false) {
+    $b = rpc_connect($blockchain);
+    return $b->getmempoolinfo();
+}
+
 
 function rpc_get_best_height($blockchain=false) {
     $b = rpc_connect($blockchain);

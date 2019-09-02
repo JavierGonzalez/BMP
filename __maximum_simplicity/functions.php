@@ -113,5 +113,9 @@ function shell($command) {
 
 
 function num($number, $decimals=0) { 
+
+    if (!is_numeric($number))
+        return '';
+
     return number_format((float)$number, $decimals, '.', ',');
 }

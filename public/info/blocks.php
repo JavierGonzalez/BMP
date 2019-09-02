@@ -9,7 +9,7 @@ $data = sql("SELECT blockchain, height, hash,
     (SELECT COUNT(*) FROM miners  WHERE height = blocks.height) AS miners,
     (SELECT COUNT(*) FROM actions WHERE height = blocks.height) AS actions, 
     pool, tx_count, time, hashpower, power_by
-    FROM blocks 
+    FROM blocks ".($_GET[2]?"WHERE blockchain = '".e($_GET[2])."' ":"")."
     ORDER BY time DESC, height DESC");
 
 
