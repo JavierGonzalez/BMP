@@ -427,6 +427,38 @@
         "/poolin.com/" : {
             "name" : "Poolin",
             "link" : "https://www.poolin.com/"
+        },
+        "/NovaBlock/" : {
+            "name" : "NovaBlock",
+            "link" : "https://novablock.zendesk.com/hc/en-us/articles/360034569034-About-NovaBlock"
+        },
+        "/prohashing.com" : {
+            "name" : "prohashing.com",
+            "link" : "https://prohashing.com/"
+        },
+        "/bsvmining.io/" : {
+            "name" : "bsvmining.io",
+            "link" : ""
+        },
+        "/bytepool.com/" : {
+            "name" : "bytepool.com",
+            "link" : "https://bytepool.com/"
+        },
+        "WarpHash" : {
+            "name" : "WarpHash",
+            "link" : ""
+        },
+        "/1THash&58COIN/" : {
+            "name" : "1THash&58COIN",
+            "link" : ""
+        },
+        "/createdbychinese/" : {
+            "name" : "createdbychinese",
+            "link" : ""
+        },
+        "/Bixin/" : {
+            "name" : "Bixin",
+            "link" : "https://bixin.com"
         }
         
     },

@@ -15,7 +15,7 @@ $data = sql("SELECT COUNT(DISTINCT height) AS blocks,
     FROM miners 
     GROUP BY address 
     ORDER BY power DESC");
-
+    // (SELECT pool FROM blocks WHERE blockchain = miners.blockchain AND height = miners.height) AS pools
 
 foreach ($data AS $key => $value) {
 
