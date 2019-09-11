@@ -18,6 +18,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
     if (!$coinbase)
         return false;
 
+    $pool = pool_decode($coinbase, $coinbase_hashpower);
     
     /// BLOCK
     sql_insert('blocks', [
@@ -35,7 +36,8 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
         'nonce'                 => $block['nonce'],
         'difficulty'            => $block['difficulty'],
         'coinbase'              => $coinbase['vin'][0]['coinbase'],
-        'pool'                  => pool_decode($coinbase, $coinbase_hashpower)['name'],
+        'pool'                  => $pool['name'],
+        'pool_link'             => ($pool['link']?$pool['link']:null),
         'power_by'              => $coinbase_hashpower['power_by'],
         'quota_total'           => $coinbase_hashpower['quota_total'],
         'hashpower'             => $block_hashpower,

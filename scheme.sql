@@ -25,6 +25,7 @@ CREATE TABLE `blocks` (
     `difficulty`            decimal(30,8)             NOT NULL,
     `coinbase`              varchar(900)          DEFAULT NULL,
     `pool`                  varchar(100)          DEFAULT NULL,
+    `pool_link`             varchar(100)          DEFAULT NULL,
     `signals`               varchar(900)          DEFAULT NULL,
     `power_by`              varchar(20)               NOT NULL COMMENT 'value | opreturn',
     `quota_total`           decimal(30,8)             NOT NULL,
@@ -33,6 +34,7 @@ CREATE TABLE `blocks` (
     KEY `blockchain` (`blockchain`),
     KEY `height` (`height`),
     KEY `time` (`time`),
+    KEY `pool` (`pool`),
     KEY `hashpower` (`hashpower`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

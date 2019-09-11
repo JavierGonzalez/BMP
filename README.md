@@ -5,15 +5,14 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 ---
 
 #### BMP is a Hashpower Voting System for Bitcoin Global Adoption
-- [x] Hardware-wallet auth.
 - [x] Multi-blockchain SHA-256 merge.
+- [x] Hardware-wallet auth.
 - [x] Real-time hashpower chat.
+- [x] Voting with multiple points and options.
+- [x] Hashpower votes.
 - [x] Nick change.
-- [x] Voting, with multiple points and options.
-- [x] Votes with hashpower.
-- [x] Rectifiable votes (in open votings).
+- [x] Rectifiable votes (when open votings).
 - [x] 100% verifiable, on-chain, open-source.
-
 
 ## Why
 
@@ -130,13 +129,10 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 
 #### Requirements to deploy
 
-1. GNU/Linux
-2. Apache
-3. MariaDB or MySQL SQL database
-4. PHP
-5. Bitcoin BCH client, with `-txindex` (for actions)
-6. Bitcoin BTC client
-7. Bitcoin BSV client
+1. LAMP web server (GNU/Linux, Apache, MySQL, PHP)
+2. Bitcoin BCH client, with `-txindex`
+3. Bitcoin BTC client
+4. Bitcoin BSV client
 
 
 #### Tested environment
@@ -152,13 +148,13 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 * Bitcoin ABC 0.19.10
 * Bitcoin Core 0.18.0
 * Bitcoin SV 0.2.1
-* P2Pool
+* P2Pool 16.0
 
 #### How to deploy
 
 1. Put the BMP code in the `www` httpd public directory.
 2. Configure RPC and SQL access by renaming `autoload/_password.php`.
-3. Wait Bitcoin clients synchronization (BTC, BCH and BSV).
+3. Wait Bitcoin clients sync (BTC, BCH and BSV).
 4. Execute `scheme.sql` in a new SQL database.
 5. Set a `crontab` every minute with: `curl https://bmp.domain.com/update`.
 6. Wait BMP synchronization.
@@ -167,10 +163,12 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 
 * Logo.
 * OP_RETURN size too small because Trezor hardware limits (?).
+* Multi-blockchain sync by `time` instead of by `height`.
 * More hardware wallets support.
 * IRC-like classic attacks.
 * Internationalization.
-* 0-conf latency (+5 sec).
+* Automatic testing.
+* Clearer verifiability.
 * Absolute power corrupts absolutely.
 
 ---

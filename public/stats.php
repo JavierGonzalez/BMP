@@ -75,13 +75,21 @@ echo html_table($data, $config);
 foreach (BLOCKCHAINS AS $blockchain => $config)
     $select_artisan[] = "0 AS power_".$blockchain.", (SUM(IF(blockchain='".$blockchain."',hashpower,0))/".BLOCK_WINDOW.") AS hashpower_".$blockchain;
 
-$data = sql("SELECT pool, 0 AS power, (SUM(hashpower)/".BLOCK_WINDOW.") AS hashpower, ".implode(',', $select_artisan)." FROM blocks GROUP BY pool ORDER BY hashpower DESC");
+$data = sql("SELECT pool, pool_link, 0 AS power, (SUM(hashpower)/".BLOCK_WINDOW.") AS hashpower, ".implode(',', $select_artisan)." FROM blocks GROUP BY pool ORDER BY hashpower DESC");
 
 
-foreach ($data AS $r)
+foreach ($data AS $id => $r) {
+
+    if ($r['pool_link'])
+        $data[$id]['pool'] = '<a href="'.$r['pool_link'].'" target="_blank">'.$r['pool'].'</a>';
+    unset($data[$id]['pool_link']);
+
     foreach ($r AS $key => $value)
         if (substr($key,0,9)=='hashpower')
             $total[$key] += $value;
+
+}
+
 
 foreach ($data AS $id => $r)
     foreach ($r AS $key => $value)

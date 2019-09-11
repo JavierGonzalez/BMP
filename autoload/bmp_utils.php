@@ -71,23 +71,28 @@ function pool_decode($coinbase, $coinbase_hashpower=false) {
 
 
     $coinbase_hex = (is_array($coinbase)?$coinbase['vin'][0]['coinbase']:$coinbase);
+    foreach ($__pools_json_cache['coinbase_hex'] AS $hex => $pool)
+        if (strpos($coinbase_hex, $hex) !== false)
+            return $pool;
+
+
     $coinbase_text = hex2bin($coinbase_hex);
     foreach ($__pools_json_cache['coinbase_tags'] AS $tag => $pool)
         if (strpos($coinbase_text, $tag) !== false)
             return $pool;
 
 
-    if (is_array($coinbase_hashpower) AND count((array)$coinbase_hashpower['miners'])>=20) // Hack
-        return ['name' => 'P2Pool'];
+    if (is_array($coinbase_hashpower) AND count((array)$coinbase_hashpower['miners'])>=30) // Hack
+        return ['name' => 'P2Pool', 'pool_link' => 'http://p2pool.in/'];
 
     return null;
 }
 
 
 function pool_identify() {
-    foreach (sql("SELECT id, coinbase FROM blocks WHERE pool IS NULL") AS $r)
+    foreach (sql("SELECT id, coinbase FROM blocks") AS $r)
         if ($pool = pool_decode($r['coinbase']))
-            sql_update('blocks', ['pool' => $pool['name']], "id = '".$r['id']."'");
+            sql_update('blocks', ['pool' => $pool['name'], 'pool_link' => ($pool['link']?$pool['link']:null)], "id = '".$r['id']."'");
 }
 
 

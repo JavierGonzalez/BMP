@@ -9,8 +9,7 @@
             "link": "https://www.multipool.us/dashboard/pool/bch"
         },
         "/SBI Crypto/": {
-            "name": "SBI Crypto",
-            "link": ""
+            "name": "SBI Crypto"
         },
         "/coingeek.com/" : {
             "name": "Coingeek",
@@ -337,12 +336,10 @@
             "link" : "https://pool.btc.com"
         },
         "/DCEX/" : {
-            "name" : "DCEX",
-            "link" : ""
+            "name" : "DCEX"
         },
         "/BTPOOL/" : {
-            "name" : "BTPOOL",
-            "link" : ""
+            "name" : "BTPOOL"
         },
         "/58coin.com/" : {
             "name" : "58COIN",
@@ -357,24 +354,22 @@
             "link": "https://svpool.com/"
         },
         "/okminer/" : {
-            "name": "okminer",
-            "link": ""
+            "name": "okminer"
         },
         "/Northern Bitcoin/" : {
             "name": "Northern Bitcoin",
             "link": "https://northernbitcoin.com/"
         },
         "/bmgpool.com/": {
-            "name" : "bmgpool.com",
-            "link" : ""
+            "name" : "bmgpool.com"
         },
         "Hello Mempool.com": {
             "name" : "Mempool.com",
-            "link" : ""
+            "link" : "https://pool.mempool.com/"
         },
         "/DPOOL.TOP/": {
             "name" : "DPOOL.TOP",
-            "link" : ""
+            "link" : "https://www.dpool.top/"
         },
         "copernet.io": {
             "name" : "copernet.io",
@@ -385,44 +380,36 @@
             "link" : "http://www.okpool.top/"
         },
         "/nodeStratum/": {
-            "name" : "nodeStratum",
-            "link" : ""
+            "name" : "nodeStratum"
         },
         "zpool.ca": {
             "name" : "zpool.ca",
             "link" : "https://zpool.ca/"
         },
         "CoinbasePool": {
-            "name" : "CoinbasePool",
-            "link" : ""
+            "name" : "CoinbasePool"
         },
         "Tencent": {
-            "name" : "Tencent",
-            "link" : ""
+            "name" : "Tencent"
         },
         "/Satoshi Nakamoto/": {
-            "name" : "Satoshi Nakamoto",
-            "link" : ""
+            "name" : "Satoshi Nakamoto"
         },
         "boomboomboom": {
-            "name" : "Satoshi Nakamoto",
-            "link" : ""
+            "name" : "Satoshi Nakamoto"
         },
         "unknown": {
-            "name" : "fake unknown",
-            "link" : ""
+            "name" : "fake unknown"
         },
         "Unknown": {
-            "name" : "fake unknown",
-            "link" : ""
+            "name" : "fake unknown"
         },
         "UNKNOWN": {
-            "name" : "fake unknown",
-            "link" : ""
+            "name" : "fake unknown"
         },
         "ckpool": {
             "name" : "ckpool",
-            "link" : ""
+            "link" : "http://solo.ckpool.org/"
         },
         "/poolin.com/" : {
             "name" : "Poolin",
@@ -437,28 +424,78 @@
             "link" : "https://prohashing.com/"
         },
         "/bsvmining.io/" : {
-            "name" : "bsvmining.io",
-            "link" : ""
+            "name" : "bsvmining.io"
         },
         "/bytepool.com/" : {
             "name" : "bytepool.com",
             "link" : "https://bytepool.com/"
         },
         "WarpHash" : {
-            "name" : "WarpHash",
-            "link" : ""
+            "name" : "WarpHash"
         },
         "/1THash&58COIN/" : {
-            "name" : "1THash&58COIN",
-            "link" : ""
+            "name" : "1THash&58COIN"
         },
         "/createdbychinese/" : {
-            "name" : "createdbychinese",
-            "link" : ""
+            "name" : "createdbychinese"
         },
         "/Bixin/" : {
             "name" : "Bixin",
             "link" : "https://bixin.com"
+        },
+        "CN/TTTTTT" : {
+            "name" : "CN/TTTTTT"
+        },
+        "/FeePool.com/" : {
+            "name" : "FeePool.com"
+        },
+        "fezi3tm3A5d" : {
+            "name" : "fezi3tm3A5d"
+        },
+        "]//��mm" : {
+            "name" : "]//mm"
+        },
+        "[BSV]" : {
+            "name" : "[BSV]"
+        },
+        "yFLcw1Fpw9qs" : {
+            "name" : "yFLcw1Fpw9qs"
+        },
+        "MLHtj1PSk6Lk" : {
+            "name" : "MLHtj1PSk6Lk"
+        },
+        "DpP6N1PANHtY" : {
+            "name" : "DpP6N1PANHtY"
+        },
+        "hsao21GbiKd" : {
+            "name" : "hsao21GbiKd"
+        },
+        "cEzUh1PYDG8" : {
+            "name" : "cEzUh1PYDG8"
+        },
+        "/Mining-Dutch/" : {
+            "name" : "Mining-Dutch"
+        },
+        "6VP3A_1PMTAu" : {
+            "name" : "6VP3A_1PMTAu"
+        },
+        "odLjs1D8E5N" : {
+            "name" : "odLjs1D8E5N"
+        },
+        "_T3P3hGeJfw2dwqF7_block" : {
+            "name" : "w2dwqF7_block"
+        },
+        "thepool.life\\0" : {
+            "name" : "thepool.life"
+        },
+        "t2CG31HGnRs" : {
+            "name" : "t2CG31HGnRs"
+        },
+        "H77dy14eyqC" : {
+            "name" : "H77dy14eyqC"
+        },
+        "TKZA21EtpP" : {
+            "name" : "TKZA21EtpP"
         }
         
     },
@@ -740,16 +777,13 @@
             "link" : "https://www.vvpool.com/"
         },
         "1NgniwmLb1DUBFYi5k3R5P5uswnbW1Uhah" : {
-            "name" : "okminer",
-            "link" : ""
+            "name" : "okminer"
         },
         "1Bgy4RjZdCQ93uiMFZMTpUR8BveGTetsdt" : {
-            "name" : "bmgpool.com",
-            "link" : ""
+            "name" : "bmgpool.com"
         },
         "1JXYt4rjwrLRs5W76FWQhqf6BJ8nv1r7zG" : {
-            "name" : "Mempool.com",
-            "link" : ""
+            "name" : "Mempool.com"
         },
         "1DorBy7XZ8dbDTwtEGZqkshz99Jxq2WqYA" : {
             "name" : "EMCD",
@@ -776,37 +810,38 @@
             "link" : "https://www.poolin.com/"
         },
         "1FoC7PjAqmeUQMdjWqTF5DSXxdgiQuSvBp" : {
-            "name" : "Mining-Dutch",
-            "link" : ""
+            "name" : "Mining-Dutch"
         },
         "1FLKACMVk13vbEfebzNPq1dcARac7xrjKz" : {
-            "name" : "CoinbasePool",
-            "link" : ""
+            "name" : "CoinbasePool"
         },
         "3MzYzfv8a9xuDhbYUgzkg6BxhKoTASnrny" : {
             "name" : "copernet.io",
             "link" : "https://copernet.io"
         },
         "1GsWUdNT6AX7KkWXWbb8g5T1Si1ZPQAwjF" : {
-            "name" : "Smiling Face",
-            "link" : ""
+            "name" : "Smiling Face"
         },
         "3ArXTXKXR9LwKQRNSQ3pQqdoiRmN5MWhd5" : {
-            "name" : "Satoshi Nakamoto",
-            "link" : ""
+            "name" : "Satoshi Nakamoto"
         },
         "13HK6ZneUknZpQX8LaDBe1VcZmX37hTsQs" : {
-            "name" : "fake unknown",
-            "link" : ""
+            "name" : "fake unknown"
         },
         "1JKnfhPZyCmfNq3zeTdNU87VBQzLSYG4MS" : {
-            "name" : "fake unknown",
-            "link" : ""
+            "name" : "fake unknown"
         },
         "14qHHY1zAALDbaGzZr1xLT6HLdUVpAxF6S" : {
-            "name" : "qq4qnu",
-            "link" : ""
+            "name" : "qq4qnu"
         }
 
+    },
+    "coinbase_hex" : {
+        "5d2f2ffabe6d6d" : {
+            "name" : "**mm"
+        },
+        "0000f09f988a0000" : {
+            "name" : "**mm"
+        }
     }
 }

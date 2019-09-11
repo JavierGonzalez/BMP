@@ -18,7 +18,7 @@ if ($_GET['unknown'])
 $data = sql("SELECT blockchain, height, hash,
     (SELECT COUNT(*) FROM miners  WHERE blockchain = blocks.blockchain AND height = blocks.height) AS miners,
     (SELECT COUNT(*) FROM actions WHERE blockchain = blocks.blockchain AND  height = blocks.height) AS actions, 
-    pool, tx_count, time, hashpower, power_by".($_GET['coinbase']?", coinbase":"")."
+    pool, pool_link, tx_count, time, hashpower, power_by".($_GET['coinbase']?", coinbase":"")."
     FROM blocks ".($sql_where?"WHERE ".implode(" AND ", $sql_where):"")."
     ORDER BY time DESC, height DESC");
 
@@ -29,6 +29,10 @@ foreach ($data AS $key => $value) {
         $data[$key]['actions']  = html_b($value['actions']);
 
     $data[$key]['tx_count']  = num($value['tx_count']);
+
+    if ($value['pool_link'])
+        $data[$key]['pool'] = '<a href="'.$value['pool_link'].'" target="_blank">'.$value['pool'].'</a>';
+    unset($data[$key]['pool_link']);
 
     $data[$key]['hashpower'] = hashpower_humans($value['hashpower']);
     $data[$key]['hash']      = substr($value['hash'],0,26);
@@ -42,7 +46,7 @@ foreach (BLOCKCHAINS AS $blockchain => $value)
     $blockchain_colors[$blockchain] = $value['background_color'];
 
 echo html_table($data, [
-    'blockchain'    => ['tr_background_color' => $blockchain_colors],
+    'blockchain'    => ['th' => '', 'tr_background_color' => $blockchain_colors],
     'miners'        => ['align'     => 'right'],
     'actions'       => ['align'     => 'right'],
     'hash'          => ['monospace' => true],
