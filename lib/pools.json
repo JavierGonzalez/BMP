@@ -434,7 +434,8 @@
             "name" : "WarpHash"
         },
         "/1THash&58COIN/" : {
-            "name" : "1THash&58COIN"
+            "name" : "1THash&58COIN",
+            "link" : "https://www.1thash.top/"
         },
         "/createdbychinese/" : {
             "name" : "createdbychinese"
@@ -451,9 +452,6 @@
         },
         "fezi3tm3A5d" : {
             "name" : "fezi3tm3A5d"
-        },
-        "]//��mm" : {
-            "name" : "]//mm"
         },
         "[BSV]" : {
             "name" : "[BSV]"
@@ -496,7 +494,26 @@
         },
         "TKZA21EtpP" : {
             "name" : "TKZA21EtpP"
+        },
+        "PDtma_16RHDu" : {
+            "name" : "PDtma_16RHDu"
+        },
+        "/SpiderPool.com/" : {
+            "name" : "SpiderPool.com",
+            "link" : "https://spiderpool.com/"
+        },
+        "IOUAvrilEl" : {
+            "name" : "IOUAvrilEl"
+        },
+        "DsMX11FXpcY" : {
+            "name" : "DsMX11FXpcY"
+        },
+        "bsod.solo.1" : {
+            "name" : "bsod.solo.1"
         }
+
+
+        
         
     },
     "payout_addresses" : {
@@ -837,11 +854,5 @@
 
     },
     "coinbase_hex" : {
-        "5d2f2ffabe6d6d" : {
-            "name" : "**mm"
-        },
-        "0000f09f988a0000" : {
-            "name" : "**mm"
-        }
     }
 }

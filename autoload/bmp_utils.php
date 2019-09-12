@@ -138,3 +138,12 @@ function hextobase58($hex) {
     $base58 = new Base58;
     return $base58->encode($hex);
 }
+
+
+function hex2bin_print($hex) {
+
+    foreach (str_split($hex,2) AS $byte)
+        $output .= (ctype_print(hex2bin($byte))?'<b>'.hex2bin($byte).'</b>':$byte);
+
+    return $output;
+}

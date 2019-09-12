@@ -17,11 +17,11 @@ define('BMP_PROTOCOL', [
 
 
         '01' => [
-            'action'        => 'power_by_opreturn',
+            'action'        => 'power_by_opreturn', // To be tested.
             'coinbase'      => true,
             'status'        => 'implemented',
-            'description'   => 'Power quota signaling in OP_RETURN. Value-independent. Zero cost.',
-            1 => ['size' =>  2, 'name'=>'quota',       'decode'=>'hexdec'],
+            'description'   => 'Power quota signaling by OP_RETURN. Independent from value. Zero cost.',
+            1 => ['size' =>  4, 'name'=>'quota',       'decode'=>'hexdec'],
             2 => ['size' => 34, 'name'=>'address',     'decode'=>'hextobase58'],
         ],
 
@@ -31,7 +31,7 @@ define('BMP_PROTOCOL', [
             'status'        => 'implemented',
             'description'   => '',
             1 => ['size' =>   5, 'name'=>'time'],
-            2 => ['size' =>   1, 'name'=>'channel',    'decode'=>'hexdec', 'options'=>[0=>'bmp', /*1=>'main'*/]],
+            2 => ['size' =>   1, 'name'=>'channel',    'decode'=>'hexdec', 'options'=>[0=>'bmp', /*1=>'main'*/ ]],
             3 => ['size' => 200, 'name'=>'msg',        'decode'=>'hex2bin'],
         ],
 
