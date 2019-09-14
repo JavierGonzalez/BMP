@@ -376,8 +376,12 @@
             "link" : "https://copernet.io"
         },
         "/www.okpool.top/": {
-            "name" : "okpool.top",
-            "link" : "http://www.okpool.top/"
+            "name" : "OKEX",
+            "link" : "https://www.okex.me/pool"
+        },
+        "/okex.me/": {
+            "name" : "OKEX",
+            "link" : "https://www.okex.me/pool"
         },
         "/nodeStratum/": {
             "name" : "nodeStratum"

@@ -5,6 +5,9 @@ $__template['title'] = 'Stats';
 echo html_h($__template['title'], 1);
 
 
+if ($_GET['coinbase_hex'])
+    $sql_where[] = "coinbase LIKE '%".e($_GET['coinbase_hex'])."%'";
+
 
 foreach (BLOCKCHAINS AS $blockchain => $config) {
 
@@ -75,7 +78,7 @@ echo html_table($data, $config);
 foreach (BLOCKCHAINS AS $blockchain => $config)
     $select_artisan[] = "0 AS power_".$blockchain.", (SUM(IF(blockchain='".$blockchain."',hashpower,0))/".BLOCK_WINDOW.") AS hashpower_".$blockchain;
 
-$data = sql("SELECT pool, pool_link, 0 AS power, (SUM(hashpower)/".BLOCK_WINDOW.") AS hashpower, ".implode(',', $select_artisan)." FROM blocks GROUP BY pool ORDER BY hashpower DESC");
+$data = sql("SELECT pool, pool_link, 0 AS power, (SUM(hashpower)/".BLOCK_WINDOW.") AS hashpower, ".implode(',', $select_artisan)." FROM blocks ".($sql_where?"WHERE ".implode(" AND ", $sql_where):"")." GROUP BY pool ORDER BY hashpower DESC");
 
 
 foreach ($data AS $id => $r) {

@@ -5,6 +5,9 @@ $__template['title'] = 'Blocks';
 echo html_h($__template['title'], 1);
 
 
+if ($_GET['coinbase_hex'])
+    $sql_where[] = "coinbase LIKE '%".e($_GET['coinbase_hex'])."%'";
+
 if ($_GET['blockchain'])
     $sql_where[] = "blockchain = '".e($_GET['blockchain'])."'";
 
