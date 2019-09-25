@@ -514,11 +514,25 @@
         },
         "bsod.solo.1" : {
             "name" : "bsod.solo.1"
+        },
+        "/MiningCore/" : {
+            "name" : "MiningCore"
+        },
+        "/luckinpool.com/" : {
+            "name" : "luckinpool.com",
+            "link" : "https://luckinpool.com/"
+        },
+        "/MAGIC/" : {
+            "name" : "Magic"
+        },
+        "]btccom" : {
+            "name" : "BTC.com",
+            "link" : "https://pool.btc.com"
+        },
+        "zergpool.com" : {
+            "name" : "Zergpool",
+            "link" : "http://zergpool.com/"
         }
-
-
-        
-        
     },
     "payout_addresses" : {
         "1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC" : {
