@@ -532,7 +532,11 @@
         "zergpool.com" : {
             "name" : "Zergpool",
             "link" : "http://zergpool.com/"
+        },
+        "/Monappy_come_back/" : {
+            "name" : "Monappy"
         }
+
     },
     "payout_addresses" : {
         "1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC" : {
