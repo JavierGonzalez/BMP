@@ -525,18 +525,30 @@
         "/MAGIC/" : {
             "name" : "Magic"
         },
-        "]btccom" : {
-            "name" : "BTC.com",
-            "link" : "https://pool.btc.com"
-        },
         "zergpool.com" : {
             "name" : "Zergpool",
             "link" : "http://zergpool.com/"
         },
         "/Monappy_come_back/" : {
             "name" : "Monappy"
+        },
+        "/Project BsvPool/" : {
+            "name" : "Project BsvPool"
+        },
+        "/KAGCM/" : {
+            "name" : "KAGCM"
+        },
+        "FeePool.com" : {
+            "name" : "FeePool.com"
+        },
+        "/SigmaPool.com/" : {
+            "name" : "Sigmapool",
+            "link" : "https://sigmapool.com/"
+        },
+        "/grinup.info/" : {
+            "name" : "Grinup Pool",
+            "link" : "https://grinup.info/"
         }
-
     },
     "payout_addresses" : {
         "1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC" : {

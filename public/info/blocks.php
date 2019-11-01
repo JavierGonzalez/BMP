@@ -17,11 +17,16 @@ if ($_GET['pool'])
 if ($_GET['unknown'])
     $sql_where[] = "pool IS NULL";
 
+if ($_GET['address'] AND $_GET['address']!='true')
+    $sql_where[] = "1=1 HAVING address = '".e($_GET['address'])."'";
+
 
 $data = sql("SELECT blockchain, height, hash,
     (SELECT COUNT(*) FROM miners  WHERE blockchain = blocks.blockchain AND height = blocks.height) AS miners,
     (SELECT COUNT(*) FROM actions WHERE blockchain = blocks.blockchain AND  height = blocks.height) AS actions, 
-    pool, pool_link, tx_count, time, hashpower, power_by".($_GET['coinbase']?", coinbase":"")."
+    pool, pool_link, tx_count, time, hashpower, power_by"
+    .($_GET['address']?", (SELECT address FROM miners WHERE blockchain = blocks.blockchain AND height = blocks.height ORDER BY quota DESC LIMIT 1) AS address":"")
+    .($_GET['coinbase']?", coinbase":"")."
     FROM blocks ".($sql_where?"WHERE ".implode(" AND ", $sql_where):"")."
     ORDER BY time DESC, height DESC");
 
