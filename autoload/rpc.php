@@ -56,6 +56,24 @@ function rpc_get_best_height($blockchain=false) {
 }
 
 
+function rpc_get_network_info($blockchain=false) {
+    $b = rpc_connect($blockchain);
+    return $b->getnetworkinfo();
+}
+
+
+function rpc_get_peer_info($blockchain=false) {
+    $b = rpc_connect($blockchain);
+    return $b->getpeerinfo();
+}
+
+
+function rpc_uptime($blockchain=false) {
+    $b = rpc_connect($blockchain);
+    return $b->uptime();
+}
+
+
 function rpc_error($blockchain=false) {
     $b = rpc_connect($blockchain);
     return $b->error;
