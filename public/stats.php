@@ -26,7 +26,7 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
         'mempool'       => rpc_get_mempool_info($blockchain)['size'],
         'peers'         => count(rpc_get_peer_info($blockchain)),
         'uptime'        => num(rpc_uptime($blockchain)/60/60).' h',
-        'subversion'    => rpc_get_network_info($blockchain)['subversion'],
+        'version'    => rpc_get_network_info($blockchain)['subversion'],
         ];
 
 
@@ -49,6 +49,7 @@ $config = [
     'sync'          => ['align' => 'right'],
     'mempool'       => ['align' => 'right', 'function' => 'num'],
     'peers'         => ['align' => 'right', 'function' => 'num'],
+    'uptime'        => ['align' => 'right'],
     ];
 
 
@@ -89,15 +90,16 @@ foreach ($data2 AS $id => $r)
 
 
 
-foreach ($blockchain_hp AS $blockchain => $value)
+foreach ($blockchain_hp AS $blockchain => $value) {
+    $th_extra_name[]  = '<th colspan=2 style="text-align:center;background-color:'.$blockchain_colors[$blockchain].';">'.$blockchain.'</th>';
     $th_extra_total[] = '<th style="text-align:right;font-weight:normal;border-bottom:none;background-color:'.$blockchain_colors[$blockchain].';">'.$value['power'].'</th><th style="text-align:right;font-weight:normal;border-bottom:none;background-color:'.$blockchain_colors[$blockchain].';">'.$value['hashpower'].'</th>';
-
+}
 
 
 $config = [
     'tr_th_extra' => '
-        <tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th><th colspan=2 style="text-align:center;">'.implode('</th><th colspan=2 style="text-align:center;">', array_keys(BLOCKCHAINS)).'</th></tr>
-        <tr><th style="border-bottom:none;"></th><th style="text-align:right;font-weight:normal;border-bottom:none;">100.00%</th><th style="text-align:right;font-weight:normal;border-bottom:none;">'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</th>'.implode('', $th_extra_total).'</tr>
+        <tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th>'.implode('', $th_extra_name).'</tr>
+        <tr><th style="border-bottom:none;font-weight:normal;">'.date('Y-m-d').'</th><th style="text-align:right;font-weight:normal;border-bottom:none;">100.00%</th><th style="text-align:right;font-weight:normal;border-bottom:none;">'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</th>'.implode('', $th_extra_total).'</tr>
         ',
     'power'     => ['align' => 'right'],
     'hashpower' => ['align' => 'right', 'function' => 'hashpower_humans_phs', 'th' => 'Hashpower'],
@@ -108,4 +110,10 @@ foreach (BLOCKCHAINS AS $blockchain => $value) {
     $config['hashpower_'.$blockchain] = ['th' => 'Hashpower', 'align' => 'right', 'function' => 'hashpower_humans_phs', 'background_color' => $value['background_color'] ];
 }
 
+
+
+echo '<br />';
+
 echo html_table($data2, $config);
+
+echo '<br /><br />';
