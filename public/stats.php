@@ -35,7 +35,7 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
 
     $blockchain_hp[$blockchain] = [
         'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], 2).'%</span>',
-        'hashpower'     => hashpower_humans($miners['hashpower']/BLOCK_WINDOW),
+        'hashpower'     => hashpower_humans_phs($miners['hashpower']/BLOCK_WINDOW),
         ];
 
     $total_hashpower += $miners['hashpower'];
@@ -50,6 +50,7 @@ $config = [
     'mempool'       => ['align' => 'right', 'function' => 'num'],
     'peers'         => ['align' => 'right', 'function' => 'num'],
     'uptime'        => ['align' => 'right'],
+    'time'          => ['th' => 'Block time'],
     ];
 
 
@@ -99,7 +100,7 @@ foreach ($blockchain_hp AS $blockchain => $value) {
 $config = [
     'tr_th_extra' => '
         <tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th>'.implode('', $th_extra_name).'</tr>
-        <tr><th style="border-bottom:none;font-weight:normal;">'.date('Y-m-d').'</th><th style="text-align:right;font-weight:normal;border-bottom:none;">100.00%</th><th style="text-align:right;font-weight:normal;border-bottom:none;">'.hashpower_humans($total_hashpower/BLOCK_WINDOW).'</th>'.implode('', $th_extra_total).'</tr>
+        <tr><th style="border-bottom:none;font-weight:normal;">'.date('Y-m-d').'</th><th style="text-align:right;font-weight:normal;border-bottom:none;">100.00%</th><th style="text-align:right;font-weight:normal;border-bottom:none;">'.hashpower_humans_phs($total_hashpower/BLOCK_WINDOW).'</th>'.implode('', $th_extra_total).'</tr>
         ',
     'power'     => ['align' => 'right'],
     'hashpower' => ['align' => 'right', 'function' => 'hashpower_humans_phs', 'th' => 'Hashpower'],
