@@ -367,6 +367,10 @@
             "name" : "Mempool.com",
             "link" : "https://pool.mempool.com/"
         },
+        "]Mempool/": {
+            "name" : "Mempool.com",
+            "link" : "https://pool.mempool.com/"
+        },
         "/DPOOL.TOP/": {
             "name" : "DPOOL.TOP",
             "link" : "https://www.dpool.top/"
@@ -548,6 +552,31 @@
         "/grinup.info/" : {
             "name" : "Grinup Pool",
             "link" : "https://grinup.info/"
+        },
+        "Toomim Bros solo" : {
+            "name" : "Toomim Bros solo",
+            "link" : "http://toom.im"
+        },
+        "]Nourpool/" : {
+            "name" : "Nourpool"
+        },
+        "/taal.com/" : {
+            "name" : "taal.com",
+            "link" : "https://www.taal.com/"
+        },
+        "solomining.io" : {
+            "name" : "solomining.io",
+            "link" : "https://solomining.io/"
+        },
+        "/MCKAG/" : {
+            "name" : "MCKAG"
+        },
+        "]Global/Global/" : {
+            "name" : "Global/Global"
+        },
+        "/SBICrypto.com Pool/": {
+            "name": "SBICrypto.com Pool",
+            "link" : "http://SBICrypto.com"
         }
     },
     "payout_addresses" : {
@@ -834,7 +863,8 @@
             "name" : "bmgpool.com"
         },
         "1JXYt4rjwrLRs5W76FWQhqf6BJ8nv1r7zG" : {
-            "name" : "Mempool.com"
+            "name" : "Mempool.com",
+            "link" : "https://pool.mempool.com/"
         },
         "1DorBy7XZ8dbDTwtEGZqkshz99Jxq2WqYA" : {
             "name" : "EMCD",
