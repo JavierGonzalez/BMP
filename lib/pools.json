@@ -367,7 +367,7 @@
             "name" : "Mempool.com",
             "link" : "https://pool.mempool.com/"
         },
-        "]Mempool/": {
+        "Mempool/": {
             "name" : "Mempool.com",
             "link" : "https://pool.mempool.com/"
         },
@@ -381,11 +381,15 @@
         },
         "/www.okpool.top/": {
             "name" : "OKEX",
-            "link" : "https://www.okex.me/pool"
+            "link" : "https://www.okex.com/"
         },
         "/okex.me/": {
             "name" : "OKEX",
-            "link" : "https://www.okex.me/pool"
+            "link" : "https://www.okex.com/"
+        },
+        "www.okex.com/": {
+            "name" : "OKEX",
+            "link" : "https://www.okex.com/"
         },
         "/nodeStratum/": {
             "name" : "nodeStratum"
@@ -557,10 +561,10 @@
             "name" : "Toomim Bros solo",
             "link" : "http://toom.im"
         },
-        "]Nourpool/" : {
+        "Nourpool/" : {
             "name" : "Nourpool"
         },
-        "/taal.com/" : {
+        "taal.com/" : {
             "name" : "taal.com",
             "link" : "https://www.taal.com/"
         },
@@ -571,13 +575,19 @@
         "/MCKAG/" : {
             "name" : "MCKAG"
         },
-        "]Global/Global/" : {
+        "Global/Global/" : {
             "name" : "Global/Global"
         },
         "/SBICrypto.com Pool/": {
             "name": "SBICrypto.com Pool",
             "link" : "http://SBICrypto.com"
+        },
+        "/Ukrpool.com/": {
+            "name": "UKRPOOL",
+            "link" : "http://Ukrpool.com"
         }
+
+        
     },
     "payout_addresses" : {
         "1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC" : {
