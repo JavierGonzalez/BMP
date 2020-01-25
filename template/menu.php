@@ -23,10 +23,6 @@ function menu_active($url) {
     <li<?=menu_active('/voting')?>>
         <a href="/voting">Voting</a>
     </li>
-
-    <li<?=menu_active('/stats')?>>
-        <a href="/stats">Stats</a>
-    </li>
 </ul>
 
 
@@ -57,14 +53,15 @@ function menu_active($url) {
 
 <div id="menu-next">
 
-
-<?=(DEV?'<span style="float:left;writing-mode:vertical-lr;-webkit-transform:rotate(180deg);color:red;font-size:20px;">
-    PRE-PRODUCTION</span>':'')?>
+<span style="float:left;writing-mode:vertical-lr;-webkit-transform:rotate(180deg);color:red;font-size:20px;">
+<?=(DEV?'DEVELOPMENT':'')?>
+</span>
 
 <p>
-    <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank">README</a><br />
+    <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >
     <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
-    <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a><br />
+    <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a></br >
+    <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank">README</a><br />
 </p>
 
 

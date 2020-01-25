@@ -161,15 +161,16 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 
 #### Known problems
 
-* Logo.
 * OP_RETURN size too small because Trezor hardware limits (?).
 * More hardware wallets support.
+* Save voting result consistency when is closed.
+* Clearer verifiability.
 * Sync between blockchains by `time` instead of by `height`.
-* Sync between blockchains always in the right order by `time`.
+* Complete-sync between blockchains always in the right order by `time`.
 * IRC-like classic attacks.
 * Internationalization.
-* Clearer verifiability.
 * Automatic testing.
+* Logo.
 * Absolute power corrupts absolutely.
 
 ---

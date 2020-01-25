@@ -98,7 +98,7 @@ function print_msg(data) {
         var td = '';
         td += '<td style="color:#888;">' + value['height'] + '</td>';
         td += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
-        td += '<td align=right class="monospace"><a href="/info/miner/' + value['address'] + '" target="_blank">' + nick + '</a></td>';
+        td += '<td align=right class="monospace"><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + nick + '</a></td>';
         
         if (value['action']=='chat') {
             td += '<td width="100%" style="color:#222;">' + value['p3'] + '</td>';

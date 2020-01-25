@@ -1,7 +1,7 @@
 <?php # BMP — Javier González González
 
 
-define('BMP_VERSION', '0.2-beta');
+define('BMP_VERSION', '0.2-alpha');
 
 define('BLOCK_WINDOW', 2016); // Blocks
 
@@ -30,7 +30,7 @@ define('BLOCKCHAINS', [
 
 define('BLOCKCHAIN_ACTIONS', 'BCH');
 
-define('POWER_PRECISION', 6); // Decimals of %
+define('POWER_PRECISION', 8); // Decimals of %
 
 define('OP_RETURN_MAX_SIZE', 220); // Bytes
 
