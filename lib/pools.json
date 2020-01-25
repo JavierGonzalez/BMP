@@ -195,6 +195,10 @@
             "name" : "AntPool",
             "link" : "https://www.antpool.com/"
         },
+        "AntPoole" : {
+            "name" : "AntPool",
+            "link" : "https://www.antpool.com/"
+        },
         "Mined by MultiCoin.co" : {
             "name" : "MultiCoin.co",
             "link" : "http://multicoin.co"
@@ -585,9 +589,11 @@
         "/Ukrpool.com/": {
             "name": "UKRPOOL",
             "link" : "http://Ukrpool.com"
+        },
+        "SpiderPool": {
+            "name": "SpiderPool",
+            "link" : "https://www.spiderpool.com/"
         }
-
-        
     },
     "payout_addresses" : {
         "1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC" : {

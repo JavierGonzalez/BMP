@@ -73,6 +73,9 @@ $data2 = sql("SELECT pool, pool_link, 0 AS power,
 
 foreach ($data2 AS $id => $r) {
 
+    if (!$r['pool'])
+        $data2[$id]['pool'] = '<em>Unknown</em>';
+
     if ($r['pool_link'])
         $data2[$id]['pool'] = '<a href="'.$r['pool_link'].'" target="_blank">'.$r['pool'].'</a>';
     unset($data2[$id]['pool_link']);
