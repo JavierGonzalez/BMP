@@ -593,6 +593,12 @@
         "SpiderPool": {
             "name": "SpiderPool",
             "link" : "https://www.spiderpool.com/"
+        },
+        "JewkSrSNR3": {
+            "name": "JewkSrSNR3"
+        },
+        "SiderPool": {
+            "name": "SiderPool"
         }
     },
     "payout_addresses" : {

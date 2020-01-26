@@ -70,6 +70,8 @@ echo '
 
 
 	<div id="content">
+
+        <div style="font-size:20px;color:red;font-weight:bold;"></div>
     
 	    <?=$__output_html?>
 

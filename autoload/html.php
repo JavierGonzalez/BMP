@@ -80,7 +80,7 @@ function html_table($data, $config=false) {
     }
     
 
-    return "\n\n".'<table>'.$html.'</table>'."\n\n";
+    return "\n\n".'<table'.($config['id']?' id="'.$config['id'].'"':'').'>'.$html.'</table>'."\n\n";
 }
 
 
