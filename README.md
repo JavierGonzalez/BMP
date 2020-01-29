@@ -5,14 +5,14 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 ---
 
 #### BMP is a Hashpower Voting System for Bitcoin Global Adoption
-- [x] Multi-blockchain SHA-256 merge.
+- [x] 100% on-chain, verifiable, simple.
+- [x] Multi-blockchain SHA-256 hashpower merged.
 - [x] Hardware-wallet auth.
-- [x] Real-time hashpower chat.
+- [x] Real-time chat.
 - [x] Voting with multiple points and options.
-- [x] Hashpower votes.
-- [x] Nick change.
 - [x] Rectifiable votes (when open votings).
-- [x] 100% verifiable, on-chain, open-source.
+- [x] Nick change.
+- [x] Open-source.
 
 ## Why
 
@@ -72,12 +72,12 @@ Extract from [ABC vs BSV Hash War (Part III)](https://medium.com/@jiangzhuoer/ab
 
 ## How
 
-Talking and voting with hashpower -to discover consensus- in the most secure voting system ever known.
+Talking and voting with hashpower -to discover consensus- in the most secure public voting system ever build.
 
 
 ## What
 
-#### [bmp.virtualpol.com](https://bmp.virtualpol.com) [version 0.2-beta]
+#### [bmp.virtualpol.com](https://bmp.virtualpol.com)
 
 <br />
 
@@ -103,7 +103,7 @@ More in **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and the BMP pape
 2. Trezor hardware wallet.
 
 
-#### Manual action to participate
+#### How to make manual actions
 
 * Standard transaction in BCH.
 * Target address in coinbase VOUT in the last 2016 blocks of BTC, BCH and/or BSV.
@@ -164,13 +164,12 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 
 * OP_RETURN size too small because Trezor hardware limits (?).
 * More hardware wallets support.
-* Save voting result consistency when is closed.
+* More consistent voting system.
 * Clearer verifiability.
-* Sync between blockchains by `time` instead of by `height`.
-* Complete-sync between blockchains always in the right order by `time`.
+* Complete-sync in the right block sequence order.
 * IRC-like classic attacks.
-* Internationalization.
 * Automatic testing.
+* Internationalization.
 * Logo.
 * Absolute power corrupts absolutely.
 

@@ -1,4 +1,4 @@
-<?php # BMP
+<?php # BMP — Javier González González
 
 
 $random_tx = rpc_get_block(rand(1,100000), 'BTC')['tx'][0];
