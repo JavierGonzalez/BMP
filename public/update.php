@@ -9,6 +9,7 @@ if ($beat_last AND $beat_last >= time()-(60*4))
     exit;
     
 
+
 set_time_limit(60*60*24);
 
 for ($i=0;$i<=10000;$i++) {

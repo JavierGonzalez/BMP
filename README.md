@@ -139,12 +139,13 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 
 * x86_64 NVME
 * GNU/Linux CentOS 7.6
-* PHP 7.3
+* PHP 7.4
 * MariaDB 5.5
 * MySQL 5
 * Firefox 67
 * Chrome 74
 * Trezor One
+* Bitcoin Unlimited 1.7.0
 * Bitcoin ABC 0.20
 * Bitcoin Core 0.18
 * Bitcoin SV 0.2
