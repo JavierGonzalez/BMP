@@ -21,9 +21,11 @@ $__template['tabs'] = [
 <div id="vp_c">
 
 
+<!--
 <div id="vpc_u">
 	<ul id="chat_list"></ul>
 </div>
+-->
 
 
 <div id="vpc_fondo">

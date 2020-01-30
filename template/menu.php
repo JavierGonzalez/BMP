@@ -60,8 +60,8 @@ function menu_active($url) {
 <p>
     <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >
     <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
-    <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a></br >
-    <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank">README</a><br />
+    <a href="https://github.com/JavierGonzalez/BMP" target="_blank" class="external">Code</a></br >
+    <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank" class="external">README</a><br />
 </p>
 
 
