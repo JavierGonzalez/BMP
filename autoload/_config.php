@@ -1,7 +1,7 @@
 <?php # BMP — Javier González González
 
 
-define('BMP_VERSION', '0.2-alpha');
+define('BMP_VERSION', '0.2');
 
 define('BLOCK_WINDOW', 2016); // Blocks
 
