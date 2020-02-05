@@ -60,15 +60,15 @@ $__template['tabs'] = [
 <table width="100%" style="border:none;">
 <tr>
 
-<td width="46" align="right" valign="middle">
-<img id="vpc_actividad" src="/public/chat/img/point_grey.png" width=16 height=16 style="margin-top:4px;" />
+<td width="46" align="right" valign="top">
+    <img id="vpc_actividad" src="/public/chat/img/point_grey.png" width=16 height=16 style="margin-top:4px;" />
 </td>
 
-<td valign="middle">
-	<input type="text" id="chat_input_msg" name="msg" value="" tabindex="1" autocomplete="off" size="65" maxlength="70" style="margin-left:0;width:98%;" autofocus required />
+<td valign="top">
+	<input type="text" id="chat_input_msg" name="msg" value="" tabindex="1" autocomplete="off" size="65" maxlength="300" style="margin-left:0;width:98%;" autofocus required />
 </td>
 
-<td>
+<td valign="top">
 	<input type="submit" style="width:100px;" class="executive_action btn btn-success btn-sm" value="Execute" />
 </td>
 

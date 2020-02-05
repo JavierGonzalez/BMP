@@ -96,19 +96,19 @@ function print_msg(data) {
             var nick = value['address'].substr(-10, 10);
 
         var td = '';
-        td += '<td style="color:#888;">' + value['height'] + '</td>';
-        td += '<td title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
-        td += '<td align=right class="monospace"><a href="/info/miner/' + value['address'] + '" class="bmp_power">' + nick + '</a></td>';
+        td += '<td valign="top" style="color:#888;">' + value['height'] + '</td>';
+        td += '<td valign="top" title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
+        td += '<td valign="top" align=right class="monospace"><a href="/info/miner/' + value['address'] + '" class="bmp_power">' + nick + '</a></td>';
         
         if (value['action']=='chat') {
-            td += '<td width="100%" style="color:#222;">' + value['p3'] + '</td>';
+            td += '<td valign="top" width="100%" style="color:#222;">' + value['p3'] + '</td>';
 
         }
 
 
         if (value['action']=='miner_parameter') {
 
-            td += '<td style="color:#00469A;"><b>[' + value['p1'].toUpperCase() + ']</b>&nbsp; ';
+            td += '<td valign="top" style="color:#00469A;"><b>[' + value['p1'].toUpperCase() + ']</b>&nbsp; ';
             if (value['p1']=='nick') {
                 td += 'set nick: <i>' + value['p2'] + '</i>';    
             }
@@ -119,7 +119,7 @@ function print_msg(data) {
 
         if (value['action']=='vote') {
 
-            td += '<td style="color:#00469A;"><b>[VOTE]</b>&nbsp; ';
+            td += '<td valign="top" style="color:#00469A;"><b>[VOTE]</b>&nbsp; ';
             td += value['question'];
             td += '</td>';
 
@@ -128,8 +128,8 @@ function print_msg(data) {
         }
 
 
-        td += '<td align=right nowrap><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
-        td += '<td align=right nowrap>' + value['hashpower'] + '</td>';
+        td += '<td valign="top" align=right nowrap><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
+        td += '<td valign="top" align=right nowrap>' + value['hashpower'] + '</td>';
         
         
         if (tr_show)

@@ -137,18 +137,18 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 
 #### Tested environment
 
-* x86_64 NVME
-* GNU/Linux CentOS 7.6
+* x86_64 GNU/Linux CentOS 7.6
 * PHP 7.4
 * MariaDB 5.5
 * MySQL 5
 * Firefox 67
 * Chrome 74
-* Trezor One
+* Trezor One (Limited OP_RETURN size, but functional)
+* Trezor Model T
 * Bitcoin Unlimited 1.7.0
 * Bitcoin ABC 0.20
 * Bitcoin Core 0.18
-* Bitcoin SV 0.2
+* Bitcoin SV 1.0.1 (docker)
 * P2Pool 16.0
 
 #### How to deploy
@@ -162,14 +162,13 @@ In this way, with simplicity, miners can delegate hashpower in other people to p
 
 #### Known problems
 
-* OP_RETURN size too small because Trezor hardware limits (?).
-* More hardware wallets support.
-* More consistent voting system.
+* Better and more consistent voting system.
 * Clearer verifiability.
-* Complete-sync in the right block sequence order.
+* Sync in the right block sequence order.
 * IRC-like classic attacks.
-* Automatic testing.
+* More hardware wallets support.
 * Internationalization.
+* Automatic testing.
 * Logo.
 * Absolute power corrupts absolutely.
 
