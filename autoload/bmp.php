@@ -115,7 +115,8 @@ function coinbase_hashpower($coinbase) {
 
     }
     
-    foreach ($output['miners'] AS $miner)
+	$output['quota_total'] = 0;
+    foreach ((array)$output['miners'] AS $miner)
         $output['quota_total'] += $miner['quota'];
 
     return $output;
