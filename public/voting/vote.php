@@ -6,7 +6,7 @@ $voting = action_voting_info($txid);
 
 $__template['title'] = 'Voting: '.$voting['question'];
 
-$__template['lib_js'][]  = '/public/voting/voting.js';
+$__template['lib_js'][]  = '/public/voting/vote.js';
 
 ?>
 

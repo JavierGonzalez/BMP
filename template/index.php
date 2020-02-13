@@ -13,6 +13,7 @@ $__template['lib_js'] = array_merge([
     '/lib/jquery-3.4.1.min.js',
     '/lib/bootstrap-4.3.1/js/bootstrap.min.js',
     '/public/bmp.js',
+    '/public/bmp_trezor.js',
     '/lib/trezor-connect-7.js',
     ], (array)$__template['lib_js']);
 

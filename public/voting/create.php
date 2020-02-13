@@ -5,7 +5,7 @@ $__template['title'] = 'Voting create';
 
 $__template['css'] .= '#voting_create td { padding:10px; }';
 
-$__template['lib_js'][]  = '/public/voting/voting.js';
+$__template['lib_js'][]  = '/public/voting/create.js';
 
 ?>
 
@@ -13,9 +13,31 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
 
 <br />
 
+
+
+<table border=0><tr><td valign="top">
+
+
 <form id="voting_create">
 
 <table style="border:none;">
+
+<tr>
+
+    <td align=right>Type of voting</td>
+
+    <td valign="middle">
+
+        <select id="type_voting" required>
+            <option value="00">Informative</option>
+            <option value="01">Decisive 51%</option>
+            <option value="02">Decisive 66%</option>
+        </select>
+
+    </td>
+
+</tr>
+
 
 
 
@@ -29,6 +51,7 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
             <option value="02" disabled>Multiple approval</option>
             <option value="03" disabled>Preferential with 3 votes</option>
             <option value="04" disabled>Preferential with 5 votes</option>
+            <option value="05" disabled>Parameter config</option>
         </select>
     </td>
 
@@ -42,7 +65,7 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
     <td align=right>Voting finish</td>
 
     <td valign="middle">
-        In <input type="text" id="blocks_to_finish" value="<?=BLOCK_WINDOW?>" size=5 style="text-align:right;" /> blocks
+        In <input type="text" id="blocks_to_finish" value="<?=BLOCK_WINDOW?>" size=5 style="text-align:right;" /> blocks.
     </td>
 </tr>
 
@@ -52,7 +75,7 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
     <td align=right>Question</td>
 
     <td valign="middle">
-        <input type="text" id="question" size=40 maxlength="70" autocomplete="off" focus required style="font-weight:bold;" />
+        <input type="text" id="question" size=30 maxlength="200" autocomplete="off" focus required style="font-weight:bold;" />
     </td>
 </tr>
 
@@ -63,7 +86,8 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
 
     <td valign="middle">
         <ol id="voting_points">
-            <li><input class="parameter voting_point" size=40 maxlength="42" /> <a href="#" style="font-size:18px;" onclick="voting_add_point();"><b>+</b></a></li>
+            <li><input class="parameter voting_point" size=24 maxlength="200" /> 
+            <a href="#" style="font-size:18px;" onclick="voting_add_point();"><b>+</b></a></li>
         </ol>
     </td>
 </tr>
@@ -75,9 +99,10 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
     <td align=right valign=top>Options</td>
 
     <td id="voting_options">
-        <input class="" size=20 maxlength="42" value="NULL" disabled /><br />
-        <input class="parameter voting_option" size=20 maxlength="42" value="Yes" required /><br />
-        <input class="parameter voting_option" size=20 maxlength="42" value="No" required />  <a href="#" style="font-size:18px;" onclick="voting_add_option();"><b>+</b></a>
+        <input size=20 value="NULL" disabled /><br />
+        <input class="parameter voting_option" size=20 maxlength="200" value="Yes" required /><br />
+        <input class="parameter voting_option" size=20 maxlength="200" value="No"  required /> 
+        <a href="#" style="font-size:18px;" onclick="voting_add_option();"><b>+</b></a>
     </td>
 </tr>
 
@@ -95,8 +120,12 @@ $__template['lib_js'][]  = '/public/voting/voting.js';
 
 </table>
 
-<span id="op_return_preview" class="monospace" style="font-size:13px;">Preview in development...</span>
-
-<br />
-
 </form>
+
+
+</td><td valign="top">
+
+    OP_RETURN preview:
+    <div id="op_return_preview" class="monospace"></div>
+    <div id="op_return_preview_tx_count"></div>
+</td></tr></table>
