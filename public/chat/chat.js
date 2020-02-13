@@ -101,8 +101,7 @@ function print_msg(data) {
         td += '<td valign="top" align=right class="monospace"><a href="/info/miner/' + value['address'] + '" class="bmp_power">' + nick + '</a></td>';
         
         if (value['action']=='chat') {
-            td += '<td valign="top" width="100%" style="color:#222;">' + value['p3'] + '</td>';
-
+            td += '<td valign="top" width="100%" style="color:#222;">' + text2link(value['p3']) + '</td>';
         }
 
 
@@ -148,3 +147,16 @@ function scroll_down() {
 		chat_scroll = document.getElementById('vpc').scrollTop;
 	}
 }
+
+function text2link(text) {
+    return (text || "").replace(
+    /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+    function(match, space, url){
+        var hyperlink = url;
+        if (!hyperlink.match('^https?:\/\/')) {
+            ink = 'http://' + hyperlink;
+        }
+        return space + '<a href="' + hyperlink + '" target="_blank">' + url + '</a>';
+    }
+    );
+};
