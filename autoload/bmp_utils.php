@@ -83,7 +83,7 @@ function pool_decode($coinbase, $coinbase_hashpower=false) {
 
 
     if (is_array($coinbase_hashpower) AND count((array)$coinbase_hashpower['miners'])>=30) // Hack
-        return ['name' => 'P2Pool', 'pool_link' => 'http://p2pool.in/'];
+        return ['name' => 'P2Pool', 'pool_link' => 'https://github.com/jtoomim/p2pool'];
 
     return null;
 }

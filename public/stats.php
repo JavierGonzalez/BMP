@@ -29,7 +29,7 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
         'mempool'       => rpc_get_mempool_info($blockchain)['size'],
         'peers'         => count((array)rpc_get_peer_info($blockchain)),
         'uptime'        => num(rpc_uptime($blockchain)/60/60).' h',
-        'version'    => rpc_get_network_info($blockchain)['subversion'],
+        'version'       => rpc_get_network_info($blockchain)['subversion'],
         ];
 
 

@@ -72,7 +72,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
             if ($action = get_action($txid, $blockchain, $block))
                 sql_update('actions', $action, "txid = '".$action['txid']."'", true);
 
-    update_actions();
+    update_actions($blockchain, $block['height']);
 
     return true;
 }
@@ -176,8 +176,8 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
         $action['nick'] = $nick;
     
 
-    $proof['miner'] = sql("SELECT blockchain, height, (SELECT hash FROM blocks WHERE height = miners.height LIMIT 1) AS block_hash, txid, address, power, hashpower FROM miners WHERE address = '".$action['address']."' ORDER BY height ASC");
-    $action['json'] = json_encode($proof);
+    $evidence['miner'] = sql("SELECT blockchain, height, (SELECT hash FROM blocks WHERE height = miners.height LIMIT 1) AS block_hash, txid, address, power, hashpower FROM miners WHERE address = '".$action['address']."' ORDER BY height ASC");
+    $action['evidence'] = json_encode($evidence);
         
     return $action;
 }

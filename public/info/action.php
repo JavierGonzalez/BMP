@@ -16,11 +16,12 @@ $action = sql("SELECT blockchain, height, (SELECT hash FROM blocks WHERE height 
 
 $proof['action'] = $action;
 
-$proof['miner']  = json_decode(sql("SELECT json FROM actions WHERE txid = '".e($_GET[2])."'")[0]['json'], true)['miner'];
+$proof['miner']  = json_decode(sql("SELECT evidence FROM actions WHERE txid = '".e($_GET[2])."'")[0]['evidence'], true)['miner'];
 
+?>
 
-echo '<h1>Evidence</h1><span style="font-size:11px;">';
+<h1>Evidence</h1><span style="font-size:11px;">
 
-print_r2(json_encode($proof, JSON_PRETTY_PRINT));
+<?=print_r2(json_encode($proof, JSON_PRETTY_PRINT))?>
 
-echo '</span>';
+</span>

@@ -15,7 +15,7 @@ foreach ($votings AS $r)
             'height_finish' => $voting['height_finish'],
             'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
             'votes'         => $voting['votes_num'],
-            'power'         => $voting['power'],
+            'power'         => $voting['votes_power'],
             'validity'      => $voting['validity']['valid'],
             ];
 

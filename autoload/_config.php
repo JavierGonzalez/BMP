@@ -1,7 +1,7 @@
 <?php # BMP — Javier González González
 
 
-define('BMP_VERSION', '0.2');
+define('BMP_VERSION', '0.3');
 
 define('BLOCK_WINDOW', 2016); // Blocks
 
@@ -16,8 +16,8 @@ define('BLOCKCHAINS', [
     'BCH' => [
         'name'              => 'Bitcoin Cash',
         'bmp_genesis'       => 586980,
-        'actions'           => true,
         'background_color'  => '#FCC201',
+        'actions'           => true,
         ], 
     
     'BSV' => [

@@ -1,4 +1,3 @@
-<?php # BMP — Javier González González ?>
 
 
 <div style="float:right;text-align:center;">

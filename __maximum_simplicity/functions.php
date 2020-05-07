@@ -24,13 +24,13 @@ function __profiler($hrtime=false) {
 
 
 // For debug or benchmark.
-function ___($echo='', $scroll_down=false) {
+function __($echo='', $scroll_down=false) {
 	global $__;
 
     $hrtime = $__['crono'];
 
     echo '<br />'."\n";
-    echo ++$__['___'].'. &nbsp; '.date('Y-m-d H:i:s').' &nbsp; '.implode(' &nbsp; ', __profiler($hrtime)).' &nbsp; ';
+    echo ++$__['__'].'. &nbsp; '.date('Y-m-d H:i:s').' &nbsp; '.implode(' &nbsp; ', __profiler($hrtime)).' &nbsp; ';
 
 
     if (is_string($echo))
@@ -42,7 +42,7 @@ function ___($echo='', $scroll_down=false) {
     
 
     if ($scroll_down) {
-        if ($__['___']==1) {
+        if ($__['__']==1) {
             if (function_exists('apache_setenv')) {
                 @apache_setenv('no-gzip', 1);
             }
