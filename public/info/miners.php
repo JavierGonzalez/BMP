@@ -15,7 +15,6 @@ $data = sql("SELECT COUNT(DISTINCT height) AS blocks,
     FROM miners 
     GROUP BY address 
     ORDER BY power DESC");
-    // (SELECT pool FROM blocks WHERE blockchain = miners.blockchain AND height = miners.height) AS pools
 
 foreach ($data AS $key => $value) {
 
@@ -26,7 +25,7 @@ foreach ($data AS $key => $value) {
         $data[$key]['miner'] = html_b($data[$key]['miner']);
 
     $data[$key]['power']     = '<span title="'.$value['power'].'%">'.num($value['power'], POWER_PRECISION).'%</span>';
-    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/BLOCK_WINDOW);
+    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']);
 }
 
 

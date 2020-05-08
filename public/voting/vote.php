@@ -4,6 +4,10 @@ $txid = e($_GET[1]);
 
 $voting = action_voting_info($txid);
 
+if (!$voting)
+    redirect('/');
+
+
 $__template['title'] = 'Voting: '.$voting['question'];
 
 $__template['lib_js'][]  = '/public/voting/vote.js';
@@ -119,7 +123,7 @@ foreach ($voting['options'] AS $option_txid => $r)
 
 <p><input type="text" id="voting_comment" maxlength="41" value="" autocomplete="off" style="width:100%;padding:4px;" placeholder="Comment..." /></p>
 
-<span id="op_return_preview" class="monospace" style="font-size:13px;"></span>
+<span id="op_return_preview" class="monospace" style="font-size:12px;"></span>
 
 </form>
 
@@ -136,7 +140,7 @@ foreach ($voting['options'] AS $option_txid => $r)
 
 
 
-</td><td valign="top" style="font-size:11px;">
+</td><td valign="top" style="font-size:10px;">
 
 
 <?=print_r2(json_encode($voting, JSON_PRETTY_PRINT))?>

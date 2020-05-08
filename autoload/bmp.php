@@ -10,7 +10,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
 
     $block = rpc_get_block($height, $blockchain);
-    $block_hashpower = $block['difficulty'] * pow(2,32) / 600; // Hashpower = Hashes per second.
+    $block_hashpower = round($block['difficulty'] * pow(2,32) / 600);
     
     $coinbase = rpc_get_transaction($block['tx'][0], $blockchain);
     $coinbase_hashpower = coinbase_hashpower($coinbase);
@@ -56,7 +56,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
             'height'        => $block['height'],
             'address'       => $miner['address'],
             'quota'         => $miner['quota'],
-            'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_hashpower['quota_total']),
+            'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_hashpower['quota_total'] / BLOCK_WINDOW),
             ]);
     
     update_power();
@@ -80,11 +80,8 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
 
 function update_power() {
-
     $total_hashpower = sql("SELECT SUM(hashpower) AS ECHO FROM miners");
-
     sql("UPDATE miners SET power = (hashpower*100)/".$total_hashpower);
-
 }
 
 

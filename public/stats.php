@@ -38,7 +38,7 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
 
     $blockchain_hp[$blockchain] = [
         'power'         => '<span title="'.$miners['power'].'%">'.num($miners['power'], 2).'%</span>',
-        'hashpower'     => hashpower_humans_phs($miners['hashpower']/BLOCK_WINDOW),
+        'hashpower'     => hashpower_humans_phs($miners['hashpower']),
         ];
 
     $total_hashpower += $miners['hashpower'];
@@ -65,11 +65,11 @@ echo html_table($data, $config);
 
 
 foreach (BLOCKCHAINS AS $blockchain => $config)
-    $select_artisan[] = "0 AS power_".$blockchain.", (SUM(IF(blockchain='".$blockchain."',hashpower,0))/".BLOCK_WINDOW.") AS hashpower_".$blockchain;
+    $select_artisan[] = "0 AS power_".$blockchain.", SUM(IF(blockchain='".$blockchain."',hashpower/".BLOCK_WINDOW.",0)) AS hashpower_".$blockchain;
 
 $data2 = sql("SELECT pool, pool_link, 0 AS power, 
     (SUM(hashpower)/".BLOCK_WINDOW.") AS hashpower, ".implode(',', $select_artisan)." 
-    FROM blocks ".($sql_where?"WHERE ".implode(" AND ", $sql_where):"")." 
+    FROM blocks".($sql_where?" WHERE ".implode(" AND ", $sql_where):"")." 
     GROUP BY pool 
     ORDER BY hashpower DESC");
 
@@ -99,7 +99,8 @@ foreach ($data2 AS $id => $r)
 
 foreach ($blockchain_hp AS $blockchain => $value) {
     $th_extra_name[]  = '<th colspan=2 style="text-align:center;background-color:'.$blockchain_colors[$blockchain].';">'.$blockchain.'</th>';
-    $th_extra_total[] = '<th style="text-align:right;font-weight:normal;border-bottom:none;background-color:'.$blockchain_colors[$blockchain].';">'.$value['power'].'</th><th style="text-align:right;font-weight:normal;border-bottom:none;background-color:'.$blockchain_colors[$blockchain].';">'.$value['hashpower'].'</th>';
+    $th_extra_total[] = '<th style="text-align:right;font-weight:normal;border-bottom:none;background-color:'.$blockchain_colors[$blockchain].';">'.$value['power'].'</th>
+        <th style="text-align:right;font-weight:normal;border-bottom:none;background-color:'.$blockchain_colors[$blockchain].';">'.$value['hashpower'].'</th>';
 }
 
 
@@ -107,7 +108,12 @@ $config = [
     'id' => 'hashpower_stats',
     'tr_th_extra' => '
         <tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th>'.implode('', $th_extra_name).'</tr>
-        <tr><th style="border-bottom:none;font-weight:normal;">'.date('Y-m-d').'</th><th style="text-align:right;font-weight:normal;border-bottom:none;">100.00%</th><th style="text-align:right;font-weight:normal;border-bottom:none;">'.hashpower_humans_phs($total_hashpower/BLOCK_WINDOW).'</th>'.implode('', $th_extra_total).'</tr>
+        <tr>
+            <th style="border-bottom:none;font-weight:normal;">'.date('Y-m-d').'</th>
+            <th style="text-align:right;font-weight:normal;border-bottom:none;">100.00%</th>
+            <th style="text-align:right;font-weight:normal;border-bottom:none;">'.hashpower_humans_phs($total_hashpower).'</th>
+            '.implode('', $th_extra_total).'
+        </tr>
         ',
     'power'     => ['align' => 'right'],
     'hashpower' => ['align' => 'right', 'function' => 'hashpower_humans_phs', 'th' => 'Hashpower'],

@@ -11,7 +11,7 @@ if ($_GET[2]=='refresh' AND $_GET['last']) {
         LIMIT 1000");
 
     foreach ($echo['msg'] AS $key => $value) {
-        $echo['msg'][$key]['hashpower'] = hashpower_humans($value['hashpower']/BLOCK_WINDOW);
+        $echo['msg'][$key]['hashpower'] = hashpower_humans($value['hashpower']);
 
         if ($value['action']=='vote')
             if ($voting = action_voting_info($value['p1']))

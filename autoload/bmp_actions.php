@@ -17,7 +17,7 @@ function update_actions($blockchain, $height) {
         sql_key_value('cache_blocks_num',  round($hashpower_total/BLOCK_WINDOW));
     sql_key_value('cache_miners_num',  sql("SELECT COUNT(DISTINCT address) AS ECHO FROM miners"));
     sql_key_value('cache_actions_num', sql("SELECT COUNT(*) AS ECHO FROM actions"));
-    sql_key_value('cache_chat_num', sql("SELECT COUNT(DISTINCT address) AS ECHO FROM actions WHERE action = 'chat'"));
+    sql_key_value('cache_chat_num',    sql("SELECT COUNT(DISTINCT address) AS ECHO FROM actions WHERE action = 'chat'"));
 
 }
 
@@ -35,7 +35,7 @@ function action_voting_info($txid, $blockchain=false) { // Refact
     if (!$voting)
         return false;
 
-    if ($voting['json']) {
+    if (false AND $voting['json']) {
         $cached = true;
         $voting = json_decode($voting['json'], true);
 
@@ -65,7 +65,7 @@ function action_voting_info($txid, $blockchain=false) { // Refact
         
 
 
-        foreach (sql("SELECT blockchain, (SUM(hashpower)/".BLOCK_WINDOW.") AS hashpower FROM miners GROUP BY 1 ORDER BY 2 DESC") AS $r)
+        foreach (sql("SELECT blockchain, SUM(hashpower) AS hashpower FROM miners GROUP BY 1 ORDER BY 2 DESC") AS $r)
             $voting['hashpower_blockchain'][$r['blockchain']] = $r['hashpower'];
 
 
@@ -99,16 +99,22 @@ function action_voting_info($txid, $blockchain=false) { // Refact
 
 
         $result = sql("SELECT blockchain, height, txid, time, address, p2 AS type_vote, p3 AS voting_validity, p4 AS vote,
-                        ((SELECT SUM(hashpower) FROM miners WHERE address = actions.address)/".BLOCK_WINDOW.") AS hashpower
+                        (SELECT SUM(hashpower) FROM miners WHERE address = actions.address) AS hashpower
                         FROM actions 
                         WHERE action = 'vote' 
                         AND p1 = '".e($txid)."'
                         AND (height <= ".$voting['height_finish'].($voting['status']=='open'?' OR height IS NULL':'').")
                         ORDER BY ".($voting['status']=='close'?'height ASC, ':'')."time ASC");
 
-        // One vote per miner, replace by last height. // FIX ambiguity when last TX is in the same block.
+        // One vote per miner, replace by last height.
         foreach ($result AS $r)
             $voting['votes'][$r['address']] = $r;
+
+
+        foreach (sql("SELECT blockchain, height, address, hashpower FROM miners ORDER BY id DESC") AS $r)
+            if (isset($voting['votes'][$r['address']]))
+                $voting['miners'][] = $r;
+
 
 
         if ($voting['status']=='close')
@@ -117,8 +123,6 @@ function action_voting_info($txid, $blockchain=false) { // Refact
 
 
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Calculated on-the-fly
 
     // Counters and percentages (total or by blockchain)
     $voting['votes_num'] = 0;
@@ -136,8 +140,8 @@ function action_voting_info($txid, $blockchain=false) { // Refact
             $total_hashpower += $voting['hashpower_blockchain'][$blockchain_ticker];
     
 
-    foreach ($voting['votes'] AS $miner => $vote)
-        $voting['votes'][$miner]['power'] = round(($voting['votes'][$miner]['hashpower']/BLOCK_WINDOW*100)/$total_hashpower, POWER_PRECISION);
+    foreach ((array)$voting['votes'] AS $miner => $vote)
+        $voting['votes'][$miner]['power'] = round(($voting['votes'][$miner]['hashpower']*100)/$total_hashpower, POWER_PRECISION);
 
 
     foreach ((array)$voting['votes'] AS $miner => $vote) {
@@ -148,7 +152,7 @@ function action_voting_info($txid, $blockchain=false) { // Refact
 
             $voting['options'][$vote['vote']]['votes']++;
             $voting['options'][$vote['vote']]['power']      += round($vote['power'], POWER_PRECISION);
-            $voting['options'][$vote['vote']]['hashpower']  += $vote['hashpower']/BLOCK_WINDOW;
+            $voting['options'][$vote['vote']]['hashpower']  += $vote['hashpower'];
 
             $voting['votes_power']        += $vote['power'];
             $voting['votes_hashpower']    += $vote['hashpower'];

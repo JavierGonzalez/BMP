@@ -15,7 +15,7 @@ foreach ($data AS $key => $value) {
     $data[$key]['address']   = html_a('/info/miner/'.$value['address'], substr($value['address'],-10,10));
     
     $data[$key]['power']     = num($value['power'], POWER_PRECISION).'%';
-    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']/BLOCK_WINDOW);
+    $data[$key]['hashpower'] = hashpower_humans($value['hashpower']);
 }
 
 
