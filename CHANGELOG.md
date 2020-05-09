@@ -1,8 +1,8 @@
 ### 2020-05-10 [BMP 0.4](https://github.com/JavierGonzalez/BMP)
-* Full-consistent hashpower voting.
+* Full-consistent hashpower voting (production-ready!).
 * Inmutable votes when voting status is `closed`.
-* On-the-fly voting filter by blockchain in every voting.
-* Voting type selector (Informative, Decisive 51%, Decisive 66%).
+* Votes can be filtered by blockchain in every voting.
+* Voting type selector: Informative, Decisive 51%, Decisive 66%.
 * OP_RETURN preview in every action, to facilitate manual actions.
 * Efficiency improvements.
 
