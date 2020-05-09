@@ -2,7 +2,7 @@
 
 $txid = e($_GET[1]);
 
-$voting = action_voting_info($txid);
+$voting = action_voting($txid, $_GET['blockchain']);
 
 if (!$voting)
     redirect('/');
@@ -43,7 +43,16 @@ foreach ($voting['points'] AS $point)
 <fieldset>
 <legend>Result</legend>
 
-<span style="float:right;">
+<span style="float:right;margin-top:-44px;">
+
+
+<select onchange="window.location.replace('/voting/<?=$txid?>' + (this.options[this.selectedIndex].text!='All'?'?blockchain=' + this.options[this.selectedIndex].text:''));">
+    <option>All</option>
+<?php
+foreach (BLOCKCHAINS AS $blockchain => $value)
+    echo '<option'.($_GET['blockchain']==$blockchain?' selected':'').'>'.$blockchain.'</option>';
+?>
+</select> 
 
 </span>
 
@@ -64,13 +73,13 @@ foreach ($voting['options'] AS $option)
         'hashpower' => $option['hashpower'],
         ];
 
-echo html_table($print_options, $config);
+echo html_table($print_options, $config).'<br />';
+
+
+if ($voting['status']=='closed')
+    echo '<legend title="'.num($voting['validity'],POWER_PRECISION).'%" style="float:right;font-size:14px;margin-bottom:-14px;">'.($voting['validity']>50?'This voting is VALID':'This voting is not valid').'</legend>';
 
 ?>
-
-<br />
-
-<legend style="float:right;font-size:14px;margin-bottom:-14px;">Validity <?=num($voting['validity']['valid'],POWER_PRECISION)?>%</legend>
 
 </fieldset>
 
@@ -129,7 +138,7 @@ foreach ($voting['options'] AS $option_txid => $r)
 
 
 
-<legend style="float:right;font-size:14px;margin-bottom:-14px;">Closed in <?=$voting['close_in']?> blocks</legend>
+<legend style="float:right;font-size:14px;margin-bottom:-14px;">Closed in <?=$voting['closed_in']?> blocks</legend>
 
 </fieldset>
 

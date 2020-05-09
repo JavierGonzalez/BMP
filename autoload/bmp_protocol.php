@@ -64,7 +64,7 @@ define('BMP_PROTOCOL', [
             1 => ['size' =>   1, 'name'=>'type_voting',       'decode'=>'hexdec', 'options'=>[0=>'informative', 1=>'decisive_51', 2=>'decisive_66']],
             2 => ['size' =>   1, 'name'=>'type_vote',         'decode'=>'hexdec', 'options'=>[1=>'one_election', /*2=>'multiple', 3=>'preferential_3', 4=>'preferential_5'*/]],
             3 => ['size' =>   1, 'name'=>'parameters_num',    'decode'=>'hexdec'],
-            4 => ['size' =>   3, 'name'=>'blocks_to_finish',  'decode'=>'hexdec', 'min'=>2],
+            4 => ['size' =>   3, 'name'=>'blocks_to_closed',  'decode'=>'hexdec', 'min'=>2],
             5 => ['size' => 200, 'name'=>'question',          'decode'=>'hex2bin'],
         ],
 

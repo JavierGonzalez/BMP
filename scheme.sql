@@ -1,6 +1,5 @@
 -- BMP — Javier González González
 
-
 DROP TABLE IF EXISTS `blocks`;
 DROP TABLE IF EXISTS `miners`;
 DROP TABLE IF EXISTS `actions`;

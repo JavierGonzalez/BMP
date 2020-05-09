@@ -65,7 +65,7 @@ $__template['lib_js'][]  = '/public/voting/create.js';
     <td align=right>Voting finish</td>
 
     <td valign="middle">
-        In <input type="text" id="blocks_to_finish" value="<?=BLOCK_WINDOW?>" size=5 style="text-align:right;" /> blocks.
+        Closed in <input type="text" id="blocks_to_finish" value="<?=BLOCK_WINDOW?>" size=5 style="text-align:right;" /> blocks.
     </td>
 </tr>
 

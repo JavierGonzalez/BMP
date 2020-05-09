@@ -7,23 +7,23 @@ $__template['title'] = 'Voting';
 $votings = sql("SELECT txid FROM actions WHERE action = 'voting' ORDER BY height DESC, time DESC");
 
 foreach ($votings AS $r)
-    if ($voting = action_voting_info($r['txid']))
+    if ($voting = action_voting($r['txid'], $_GET['blockchain']))
         $table[$voting['status']][] = [
             'status'        => ucfirst($voting['status']),
-            
-            'time'          => date('Y-m-d', strtotime($voting['time'])),
-            'height_finish' => $voting['height_finish'],
             'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
-            'votes'         => $voting['votes_num'],
             'power'         => $voting['votes_power'],
-            'validity'      => $voting['validity']['valid'],
+            'hashpower'     => $voting['votes_hashpower'],
+            'valid?'        => '<span title="'.num($voting['validity'], POWER_PRECISION).'%">'.($voting['validity']>50?'Yes!':'No').'</span>',
+            'votes'         => $voting['votes_num'],
+            'time'          => date('Y-m-d', strtotime($voting['time'])),
+            'height_closed' => $voting['height_closed'],
             ];
 
 
 $config = [
-    'votes'    => ['align' => 'right', 'num' => 0],
-    'power'    => ['align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'],
-    'validity' => ['align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'],
+    'votes'     => ['num' => 0],
+    'power'     => ['align' => 'right', 'num' => POWER_PRECISION, 'after' => '%'],
+    'hashpower' => ['align' => 'right', 'function' => 'hashpower_humans'],
     ];
 
 
@@ -34,9 +34,10 @@ $config = [
 
 <div style="font-size:20px;line-height:30px;">
 
-<?=html_table($table['open'], $config)?>
-
-<?=html_table($table['close'], $config)?>
+<?php
+echo html_table($table['open'],  $config);
+echo html_table($table['closed'], $config);
+?>
 
 </div>
 

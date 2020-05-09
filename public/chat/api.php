@@ -14,7 +14,7 @@ if ($_GET[2]=='refresh' AND $_GET['last']) {
         $echo['msg'][$key]['hashpower'] = hashpower_humans($value['hashpower']);
 
         if ($value['action']=='vote')
-            if ($voting = action_voting_info($value['p1']))
+            if ($voting = action_voting($value['p1']))
                 if ($voting['question'])
                     $echo['msg'][$key]['question'] = '<a href="/voting/'.$voting['txid'].'">'.$voting['question'].'</a> ('.$voting['options'][$value['p4']]['option'].')';
 

@@ -46,7 +46,7 @@ function block_delete_from($height, $blockchain=BLOCKCHAIN_ACTIONS) {
     sql("DELETE FROM actions WHERE blockchain = '".$blockchain."' AND height >= ".e($height));
 
     update_power();
-    update_actions();
+    update_actions($blockchain);
 }
 
 
