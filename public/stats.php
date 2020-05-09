@@ -109,7 +109,7 @@ $config = [
     'tr_th_extra' => '
         <tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th>'.implode('', $th_extra_name).'</tr>
         <tr>
-            <th style="border-bottom:none;font-weight:normal;">'.date('Y-m-d').'</th>
+            <th style="border-bottom:none;font-weight:normal;">'.date('Y-m-d', strtotime($last_block['time'])).'</th>
             <th style="text-align:right;font-weight:normal;border-bottom:none;">100.00%</th>
             <th style="text-align:right;font-weight:normal;border-bottom:none;">'.hashpower_humans_phs($total_hashpower).'</th>
             '.implode('', $th_extra_total).'
