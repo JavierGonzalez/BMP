@@ -145,5 +145,5 @@ function hex2bin_print($hex) {
     foreach (str_split($hex,2) AS $byte)
         $output .= (ctype_print(hex2bin($byte))?'<b>'.hex2bin($byte).'</b>':$byte);
 
-    return $output;
+    return str_replace('</b><b>', '', $output);
 }
