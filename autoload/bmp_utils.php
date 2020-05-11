@@ -113,17 +113,20 @@ function hashpower_humans($hps, $unit=false, $decimals=0) {
         return '';
 
     $units = [
-        'E' => 1000000000000000000,
-        'P' =>    1000000000000000,
-        'T' =>       1000000000000,
+        'Z' => 1000000000000000000000,
+        'E' =>    1000000000000000000,
+        'P' =>       1000000000000000,
+        'T' =>          1000000000000,
+        'G' =>             1000000000,
+        'M' =>                1000000,
         ];
     
-    if ($units[$unit])
-        return num($hps/$units[$unit], $decimals).'&nbsp;'.$unit.'H/s';
+    if ($unit!==false AND $units[$unit])
+        return num($hps/$units[$unit], $decimals).' '.$unit.'H/s';
 
     foreach ($units AS $u => $x)
-        if ($hps/$x>=100 OR $u=='T')
-            return num($hps/$x, $decimals).'&nbsp;'.$u.'H/s';
+        if ($u=='M' OR $hps/$x>10)
+            return num($hps/$x, $decimals).' '.$u.'H/s';
 
 }
 
