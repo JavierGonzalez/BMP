@@ -4,7 +4,7 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 ---
 
-#### [BMP](https://bmp.virtualpol.com) is a Hashpower Voting System
+#### [BMP](https://bmp.virtualpol.com) features:
 - [x] Decentralized.
 - [x] On-chain, verifiable, simple.
 - [x] Multi-blockchain SHA-256 hashpower merged.
