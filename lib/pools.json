@@ -619,6 +619,10 @@
         },
         "/narwhale/": {
             "name": "narwhale"
+        },
+        "/lubian.com/": {
+            "name": "lubian.com",
+            "link": "http://lubian.com"
         }
     },
     "payout_addresses" : {
