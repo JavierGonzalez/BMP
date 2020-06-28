@@ -1,4 +1,11 @@
-### 2020-05-10 [BMP 0.4](https://github.com/JavierGonzalez/BMP)
+### 2020-06-28 [BMP 0.4.1](https://github.com/JavierGonzalez/BMP)
+* New framework, major version.
+* Optimizations.
+* pools.json updated.
+* Minor fixes.
+
+
+### 2020-05-10 [BMP 0.4](https://github.com/JavierGonzalez/BMP/tree/9865b620abbaec2988bae742df27fef6cbd22bb8)
 * Full-consistent hashpower voting (production-ready!).
 * Inmutable votes when voting status is `closed`.
 * Votes can be filtered by blockchain in every voting.

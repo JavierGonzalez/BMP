@@ -18,7 +18,7 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 [BMP](https://bmp.virtualpol.com) is a voting system, completely on-chain, verifiable, replicable and simple. A sophisticated expandable base system. BMP can calculate the exact hashpower of each individual miner. Merging all Bitcoin SHA-256 hashpower. Extending the Satoshi Nakamoto [Whitepaper](https://www.bitcoin.com/bitcoin.pdf).
 
-BMP is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, connected to a one or multiple Bitcoin client -via RPC- to read blocks and transactions. Blockchain data is processed with [this PHP code](https://github.com/JavierGonzalez/BMP/blob/master/autoload/bmp.php) in three SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
+BMP is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, connected to a one or multiple Bitcoin client -via RPC- to read blocks and transactions. Blockchain data is processed with [this PHP code](https://github.com/JavierGonzalez/BMP/blob/master/*bmp/bmp.php) in three SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
 
 
 Actions are stored in Bitcoin Cash (BCH) because is fast, cheap and stable. 
@@ -103,11 +103,13 @@ With the BMP, miners can delegate arbitrary percentages of hashpower in other pe
 
 #### Known problems
 
-* Formal specification.
-* Blockchains synchronization time sequence order.
-* IRC-like classic attacks in chat.
+* Blockchain sequential synchronization by time.
+* Block reorg events.
+* Chineese internationalization.
 * More hardware wallets support.
-* Internationalization.
+* IRC-like classic attacks in chat.
+* Formal specification.
+* Transactional database.
 * Automatic testing.
 * Logo.
 * Absolute power corrupts absolutely.

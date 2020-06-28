@@ -44,6 +44,7 @@ CREATE TABLE `miners` (
     `height`                int(8) UNSIGNED           NOT NULL,
     `address`               varchar(64)               NOT NULL,
     `nick`                  varchar(30)           DEFAULT NULL,
+    `power_by`              varchar(20)           DEFAULT NULL COMMENT 'value | opreturn | action',
     `quota`                 decimal(30,8)             NOT NULL COMMENT 'Relative to a block',
     `power`                 decimal(12,8)         DEFAULT NULL COMMENT 'Percentage, updated with every block',
     `hashpower`             decimal(60,0)             NOT NULL COMMENT 'block_hashpower / BLOCK_WINDOW',

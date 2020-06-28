@@ -1,3 +1,3 @@
-<?php # maximum_simplicity
+<?php # BMP — Javier González González
 
-include('__maximum_simplicity/start.php');
+include('chat/index.php'); 

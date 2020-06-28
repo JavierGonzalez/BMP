@@ -623,6 +623,18 @@
         "/lubian.com/": {
             "name": "lubian.com",
             "link": "http://lubian.com"
+        },
+        "*satoshicat*": {
+            "name": "satoshicat"
+        },
+        "&mininggod&": {
+            "name": "mininggod"
+        },
+        "%24hourpool%": {
+            "name": "24hourpool"
+        },
+        "Sigmapool": {
+            "name": "Sigmapool"
         }
     },
     "payout_addresses" : {
