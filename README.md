@@ -6,7 +6,7 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 #### [BMP](https://bmp.virtualpol.com) features:
 - [x] Decentralized.
-- [x] On-chain, verifiable, simple.
+- [x] On-chain, opensource, verifiable.
 - [x] Multi-blockchain SHA-256 hashpower merged.
 - [x] Hardware-wallet auth.
 - [x] Real-time chat.
@@ -16,7 +16,7 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 <br />
 
-[BMP](https://bmp.virtualpol.com) is a voting system, completely on-chain, verifiable, replicable and simple. A sophisticated expandable base system. BMP can calculate the exact hashpower of each individual miner. Merging all Bitcoin SHA-256 hashpower. Extending the Satoshi Nakamoto [Whitepaper](https://www.bitcoin.com/bitcoin.pdf).
+[BMP](https://bmp.virtualpol.com) is a decentralized hashpower voting system, on-chain, verifiable, replicable and simple. A sophisticated expandable base system. BMP can calculate the exact hashpower of each individual miner. Merging all Bitcoin SHA-256 hashpower. Extending the Satoshi Nakamoto [Whitepaper](https://www.bitcoin.com/bitcoin.pdf).
 
 BMP is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, connected to a one or multiple Bitcoin client -via RPC- to read blocks and transactions. Blockchain data is processed with [this PHP code](https://github.com/JavierGonzalez/BMP/blob/master/*bmp/bmp.php) in three SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
 
@@ -41,7 +41,7 @@ More details in the **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and 
 #### How to make manual actions
 
 * Each miner action is a Standard Transaction in BCH.
-* Miner address must be in coinbase VOUT in the last `2016 blocks` of BTC, BCH and/or BSV.
+* Miner address must be in coinbase VOUT in the last `2,016 blocks` of BTC, BCH and/or BSV.
 * Miner address in TX_PREV VOUT (Any index).
 * Miner address in VOUT index=0.
 * OP_RETURN payload in VOUT index=1. 
@@ -69,7 +69,7 @@ With the BMP, miners can delegate arbitrary percentages of hashpower in other pe
 
 **Requirements:**
 * Web server (GNU/Linux, Apache, MySQL, PHP, crontab)
-* ~1 TB free space and ~4 GB RAM.
+* +1.2 TB free space and +4 GB RAM.
 * Bitcoin BCH client, with `-txindex`
 * Bitcoin BTC client
 * Bitcoin BSV client
@@ -91,25 +91,25 @@ With the BMP, miners can delegate arbitrary percentages of hashpower in other pe
 * PHP 7.4
 * MariaDB 5.5
 * MySQL 5
-* Firefox 67
-* Chrome 74
+* Firefox 77
+* Chrome 83
 * Bitcoin Unlimited 1.8.0
-* Bitcoin Core 0.19
+* Bitcoin Core 0.19.1
 * Bitcoin SV 1.0.1 (docker)
-* P2Pool 17.0
-* Trezor Model T (recomended)
-* Trezor One (OP_RETURN limited, partially functional)
+* P2Pool 17
+* Trezor Model T (recomended!)
+* Trezor One (partially functional, OP_RETURN limited)
 
 
 #### Known problems
 
-* Blockchain sequential synchronization by time.
-* Block reorg events.
-* Chineese internationalization.
+* Blockchain sequential synchronization must be by time.
+* More easy verification.
+* Update on reorg events.
+* Chineese language.
 * More hardware wallets support.
 * IRC-like classic attacks in chat.
 * Formal specification.
-* Transactional database.
 * Automatic testing.
 * Logo.
 * Absolute power corrupts absolutely.
