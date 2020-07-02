@@ -36,8 +36,6 @@ $maxsim['template']['autoload']['js'] = array_merge([
 <meta name="description" content="<?=$maxsim['template']['title']?>" />
 <meta name="author" content="Javier González González — gonzo@virtualpol.com" />
 
-<link rel="shortcut icon" href="/template/favicon.ico" />
-
 <link rel="stylesheet" enctype="text/css" href="/lib/bootstrap-4.3.1/css/bootstrap.min.css">
 <?php
 

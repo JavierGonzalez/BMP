@@ -7,7 +7,6 @@ foreach (BMP_PROTOCOL['actions'] AS $action_id => $action) {
 
     $td = [
         'status'        => $action['status'],
-        //'tested'        => $action['tested']?html_b('x'):'',
         'coinbase'      => $action['coinbase']?html_b('x'):'',
         'action'        => $action['action'],
         'bmp'           => BMP_PROTOCOL['prefix'],

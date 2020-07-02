@@ -1,14 +1,13 @@
 <?php # maxsim.tech — Copyright (c) 2020 Javier González González — MIT License
 
 
-$maxsim = [
-    'version' => '0.5.0',
-    'debug'   => [ 'crono' => hrtime(true) ],
-    ];
-
 error_reporting(E_ALL ^ E_NOTICE);
 
-$maxsim['route'] = maxsim_router($_SERVER['REQUEST_URI']);
+$maxsim = [
+    'version' => '0.5.0',
+    'route'   => maxsim_router($_SERVER['REQUEST_URI']),
+    'debug'   => ['crono_start' => hrtime(true)],
+    ];
 
 maxsim_get($_SERVER['REQUEST_URI']);
 
@@ -38,7 +37,7 @@ exit;
 function maxsim_get(string $uri) {
     global $maxsim, $_GET;
 
-    $app_level = count(explode('/', $maxsim['route']['app'][0]))-1;
+    $app_level = count(explode('/', $maxsim['route']['app'][0]))-1; // Refact
 
     $url = explode('?', $uri)[0];
     if ($url=='/')
@@ -47,7 +46,7 @@ function maxsim_get(string $uri) {
     $levels = array_filter(explode('/', $url));
     foreach ($levels AS $level => $name)
         if ($level-$app_level>0)
-            $levels_relative[$level-$app_level] = $name; // Refact
+            $levels_relative[$level-$app_level] = $name;
 
     $_GET = array_merge((array) $levels_relative, $_GET);
 }
@@ -56,7 +55,7 @@ function maxsim_get(string $uri) {
 function maxsim_router(string $uri) {
 
     $route = [
-        'autoload' => [], // Include files or directories starting with *.
+        'autoload' => [], // Include files and directories starting with *.
         'app'      => [], // Application code.
         ];
 
@@ -66,10 +65,10 @@ function maxsim_router(string $uri) {
 
     $levels = explode('/', $url);
 
-    foreach ($levels AS $id => $level) {
+    foreach ($levels AS $id => $level) { // Refact
         $level_path[] = $level;
 
-        if (!$ls = glob(($id===0?'*':implode('/',array_filter($level_path)).'/*'))) // Refact
+        if (!$ls = glob(($id===0?'*':implode('/',array_filter($level_path)).'/*')))
             break;
 
         $route = array_merge_recursive($route, maxsim_autoload($ls));
@@ -86,8 +85,11 @@ function maxsim_router(string $uri) {
             break;
     }
 
-    if (!$route['app'] AND file_exists('404.php'))
-        $route['app'][] = '404.php';
+
+    if (!$route['app'])
+        if (header("HTTP/1.0 404 Not Found"))
+            if (file_exists('404.php'))
+                $route['app'][] = '404.php';
 
     return (array) $route;
 }

@@ -69,7 +69,7 @@ $maxsim['template']['tabs'] = [
 </td>
 
 <td valign="top">
-	<input type="submit" style="width:100px;" class="executive_action btn btn-success btn-sm" value="Execute" />
+	<input type="submit" style="width:100px;" class="executive_action btn btn-success btn-sm" value="Send" />
 </td>
 
 

@@ -51,19 +51,19 @@ function chat_query_ajax() {
         
         clearTimeout(refresh);
         var start = new Date().getTime();
-		$('#vpc_actividad').attr('src', '/chat/img/point_blue.png');
+		$('#vpc_actividad').attr('src', '/static/point/blue.png');
 
 		$.post('/chat/api/refresh?last=' + last, function(data) {
 
             if (data) {
-                $('#vpc_actividad').attr('src', '/chat/img/point_green.png');
+                $('#vpc_actividad').attr('src', '/static/point/green.png');
                 print_msg(data);
                 scroll_down();
             }
 
             var elapsed = new Date().getTime() - start;
             $('#vpc_actividad').attr('title', elapsed + ' ms latency');
-            $('#vpc_actividad').attr('src', '/chat/img/point_grey.png');
+            $('#vpc_actividad').attr('src', '/static/point/grey.png');
 
             refresh = setTimeout(chat_query_ajax, chat_delay);
 

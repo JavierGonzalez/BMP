@@ -5,7 +5,7 @@
 function __($echo='', $scroll_down=false) {
 	global $maxsim;
 
-    $hrtime = $maxsim['debug']['crono'];
+    $hrtime = $maxsim['debug']['crono_start'];
 
     echo '<br />'."\n";
     echo ++$maxsim['debug']['count'].'. &nbsp; <span title="'.date('Y-m-d H:i:s').'">'.implode(' &nbsp; ', profiler($hrtime)).'</span> &nbsp; ';
@@ -34,7 +34,7 @@ function __($echo='', $scroll_down=false) {
         ob_flush();
     }
 
-    $maxsim['debug']['crono'] = hrtime(true);
+    $maxsim['debug']['crono_start'] = hrtime(true);
 }
 
 
@@ -52,7 +52,7 @@ function profiler($hrtime=false) {
     global $maxsim, $__sql, $__rpc;
 
     if (!$hrtime)
-        $hrtime = $maxsim['debug']['crono'];
+        $hrtime = $maxsim['debug']['crono_start'];
 
     $output[] = number_format((hrtime(true)-$hrtime)/1000/1000,2).' ms';
     

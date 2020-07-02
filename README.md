@@ -78,7 +78,7 @@ With the BMP, miners can delegate arbitrary percentages of hashpower in other pe
 **Deployment:**
 
 1. Put the BMP code in the `www` httpd public directory.
-2. Configure RPC and SQL access by renaming: `autoload/_password.php`
+2. Configure RPC and SQL access by renaming: `*/passwords.php`
 3. Execute `scheme.sql` in a new SQL database.
 4. Bitcoin clients must be up-to-date.
 5. Set a `crontab` every minute with: `curl https://bmp.domain.com/update`

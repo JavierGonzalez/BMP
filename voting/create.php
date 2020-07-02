@@ -113,7 +113,7 @@ $maxsim['template']['autoload']['js'][]  = '/voting/create.js';
     <td></td>
 
     <td>
-        <button type="submit" class="executive_action btn btn-success">Execute</button>
+        <button type="submit" class="executive_action btn btn-success">Create voting</button>
     </td>
 </tr>
 

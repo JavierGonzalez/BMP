@@ -32,7 +32,7 @@ $maxsim['template']['tabs'] = [
 </td>
 
 <td>
-	<input type="submit" class="executive_action btn btn-success btn-sm" value="Execute" />
+	<input type="submit" class="executive_action btn btn-success btn-sm" value="Change nick" />
 </td>
 
 
