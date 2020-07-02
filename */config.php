@@ -38,6 +38,6 @@ define('FEE_PER_BYTE', 0.00002); // Bitcoin/kb
 
 date_default_timezone_set('UTC');
 
-ini_set('error_reporting', E_ERROR | E_WARNING | E_PARSE);
+error_reporting(E_ALL ^ E_NOTICE);
 
 ini_set('display_errors', 1);

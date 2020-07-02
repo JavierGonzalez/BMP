@@ -7,7 +7,7 @@ function print_login() {
         $('#print_login').html('<a href="/parameter/miner">' + miner_utxo()['address'].substr(-10, 10) + '</a> <button class="btn btn-warning" onclick="miner_logout()">Logout</button>');
         $('.executive_action').prop('disabled', false);
     } else {
-        $('#print_login').html('<button class="btn btn-warning" onclick="get_miner_utxo(true)">Enter</button>');
+        $('#print_login').html('<button class="btn btn-warning" onclick="get_miner_utxo(true)">Login</button>');
         $('.executive_action').prop('disabled', true);
     }
 

@@ -1,12 +1,10 @@
 <?php # maxsim.tech — Copyright (c) 2020 Javier González González — MIT License
 
 
-error_reporting(E_ALL ^ E_NOTICE);
-
 $maxsim = [
     'version' => '0.5.0',
-    'route'   => maxsim_router($_SERVER['REQUEST_URI']),
     'debug'   => ['crono_start' => hrtime(true)],
+    'route'   => maxsim_router($_SERVER['REQUEST_URI']),
     ];
 
 maxsim_get($_SERVER['REQUEST_URI']);
