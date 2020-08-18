@@ -105,3 +105,9 @@ function html_button($url=false, $text='', $style='primary', $extra=false) {
     else
         return '<button type="button" class="btn btn-'.$style.'">'.$text.'</button>';
 }
+
+
+function html_link_to_a($input) {
+   $pattern = '@(http(s)?://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
+   return $output = preg_replace($pattern, '<a href="http$2://$3" target="_blank">$0</a>', $input);
+}

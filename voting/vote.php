@@ -12,6 +12,8 @@ $maxsim['template']['title'] = 'Voting: '.$voting['question'];
 
 $maxsim['template']['autoload']['js'][]  = '/voting/vote.js';
 
+
+
 ?>
 
 <h1>Voting</h1>
@@ -27,7 +29,7 @@ $maxsim['template']['autoload']['js'][]  = '/voting/vote.js';
 <ol>
 <?php
 foreach ($voting['points'] AS $point)
-    echo '<li style="font-size:16px;">'.$point['text'].'</li>';
+    echo '<li style="font-size:16px;margin-bottom:5px;">'.html_link_to_a($point['text']).'</li>';
 ?>
 </ol>
 
@@ -78,10 +80,10 @@ echo html_table($print_options, $config).'<br />';
 
 if ($voting['status']=='closed') { // Refact
     echo '<legend title="Validity: '.num($voting['validity'],POWER_PRECISION).'%" style="float:right;font-size:14px;margin-bottom:-14px;">';
-
-    if ($voting['type_voting']=='0')
-        echo 'This voting is explorative';
-    else
+function convert($input) {
+   $pattern = '@(http(s)?://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
+   return $output = preg_replace($pattern, '<a href="http$2://$3">$0</a>', $input);
+}
         echo ($voting['validity']>50?'This voting is VALID':'This voting is not valid');
 
     echo '</legend>';
