@@ -4,44 +4,39 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 ---
 
-#### [BMP](https://bmp.virtualpol.com) features:
-- [x] Decentralized.
-- [x] On-chain, verifiable, simple.
-- [x] Multi-blockchain SHA-256 hashpower merged.
+#### BMP features
+- [x] Decentralized, on-chain, verifiable.
 - [x] Hardware-wallet auth.
 - [x] Real-time chat.
+- [x] Multi-blockchain SHA-256 hashpower merged.
 - [x] Voting (multiple points/options, rectifiable votes, filter by blockchain, comments).
 
-#### [https://BMP.virtualpol.com](https://bmp.virtualpol.com)
-
-<br />
-
-[BMP](https://bmp.virtualpol.com) is a voting system, completely on-chain, verifiable, replicable and simple. A sophisticated expandable base system. BMP can calculate the exact hashpower of each individual miner. Merging all Bitcoin SHA-256 hashpower. Extending the Satoshi Nakamoto [Whitepaper](https://www.bitcoin.com/bitcoin.pdf).
+**[BMP](https://bmp.virtualpol.com)** is a protocol and a hashpower voting system, completely on-chain, verifiable, replicable and simple. A sophisticated expandable base system. BMP can calculate the exact hashpower of each individual miner. Extending the Satoshi Nakamoto [Whitepaper](https://bmp.virtualpol.com/bitcoin.pdf).
 
 BMP is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, connected to a one or multiple Bitcoin client -via RPC- to read blocks and transactions. Blockchain data is processed with [this PHP code](https://github.com/JavierGonzalez/BMP/blob/master/*bmp/bmp.php) in three SQL tables: **[Blocks](https://bmp.virtualpol.com/info/blocks)**, **[Miners](https://bmp.virtualpol.com/info/miners)** and **[Actions](https://bmp.virtualpol.com/info/actions)**.
 
 
-Actions are stored in Bitcoin Cash (BCH) because is fast, cheap and stable. 
+Actions are stored in Bitcoin Cash (BCH) because is fast, cheap and stable.
 
 Actions without hashpower are ignored. Miners power (% of HP) changes with each block. Actions power never changes.
 
 Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md) (more hardware wallets in future).
 
-BMP does not store private keys and the local database is public information (for fast cache only).
+BMP does not store private keys and local database is public information (cache only).
 
-More details in the **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and the [BMP paper](https://virtualpol.com/BMP_EN.pdf) ([CN](https://virtualpol.com/BMP_CN.pdf), [ES](https://virtualpol.com/BMP_ES.pdf)).
+More details in the **[BMP Protocol](https://bmp.virtualpol.com/protocol)** and the [BMP paper](https://virtualpol.com/BMP_EN.pdf).
 
 
 #### Requirements to participate
 
-1. Your address in a coinbase output in the last `2,016` blocks of BTC, BCH or BSV.
+1. Your address inside a coinbase output in the last `4,032 blocks` of BTC, BCH or BSV.
 2. Trezor hardware-wallet (recommended).
 
 
 #### How to make manual actions
 
 * Each miner action is a Standard Transaction in BCH.
-* Miner address must be in coinbase VOUT in the last `2016 blocks` of BTC, BCH and/or BSV.
+* Miner address must be in coinbase VOUT in the last `4,032 blocks` of BTC, BCH and/or BSV.
 * Miner address in TX_PREV VOUT (Any index).
 * Miner address in VOUT index=0.
 * OP_RETURN payload in VOUT index=1. 
@@ -68,21 +63,21 @@ With the BMP, miners can delegate arbitrary percentages of hashpower in other pe
 #### How to deploy your own BMP server
 
 **Requirements:**
-* Web server (GNU/Linux, Apache, MySQL, PHP, crontab)
-* ~1 TB free space and ~4 GB RAM.
+* Web server (GNU/Linux, Apache, MySQL, PHP)
+* +1 TB free space and +8 GB RAM.
 * Bitcoin BCH client, with `-txindex`
-* Bitcoin BTC client
-* Bitcoin BSV client
+* Bitcoin BTC client, with `-txindex`, optional
+* Bitcoin BSV client, with `-txindex`, optional
 
 
 **Deployment:**
 
 1. Put the BMP code in the `www` httpd public directory.
-2. Configure RPC and SQL access by renaming: `*/passwords.php`
-3. Execute `scheme.sql` in a new SQL database.
-4. Bitcoin clients must be up-to-date.
-5. Set a `crontab` every minute with: `curl https://bmp.domain.com/update`
-6. Wait BMP synchronization (24~48h).
+2. Execute `scheme.sql` in a new MySQL database.
+3. Configure RPC and SQL access re-naming `*/passwords.php.template` in to `*/passwords.php`
+4. Wait Bitcoin clients up-to-date.
+5. Set a `crontab` every minute executing: `curl https://bmp.your-domain.com/update`
+6. Wait BMP synchronization (~24h). Check progress in: `/stats`
 
 
 **Tested environment:**
@@ -94,22 +89,21 @@ With the BMP, miners can delegate arbitrary percentages of hashpower in other pe
 * Firefox 67
 * Chrome 74
 * Bitcoin Unlimited 1.8.0
-* Bitcoin Core 0.19
-* Bitcoin SV 1.0.1 (docker)
+* Bitcoin Core 0.20.0
+* Bitcoin SV 1.0.4
 * P2Pool 17.0
 * Trezor Model T (recomended)
-* Trezor One (OP_RETURN limited, partially functional)
+* Trezor One (partially functional because limited OP_RETURN)
 
 
 #### Known problems
 
-* Blockchain sequential synchronization by time.
-* Block reorg events.
-* Chineese internationalization.
+* Blockchain synchronization by time.
+* Update on chain reorg.
+* Chineese and Spanish internationalization.
 * More hardware wallets support.
 * IRC-like classic attacks in chat.
 * Formal specification.
-* Transactional database.
 * Automatic testing.
 * Logo.
 * Absolute power corrupts absolutely.

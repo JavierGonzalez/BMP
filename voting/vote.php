@@ -17,27 +17,27 @@ $maxsim['template']['autoload']['js'][]  = '/voting/vote.js';
 <h1>Voting</h1>
 
 
-<table border=0 width="100%"><tr><td valign="top" style="min-width:500px;">
+<table border=0 width="100%"><tr><td valign="top" style="min-width:600px;">
 
 
 <fieldset>
 <legend style="font-size:22px;font-weight:bold;"><?=$voting['question']?></legend>
 
-<legend style="float:right;font-size:14px;margin-top:-46px;"><?=strtoupper($voting['status'])?></legend>
 
 <ol>
 <?php
 foreach ($voting['points'] AS $point)
-    echo '<li>'.html_h($point['text'], 3).'</li>';
+    echo '<li style="font-size:16px;">'.$point['text'].'</li>';
 ?>
 </ol>
 
+<legend style="float:right;font-size:14px;margin-bottom:-14px;" title="<?=$voting['time'].' OPEN&#013;'.$voting['time_closed'].' CLOSED'?>"><?=ucfirst($voting['status'])?></legend>
 
 </fieldset>
 
 
 
-
+<br />
 
 
 <fieldset>
@@ -76,8 +76,16 @@ foreach ($voting['options'] AS $option)
 echo html_table($print_options, $config).'<br />';
 
 
-if ($voting['status']=='closed')
-    echo '<legend title="'.num($voting['validity'],POWER_PRECISION).'%" style="float:right;font-size:14px;margin-bottom:-14px;">'.($voting['validity']>50?'This voting is VALID':'This voting is not valid').'</legend>';
+if ($voting['status']=='closed') { // Refact
+    echo '<legend title="Validity: '.num($voting['validity'],POWER_PRECISION).'%" style="float:right;font-size:14px;margin-bottom:-14px;">';
+
+    if ($voting['type_voting']=='0')
+        echo 'This voting is explorative';
+    else
+        echo ($voting['validity']>50?'This voting is VALID':'This voting is not valid');
+
+    echo '</legend>';
+}
 
 ?>
 
@@ -149,10 +157,10 @@ foreach ($voting['options'] AS $option_txid => $r)
 
 
 
-</td><td valign="top" style="font-size:10px;">
+</td><td valign="top">
 
-
-<?=print_r2(json_encode($voting, JSON_PRETTY_PRINT))?>
-
+<pre>
+<?=replace_hash_to_link(json_encode($voting, JSON_PRETTY_PRINT))?>
+</pre>
 
 </td></tr></table>

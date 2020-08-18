@@ -104,12 +104,12 @@ function action_voting_data($txid) { // Refact
 
     $voting['points'] = [];
 
-    // Votes pointing to the txid voting are NULL/void. Option always available.
+    // The NEUTRAL option (NULL, void) is always available.
     $voting['options'][] = [
         'blockchain'=> $voting['blockchain'],
         'txid'      => $txid,
         'vote'      => '0',
-        'option'    => 'NULL',
+        'option'    => 'NEUTRAL',
         'votes'     => 0,
         'power'     => 0,
         'hashpower' => 0,

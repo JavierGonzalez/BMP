@@ -15,9 +15,7 @@ $maxsim['template']['tabs'] = [
 
 ?>
 
-<h1>Miner</h1>
-
-<h2>Parameter</h2>
+<h1>Parameters</h1>
 
 <form id="miner_parameter_nick">
 

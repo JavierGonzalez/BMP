@@ -1,20 +1,14 @@
 <?php # BMP — Javier González González
 
 
-$echo = ob_get_contents();
-ob_end_clean();
-
-header('Content-Type:text/html; charset=utf-8');
-
-
-
 $maxsim['template']['title'] = 'BMP'.($maxsim['template']['title']?' | '.$maxsim['template']['title']:'');
 
 
 $maxsim['template']['autoload']['css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
-$maxsim['template']['autoload']['css'][] = '/*template/html/style.css';
+$maxsim['template']['autoload']['css'][] = '/template/style.css';
 
-$maxsim['template']['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";'."\n";
+$maxsim['template']['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";'."\n".
+    'url_explorer_tx = "'.URL_EXPLORER_TX.'";'."\n";
 
 $maxsim['template']['autoload']['js'] = array_merge([
     '/lib/jquery-3.4.1.min.js',

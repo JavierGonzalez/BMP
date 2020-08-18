@@ -1,7 +1,63 @@
 <?php # BMP - Javier González González
 
+echo '    <style type="text/css">
+    body {
+        font-family: monospace, monospace;
+    font-size: 10px;
+    }
+    </style>';
 
-__($maxsim);
+
+
+function bitcoin_hash_calculation(array $block) {
+
+    $hex = [
+        'version_hex'       => revert_bytes($block['version_hex']),
+        'previousblockhash' => revert_bytes($block['previousblockhash']),
+        'merkleroot'        => revert_bytes($block['merkleroot']),
+        'time'              => revert_bytes(dechex(strtotime($block['time']))),
+        'bits'              => revert_bytes($block['bits']),
+        'nonce'             => revert_bytes(str_pad(dechex($block['nonce']), 8, "00", STR_PAD_LEFT)),
+        ];
+
+    return revert_bytes(hash('sha256',hash('sha256',hex2bin(implode('', $hex)), true), false));
+}
+
+
+
+$result = sql("SELECT * FROM blocks ORDER BY height DESC");
+
+foreach ($result AS $r) {
+
+    $hash = bitcoin_hash_calculation($r);
+
+    $table_data = $hex;
+    $table_data['result'] = ($hash===$r['hash']?'TRUE':'FALSE');
+    $table_data['hash'] = $hash;
+    $table[] = $table_data;
+
+
+
+    //echo '<b>'.($hash===$r['hash']?'TRUE':'FALSE').'</b> '.$r['blockchain'].' '. $r['height'].' '.$hash.'<br />';
+
+    if (false AND $hash!==$r['hash']) {
+        print_r2($hex);
+        echo implode('', $hex).'<br />';
+    }
+
+
+}
+
+
+
+echo html_table($table);
+
+
+
+
+exit;
+
+pool_identify();
 
 exit;
 

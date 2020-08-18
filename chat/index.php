@@ -40,6 +40,7 @@ $maxsim['template']['tabs'] = [
     <th></th>
     <th>Power</th>
     <th>Hashpower</th>
+    <th></th>
 </tr>
 
 

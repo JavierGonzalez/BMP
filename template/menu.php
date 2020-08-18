@@ -24,10 +24,11 @@ function menu_active($url) {
         <a href="/voting">Voting</a>
     </li>
 
-
-    <!--<li<?=menu_active('/delegation')?>>
+    <!--
+    <li<?=menu_active('/delegation')?>>
         <a href="/delegation">Delegation</a>
-    </li>-->
+    </li>
+    -->
     
 </ul>
 
@@ -60,19 +61,20 @@ function menu_active($url) {
 <div id="menu-next">
 
 
-<?=(DEV?'<span style="float:left;writing-mode:vertical-lr;-webkit-transform:rotate(180deg);color:red;font-size:30px;">DEVELOPMENT</span>':'')?>
+    <?=(DEV?'<span style="float:left;writing-mode:vertical-lr;-webkit-transform:rotate(180deg);color:red;font-size:30px;">DEVELOPMENT</span>':'')?>
 
-<p>
-    <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >
-    <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
-    <a href="https://github.com/JavierGonzalez/BMP" target="_blank" class="external">Code</a></br >
-    <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank" class="external">README</a><br />
-</p>
+    <p>
+        <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
+        <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >
+        <br />
+        <a href="https://github.com/JavierGonzalez/BMP" target="_blank" class="external">Code</a></br >
+        <a href="https://github.com/JavierGonzalez/BMP#the-bitcoin-mining-parliament" target="_blank" class="external">README</a><br />
+    </p>
 
 
-<div style="position:fixed;bottom:20px;">
-    <?=implode('<br />', profiler($maxsim['debug']['crono']))?>
-</div>
+    <div style="position:fixed;bottom:20px;">
+        <?=implode('<br />', profiler($maxsim['debug']['crono']))?>
+    </div>
 
 </div>
 

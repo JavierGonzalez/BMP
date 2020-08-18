@@ -1,4 +1,6 @@
-<?php
 
+<h1>Delegation</h1>
 
-echo 'delegation...';
+<br /><br /><br />
+
+<a href="/delegation/create" class="btn btn-primary">Create delegation</a>

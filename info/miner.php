@@ -9,14 +9,15 @@ $proof['bmp'] = [
     'block_window'  => BLOCK_WINDOW,
     ];
 
-$proof['miner'] = sql("SELECT blockchain, height, (SELECT hash FROM blocks WHERE height = miners.height LIMIT 1) AS block_hash, 
+$proof['miner'] = sql("SELECT blockchain, height, 
+    (SELECT hash FROM blocks WHERE blockchain = miners.blockchain AND height = miners.height LIMIT 1) AS block_hash, 
     txid, address, power, hashpower 
     FROM miners WHERE address = '".e($_GET[1])."' ORDER BY id DESC");
 
 
 
-echo '<span style="font-size:11px;">';
+echo '<pre>';
 
-print_r2(json_encode($proof, JSON_PRETTY_PRINT));
+echo json_encode($proof, JSON_PRETTY_PRINT);
 
-echo '</span>';
+echo '</pre>';

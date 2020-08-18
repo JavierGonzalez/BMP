@@ -124,10 +124,14 @@ foreach (BLOCKCHAINS AS $blockchain => $value) {
     $config['hashpower_'.$blockchain] = ['th' => 'Hashpower', 'align' => 'right', 'function' => 'hashpower_humans_phs', 'background_color' => $value['background_color'] ];
 }
 
+?>
 
+<br />
 
-echo '<br />';
+<?=html_table($data2, $config)?>
 
-echo html_table($data2, $config);
+<br /><br />
 
-echo '<br /><br />';
+* BMP protocol is not based on "pools.json" or "coinbase text" to calculate the miners hashpower. This information is for aditional validation and research purposes only.
+
+<br />

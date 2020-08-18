@@ -96,6 +96,8 @@ function print_msg(data) {
             var nick = value['address'].substr(-10, 10);
 
         var td = '';
+
+
         td += '<td valign="top" style="color:#888;">' + value['height'] + '</td>';
         td += '<td valign="top" title="' + date.format('Y-m-d H:i:s') + ' UTC">' + date.format('H:i') + '</td>';
         td += '<td valign="top" align=right class="monospace"><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + nick + '</a></td>';
@@ -126,9 +128,11 @@ function print_msg(data) {
                 tr_show = false;
         }
 
-
-        td += '<td valign="top" align=right nowrap><a href="/info/action/' + value['txid'] + '" class="bmp_power">' + value['power'] + '%</a></td>';
+        
+        td += '<td valign="top" align=right nowrap>' + value['power'] + '%</td>';
         td += '<td valign="top" align=right nowrap>' + value['hashpower'] + '</td>';
+
+        td += '<td valign="top" align=right nowrap><a href="' + url_explorer_tx + value['txid'] + '" target="_blank" class="bmp_power">&#128279;</a></td>';
         
         
         if (tr_show)

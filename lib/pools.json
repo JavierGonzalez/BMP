@@ -613,7 +613,7 @@
             "name": "Binance",
             "link": "https://www.binance.com/"
         },
-        "^easy2mine.com/": {
+        "easy2mine.com/": {
             "name": "easy2mine.com",
             "link": "https://easy2mine.com/"
         },
@@ -635,6 +635,10 @@
         },
         "Sigmapool": {
             "name": "Sigmapool"
+        },
+        "/hash.okkong.com/": {
+            "name": "OKKONG",
+            "link": "https://hash.okkong.com"
         }
     },
     "payout_addresses" : {

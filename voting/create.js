@@ -13,7 +13,7 @@ $('#blocks_to_finish, #question, .parameter').keyup(function() {
 function bmp_preview_voting_update() {
     op_return_preview = bmp_preview_voting();
     $('#op_return_preview').html(op_return_preview.join('<br />'));
-    $('#op_return_preview_tx_count').html('<b>' + op_return_preview.length + '</b> transactions.');
+    $('#op_return_preview_tx_count').html('<b>' + op_return_preview.length + '</b> transactions required.');
 }
 
 

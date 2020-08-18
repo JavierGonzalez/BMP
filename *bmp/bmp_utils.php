@@ -28,7 +28,7 @@ function get_new_block($blockchain=BLOCKCHAIN_ACTIONS) {
     if ($height_bmp)
         $height = $height_bmp + 1;
     else
-        $height = BLOCKCHAINS[$blockchain]['bmp_genesis'];
+        $height = BLOCKCHAINS[$blockchain]['bmp_start'];
 
     block_insert($height, $blockchain);
 
@@ -136,7 +136,7 @@ function hashpower_humans($hps, $unit=false, $decimals=0) {
         return num($hps/$units[$unit], $decimals).' '.$unit.'H/s';
 
     foreach ($units AS $u => $x)
-        if ($u=='M' OR $hps/$x>10)
+        if ($u=='M' OR $hps/$x>1)
             return num($hps/$x, $decimals).' '.$u.'H/s';
 
 }
@@ -153,4 +153,18 @@ function hex2bin_print($hex) {
         $output .= (ctype_print(hex2bin($byte))?'<b>'.hex2bin($byte).'</b>':$byte);
 
     return str_replace('</b><b>', '', $output);
+}
+
+
+function replace_hash_to_link($text) { // Refact: fail with non-BCH links and op_return
+
+    $text = preg_replace( 
+        "/[0]{10}[A-Fa-f0-9]{54}/i", 
+        "<a href=\"".URL_EXPLORER_BLOCK."\\0\" target=\"blank\">\\0</a>", $text);
+
+    $text = preg_replace( 
+        "/((?!(0000000000))[A-Fa-f0-9]{64})/i", 
+        "<a href=\"".URL_EXPLORER_TX."\\0\" target=\"blank\">\\0</a>", $text);
+
+    return $text;
 }

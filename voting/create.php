@@ -24,20 +24,20 @@ $maxsim['template']['autoload']['js'][]  = '/voting/create.js';
 
 <tr>
 
-    <td align=right>Type of voting</td>
+    <td align=right nowrap>Type of voting</td>
 
     <td valign="middle">
 
         <select id="type_voting" required>
-            <option value="00">Informative</option>
-            <option value="01">Decisive 51%</option>
-            <option value="02">Decisive 66%</option>
+            <option value="00">Explorative</option>
+            <option value="01">Decisive in BMP</option>
+            <option value="02">Decisive 51%</option>
+            <option value="03">Decisive 66%</option>
         </select>
 
     </td>
 
 </tr>
-
 
 
 
@@ -47,7 +47,7 @@ $maxsim['template']['autoload']['js'][]  = '/voting/create.js';
 
     <td valign="middle">
         <select id="type_vote" required>
-            <option value="01">One election</option>
+            <option value="01">One option</option>
             <option value="02" disabled>Multiple approval</option>
             <option value="03" disabled>Preferential with 3 votes</option>
             <option value="04" disabled>Preferential with 5 votes</option>
@@ -56,8 +56,6 @@ $maxsim['template']['autoload']['js'][]  = '/voting/create.js';
     </td>
 
 </tr>
-
-
 
 
 
@@ -84,7 +82,7 @@ $maxsim['template']['autoload']['js'][]  = '/voting/create.js';
 <tr>
     <td align=right valign=top>Points</td>
 
-    <td valign="middle">
+    <td valign="middle" nowrap>
         <ol id="voting_points">
             <li><input class="parameter voting_point" size=24 maxlength="200" /> 
             <a href="#" style="font-size:18px;" onclick="voting_add_point();"><b>+</b></a></li>
@@ -94,12 +92,11 @@ $maxsim['template']['autoload']['js'][]  = '/voting/create.js';
 
 
 
-
 <tr>
     <td align=right valign=top>Options</td>
 
     <td id="voting_options">
-        <input size=20 value="NULL" disabled /><br />
+        <input size=20 value="NEUTRAL" disabled /><br />
         <input class="parameter voting_option" size=20 maxlength="200" value="Yes" required /><br />
         <input class="parameter voting_option" size=20 maxlength="200" value="No"  required /> 
         <a href="#" style="font-size:18px;" onclick="voting_add_option();"><b>+</b></a>
@@ -108,12 +105,12 @@ $maxsim['template']['autoload']['js'][]  = '/voting/create.js';
 
 
 
-
 <tr>
     <td></td>
 
     <td>
         <button type="submit" class="executive_action btn btn-success">Create voting</button>
+        &nbsp; <span id="op_return_preview_tx_count"></span>
     </td>
 </tr>
 
@@ -124,8 +121,8 @@ $maxsim['template']['autoload']['js'][]  = '/voting/create.js';
 
 
 </td><td valign="top">
-
     OP_RETURN preview:
     <div id="op_return_preview" class="monospace"></div>
-    <div id="op_return_preview_tx_count"></div>
-</td></tr></table>
+</td></tr>
+
+</table>

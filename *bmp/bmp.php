@@ -31,12 +31,8 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
         'size'                  => $block['size'],
         'tx_count'              => count($block['tx']),
         'version_hex'           => $block['versionHex'],
-        'previousblockhash'     => $block['previousblockhash'],
-        'merkleroot'            => $block['merkleroot'],
         'time'                  => date('Y-m-d H:i:s', $block['time']),
         'time_median'           => date('Y-m-d H:i:s', $block['mediantime']),
-        'bits'                  => $block['bits'],
-        'nonce'                 => $block['nonce'],
         'difficulty'            => $block['difficulty'],
         'coinbase'              => $coinbase['vin'][0]['coinbase'],
         'pool'                  => $pool['name'],
@@ -116,12 +112,6 @@ function coinbase_quota($coinbase) {
                     ];
 
         $output['power_by'] = 'value';
-    }
-    
-
-    // power_by_action
-    foreach ($output['miners'] AS $miner) {
-
     }
 
     return $output;

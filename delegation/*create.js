@@ -50,14 +50,14 @@ $('#delegation_create').submit(async function(e) {
     $('.executive_action').prop('disabled', true);
 
 
-    result_tx1 = await blockchain_send_tx(bmp_op_return_voting());
+    result_tx1 = await blockchain_send_tx(bmp_op_return_delegation());
 
     if (!result_tx1)
         return false;
 
     // var parameters_tx = bmp_op_return_delegation_parameter(result_tx1.txid)
 
-    for (const op_return of parameters_tx)
-        await blockchain_send_tx(op_return);
+    //for (const op_return of parameters_tx)
+    //    await blockchain_send_tx(op_return);
     
 });

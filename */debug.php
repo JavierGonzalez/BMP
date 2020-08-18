@@ -54,7 +54,7 @@ function profiler($hrtime=false) {
     if (!$hrtime)
         $hrtime = $maxsim['debug']['crono_start'];
 
-    $output[] = number_format((hrtime(true)-$hrtime)/1000/1000,2).' ms';
+    $output[] = number_format((hrtime(true)-$hrtime)/1000/1000).' ms';
     
     if (is_numeric($__sql['count']))
         $output[] = number_format($__sql['count']).' sql';
