@@ -2,7 +2,7 @@
 
 
 function rpc_connect($blockchain=false) {
-    global $__rpc;
+    global $__rpc, $passwords;
 
     if (!$blockchain)
         $blockchain = BLOCKCHAIN_ACTIONS;
@@ -10,7 +10,7 @@ function rpc_connect($blockchain=false) {
     if (!$__rpc[$blockchain]) {
         require_once('lib/easybitcoin.php');
 
-        $sb = parse_url(constant('URL_RPC_'.$blockchain));
+        $sb = parse_url($passwords['rpc_'.strtolower($blockchain)]);
         $__rpc[$blockchain] = new Bitcoin($sb['user'], $sb['pass'], $sb['host'], $sb['port']);
 
         if (!$__rpc[$blockchain])

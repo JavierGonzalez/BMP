@@ -1,5 +1,17 @@
 <?php # BMP - Javier González González
 
+
+
+
+
+__($passwords['dev']);
+
+
+
+exit;
+
+
+
 echo '    <style type="text/css">
     body {
         font-family: monospace, monospace;

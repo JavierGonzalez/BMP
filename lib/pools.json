@@ -335,6 +335,10 @@
             "name": "BTC.com",
             "link": "https://pool.btc.com"
         },
+        "/BTC.com/" : {
+            "name": "BTC.com",
+            "link": "https://pool.btc.com"
+        },
         "/DCEX/" : {
             "name": "DCEX"
         },
@@ -639,6 +643,9 @@
         "/hash.okkong.com/": {
             "name": "OKKONG",
             "link": "https://hash.okkong.com"
+        },
+        "/MiningCity/": {
+            "name": "MiningCity"
         }
     },
     "payout_addresses" : {

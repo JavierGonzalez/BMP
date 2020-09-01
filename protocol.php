@@ -63,7 +63,7 @@ foreach (BLOCKCHAINS AS $blockchain => $value)
 <br /><br />
 
 <ul>
-    <li>More detailed specification <a href="https://github.com/JavierGonzalez/BMP/blob/master/*bmp/bmp_protocol.php" target="_blank"><b>in code</b></a>.</li>
+    <li>More detailed specification in <a href="https://github.com/JavierGonzalez/BMP/blob/master/*bmp/bmp_protocol.php" target="_blank"><b>code</b></a>.</li>
     <li>In development... Changes will occur.</li>
     <li>BMP <?=BMP_VERSION?></li>
 </ul>

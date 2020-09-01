@@ -6,10 +6,13 @@
     <a href="https://virtualpol.com/BMP_EN.pdf" target="_blank" class="external">Paper</a> · 
     <a href="https://github.com/JavierGonzalez/BMP" target="_blank" class="external">Code</a>
     <br />-->
-    BMP <?=BMP_VERSION?>
+    <a href="mailto:gonzo@virtualpol.com" target="_blank">gonzo@virtualpol.com</a><br />
+    BMP <?=BMP_VERSION?> 
+    <a href="https://github.com/JavierGonzalez/BMP" target="_blank">code</a>
+        
 </div>
 
 <div>
-    "Any needed rules and incentives can be enforced with this consensus mechanism"<br />
+    "Any needed rules and incentives can be enforced with this consensus mechanism."<br />
     <a href="/bitcoin.pdf" target="_blank" style="color:#888;" nowrap>Satoshi Nakamoto</a>
 </div>

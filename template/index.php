@@ -1,7 +1,10 @@
 <?php # BMP — Javier González González
 
 
-$maxsim['template']['title'] = 'BMP'.($maxsim['template']['title']?' | '.$maxsim['template']['title']:'');
+if ($maxsim['template']['title'])
+    $maxsim['template']['title'] = $maxsim['template']['title'].' | BMP';
+else
+    $maxsim['template']['title'] = 'The Bitcoin Mining Parliament (BMP)';
 
 
 $maxsim['template']['autoload']['css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
@@ -18,7 +21,6 @@ $maxsim['template']['autoload']['js'] = array_merge([
     '/lib/trezor-connect-7.js',
     ], (array)$maxsim['template']['autoload']['js']);
 
-
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,10 +29,10 @@ $maxsim['template']['autoload']['js'] = array_merge([
 
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
-<meta name="description" content="<?=$maxsim['template']['title']?>" />
+<meta name="description" content="BMP. The Bitcoin Mining Parliament. A hashpower voting system. Blockchain, on-chain vote, decentralized, open-source. Bitcoin Cash." />
 <meta name="author" content="Javier González González — gonzo@virtualpol.com" />
 
-<link rel="stylesheet" enctype="text/css" href="/lib/bootstrap-4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" enctype="text/css" href="/lib/bootstrap-4.3.1/css/bootstrap.min.css" />
 <?php
 
 foreach ((array)$maxsim['template']['autoload']['css'] AS $file)
