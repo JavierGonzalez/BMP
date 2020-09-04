@@ -144,7 +144,7 @@ body {
 	position:fixed;
 	left:0px;
 	top:0px;
-	width:180px;
+	width:210px;
 }
 #menu-next {
     color:#999;
@@ -161,9 +161,9 @@ body {
 #content_right {
 	background:#EEE;
 	position:absolute;
-	left:180px;
+	left:210px;
 	right:0;
-	top:0px;
+	top:0;
 }
 
 #header {
@@ -203,7 +203,7 @@ body {
 	/*margin:0 0 0 -200px;*/
 	padding:18px;
 	border-top:1px solid #CCC;
-	box-shadow:inset 0px 10px 20px #EEE;
+	box-shadow:inset 0px 15px 10px #EEE;
 	background:#F9F9F9;
 }
 #footer-left {

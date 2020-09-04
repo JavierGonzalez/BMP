@@ -117,7 +117,6 @@ Check progress in: /stats
 * IRC-like classic attacks in chat.
 * Formal specification.
 * Automatic testing.
-* Logo.
 * Absolute power corrupts absolutely.
 
 ## More Information

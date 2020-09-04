@@ -4,7 +4,7 @@
 if ($maxsim['template']['title'])
     $maxsim['template']['title'] = $maxsim['template']['title'].' | BMP';
 else
-    $maxsim['template']['title'] = 'The Bitcoin Mining Parliament (BMP)';
+    $maxsim['template']['title'] = 'BMP - The Bitcoin Mining Parliament';
 
 
 $maxsim['template']['autoload']['css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';

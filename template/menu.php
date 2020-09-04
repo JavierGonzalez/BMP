@@ -8,8 +8,11 @@ function menu_active($url) {
 
 ?>
 
-
-<a href="/" style="font-size:40px;margin-left:45px;">BMP</a>
+<div style="background:#eee;">
+    <a href="/" title="BMP - The Bitcoin Mining Parliament">
+        <img src="/static/logos/main_200.png" alt="BMP - The Bitcoin Mining Parliament" style="width:200px;height:200px;margin:5px;" />
+    </a>
+</div>
 
 
 <ul class="menu vertical">

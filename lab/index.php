@@ -3,6 +3,8 @@
 
 
 
+exit;
+
 
 __($passwords['dev']);
 
