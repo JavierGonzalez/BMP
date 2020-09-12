@@ -2,10 +2,10 @@
 
 
 function sql_connect($server_sql=false) {
-    global $__sql, $passwords;
+    global $__sql;
 
     if (!$server_sql)
-        $server_sql = $passwords['sql'];
+        $server_sql = passwords['sql'];
 
 	$p = parse_url($server_sql);
 	

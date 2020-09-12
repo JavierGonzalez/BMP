@@ -10,7 +10,7 @@ function menu_active($url) {
 
 <div style="background:#eee;">
     <a href="/" title="BMP - The Bitcoin Mining Parliament">
-        <img src="/static/logos/main_200.png" alt="BMP - The Bitcoin Mining Parliament" style="width:200px;height:200px;margin:5px;" />
+        <img src="/static/logos/main.svg" width="200" height="200" alt="BMP - The Bitcoin Mining Parliament" style="margin:5px;" />
     </a>
 </div>
 
@@ -74,7 +74,7 @@ function menu_active($url) {
 </div>
 
 
-<div style="position:fixed;bottom:5px;margin:10px;color:grey;">
+<div style="position:fixed;left:5px;bottom:5px;margin:10px;color:grey;">
     <?=implode('<br />', profiler($maxsim['debug']['crono']))?>
 </div>
 
