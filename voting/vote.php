@@ -1,6 +1,6 @@
 <?php # BMP — Javier González González
 
-$txid = e($_GET[0]);
+$txid = e($_GET[1]);
 
 $voting = action_voting($txid, $_GET['blockchain']);
 
