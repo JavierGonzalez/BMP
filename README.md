@@ -119,6 +119,69 @@ Check progress in: /stats
 * Automatic testing.
 * Absolute power corrupts absolutely.
 
+
+
+## FAQ
+
+#### What is the intention behind the BMP?
+
+- To extend Nakamoto Consensus in pre-consensus phase. 
+- To discover Nakamoto Consensus more precisely, not just via block signals but also via chat and polling.
+- To facilitate coordination of Nakamoto Consensus.
+- To empower miners to realize the Bitcoin whitepaper vision for global adoption and a freer world.
+
+#### How does the BMP work?
+
+The BMP is a protocol, an on-chain system and a web interface. It listens to Bitcoin blocks to calculate the exact proportional hashpower of each BCH address, according to the coinbase signal. The actions work like a decentralized modern social network (like [memo.cash](https://memo.cash)), and permit miners to chat and vote in polls.
+
+#### How are non-BCH SHA256 miners excluded?
+
+BMP activity is easily filtered by blockchain or connected to BCH blockchain only. Further, the exact proportional hashpower of a BMP user is calculated from the last 4,032 blocks — the preceding 28 days. Therefore, miners must demonstrate skin in the game before participating in the BMP.
+
+#### Is the BMP pre-consensus process binding?
+
+Today BMP extends Nakamoto Consensus in a pre-consensus phase. The BMP permits miners to coordinate their actions (Nakamoto Consensus) with a perfect signal-to-noise ratio. The BMP provides a communication channel that did not previously exist. In this way, it adds enormous value. 
+
+In the future, the BMP protocol can be implemented in the nodes, for example, to execute the setting of pre-defined parameters in the consensus phase.
+
+#### How is this any different from a miner issuing a public statement?
+
+There are many differences, including the following
+
+- With the BMP, you can verify "beyond all doubt" the amount of hashpower associated with each action.
+- All BMP actions are signed on-chain "forever".
+- The BMP allows miners to talk and vote with hashpower with the comfort and depth of a modern social network, including via live chat and vote polling.
+- The BMP allows all miners to participate, even the smallest ones. Not just pools.
+- The BMP also allows the delegation of an arbitrary percentages of hashpower to any BCH address.
+
+These are all significant innovations introduced by the BMP for the first time that can make a difference.
+
+#### What is the root problem the BMP is trying to solve?
+
+The root problem is mostly a political one: a group of humans have to agree beforehand, and then act together, without the existence of a central authority.
+
+It is a political problem and the solution initially can only be through dialogue and diplomacy.
+
+Pre-consensus exists before consensus. It happens first. Only when pre-consensus exists, can consensus take place.
+
+#### What is delegation and how does that add value?
+
+There are actions that allow a percentage of your own hashpower to be assigned to a different address for use in the BMP chat and voting functions. The BMP respects this voluntary decision of the miner with accuracy. This is possible for the first time thanks to the BMP.
+
+
+#### How does this compare to a foundation?
+
+The BMP can be considered a "shareholder meeting” or a foundation. But it will be an on-chain foundation and, therefore, indestructible and stable in the long-term.
+
+Foundations instantiated by permission of nation-states are subject to national laws, legal processes and human politicking. They can be legally corrupted. But the BMP only recognizes proof-of-work. The BMP is as resistant to the interference of legacy middlemen, such as nation-states, as the Bitcoin Cash blockchain itself.
+
+
+#### How can I as a non-miner signal support for the BMP and encourage miners to use it?
+
+Inform yourself by reading the information below. Share this information widely. Encourage miners to participate.
+
+
+
 ## More Information
 - [Why Bitcoin Cash Needs the BMP?](https://read.cash/@JavierGonzalez/why-bitcoin-cash-need-the-bmp-1a6ab975)
 - [为什么比特币现金需要BMP系统?](https://read.cash/@JavierGonzalez/bmp-6bc8ea63)
