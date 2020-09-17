@@ -51,9 +51,11 @@ function action_voting($txid, $blockchain=false) {
 
     foreach ((array)$voting['votes'] AS $miner => $vote) {
         if (!$blockchain OR $blockchain==$vote['blockchain']) {
-            $voting['options'][$vote['vote']]['votes']++;
             
-            if ($vote['voting_validity']==='1')
+            if ($vote['hashpower']>0)
+                $voting['options'][$vote['vote']]['votes']++;
+            
+            if ($vote['hashpower']>0 AND $vote['voting_validity']==='1')
                 $voting['validity_hashpower'] += $vote['hashpower'];
             
             $voting['options'][$vote['vote']]['power']      += round(($vote['hashpower']*100)/$total_hashpower, POWER_PRECISION);
