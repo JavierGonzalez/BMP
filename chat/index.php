@@ -28,9 +28,9 @@ $maxsim['template']['tabs'] = [
 -->
 
 
-<div id="vpc_fondo">
+<div id="vpc_f">
 <div id="vpc">
-<div style="margin-top:600px;color:#666;">
+<div style="margin-top:600px;color:#666;font-size:16px;">
 
 <table id="chat_msg">
 <tr>
