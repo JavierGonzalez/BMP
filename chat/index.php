@@ -32,7 +32,7 @@ $maxsim['template']['tabs'] = [
 <div id="vpc">
 <div style="margin-top:600px;color:#666;font-size:16px;">
 
-<table id="chat_msg">
+<table id="chat_msg" style="display:none;">
 <tr>
     <th>Height</th>
     <th>Time</th>

@@ -12,6 +12,7 @@ window.onload = function(){
 	scroll_down();
 	refresh = setTimeout(chat_query_ajax, chat_delay); 
 	chat_query_ajax();
+    $('#chat_msg').show();
 }
 
 
