@@ -4,11 +4,11 @@ $maxsim['output'] = 'json';
 
 function miner_utxo_find($utxo) {
     $tx = rpc_get_transaction($utxo['transactionHash']);
-            
+
     $utxo['address'] = address_normalice($tx['vout'][$utxo['index']]['scriptPubKey']['addresses'][0]);
     $utxo['address_cash'] = $tx['vout'][$utxo['index']]['scriptPubKey']['addresses'][0];
 
-    if ($tx AND $utxo['address'])
+    if ($tx AND $utxo['address'] AND $tx['vout'][$utxo['index']]['value']>0.001)
         if (sql("SELECT address FROM miners WHERE address = '".e($utxo['address'])."' LIMIT 1"))
             return $utxo;
 
