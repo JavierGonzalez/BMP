@@ -646,6 +646,12 @@
         },
         "/MiningCity/": {
             "name": "MiningCity"
+        },
+        "/MY7A/": {
+            "name": "MY7A"
+        },
+        "/Bejn/": {
+            "name": "Bejn"
         }
     },
     "payout_addresses" : {
