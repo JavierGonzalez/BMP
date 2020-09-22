@@ -13,7 +13,7 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 The [Bitcoin Mining Parliament](https://bmp.virtualpol.com) (BMP) is a protocol and hashpower voting system, decentralized, on-chain, open-source, verifiable, easy to use, simple, extensible, voluntary, resistant to outside interference and neutral. 
 
-The BMP takes no sides in internal Bitcoin Cash disagreements. The BMP is a neutral protocol, non-political, that works with on-chain data. It is as secure as the Bitcoin Cash blockchain.
+The BMP takes no sides in internal Bitcoin Cash disagreements. The BMP is a neutral protocol that works with on-chain data. It is as secure as the Bitcoin Cash blockchain.
 
 The BMP is an on-chain Bitcoin Cash governance protocol that enables miners to coordinate their actions, and thus bring greater certainty to the BCH ecosystem. Miners, and any delegated agents, can talk and vote with their hashpower, simply extending the [Nakamoto Consensus](https://bmp.virtualpol.com/bitcoin.pdf) in a pre-consensus phase. 
 
@@ -27,7 +27,7 @@ The BMP empowers the miners of the last 28 days of BCH blocks to make themselves
 - Voting (multiple points/options, rectifiable votes, filter by blockchain, comments).
 - BMP can calculate the exact hashpower of each individual miner (not just pools).
 
-BMP is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, connected to a one or more Bitcoin clients (via RPC) to read blocks and transactions. Blockchain data is processed with [this PHP code](https://github.com/JavierGonzalez/BMP/blob/master/*bmp/bmp.php) in three SQL cache tables: [Blocks](https://bmp.virtualpol.com/info/blocks), [Miners](https://bmp.virtualpol.com/info/miners) and [Actions](https://bmp.virtualpol.com/info/actions).
+BMP is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, connected to a one or more Bitcoin clients (via RPC) to read blocks and transactions. Blockchain data is processed with [this PHP code](https://github.com/JavierGonzalez/BMP/blob/master/+bmp/bmp.php) in three SQL cache tables: [Blocks](https://bmp.virtualpol.com/info/blocks), [Miners](https://bmp.virtualpol.com/info/miners) and [Actions](https://bmp.virtualpol.com/info/actions).
 
 Actions are stored in Bitcoin Cash (BCH) because it is fast, cheap and stable.
 
@@ -93,7 +93,7 @@ With the BMP, miners can delegate arbitrary percentages of hashpower to other pe
 
 1. Put the BMP code in the `www` httpd public directory.
 2. Execute `scheme.sql` in a new MySQL database.
-3. Re-naming `*passwords.ini.template` in to `*passwords.ini`.
+3. Re-naming `+passwords.ini.template` in to `+passwords.ini`.
 4. Configure RPC and SQL access.
 5. Wait until the Bitcoin clients are up-to-date.
 6. Set a `crontab` every minute executing: `curl https://bmp.your-domain.com/update`
