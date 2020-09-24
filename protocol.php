@@ -48,7 +48,7 @@ foreach (BLOCKCHAINS AS $blockchain => $value)
 <h1>BMP Protocol</h1>
 
 <ul>
-    <li>Power percentage is calculated with the last <?=num(BLOCK_WINDOW)?> blocks of BTC, BCH and BSV.</li>
+    <li>Hashpower percentage is calculated with the last <?=num(BLOCK_WINDOW)?> blocks.</li>
     <li>Miners power is calculated proportionally with coinbase output addresses.</li>
     <li>Actions (transactions) without hashpower are ignored.</li>
     <li>Miners power changes with each block.</li>
@@ -63,7 +63,7 @@ foreach (BLOCKCHAINS AS $blockchain => $value)
 <br /><br />
 
 <ul>
-    <li>More detailed specification in <a href="https://github.com/JavierGonzalez/BMP/blob/master/*bmp/bmp_protocol.php" target="_blank"><b>code</b></a>.</li>
+    <li>More detailed specification in <a href="https://github.com/JavierGonzalez/BMP/blob/master/+bmp/bmp_protocol.php" target="_blank"><b>code</b></a>.</li>
     <li>In development... Changes will occur.</li>
     <li>BMP <?=BMP_VERSION?></li>
 </ul>
