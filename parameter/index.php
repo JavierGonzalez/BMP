@@ -3,7 +3,7 @@
 $maxsim['template']['title'] = 'Miner parameter';
 
 
-$maxsim['template']['autoload']['js'][]  = '/parameter/miner.js';
+$maxsim['template']['autoload']['js'][]  = 'parameter/miner.js';
 
 
 $maxsim['template']['tabs'] = [

@@ -7,18 +7,18 @@ else
     $maxsim['template']['title'] = 'BMP - The Bitcoin Mining Parliament';
 
 
-$maxsim['template']['autoload']['css'][] = '/lib/bootstrap-4.3.1/css/bootstrap.min.css';
-$maxsim['template']['autoload']['css'][] = '/template/style.css';
+$maxsim['template']['autoload']['css'][] = 'lib/bootstrap-4.3.1/css/bootstrap.min.css';
+$maxsim['template']['autoload']['css'][] = 'template/style.css';
 
 $maxsim['template']['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";'."\n".
     'url_explorer_tx = "'.URL_EXPLORER_TX.'";'."\n";
 
 $maxsim['template']['autoload']['js'] = array_merge([
-    '/lib/jquery-3.4.1.min.js',
-    '/lib/bootstrap-4.3.1/js/bootstrap.min.js',
-    '/bmp.js',
-    '/bmp_trezor.js',
-    '/lib/trezor-connect-7.js',
+    'lib/jquery-3.4.1.min.js',
+    'lib/bootstrap-4.3.1/js/bootstrap.min.js',
+    'bmp.js',
+    'bmp_trezor.js',
+    'lib/trezor-connect-7.js',
     ], (array)$maxsim['template']['autoload']['js']);
 
 ?><!DOCTYPE html>
@@ -36,7 +36,7 @@ $maxsim['template']['autoload']['js'] = array_merge([
 <?php
 
 foreach ((array)$maxsim['template']['autoload']['css'] AS $file)
-	echo '<link rel="stylesheet" enctype="text/css" href="'.$file.'" media="all" />'."\n";
+	echo '<link rel="stylesheet" enctype="text/css" href="/'.$file.'" media="all" />'."\n";
 
 echo '
     <style type="text/css">
@@ -100,7 +100,7 @@ foreach ((array)$maxsim['template']['js_array'] AS $key => $value)
 
 <?php
 foreach ($maxsim['template']['autoload']['js'] AS $file)
-	echo '<script type="text/javascript" enctype="application/javascript" src="'.$file.'"></script>'."\n";
+	echo '<script type="text/javascript" enctype="application/javascript" src="/'.$file.'"></script>'."\n";
 ?>
 
 <script type="text/javascript">

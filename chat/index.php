@@ -1,12 +1,9 @@
 <?php # BMP — Javier González González
 
-// $maxsim['template']['title'] = 'Chat';
 
-
-$maxsim['template']['autoload']['css'][] = '/chat/chat.css';
-
-$maxsim['template']['autoload']['js'][]  = '/chat/chat.js';
-$maxsim['template']['autoload']['js'][]  = '/lib/date.format.js';
+$maxsim['template']['autoload']['css'][] = 'chat/chat.css';
+$maxsim['template']['autoload']['js'][]  = 'chat/chat.js';
+$maxsim['template']['autoload']['js'][]  = 'lib/date.format.js';
 
 
 $maxsim['template']['tabs'] = [
