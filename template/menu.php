@@ -68,6 +68,7 @@ function menu_active($url) {
     <p>
         <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >
         <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
+        <br />
         <a href="/README">How it works?</a><br />
         <a href="/README/CN">它是如何工作的？</a><br />
     </p>
