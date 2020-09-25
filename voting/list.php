@@ -32,7 +32,7 @@ $config = [
 <h1>Voting</h1>
 
 
-<div style="font-size:20px;line-height:30px;">
+<div style="font-size:18px;line-height:25px;">
 
 <?php
 echo html_table($table['open'],  $config);

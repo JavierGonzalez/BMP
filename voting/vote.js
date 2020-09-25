@@ -3,11 +3,11 @@
 
 
 $('#voting_vote, #rv_1, #rv_0').change(function() {
-	$('#op_return_preview').text(bmp_op_return_vote());
+	$('#op_return_preview').text('0x' + bmp_op_return_vote());
 });
 
 $('#voting_comment').keyup(function() {
-	$('#op_return_preview').text(bmp_op_return_vote());
+	$('#op_return_preview').text('0x' + bmp_op_return_vote());
 });
 
 

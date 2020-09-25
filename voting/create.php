@@ -32,7 +32,7 @@ $maxsim['template']['autoload']['js'][]  = 'voting/create.js';
             <option value="00">Explorative</option>
             <option value="01">Decisive in BMP</option>
             <option value="02">Decisive 51%</option>
-            <option value="03">Decisive 66%</option>
+            <option value="03">Decisive 2/3</option>
         </select>
 
     </td>

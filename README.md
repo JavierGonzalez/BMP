@@ -33,7 +33,7 @@ Actions are stored in Bitcoin Cash (BCH) because it is fast, cheap and stable.
 
 Actions without hashpower are ignored. Miners power (% of hashpower) changes with each block. Actions power never changes.
 
-Actions are composed in JavaScript and broadcast with [Trezor Connect](https://github.com/trezor/connect/blob/develop/docs/methods/composeTransaction.md). More hardware wallets will be available in the future.
+Actions are composed in JavaScript and broadcast with `Trezor Connect`. More hardware wallets will be available in the future.
 
 BMP does not store private keys and the local database only contains public information.
 
@@ -59,7 +59,7 @@ If you do not have a Trezor hardware wallet, you can create manual transactions.
 * OP_RETURN prefix: `0x9d`.
 * OP_RETURN respecting [BMP Protocol](https://bmp.virtualpol.com/protocol).
 
-The BMP facilitates the OP_RETURN `hex` via web.
+The BMP facilitates the `OP_RETURN hex` via web.
 
 Here are some examples of manual actions:
 - [chat](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fca6622d117e4d6b4149a3855de780295e852e471504b937c14)
@@ -67,14 +67,14 @@ Here are some examples of manual actions:
 
 ### Signal and hashpower delegation
 
-1. **power_by_value** 
+1. **`power_by_value`** 
 By default, the BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all Bitcoin blocks. With P2Pool, even the smallest miner can participate right now.
 
-2. **power_by_opreturn**
+2. **`power_by_opreturn`**
 In order not to interfere with mining operations, this second method allows hashpower coinbase signal in one or multiple addresses with coinbase OP_RETURN output. This ignores `value`, and allows full hashpower delegation, with simplicity.
 
 
-3. **power_by_action**
+3. **`power_by_action`**
 In development. For total flexibility, BMP will allow delegation of a % of hashpower to one or many addresses with a non-coinbase BMP protocol action. In the same way, it will allow you to modify or revoke that hashpower delegation with immediate effect.
 
 With the BMP, miners can delegate arbitrary percentages of hashpower to other people to participate. In this way, miners can individually and revocably designate representatives in a fluid and accountable manner.
@@ -98,7 +98,7 @@ With the BMP, miners can delegate arbitrary percentages of hashpower to other pe
 5. Wait until the Bitcoin clients are up-to-date.
 6. Set a `crontab` every minute executing: `curl https://bmp.your-domain.com/update`
 7. Wait for the BMP synchronization (~24h). 
-Check progress in: /stats
+Check progress in: `/stats`
 
 #### Tested Environments
 
@@ -197,6 +197,6 @@ Inform yourself by reading the information below. Share this information widely.
 - [https://read.cash/@AskTheBMP](https://read.cash/@AskTheBMP)
 
 
-[Javier González González](https://twitter.com/JavierGonzalez)
-gonzo@virtualpol.com
+[Javier González González](https://twitter.com/JavierGonzalez)<br />
+gonzo@virtualpol.com<br />
 BMP Architect

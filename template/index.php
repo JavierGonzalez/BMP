@@ -100,7 +100,7 @@ foreach ((array)$maxsim['template']['js_array'] AS $key => $value)
 
 <?php
 foreach ($maxsim['template']['autoload']['js'] AS $file)
-	echo '<script type="text/javascript" enctype="application/javascript" src="/'.$file.'"></script>'."\n";
+	echo '<script type="text/javascript" enctype="application/javascript" type=module src="/'.$file.'"></script>'."\n";
 ?>
 
 <script type="text/javascript">
