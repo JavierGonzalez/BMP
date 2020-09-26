@@ -34,11 +34,6 @@ if ($_GET[1]=='README') {
 		
 		';
 
-	if ($_GET[2]=='CN')
-		echo '<a href="/README">English</a> | 中文';
-	else
-		echo 'English | <a href="/README/CN">中文</a>';
-
 	echo '<div id="readme_md">';
 	echo file_get_contents('README'.($_GET[2]=='CN'?'_CN':'').'.md');
 	echo '</div>';

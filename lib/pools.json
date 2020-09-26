@@ -652,6 +652,13 @@
         },
         "/Bejn/": {
             "name": "Bejn"
+        },
+        "Hath": {
+            "name": "Hath"
+        },
+        "/Minerium.com/": {
+            "name": "Minerium.com",
+            "link": "https://minerium.com"
         }
     },
     "payout_addresses" : {
