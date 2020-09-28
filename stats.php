@@ -11,6 +11,12 @@ echo html_h($maxsim['template']['title'], 1);
 if ($_GET['coinbase_hex'])
     $sql_where[] = "coinbase LIKE '%".e($_GET['coinbase_hex'])."%'";
 
+if ($_GET['time'])
+    $sql_where[] = "time >= '".e($_GET['time'])."'";
+
+if (is_numeric($_GET['days']))
+    $sql_where[] = "time >= '".date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s').' - '.e($_GET['days']).' days'))."'";
+
 
 foreach (BLOCKCHAINS AS $blockchain => $config) {
 
@@ -132,6 +138,10 @@ foreach (BLOCKCHAINS AS $blockchain => $value) {
 
 <br /><br />
 
-* BMP protocol is not based on "pools.json" or "coinbase text" to calculate the miners hashpower. This information is for aditional validation and research purposes only.
+<ul>
+<li>BMP protocol is not based on "pools.json" or "coinbase text" to calculate the miners hashpower.</li>
+<li>This information is for aditional validation and research purposes only.</li>
+<li>Last <?=BLOCK_WINDOW?> blocks avg.</li>
+</ul>
 
 <br />
