@@ -1,11 +1,10 @@
 <?php # BMP — Javier González González
 
 
-if ($maxsim['template']['title'])
-    $maxsim['template']['title'] = $maxsim['template']['title'].' | BMP';
-else
-    $maxsim['template']['title'] = 'BMP - The Bitcoin Mining Parliament';
+if (!$maxsim['template']['title'])
+    $maxsim['template']['title'] = 'The Bitcoin Mining Parliament';
 
+$maxsim['template']['title'] .= ' - BMP';
 
 $maxsim['template']['autoload']['css'][] = 'lib/bootstrap-4.3.1/css/bootstrap.min.css';
 $maxsim['template']['autoload']['css'][] = 'template/style.css';
@@ -16,8 +15,6 @@ $maxsim['template']['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix
 $maxsim['template']['autoload']['js'] = array_merge([
     'lib/jquery-3.4.1.min.js',
     'lib/bootstrap-4.3.1/js/bootstrap.min.js',
-    'bmp.js',
-    'bmp_trezor.js',
     'lib/trezor-connect-7.js',
     ], (array)$maxsim['template']['autoload']['js']);
 

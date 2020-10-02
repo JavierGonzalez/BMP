@@ -39,5 +39,5 @@ if ($_GET[1]=='README') {
 	echo '</div>';
 
 } else if (!$_GET[1]) {
-	include('chat/index.php'); 
+	$maxsim['redirect'] = '/chat'; 
 }

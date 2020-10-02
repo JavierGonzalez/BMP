@@ -1,8 +1,7 @@
 <?php # BMP — Javier González González
 
-$maxsim['output'] = 'json';
 
-if ($_GET[1]=='refresh' AND $_GET['last']) {
+if ($_GET['last']) {
 
 	$echo['msg'] = sql("SELECT id, txid, height, time, address, nick, action, 
         p1, p2, p3, p4, ROUND(power, ".POWER_PRECISION.") AS power, hashpower

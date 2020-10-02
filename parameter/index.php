@@ -3,9 +3,6 @@
 $maxsim['template']['title'] = 'Miner parameter';
 
 
-$maxsim['template']['autoload']['js'][]  = 'parameter/miner.js';
-
-
 $maxsim['template']['tabs'] = [
     '/info/blocks'   => _('Blocks'),
     '/info/miners'   => _('Miners'),
