@@ -29,6 +29,9 @@ $maxsim['template']['autoload']['js'] = array_merge([
 <meta name="description" content="BMP. The Bitcoin Mining Parliament. A hashpower voting system. Blockchain, on-chain vote, decentralized, open-source. Bitcoin Cash." />
 <meta name="author" content="Javier González González — gonzo@virtualpol.com" />
 
+<link rel="shortcut icon" href="/template/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="/template/favicon.ico" type="image/x-icon" />
+
 <link rel="stylesheet" enctype="text/css" href="/lib/bootstrap-4.3.1/css/bootstrap.min.css" />
 <?php
 
