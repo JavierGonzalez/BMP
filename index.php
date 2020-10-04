@@ -3,7 +3,7 @@
 
 if ($_GET[1]=='README') {
 
-	$maxsim['template']['autoload']['js'][] = 'lib/showdown-2.0.0.min.js';
+	$maxsim['autoload'][] = 'lib/showdown-2.0.0.min.js';
 
 	$maxsim['template']['js'] .= '
 		$(document).ready(function() {

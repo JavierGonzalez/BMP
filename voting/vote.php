@@ -10,7 +10,7 @@ if (!$voting)
 
 $maxsim['template']['title'] = 'Voting: '.$voting['question'];
 
-$maxsim['template']['autoload']['js'][]  = 'voting/vote.js';
+$maxsim['autoload'][]  = 'voting/vote.js';
 
 
 

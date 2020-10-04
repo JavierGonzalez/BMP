@@ -6,17 +6,19 @@ if (!$maxsim['template']['title'])
 
 $maxsim['template']['title'] .= ' - BMP';
 
-$maxsim['template']['autoload']['css'][] = 'lib/bootstrap-4.3.1/css/bootstrap.min.css';
-$maxsim['template']['autoload']['css'][] = 'template/style.css';
+$maxsim['autoload'][] = 'lib/bootstrap-4.3.1/css/bootstrap.min.css';
+$maxsim['autoload'][] = 'template/style.css';
+
+$maxsim['autoload'] = array_merge([
+    'lib/jquery-3.4.1.min.js',
+    'lib/bootstrap-4.3.1/js/bootstrap.min.js',
+    'lib/trezor-connect-7.js',
+    ], (array)$maxsim['autoload']);
+    
 
 $maxsim['template']['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix'].'";'."\n".
     'url_explorer_tx = "'.URL_EXPLORER_TX.'";'."\n";
 
-$maxsim['template']['autoload']['js'] = array_merge([
-    'lib/jquery-3.4.1.min.js',
-    'lib/bootstrap-4.3.1/js/bootstrap.min.js',
-    'lib/trezor-connect-7.js',
-    ], (array)$maxsim['template']['autoload']['js']);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -32,16 +34,16 @@ $maxsim['template']['autoload']['js'] = array_merge([
 <link rel="shortcut icon" href="/template/favicon.ico" type="image/x-icon" />
 <link rel="icon" href="/template/favicon.ico" type="image/x-icon" />
 
-<link rel="stylesheet" enctype="text/css" href="/lib/bootstrap-4.3.1/css/bootstrap.min.css" />
 <?php
 
-foreach ((array)$maxsim['template']['autoload']['css'] AS $file)
-	echo '<link rel="stylesheet" enctype="text/css" href="/'.$file.'" media="all" />'."\n";
+foreach ((array)$maxsim['autoload'] AS $file)
+    if (substr($file,-4)==='.css')
+	    echo '<link rel="stylesheet" enctype="text/css" href="/'.$file.'" media="all" />'."\n";
 
 echo '
-    <style type="text/css">
-    '.$maxsim['template']['css'].'
-    </style>';
+<style type="text/css">
+'.$maxsim['template']['css'].'
+</style>';
 
 ?>
 
@@ -99,8 +101,9 @@ foreach ((array)$maxsim['template']['js_array'] AS $key => $value)
 
 
 <?php
-foreach ($maxsim['template']['autoload']['js'] AS $file)
-	echo '<script type="text/javascript" enctype="application/javascript" type=module src="/'.$file.'"></script>'."\n";
+foreach ((array)$maxsim['autoload'] AS $file)
+    if (substr($file,-3)==='.js')
+	    echo '<script type="text/javascript" enctype="application/javascript" type=module src="/'.$file.'"></script>'."\n";
 ?>
 
 <script type="text/javascript">

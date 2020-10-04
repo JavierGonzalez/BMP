@@ -1,7 +1,7 @@
 <?php # BMP — Javier González González
 
 
-$maxsim['template']['autoload']['js'][]  = 'lib/date.format.js';
+$maxsim['autoload'][]  = 'lib/date.format.js';
 
 
 $maxsim['template']['tabs'] = [

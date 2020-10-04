@@ -5,7 +5,7 @@ $maxsim['template']['title'] = 'Voting create';
 
 $maxsim['template']['css'] .= '#voting_create td { padding:10px; }';
 
-$maxsim['template']['autoload']['js'][]  = 'voting/create.js';
+$maxsim['autoload'][]  = 'voting/create.js';
 
 ?>
 

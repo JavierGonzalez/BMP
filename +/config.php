@@ -40,9 +40,10 @@ define('FEE_PER_BYTE', 0.00002); // Bitcoin/kb
 define('URL_EXPLORER_TX',    'https://blockchair.com/bitcoin-cash/transaction/');
 define('URL_EXPLORER_BLOCK', 'https://blockchair.com/bitcoin-cash/block/');
 
-$maxsim['output'] = 'template';
-
 define('DEV', passwords['dev']);
+
+
+$maxsim['output'] = 'template';
 
 date_default_timezone_set('UTC');
 error_reporting(E_ALL ^ E_NOTICE);
