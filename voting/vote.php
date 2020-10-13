@@ -23,7 +23,7 @@ $maxsim['autoload'][]  = 'voting/vote.js';
 
 
 <fieldset>
-<legend style="font-size:22px;font-weight:bold;"><?=$voting['question']?></legend>
+<legend style="font-size:20px;font-weight:bold;"><?=$voting['question']?></legend>
 
 
 <ol>
@@ -78,9 +78,9 @@ foreach ((array)$voting['options'] AS $option)
 echo html_table($print_options, $config).'<br />';
 
 
-if ($voting['status']=='closed') { // Refact
+if ($voting['status']=='closed' AND $voting['validity']>50) { // Refact
     echo '<legend title="Validity: '.num($voting['validity'],POWER_PRECISION).'%" style="float:right;font-size:14px;margin-bottom:-14px;">';
-    echo ($voting['validity']>50?'This voting is VALID':'');
+    echo 'This voting is VALID';
     echo '</legend>';
 }
 
