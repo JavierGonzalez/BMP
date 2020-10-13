@@ -73,9 +73,9 @@ With the BMP, miners can delegate arbitrary percentages of hashpower to other pe
 
 1. Access a [BMP server](https://bmp.virtualpol.com). For example: `https://BMP.virtualpol.com`
 2. Confirm that your address (legacy format) is included in [/info/miners](https://bmp.virtualpol.com/info/miners).
-3. Plug in your Trezor by USB.
+3. Plug in your [Trezor](http://trezor.io/) by USB.
 4. Click on the yellow `Login` button (top right) and accept.
-5. A popup will open in the Trezor web infrastructure, accept and select the account from your address. If the popup does not open disable ad-blocker or similar programs that can prevent pop-ups.
+5. A popup will open in the Trezor web infrastructure. Accept and select the account from your address. If the popup does not open, then disable your ad blocker or similar programs that can prevent pop-ups.
 6. Then, the BMP will show your logged-in address (top right).
 7. You are ready to participate! You can write in the chat, create a vote or vote.
 
@@ -83,8 +83,8 @@ With the BMP, miners can delegate arbitrary percentages of hashpower to other pe
 ### 2) How to create actions manually
 
 * Each miner action is a standard transaction in BCH.
-* BMP actions uses <a href="https://memo.cash" target="_blank">Memo.cash</a> style.
-* The miner’s address must be in the coinbase VOUT in one the last `4,032 blocks` of the coin you are mining and wish to participate in, be it BTC, BCH or BSV.
+* BMP actions use the <a href="https://memo.cash" target="_blank">Memo.cash</a> style.
+* The miner’s address must be in the coinbase VOUT in one of the last `4,032 blocks` of the coin you are mining and wish to participate in, be it BTC, BCH or BSV.
 * The miner’s address must be in the TX_PREV VOUT (Any index).
 * The miner’s address must be in VOUT index=0.
 * OP_RETURN payload in VOUT index=1. 
