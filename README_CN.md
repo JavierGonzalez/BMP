@@ -1,4 +1,4 @@
-#比特币挖矿议会（The Bitcoin Mining Parliament，简称为BMP）
+#比特币挖矿议会（简称为BMP）
 
 这是一个开源工具，不需要第三方为使用爱工具负责
 

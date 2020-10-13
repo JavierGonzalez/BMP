@@ -28,7 +28,7 @@ $maxsim['autoload'][]  = 'voting/vote.js';
 
 <ol>
 <?php
-foreach ($voting['points'] AS $point)
+foreach ((array)$voting['points'] AS $point)
     echo '<li style="font-size:16px;margin-bottom:5px;">'.html_link_to_a($point['text']).'</li>';
 ?>
 </ol>
@@ -67,7 +67,7 @@ $config = [
     'hashpower' => ['align' => 'right', 'function' => 'hashpower_humans'],
     ];
 
-foreach ($voting['options'] AS $option)
+foreach ((array)$voting['options'] AS $option)
     $print_options[] = [
         'option'    => $option['option'],
         'votes'     => $option['votes'],
@@ -80,12 +80,7 @@ echo html_table($print_options, $config).'<br />';
 
 if ($voting['status']=='closed') { // Refact
     echo '<legend title="Validity: '.num($voting['validity'],POWER_PRECISION).'%" style="float:right;font-size:14px;margin-bottom:-14px;">';
-function convert($input) {
-   $pattern = '@(http(s)?://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
-   return $output = preg_replace($pattern, '<a href="http$2://$3">$0</a>', $input);
-}
-        echo ($voting['validity']>50?'This voting is VALID':'This voting is not valid');
-
+    echo ($voting['validity']>50?'This voting is VALID':'');
     echo '</legend>';
 }
 
