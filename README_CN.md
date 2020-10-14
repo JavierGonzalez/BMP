@@ -77,54 +77,82 @@ BMP通过web简化了 `OP_RETURN hex`（十六进制）。
 
 使用BMP，挖矿人员可以将任意百分比的哈希算力委托给其他人参与。这样，矿工们可以以更灵活和更负责的方式独自、并且可撤销地指定代表。
 
-###如何部署自己的BMP服务器
+## 如何操作
 
-#### 要求
+### 1)如何使用Trezor硬件钱包参与
 
-* Web服务器(GNU/Linux, Apache, MySQL, PHP)。
-* +1 TB空闲空间和+8 GB RAM。
-* 比特币BCH客户端，带有 `-txindex`。
-* 比特币比特币客户端，带有 `-txindex` 可选。
-* 比特币BSV客户端，带有 `-txindex` 可选。
+1. 访问BMP服务器。例如：`https://BMP.virtualpol.com`
+2. 确认您的地址（遗留格式）包含在/[info/miners](https://bmp.virtualpol.com/info/miners)中。
+3. 用USB连接[Trezor](http://trezor.io/)。
+4. 单击黄色的登录按钮（右上角）并选择同意。
+5. Trezor 网路基础设施中将弹出一个窗口。请点击接受并根据您的地址选择帐户。如果弹窗没有打开，那么可以尝试禁用广告拦截器或类似的程序。
+6. 然后，BMP将显示您的登录地址（右上角）。
+7. 您已经可以参与了！您可以进行聊天，创建一个投票或进行投票。
 
-#### 部署
+### 2)如何手动创建操作
 
-1. 将BMP代码放到 `www` httpd公共目录中。
-2. 在一个新的MySQL数据库中执行`scheme.sql`。
-3. 重新向`+passwords.ini`中命名。
+* 每个矿机操作都是BCH中的一个标准事务。
+* BMP操作使用<a href="https://memo.cash" target="_blank">Memo.cash</a>的风格。
+* 矿机的地址必须在您正在挖矿和希望参与的加密货币（BTC，BCH或者BSV）最后`4032`区块之一的coinbase VOUT。
+* 矿机的地址必须在TX_PREV VOUT（任何索引）中。
+* 矿机的地址必须在VOUT index=0中。
+* OP_RETURN有效负载VOUT index=1。
+* x9d OP_RETURN前缀：`0x9d`。
+* OP_RETURN基于[BMP](https://bmp.virtualpol.com/protocol)协议。BMP 网路促进了`OP_RETURN hex`。
+* 一些操作例子：[聊天](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fca6622d117e4d6b4149a3855de780295e852e471504b937c14)，[投票](https://blockchair.com/bitcoin-cash/transaction/2c4219ce4533759a5886839d03494420e92c5add807c010c4b507b347b3b0e21)。
+
+### 3)如何用P2Pool协调哈希值
+
+有了P2Pool，即使最小的矿工现在也可以参与进来。
+
+这个去中心化的池通过在coinbase事务输出中包含所有参与的矿工的地址来奖励他们。而这些信息就是BMP所需要的，即使是最小的矿工也能参与进来。
+
+1. 通常在P2Pool节点上开始进行挖矿。例如：`stratum+tcp://p2pool.imaginary.cash:9348`
+2. 用户就是您的地址（遗留格式）。
+3. 就这么简单！
+
+当P2Pool生成一个新的区块时，所有BMP服务器将识别并计算与您的地址关联的哈希值，您可以参与其中。它使用`power_by_value` 哈希值信号方法（hashpower signal method.）。
+
+### 4)如何使用`power_by_opreturn`委托哈希值
+
+如果您可以单独创建区块（您是一个矿池或拥有大规模矿机），那么您可以将任意百分比的哈希值委托给一个或多个地址，而不改变值`value`（区块奖励）。这允许在任何复杂的系统中实现[BMP](https://bmp.virtualpol.com/protocol)协议，而不干扰挖矿操作。
+
+举个例子，假设我们想按照以下方式分配块的哈希值:
+
+- 20% 哈希值地址:1AAtD721LQekC6ncHbAp4ScKxSwR7fFeYT
+- 80%的哈希值地址:1AioJWvdeQq8ddzgz4mvywoBjfrqVQsD1s
+
+1. 在区块模板中包含这个十六进制代码，两个OP_RETURN输中，以及coinbase事务:
+	- `0x9d000007d031414174443732314c51656b43366e63486241703453634b78537752376646655954`
+	- `0x9d00001f403141696f4a5776646551713864647a677a346d7679776f426a667271565173443173`
+2. 在新的区块挖出后，检查[/info/ miniers](https://bmp.virtualpol.com/info/miners)并验证地址是否按之前设置的哈希值比例出现。
+- `0x`表示下面的代码是十六进制。
+- `9d`它是[BMP](https://bmp.virtualpol.com/protocol)协议的前缀。第一个OP_RETURN的字节。
+- `00`是`power_by_opreturn` 哈希值信号模式（用于该区块）的标识符。
+- `0007d0`用十进制表示`2000`，表示哈希值的20.00%。
+- `31414174443732314c51656b43366e63486241703453634b78537752376646655954`是地址，采用传统格式，用`bin2hex()`进行编码。
+此功能尚未在主网上进行测试。请写信至gonzo@virtualpol.com或使用Github问题来进一步支持我们的工作。
+
+### 5)如何部署自己的BMP服务器
+
+1. 将BMP代码放到`www` httpd公共目录中。
+2. 在MySQL数据库中执行`scheme.sql`。
+3. 在`+passwords.ini`中重新命名文件`+passwords.ini.template`。
 4. 配置RPC和SQL访问。
-5. 等到比特币客户是最新的。
-6. 每分钟设置一个 `crontab` 执行: `curl https://bmp.your-domain.com/update`
-7. 等待BMP同步(~24h)。检查进度: `/stats`
+5. 等到比特币客户端更新到最新版本。
+6. 每分钟设置一个`crontab`命令： `curl https://bmp.your-domain.com/update`
+7. 等待BMP同步（~16小时）。检查进度：`/stats`
 
-#### 测试环境
+要求:
+•	Web服务器（GNU/Linux, Apache, MySQL, PHP）。
+•	+1 TB空闲空间和+8 GB RAM。
+•	有`txindex`比特币BCH客户端，
+•	有`txindex`比特币BTC客户端，可选。
+•	有`txindex`比特币BSV客户端，可选。
 
-* x86_64 GNU/Linux CentOS 7.8
-* PHP 7.4
-* MariaDB 5.5
-* MySQL 5
-* Firefox 67
-* Chrome 74
-* Bitcoin Unlimited 1.9.0
-* Bitcoin Core 0.20.0
-* Bitcoin SV 1.0.4
-* P2Pool 17.0
-* Trezor Model T(推荐)。
-* Trezor One(部分功能，因为OP_RETURN大小有限)。
+<br  />
 
-###已知问题
-
-* 区块链同步时间。
-* 链上重组更新。
-* 汉语和西班牙语国际化。
-* 更多的硬件钱包支持。
-* 类似IRC的经典聊天攻击。
-* 正式规范。
-* 自动测试。
-* 绝对权力绝对腐败。
-
-
-##常见问题解答
+## 常见问题解答
 
 #### BMP背后的意图是什么?
 
@@ -182,6 +210,32 @@ BMP可以被视为一个“股东大会”或一个基金会。但这将是一�
 #### 我如何作为一个非矿工信号支持BMP并鼓励矿工使用它?
 
 通过阅读下面的信息来提醒自己。广泛分享这些信息。鼓励矿工参与。
+
+#### 测试环境
+
+* x86_64 GNU/Linux CentOS 7.8
+* PHP 7.4
+* MariaDB 5.5
+* MySQL 5
+* Firefox 67
+* Chrome 74
+* Bitcoin Unlimited 1.9.0
+* Bitcoin Core 0.20.0
+* Bitcoin SV 1.0.4
+* P2Pool 17.0
+* Trezor Model T(推荐)。
+* Trezor One(部分功能，因为OP_RETURN大小有限)。
+
+### 已知问题
+
+* 区块链同步时间。
+* 链上重组更新。
+* 汉语和西班牙语国际化。
+* 更多的硬件钱包支持。
+* 类似IRC的经典聊天攻击。
+* 正式规范。
+* 自动测试。
+* 绝对权力绝对腐败。
 
 
 ##更多信息
