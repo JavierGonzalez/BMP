@@ -659,6 +659,16 @@
         "/Minerium.com/": {
             "name": "Minerium.com",
             "link": "https://minerium.com"
+        },
+        "/Bitdeer/": {
+            "name": "BITDEER",
+            "link": "https://www.bitdeer.com/"
+        },
+        "/coingee/": {
+            "name": "coingee"
+        },
+        "bsod.solo": {
+            "name": "bsod.solo"
         }
     },
     "payout_addresses" : {
