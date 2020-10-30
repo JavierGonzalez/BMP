@@ -43,8 +43,7 @@ define('URL_EXPLORER_BLOCK', 'https://blockchair.com/bitcoin-cash/block/');
 define('DEV', passwords['dev']);
 
 
-$maxsim['output'] = 'template';
 
 date_default_timezone_set('UTC');
-error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', 1);
+
+$maxsim['output'] = 'template';
