@@ -9,7 +9,8 @@
             "link": "https://www.multipool.us/dashboard/pool/bch"
         },
         "/SBI Crypto/": {
-            "name": "SBI Crypto"
+            "name": "SBICrypto.com",
+            "link": "http://SBICrypto.com"
         },
         "/coingeek.com/" : {
             "name": "Coingeek",
@@ -24,12 +25,12 @@
             "link": "https://www.rawpool.com/"
         },
         "/Huobi/": {
-            "name": "Huobi.pool",
-            "link": "https://www.poolhb.com/"
+            "name": "Huobi",
+            "link": "https://www.hpt.com/"
         },
         "/HuoBi/": {
-            "name": "Huobi.pool",
-            "link": "https://www.poolhb.com/"
+            "name": "Huobi",
+            "link": "https://www.hpt.com/"
         },
         "/E2M & BTC.TOP/": {
             "name": "WAYI.CN",
@@ -385,15 +386,15 @@
         },
         "/www.okpool.top/": {
             "name": "OKEX",
-            "link": "https://www.okex.com/"
+            "link": "https://www.okex.com/es/pool"
         },
         "/okex.me/": {
             "name": "OKEX",
-            "link": "https://www.okex.com/"
+            "link": "https://www.okex.com/es/pool"
         },
         "www.okex.com/": {
             "name": "OKEX",
-            "link": "https://www.okex.com/"
+            "link": "https://www.okex.com/es/pool"
         },
         "/nodeStratum/": {
             "name": "nodeStratum"
@@ -447,10 +448,11 @@
             "link": "https://bytepool.com/"
         },
         "WarpHash" : {
-            "name": "WarpHash"
+            "name": "WarpHash",
+            "link": "https://warphash.com/"
         },
         "/1THash&58COIN/" : {
-            "name": "1THash&58COIN",
+            "name": "1THash",
             "link": "https://www.1thash.top/"
         },
         "/createdbychinese/" : {
@@ -583,7 +585,7 @@
             "name": "Global/Global"
         },
         "/SBICrypto.com Pool/": {
-            "name": "SBICrypto.com Pool",
+            "name": "SBICrypto.com",
             "link": "http://SBICrypto.com"
         },
         "/Ukrpool.com/": {
@@ -611,11 +613,11 @@
         },
         "Binance": {
             "name": "Binance",
-            "link": "https://www.binance.com/"
+            "link": "https://pool.binance.com/"
         },
         "binance.com": {
             "name": "Binance",
-            "link": "https://www.binance.com/"
+            "link": "https://pool.binance.com/"
         },
         "easy2mine.com/": {
             "name": "easy2mine.com",
@@ -638,7 +640,8 @@
             "name": "24hourpool"
         },
         "Sigmapool": {
-            "name": "Sigmapool"
+            "name": "Sigmapool",
+            "link": "https://sigmapool.com/"
         },
         "/hash.okkong.com/": {
             "name": "OKKONG",
@@ -653,9 +656,6 @@
         "/Bejn/": {
             "name": "Bejn"
         },
-        "Hath": {
-            "name": "Hath"
-        },
         "/Minerium.com/": {
             "name": "Minerium.com",
             "link": "https://minerium.com"
@@ -669,6 +669,15 @@
         },
         "bsod.solo": {
             "name": "bsod.solo"
+        },
+        "/ABC/": {
+            "name": "/ABC/"
+        },
+        "ZULUPooL": {
+            "name": "ZULUPooL"
+        },
+        "Hath": {
+            "name": "Hath"
         }
     },
     "payout_addresses" : {
@@ -734,7 +743,7 @@
         },
         "3HuobiNg2wHjdPU2mQczL9on8WF7hZmaGd" : {
             "name": "Huobi",
-            "link": "http://www.huobi.com/"
+            "link": "https://www.hpt.com/"
         },
         "1ALA5v7h49QT7WYLcRsxcXqXUqEqaWmkvw" : {
             "name": "CloudHashing",
