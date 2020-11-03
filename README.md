@@ -11,7 +11,7 @@ THIS IS AN OPEN-SOURCE TOOL WITH NO RESPONSIBILITY FOR ACTIONS TAKEN BY THIRD PA
 
 ## Why the Bitcoin Mining Parliament?
 
-The [Bitcoin Mining Parliament](https://bmp.virtualpol.com) (BMP) is a protocol and hashpower voting system, decentralized, on-chain, open-source, verifiable, easy to use, simple, extensible, voluntary, resistant to outside interference and neutral. 
+The [Bitcoin Mining Parliament](https://bmp.virtualpol.com) (BMP) is a protocol and hashpower voting system, decentralized, on-chain, open-source, verifiable, easy to use, simple, extensible, voluntary, neutral and resistant to outside interference. 
 
 The BMP takes no sides in internal Bitcoin Cash disagreements. The BMP is a neutral protocol that works with on-chain data. It is as secure as the Bitcoin Cash blockchain.
 
@@ -199,8 +199,6 @@ There are actions that allow a percentage of your own hashpower to be assigned t
 ### 8) How does this compare to a foundation?
 
 The BMP can be considered a "shareholder meeting” or a foundation. But it will be an on-chain foundation and, therefore, indestructible and stable in the long-term.
-
-Foundations instantiated by permission of nation-states are subject to national laws, legal processes and human politicking. They can be legally corrupted. But the BMP only recognizes proof-of-work. The BMP is as resistant to the interference of legacy middlemen, such as nation-states, as the Bitcoin Cash blockchain itself.
 
 
 ### 9) How can I as a non-miner signal support for the BMP and encourage miners to use it?

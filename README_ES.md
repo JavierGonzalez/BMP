@@ -1,6 +1,6 @@
 # El Parlamento Minero de Bitcoin
 
-ESTO ES UNA HERRAMIENTA DE CODIGO ABIERTO SIN RESPONSABILIDAD SOBRE ACCIONES DE TERCEROS
+ESTA ES UNA HERRAMIENTA DE CÓDIGO ABIERTO SIN RESPONSABILIDAD POR LAS ACCIONES TOMADAS POR TERCEROS
 
 
 <p align="center">
@@ -9,98 +9,221 @@ ESTO ES UNA HERRAMIENTA DE CODIGO ABIERTO SIN RESPONSABILIDAD SOBRE ACCIONES DE 
 
 
 
-## Porqué el Parlamento Minero de Bitcoin?
-
-The [Bitcoin Mining Parliament](https://bmp.virtualpol.com) (BMP) is a protocol and hashpower voting system, decentralized, on-chain, open-source, verifiable, easy to use, simple, extensible, voluntary, resistant to outside interference and neutral. 
-
-The BMP takes no sides in internal Bitcoin Cash disagreements. The BMP is a neutral protocol that works with on-chain data. It is as secure as the Bitcoin Cash blockchain.
-
-The BMP is an on-chain Bitcoin Cash governance protocol that enables miners to coordinate their actions, and thus bring greater certainty to the BCH ecosystem. Miners, and any delegated agents, can talk and vote with their hashpower, simply extending the [Nakamoto Consensus](https://bmp.virtualpol.com/bitcoin.pdf) in a pre-consensus phase. 
-
-The BMP empowers the miners of the last 28 days of BCH blocks to make themselves heard, with a perfect signal to noise ratio. The BMP can serve as an important tool for Bitcoin Cash governance, reducing forking, infighting and disputes.
-
-## BMP Features
-- Decentralized, on-chain, verifiable.
-- Hardware-wallet authentication.
-- Real-time chat.
-- Optional multi-blockchain SHA-256 hashpower merged.
-- Voting (multiple points/options, rectifiable votes, filter by blockchain, comments).
-- BMP can calculate the exact hashpower of each individual miner (not just pools).
-
-BMP is a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) web system, connected to a one or more Bitcoin clients (via RPC) to read blocks and transactions. Blockchain data is processed with [this PHP code](https://github.com/JavierGonzalez/BMP/blob/master/+bmp/bmp.php) in three SQL cache tables: [Blocks](https://bmp.virtualpol.com/info/blocks), [Miners](https://bmp.virtualpol.com/info/miners) and [Actions](https://bmp.virtualpol.com/info/actions).
-
-Actions are stored in Bitcoin Cash (BCH) because it is fast, cheap and stable.
-
-Actions without hashpower are ignored. Miners power (% of hashpower) changes with each block. Actions power never changes.
-
-Actions are composed in JavaScript and broadcast with `Trezor Connect`. More hardware wallets will be available in the future.
-
-BMP does not store private keys and the local database only contains public information.
-
-More details are available in the [BMP Protocol](https://bmp.virtualpol.com/protocol) and the [BMP paper EN](https://virtualpol.com/BMP_EN.pdf) | [ZH](https://virtualpol.com/BMP_CN.pdf) | [ES](https://virtualpol.com/BMP_ES.pdf).
-
-### Requirements to Participate
-
-1. Your address is inside a coinbase output in the last `4,032 blocks` of the coin you are mining, be it BTC, BCH or BSV.
-2. Trezor hardware wallet (recommended). Use a new Trezor account (with fund for fees only).
-
-The BMP works separately for BCH, BTC and BSV. 
-
-### How to Create Actions Manually
-
-If you do not have a Trezor hardware wallet, you can create manual transactions.
-
-* Each miner action is a standard transaction in BCH.
-* BMP actions uses <a href="https://memo.cash" target="_blank">Memo.cash</a> style.
-* The miner’s address must be in the coinbase VOUT in one the last `4,032 blocks` of the coin you are mining and wish to participate in, be it BTC, BCH or BSV.
-* The miner’s address must be in the TX_PREV VOUT (Any index).
-* The miner’s address must be in VOUT index=0.
-* OP_RETURN payload in VOUT index=1. 
-* OP_RETURN prefix: `0x9d`.
-* OP_RETURN respecting [BMP Protocol](https://bmp.virtualpol.com/protocol).
-
-The BMP facilitates the `OP_RETURN hex` via web.
-
-Here are some examples of manual actions:
-- [chat](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fca6622d117e4d6b4149a3855de780295e852e471504b937c14)
-- [vote](https://blockchair.com/bitcoin-cash/transaction/2c4219ce4533759a5886839d03494420e92c5add807c010c4b507b347b3b0e21)
-
-### Signal and hashpower delegation
-
-1. **`power_by_value`** 
-By default, the BMP calculates the hashpower percentage of each output address with the coinbase `value`. This makes it compatible with all Bitcoin blocks. With P2Pool, even the smallest miner can participate right now.
-
-2. **`power_by_opreturn`**
-In order not to interfere with mining operations, this second method allows hashpower coinbase signal in one or multiple addresses with coinbase OP_RETURN output. This ignores `value`, and allows full hashpower delegation, with simplicity.
 
 
-3. **`power_by_action`**
-In development. For total flexibility, BMP will allow delegation of a % of hashpower to one or many addresses with a non-coinbase BMP protocol action. In the same way, it will allow you to modify or revoke that hashpower delegation with immediate effect.
 
-With the BMP, miners can delegate arbitrary percentages of hashpower to other people to participate. In this way, miners can individually and revocably designate representatives in a fluid and accountable manner.
 
-### How to Deploy your own BMP Server
 
-#### Requirements
+## ¿Por qué el Parlamento Minero de Bitcoin?
 
-* Web server (GNU/Linux, Apache, MySQL, PHP).
-* +1 TB free space and +8 GB RAM.
-* Bitcoin BCH client, with `-txindex`.
-* Bitcoin BTC client, with `-txindex`, optional.
-* Bitcoin BSV client, with `-txindex`, optional.
+El [Parlamento Minero de Bitcoin](https://bmp.virtualpol.com) (BMP) es un protocolo y un sistema de votación con hashpower, descentralizado, en blockchain, de código abierto, verificable, fácil de usar, simple, extensible, voluntario, neutral y resistente a las interferencias externas. 
 
-#### Deployment
+El BMP no toma partido en los desacuerdos internos de Bitcoin Cash. El BMP es un protocolo neutral que funciona con datos almacenados dentro de la cadena de bloques (on-chain). Es tan seguro como la blockchain de Bitcoin.
 
-1. Put the BMP code in the `www` httpd public directory.
-2. Execute `scheme.sql` in a new MySQL database.
-3. Re-naming `+passwords.ini.template` in to `+passwords.ini`.
-4. Configure RPC and SQL access.
-5. Wait until the Bitcoin clients are up-to-date.
-6. Set a `crontab` every minute executing: `curl https://bmp.your-domain.com/update`
-7. Wait for the BMP synchronization (~24h). 
-Check progress in: `/stats`
+El BMP es un protocolo de gobierno de Bitcoin Cash que permite a los mineros coordinar sus acciones, y por tanto aportar una mayor certeza al ecosistema de BCH. Los mineros, y cualquier agente delegado, pueden hablar y votar con su hashpower, simplemente extendiendo el [Consenso de Nakamoto](https://bmp.virtualpol.com/bitcoin.pdf) en una fase de pre-consenso. 
 
-#### Tested Environments
+El BMP empodera a los mineros con bloques en los últimos 28 días para comunicarse, con una perfecta relación señal-ruido. El BMP puede servir como una herramienta importante para el gobierno de Bitcoin Cash, reduciendo el riesgo de bifurcación, las luchas internas y las disputas.
+
+<br  />
+
+## Características
+- Descentralizado, on-chain, verificable.
+- Autenticación mediante hardware-wallet.
+- Chat en tiempo real.
+- Conectado a multiples blockchains opcionalmente sumando el hashpower SHA-256.
+- Votación (múltiples puntos/opciones, votos rectificables, filtro por cadena de bloques, comentarios).
+- BMP puede calcular el hashpower exacto de cada minero individual (no sólo de los pools).
+
+BMP es un sistema web [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)), conectado a uno o más clientes de Bitcoin (vía RPC) para leer bloques y transacciones. Los datos de las cadenas de bloques se procesan con [este código PHP](https://github.com/JavierGonzalez/BMP/blob/master/+bmp/bmp.php) en tres tablas de caché SQL: [Bloques](https://bmp.virtualpol.com/info/blocks), [Mineros](https://bmp.virtualpol.com/info/miners) y [Acciones](https://bmp.virtualpol.com/info/actions).
+
+Las acciones se almacenan en Bitcoin Cash (BCH) porque es rápido, barato y estable.
+
+Las acciones sin hashpower son ignoradas. El poder de los mineros (% de hashpower) cambia con cada bloque. El porcentaje de poder de las acciones nunca cambia.
+
+Las acciones se componen en JavaScript y se transmiten con "Trezor Connect". Más hardware-wallets estarán disponibles en el futuro.
+
+BMP no almacena claves privadas y la base de datos local sólo contiene información pública.
+
+Hay más detalles disponibles en el [Protocolo BMP](https://bmp.virtualpol.com/protocol) y en el [documento BMP EN](https://virtualpol.com/BMP_EN.pdf) | [ZH](https://virtualpol.com/BMP_CN.pdf) | [ES](https://virtualpol.com/BMP_ES.pdf).
+
+<br  />
+
+### Requisitos par participar
+
+1. Su dirección está dentro de un output en coinbase en los últimos `4.032 bloques` de la moneda que está minando, ya sea BTC, BCH o BSV.
+2. Recomendado: Billetera de hardware Trezor (Usando una cuenta nueva, con fondos para los fees solamente).
+
+<br  />
+
+### Señalización de hashpower
+
+- **`power_by_value`** 
+Por defecto, el BMP calcula el porcentaje de hashpower proporcional de cada dirección a partir del `value` del las salidas `coinbase`. Esto lo hace compatible con todos los bloques de Bitcoin.
+
+- **`power_by_opreturn`**
+Con el fin de no interferir en las operaciones de minería, este segundo método permite la señalización de hashpower on una o varias direcciones con salida de coinbase OP_RETURN. Esto ignora el `value`, y permite la delegación del hashpower, con simplicidad.
+
+
+- **`power_by_action`**
+En desarrollo. Para una total flexibilidad, el protocolo BMP permitirá la delegación de un % de hashpower a una o varias direcciones con una acción de protocolo de BMP sin necesidad de estar en `coinbase`. De la misma manera, le permitirá modificar o revocar esa delegación de hashpower con efecto inmediato desde el siguiente bloque.
+
+Con el BMP, los mineros pueden delegar porcentajes arbitrarios de hashpower a otras personas para que participen. De esta manera, los mineros pueden designar individualmente y de forma revocable representantes de manera fluida y responsable.
+
+<br  />
+
+## Cómo hacer
+
+
+### 1) Cómo participar con una cartera de hardware Trezor
+
+1. Acceda a un [servidor BMP](https://bmp.virtualpol.com). Por ejemplo: `https://BMP.virtualpol.com`
+2. Confirme que su dirección (en formato legacy) está incluida en [/info/miners](https://bmp.virtualpol.com/info/miners).
+3. Conecte su [Trezor](http://trezor.io/) por USB.
+4. Haz clic en el botón amarillo `Login` (arriba a la derecha) y acepta.
+5. Se abrirá un popup en la infraestructura web de Trezor. Acepta y selecciona la cuenta de tu dirección. Si el popup no se abre, entonces deshabilite su bloqueador de anuncios o programas similares que puedan cerrar los pop-ups.
+6. Luego, el BMP mostrará tu dirección de inicio de sesión (arriba a la derecha).
+7. Estás listo para participar! Puedes escribir en el chat, crear un voto o votar.
+
+
+### 2) Cómo crear acciones manualmente
+
+* Cada acción de los mineros es una transacción estándar en BCH.
+* Las acciones del BMP usan el estilo <a href="https://memo.cash" target="_blank">Memo.cash</a>.
+* La dirección del minero debe estar en un coinbase VOUT en uno de los últimos `4.032 bloques` de la moneda que está extrayendo y desea participar en, ya sea BTC, BCH o BSV.
+* La dirección del minero debe estar en el TX_PREV VOUT (Cualquier `index`).
+* La dirección del minero debe estar en el `index` VOUT=0.
+* La carga útil OP_RETURN en el índice VOUT=1. 
+* Prefijo OP_RETURN: "0x9d".
+* OP_RETURN respetando el [Protocolo BMP](https://bmp.virtualpol.com/protocol). La web de BMP facilita el `OP_RETURN` en hexadecimal.
+
+Algunos ejemplos de acciones: [chat](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fca6622d117e4d6b4149a3855de780295e852e471504b937c14), [vote](https://blockchair.com/bitcoin-cash/transaction/2c4219ce4533759a5886839d03494420e92c5add807c010c4b507b347b3b0e21).
+
+
+### 3) Cómo señalizar el hashpower con P2Pool
+
+Con P2Pool, hasta el minero más pequeño puede participar ahora mismo.
+
+Este pool descentralizado recompensa a todos los mineros participantes incluyendo sus direcciones en la salida de la transacción de la base de monedas. Y esta información es todo lo que BMP necesita para que incluso los mineros más pequeños puedan participar.
+
+1. Comienza la minería en un nodo P2Pool normalmente. Por ejemplo: `stratum+tcp://p2pool.imaginary.cash:9348`
+2. El usuario es su dirección (formato heredado).
+3. Eso es todo. 
+
+Cuando P2Pool hace un nuevo bloque, todos los servidores BMP lo reconocerán y calcularán el hashpower asociado a tu dirección y podrás participar. Esto utiliza el método de la señal de hashpower `power_by_value`.
+
+
+### 4) Cómo delegar el hashpower con `power_by_opreturn`
+
+Si puedes hacer bloques en solitario (eres un pool o un gran minero) puedes delegar porcentajes arbitrarios de hashpower a una o más direcciones, sin alterar el `value` (recompensa del bloque). Esto permite la implementación del protocolo [BMP](https://bmp.virtualpol.com/protocol) en cualquier sistema sofisticado, sin interferir con la operación minera.
+
+Como ejemplo, supongamos que queremos asignar el hashpower de nuestros bloques de la siguiente manera:
+- 20% del hashpower a la dirección: 1AAtD721LQekC6ncHbAp4ScKxSwR7fFeYT
+- 80% del hashpower a la dirección: 1AioJWvdeQq8ddzgz4mvywoBjfrqVQsD1s
+
+1. Incluya en la `block template` estos códigos hexadecimales, en dos salidas OP_RETURN, dentro de la transacción de la base de monedas:
+	- `0x9d000007d031414174443732314c51656b43366e63486241703453634b78537752376646655954`
+	- `0x9d00001f403141696f4a5776646551713864647a677a346d7679776f426a667271565173443173`
+2. Después de un nuevo bloque, compruebe [/info/miners](https://bmp.virtualpol.com/info/miners) y verifique que las direcciones aparecen con su hashpower proporcional.
+
+- `0x` Indica que el código siguiente es hexadecimal.
+- `9d` Indica el prefijo del protocolo [BMP](https://bmp.virtualpol.com/protocol). Primer byte OP_RETURN. 
+- `00` Indica el identificador del modo `power_by_opreturn` de señalalización del hashpower (para ese bloque).
+- `0007d0` en decimal representa `2000` que significa `20.00%` de hashpower.
+- `31414174443732314c51656b43366e63486241703453634b78537752376646655954` es la dirección, en formato legacy, codificada con `bin2hex()`.
+
+Esta funcionalidad no ha sido probada en el mainet. Por favor, escribe a gonzo@virtualpol.com o utiliza el soporte de Github para contactar.
+
+
+### 5) Cómo desplegar su propio servidor BMP
+
+1. Ponga el código del BMP en el directorio público `www` httpd.
+2. Ejecuta `scheme.sql` en una nueva base de datos MySQL.
+3. Renombra el archivo `+passwords.ini.template` a `+passwords.ini`.
+4. Configurar el acceso RPC y SQL.
+5. Espere hasta que los clientes de Bitcoin estén actualizados.
+6. Configurar una `crontab` cada minuto de ejecución: `curl https://bmp.your-domain.com/update`
+7. Espere la sincronización del BMP (~16h). Comprobar el progreso en: `/stats`
+
+Requisitos:
+* Servidor web (GNU/Linux, Apache, MySQL, PHP).
+* +1 TB de espacio libre y +8 GB de RAM.
+* Cliente BCH, con `txindex`.
+* Cliente BTC, con `txindex`, opcional.
+* Cliente BSV, con `txindex`, opcional.
+
+
+<br  />
+
+
+## Preguntas frecuentes
+
+
+### 1) ¿Cuál es la intención detrás del BMP?
+
+- Extender el Consenso de Nakamoto en la fase de pre-consenso. 
+- Descubrir el Consenso de Nakamoto con mayor precisión, no sólo mediante señales de bloques, sino también a través del chat y las votaciones.
+- Facilitar la coordinación del Consenso de Nakamoto.
+- Permitir a los mineros realizar la visión del libro blanco de Bitcoin para una adopción global y un mundo más libre.
+
+
+### 2) ¿Cómo funciona el BMP?
+
+El BMP es un protocolo, un sistema "en cadena" y una interfaz web. Escucha los bloques de Bitcoin para calcular la potencia computacional proporcional exacta de cada dirección BCH, de acuerdo con la señal de la base de monedas. Las acciones funcionan como una red social moderna y descentralizada (como [memo.cash](https://memo.cash)), y permiten a los mineros chatear y votar en las encuestas.
+
+
+### 3) ¿Cómo se excluyen las acciones sin hashpower?
+
+La actividad del BMP se puede filtrar por cadena de bloques o conectar a BCH solamente. Además, el hashpower proporcional exacto de un usuario de BMP se calcula a partir de los últimos 4.032 bloques (los ultimos 28 días). Por lo tanto, los mineros deben demostrar que están en el juego antes de participar en el BMP.
+
+
+### 4) ¿Es vinculante el proceso de pre-consenso de BMP?
+
+Hoy BMP extiende el Consenso de Nakamoto en una fase de pre-consenso. El BMP permite a los mineros coordinar sus acciones (Consenso de Nakamoto) con una perfecta relación señal-ruido. La BMP proporciona un canal de comunicación que no existía anteriormente. De esta manera, añade un enorme valor. 
+
+En el futuro, el protocolo BMP puede implementarse en los nodos, por ejemplo, para ejecutar el ajuste de parámetros predefinidos en la fase de consenso.
+
+
+### 5) ¿En qué se diferencia esto de una declaración pública de un minero?
+
+Hay muchas diferencias, incluyendo las siguientes:
+
+- Con el BMP, puedes verificar "más allá de toda duda" la cantidad de hashpower asociada a cada acción.
+- Todas las acciones de BMP se firman en cadena "para siempre".
+- El BMP permite a los mineros hablar y votar con hashpower con la comodidad y profundidad de una red social moderna, incluso a través de chat en vivo y votaciones.
+- El BMP permite que todos los mineros participen, incluso los más pequeños. No sólo las piscinas.
+- El BMP también permite la delegación de un porcentaje arbitrario de hashpower a cualquier dirección del BCH.
+
+Todas estas son innovaciones significativas introducidas en el BMP por primera vez que pueden hacer la diferencia.
+
+
+### 6) ¿Cuál es el problema de raíz que el BMP está tratando de resolver?
+
+El problema de fondo es principalmente político: un grupo de humanos tiene que ponerse de acuerdo de antemano, y luego actuar juntos, sin la existencia de una autoridad central.
+
+Es un problema político y la solución inicialmente sólo puede ser a través del diálogo y la diplomacia.
+
+El consenso previo existe antes del consenso. Ocurre primero. Sólo cuando existe un pre-consenso, puede haber consenso.
+
+
+### 7) ¿Qué es la delegación y cómo añade valor?
+
+Hay acciones que permiten asignar un porcentaje de su propio hashpower a una dirección diferente para su uso en el chat de BMP y las funciones de votación. La BMP respeta esta decisión voluntaria del minero con exactitud. Esto es posible por primera vez gracias a BMP.
+
+
+### 8) ¿Cómo se compara esto con una fundación?
+
+El BMP puede ser considerado una "reunión de accionistas" o una fundación. Pero será una fundación on-chain (en cadena) y, por lo tanto, indestructible y estable a largo plazo.
+
+
+### 9) ¿Cómo puedo, como no minero, apoyar la señal del BMP y animar a los mineros a usarla?
+
+Infórmate leyendo la información que aparece a continuación. Comparta esta información ampliamente. Anime a los mineros a participar.
+
+
+<br  />
+
+
+## Entorno de test
 
 * x86_64 GNU/Linux CentOS 7.8
 * PHP 7.4
@@ -112,89 +235,29 @@ Check progress in: `/stats`
 * Bitcoin Core 0.20.0
 * Bitcoin SV 1.0.4
 * P2Pool 17.0
-* Trezor Model T (recomended).
-* Trezor One (partially functional because limited OP_RETURN size).
-
-### Known Problems
-
-* Blockchain synchronization by time.
-* Update on chain reorg.
-* Chinese and Spanish internationalization.
-* More hardware wallets support.
-* IRC-like classic attacks in chat.
-* Formal specification.
-* Automatic testing.
-* Absolute power corrupts absolutely.
+* Trezor Model T (recomendado).
+* Trezor One (parcialmente funcional, debido a un limite de OP_RETURN).
 
 
+## Problemas conocidos
 
-## FAQ
-
-#### What is the intention behind the BMP?
-
-- To extend Nakamoto Consensus in pre-consensus phase. 
-- To discover Nakamoto Consensus more precisely, not just via block signals but also via chat and polling.
-- To facilitate coordination of Nakamoto Consensus.
-- To empower miners to realize the Bitcoin whitepaper vision for global adoption and a freer world.
-
-#### How does the BMP work?
-
-The BMP is a protocol, an on-chain system and a web interface. It listens to Bitcoin blocks to calculate the exact proportional hashpower of each BCH address, according to the coinbase signal. The actions work like a decentralized modern social network (like [memo.cash](https://memo.cash)), and permit miners to chat and vote in polls.
-
-#### How are non-BCH SHA256 miners excluded?
-
-BMP activity is easily filtered by blockchain or connected to BCH blockchain only. Further, the exact proportional hashpower of a BMP user is calculated from the last 4,032 blocks — the preceding 28 days. Therefore, miners must demonstrate skin in the game before participating in the BMP.
-
-#### Is the BMP pre-consensus process binding?
-
-Today BMP extends Nakamoto Consensus in a pre-consensus phase. The BMP permits miners to coordinate their actions (Nakamoto Consensus) with a perfect signal-to-noise ratio. The BMP provides a communication channel that did not previously exist. In this way, it adds enormous value. 
-
-In the future, the BMP protocol can be implemented in the nodes, for example, to execute the setting of pre-defined parameters in the consensus phase.
-
-#### How is this any different from a miner issuing a public statement?
-
-There are many differences, including the following
-
-- With the BMP, you can verify "beyond all doubt" the amount of hashpower associated with each action.
-- All BMP actions are signed on-chain "forever".
-- The BMP allows miners to talk and vote with hashpower with the comfort and depth of a modern social network, including via live chat and vote polling.
-- The BMP allows all miners to participate, even the smallest ones. Not just pools.
-- The BMP also allows the delegation of an arbitrary percentages of hashpower to any BCH address.
-
-These are all significant innovations introduced by the BMP for the first time that can make a difference.
-
-#### What is the root problem the BMP is trying to solve?
-
-The root problem is mostly a political one: a group of humans have to agree beforehand, and then act together, without the existence of a central authority.
-
-It is a political problem and the solution initially can only be through dialogue and diplomacy.
-
-Pre-consensus exists before consensus. It happens first. Only when pre-consensus exists, can consensus take place.
-
-#### What is delegation and how does that add value?
-
-There are actions that allow a percentage of your own hashpower to be assigned to a different address for use in the BMP chat and voting functions. The BMP respects this voluntary decision of the miner with accuracy. This is possible for the first time thanks to the BMP.
+* Sincronización de la cadena de bloques (mejor por tiempo que por altura).
+* Actualizar cuando se reorganiza la cadena.
+* Internacionalización en Chino y Español.
+* Más soporte para las carteras de hardware.
+* Ataques clásicos como el IRC en el chat.
+* Pruebas automáticas.
+* Especificación formal.
+* El poder absoluto corrompe absolutamente.
 
 
-#### How does this compare to a foundation?
-
-The BMP can be considered a "shareholder meeting” or a foundation. But it will be an on-chain foundation and, therefore, indestructible and stable in the long-term.
-
-Foundations instantiated by permission of nation-states are subject to national laws, legal processes and human politicking. They can be legally corrupted. But the BMP only recognizes proof-of-work. The BMP is as resistant to the interference of legacy middlemen, such as nation-states, as the Bitcoin Cash blockchain itself.
-
-
-#### How can I as a non-miner signal support for the BMP and encourage miners to use it?
-
-Inform yourself by reading the information below. Share this information widely. Encourage miners to participate.
-
-
-
-## More Information
+## Más información
 - [Why Bitcoin Cash Needs the BMP?](https://read.cash/@JavierGonzalez/why-bitcoin-cash-need-the-bmp-1a6ab975)
 - [为什么比特币现金需要BMP系统?](https://read.cash/@JavierGonzalez/bmp-6bc8ea63)
 - [¿Por qué Bitcoin Cash necesita el BMP?](https://read.cash/@JavierGonzalez/por-que-bitcoin-cash-necesita-el-bmp-e6a746a3)
 - [https://twitter.com/askthebmp](https://twitter.com/askthebmp)
 - [https://read.cash/@AskTheBMP](https://read.cash/@AskTheBMP)
+- [Code Github](https://github.com/JavierGonzalez/BMP)
 
 
 [Javier González González](https://twitter.com/JavierGonzalez)<br />
