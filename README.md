@@ -212,7 +212,7 @@ Inform yourself by reading the information below. Share this information widely.
 ## Tested environments
 
 * x86_64 GNU/Linux CentOS 7.8
-* PHP 7.4
+* PHP 8
 * MariaDB 5.5
 * MySQL 5
 * Firefox 67

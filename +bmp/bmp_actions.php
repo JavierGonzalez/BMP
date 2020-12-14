@@ -65,8 +65,8 @@ function action_voting($txid, $blockchain=false) {
         }
     }
 
-    $voting['votes_power'] = @round(($voting['votes_hashpower']*100)/$total_hashpower, POWER_PRECISION);
-    $voting['validity'] = @round(($voting['validity_hashpower']*100)/$total_hashpower, POWER_PRECISION);
+    $voting['votes_power'] = ($total_hashpower>0?round(($voting['votes_hashpower']*100)/$total_hashpower, POWER_PRECISION):'0');
+    $voting['validity']    = ($total_hashpower>0?round(($voting['validity_hashpower']*100)/$total_hashpower, POWER_PRECISION):'0');
 
     return $voting;
 }

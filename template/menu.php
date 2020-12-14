@@ -63,7 +63,7 @@ function menu_active($url) {
 
 <div id="menu-next">
 
-    <?=(DEV?'<span style="float:left;writing-mode:vertical-lr;-webkit-transform:rotate(180deg);color:red;font-size:30px;">DEVELOPMENT</span>':'')?>
+    <?=(passwords['dev']?'<span style="float:left;writing-mode:vertical-lr;-webkit-transform:rotate(180deg);color:red;font-size:30px;">DEVELOPMENT</span>':'')?>
 
     <p>
         <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >

@@ -678,6 +678,24 @@
         },
         "Hath": {
             "name": "Hath"
+        },
+        "[HASHPIPE]": {
+            "name": "HASHPIPE"
+        },
+        "BTCPool": {
+            "name": "BTCPool"
+        },
+        "/one_more_mcd/": {
+            "name": "one_more_mcd"
+        },
+        "p2pcash.kz": {
+            "name": "p2pcash.kz"
+        },
+        "/TMSPOOL/": {
+            "name": "TMSPOOL"
+        },
+        "/2cDw/": {
+            "name": "2cDw"
         }
     },
     "payout_addresses" : {

@@ -3,7 +3,7 @@
 
 define('BMP_PROTOCOL', [
 
-    'prefix'  => (DEV===true?'00':'9d'),
+    'prefix'  => (passwords['dev']===true?'00':'9d'),
 
     'actions' => [
 
