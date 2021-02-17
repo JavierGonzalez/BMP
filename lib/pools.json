@@ -696,7 +696,20 @@
         },
         "/2cDw/": {
             "name": "2cDw"
+        },
+        "/1THash/": {
+            "name": "1THash",
+            "link": "https://www.1thash.top/en/"
+        },
+        "Foundry USA Pool": {
+            "name": "Foundry USA Pool",
+            "link": "https://foundrydigital.com/"
+        },
+        "/CODEBLACK/": {
+            "name": "CODEBLACK"
         }
+        
+        
     },
     "payout_addresses" : {
         "1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC" : {
