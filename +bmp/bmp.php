@@ -171,7 +171,8 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
         $action['nick'] = $nick;
     
 
-    $evidence['miner'] = sql("SELECT blockchain, height, (SELECT hash FROM blocks WHERE height = miners.height LIMIT 1) AS block_hash, txid, address, power, hashpower FROM miners WHERE address = '".$action['address']."' ORDER BY height ASC");
+    $evidence['miner'] = sql("SELECT blockchain, height, (SELECT hash FROM blocks WHERE blockchain = miners.blockchain AND height = miners.height LIMIT 1) AS block_hash, txid, address, power, hashpower 
+        FROM miners WHERE address = '".$action['address']."' ORDER BY height ASC");
     $action['evidence'] = json_encode($evidence);
         
     return $action;
