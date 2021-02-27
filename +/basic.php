@@ -3,9 +3,7 @@
 
 
 function injection_filter($danger_input) {
-    $output = trim(strip_tags($danger_input));
-    if (get_magic_quotes_gpc())
-        $output = stripslashes($output);
+    $output = trim(stripslashes(strip_tags($danger_input)));
     return $output;
 }
 
