@@ -66,8 +66,8 @@ function menu_active($url) {
     <?=(passwords['dev']?'<span style="float:left;writing-mode:vertical-lr;-webkit-transform:rotate(180deg);color:red;font-size:30px;">DEVELOPMENT</span>':'')?>
 
     <p>
-        <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >
         <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
+        <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >
         <br />
         <a<?=($_SERVER['REQUEST_URI']=='/README'?' style="background:#FFFFBB;"':'')?> href="/README">How it works?</a><br />
         <a<?=menu_active('/README/CN')?> href="/README/CN">它是如何工作的?</a><br />

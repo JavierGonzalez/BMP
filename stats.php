@@ -73,8 +73,7 @@ echo html_table($data, $config);
 foreach (BLOCKCHAINS AS $blockchain => $config)
     $select_artisan[] = "0 AS power_".$blockchain.", SUM(IF(blockchain='".$blockchain."',hashpower/".BLOCK_WINDOW.",0)) AS hashpower_".$blockchain;
 
-$data2 = sql("SELECT pool, pool_link, 0 AS power, 
-    (SUM(hashpower)/".BLOCK_WINDOW.") AS hashpower, ".implode(',', $select_artisan)." 
+$data2 = sql("SELECT pool, pool_link, ".implode(',', $select_artisan)." 
     FROM blocks".($sql_where?" WHERE ".implode(" AND ", $sql_where):"")." 
     GROUP BY pool 
     ORDER BY hashpower DESC");
@@ -113,11 +112,9 @@ foreach ($blockchain_hp AS $blockchain => $value) {
 $config = [
     'id' => 'hashpower_stats',
     'tr_th_extra' => '
-        <tr><th></th><th colspan=2 style="text-align:center;">Bitcoin</th>'.implode('', $th_extra_name).'</tr>
+        <tr><th></th>'.implode('', $th_extra_name).'</tr>
         <tr>
             <th style="border-bottom:none;font-weight:normal;">'.date('Y-m-d', strtotime($last_block['time'])).'</th>
-            <th style="text-align:right;font-weight:normal;border-bottom:none;">100.00%</th>
-            <th style="text-align:right;font-weight:normal;border-bottom:none;">'.hashpower_humans_phs($total_hashpower).'</th>
             '.implode('', $th_extra_total).'
         </tr>
         ',
