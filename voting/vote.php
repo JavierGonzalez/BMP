@@ -45,7 +45,7 @@ foreach ((array)$voting['points'] AS $point)
 <fieldset>
 <legend>Result</legend>
 
-<span style="float:right;margin-top:-44px;">
+<!--<span style="float:right;margin-top:-44px;">
 
 
 <select onchange="window.location.replace('/voting/<?=$txid?>' + (this.options[this.selectedIndex].text!='All'?'?blockchain=' + this.options[this.selectedIndex].text:''));">
@@ -54,9 +54,9 @@ foreach ((array)$voting['points'] AS $point)
 foreach (BLOCKCHAINS AS $blockchain => $value)
     echo '<option'.($_GET['blockchain']==$blockchain?' selected':'').'>'.$blockchain.'</option>';
 ?>
-</select> 
+</select>
 
-</span>
+</span>-->
 
 
 <?php
