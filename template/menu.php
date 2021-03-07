@@ -70,13 +70,9 @@ function menu_active($url) {
         <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
         <br />
         <a<?=($_SERVER['REQUEST_URI']=='/README'?' style="background:#FFFFBB;"':'')?> href="/README">How it works?</a><br />
-        <a<?=menu_active('/README/CN')?> href="/README/CN">它是如何工作的？</a><br />
+        <a<?=menu_active('/README/CN')?> href="/README/CN">它是如何工作的?</a><br />
     </p>
 
 </div>
 
-
-<div style="position:fixed;left:5px;bottom:5px;margin:10px;color:grey;">
-    <?=implode('<br />', profiler($maxsim['debug']['crono']))?>
-</div>
 

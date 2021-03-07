@@ -7,26 +7,12 @@ define('BLOCK_WINDOW', 4032); // Blocks for hashpower calculation
 // /voting/67302f9a415ac5956403720793b92055a0b63342ee6848c65083e4a21ff88008
 
 define('BLOCKCHAINS', [
-    
-    'BTC' => [
-        'name'              => 'Bitcoin Core',
-        'bmp_start'         => 578654,
-        'background_color'  => '#FFDF00',
-    ], 
-    
     'BCH' => [
         'name'              => 'Bitcoin Cash',
         'bmp_start'         => 584964,
         'background_color'  => '#FCC201',
         'actions'           => true,
     ], 
-    
-    'BSV' => [
-        'name'              => 'Bitcoin SV',
-        'bmp_start'         => 584826,
-        'background_color'  => '#E2BF4E'
-    ], 
-
 ]);
 
 define('BLOCKCHAIN_ACTIONS', 'BCH');

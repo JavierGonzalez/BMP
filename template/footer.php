@@ -8,7 +8,7 @@
     <br />-->
     <a href="mailto:gonzo@virtualpol.com" target="_blank">gonzo@virtualpol.com</a><br />
     BMP <?=BMP_VERSION?> 
-    <a href="https://github.com/JavierGonzalez/BMP" target="_blank">code</a>
+    <a href="https://github.com/JavierGonzalez/BMP" target="_blank">Code</a>
         
 </div>
 

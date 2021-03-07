@@ -25,7 +25,7 @@ The BMP empowers the miners of the last 28 days of BCH blocks to make themselves
 - Decentralized, on-chain, verifiable.
 - Hardware-wallet authentication.
 - Real-time chat.
-- Optional multi-blockchain SHA-256 hashpower merged.
+- Optional multi-blockchain SHA-256 hashpower merging.
 - Voting (multiple points/options, rectifiable votes, filter by blockchain, comments).
 - BMP can calculate the exact hashpower of each individual miner (not just pools).
 
@@ -45,7 +45,7 @@ More details are available in the [BMP Protocol](https://bmp.virtualpol.com/prot
 
 ### Requirements to participate
 
-1. Your address is inside a coinbase output in the last `4,032 blocks` of the coin you are mining, be it BTC, BCH or BSV.
+1. Your address is inside a coinbase output in the last `4,032 blocks` of Bitcoin Cash (BCH).
 2. Recommended: Trezor hardware wallet (Use a new account, with fund for fees only).
 
 <br  />
@@ -84,7 +84,7 @@ With the BMP, miners can delegate arbitrary percentages of hashpower to other pe
 
 * Each miner action is a standard transaction in BCH.
 * BMP actions use the <a href="https://memo.cash" target="_blank">Memo.cash</a> style.
-* The miner’s address must be in the coinbase VOUT in one of the last `4,032 blocks` of the coin you are mining and wish to participate in, be it BTC, BCH or BSV.
+* The miner’s address must be in the coinbase VOUT in one of the last `4,032 blocks` of Bitcoin Cash (BCH).
 * The miner’s address must be in the TX_PREV VOUT (Any index).
 * The miner’s address must be in VOUT index=0.
 * OP_RETURN payload in VOUT index=1. 
@@ -143,8 +143,6 @@ Requirements:
 * Web server (GNU/Linux, Apache, MySQL, PHP).
 * +1 TB free space and +8 GB RAM.
 * Bitcoin BCH client, with `-txindex`.
-* Bitcoin BTC client, with `-txindex`, optional.
-* Bitcoin BSV client, with `-txindex`, optional.
 
 <br  />
 
@@ -218,8 +216,6 @@ Inform yourself by reading the information below. Share this information widely.
 * Firefox 67
 * Chrome 74
 * Bitcoin Unlimited 1.9.0
-* Bitcoin Core 0.20.0
-* Bitcoin SV 1.0.4
 * P2Pool 17.0
 * Trezor Model T (recomended).
 * Trezor One (partially functional because a limited OP_RETURN size).
@@ -227,7 +223,6 @@ Inform yourself by reading the information below. Share this information widely.
 
 ## Known problems
 
-* Blockchain synchronization (better by time than height).
 * Update when chain reorg.
 * Chinese internationalization.
 * More hardware wallets support.

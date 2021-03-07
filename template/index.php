@@ -28,7 +28,7 @@ $maxsim['template']['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix
 
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
-<meta name="description" content="BMP. The Bitcoin Mining Parliament. A hashpower voting system. Blockchain, on-chain vote, decentralized, open-source. Bitcoin Cash." />
+<meta name="description" content="The Bitcoin Mining Parliament (BMP). A hashpower voting system. Blockchain, on-chain vote, decentralized, open-source. Bitcoin Cash, BCH." />
 <meta name="author" content="Javier González González — gonzo@virtualpol.com" />
 
 <link rel="shortcut icon" href="/template/favicon.ico" type="image/x-icon" />

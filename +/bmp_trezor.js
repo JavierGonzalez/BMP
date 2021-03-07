@@ -18,7 +18,7 @@ $(document).ready(function() {
 async function get_miner_utxo(confirmation=false) {
 
     if (confirmation == true) {
-        var c = confirm("*** REQUIREMENTS TO PARTICIPATE ***\n\n1. Your address in coinbase in the last 4,032 blocks.\n\n2. Trezor Model T hardware-wallet (recommended).\n\n3. Do not block pop-up windows in the browser.");
+        var c = confirm("REQUIREMENTS TO PARTICIPATE:\n\n1. Your address in coinbase in the last 4,032 blocks of BCH.\n\n2. Trezor Model T hardware-wallet (recommended).\n\n3. Do not block pop-up windows in the browser.");
         if (c != true)
             return false;
     }

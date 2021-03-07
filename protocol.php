@@ -48,7 +48,7 @@ foreach (BLOCKCHAINS AS $blockchain => $value)
 <h1>BMP Protocol</h1>
 
 <ul>
-    <li>Hashpower percentage is calculated with the last <?=num(BLOCK_WINDOW)?> blocks.</li>
+    <li>Hashpower percentage is calculated with the last <?=num(BLOCK_WINDOW)?> blocks of Bitcoin Cash (BCH).</li>
     <li>Miners power is calculated proportionally with coinbase output addresses.</li>
     <li>Actions (transactions) without hashpower are ignored.</li>
     <li>Miners power changes with each block.</li>

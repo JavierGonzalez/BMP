@@ -50,7 +50,7 @@ Hay más detalles disponibles en el [Protocolo BMP](https://bmp.virtualpol.com/p
 
 ### Requisitos par participar
 
-1. Su dirección está dentro de un output en coinbase en los últimos `4.032 bloques` de la moneda que está minando, ya sea BTC, BCH o BSV.
+1. Su dirección está dentro de un output en coinbase en los últimos `4.032 bloques` de Bitcoin Cash (BCH).
 2. Recomendado: Billetera de hardware Trezor (Usando una cuenta nueva, con fondos para los fees solamente).
 
 <br  />
@@ -89,7 +89,7 @@ Con el BMP, los mineros pueden delegar porcentajes arbitrarios de hashpower a ot
 
 * Cada acción de los mineros es una transacción estándar en BCH.
 * Las acciones del BMP usan el estilo <a href="https://memo.cash" target="_blank">Memo.cash</a>.
-* La dirección del minero debe estar en un coinbase VOUT en uno de los últimos `4.032 bloques` de la moneda que está extrayendo y desea participar en, ya sea BTC, BCH o BSV.
+* La dirección del minero debe estar en un coinbase VOUT en uno de los últimos `4.032 bloques` de Bitcoin Cash (BCH).
 * La dirección del minero debe estar en el TX_PREV VOUT (Cualquier `index`).
 * La dirección del minero debe estar en el `index` VOUT=0.
 * La carga útil OP_RETURN en el índice VOUT=1. 
@@ -147,9 +147,7 @@ Esta funcionalidad no ha sido probada en el mainet. Por favor, escribe a gonzo@v
 Requisitos:
 * Servidor web (GNU/Linux, Apache, MySQL, PHP).
 * +1 TB de espacio libre y +8 GB de RAM.
-* Cliente BCH, con `txindex`.
-* Cliente BTC, con `txindex`, opcional.
-* Cliente BSV, con `txindex`, opcional.
+* Cliente BCH, con `-txindex`.
 
 
 <br  />
@@ -232,8 +230,6 @@ Infórmate leyendo la información que aparece a continuación. Comparta esta in
 * Firefox 67
 * Chrome 74
 * Bitcoin Unlimited 1.9.0
-* Bitcoin Core 0.20.0
-* Bitcoin SV 1.0.4
 * P2Pool 17.0
 * Trezor Model T (recomendado).
 * Trezor One (parcialmente funcional, debido a un limite de OP_RETURN).
@@ -241,7 +237,6 @@ Infórmate leyendo la información que aparece a continuación. Comparta esta in
 
 ## Problemas conocidos
 
-* Sincronización de la cadena de bloques (mejor por tiempo que por altura).
 * Actualizar cuando se reorganiza la cadena.
 * Internacionalización en Chino y Español.
 * Más soporte para las carteras de hardware.
