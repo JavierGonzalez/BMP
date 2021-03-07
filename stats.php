@@ -76,7 +76,7 @@ foreach (BLOCKCHAINS AS $blockchain => $config)
 $data2 = sql("SELECT pool, pool_link, ".implode(',', $select_artisan)." 
     FROM blocks".($sql_where?" WHERE ".implode(" AND ", $sql_where):"")." 
     GROUP BY pool 
-    ORDER BY hashpower DESC");
+    ORDER BY hashpower_BCH DESC");
 
 
 foreach ($data2 AS $id => $r) {
