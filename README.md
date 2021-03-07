@@ -135,13 +135,13 @@ This functionality has not been tested on mainet. Please write to gonzo@virtualp
 2. Execute `scheme.sql` in a new MySQL database.
 3. Re-name the file `+passwords.ini.template` in to `+passwords.ini`.
 4. Configure RPC and SQL access.
-5. Wait until the Bitcoin clients are up-to-date.
+5. Wait until the Bitcoin Cash client are up-to-date.
 6. Set a `crontab` every minute executing: `curl https://bmp.your-domain.com/update`
-7. Wait for the BMP synchronization (~16h). Check progress in: `/stats`
+7. Wait for BMP synchronization (~10h). Check progress in: `/stats`
 
 Requirements:
-* Web server (GNU/Linux, Apache, MySQL, PHP).
-* +1 TB free space and +8 GB RAM.
+* Web server (GNU/Linux, Apache, MySQL, PHP +7).
+* +300 GB free space and +2 GB RAM.
 * Bitcoin BCH client, with `-txindex`.
 
 <br  />
