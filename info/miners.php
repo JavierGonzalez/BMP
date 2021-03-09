@@ -10,13 +10,17 @@ $data = sql("SELECT COUNT(DISTINCT height) AS blocks,
     nick, 
     SUM(power) AS power, 
     SUM(hashpower) AS hashpower,
+    0 AS pools,
     (SELECT COUNT(*) FROM actions WHERE address = miners.address) AS actions,
-    (SELECT time FROM actions WHERE address = miners.address ORDER BY time DESC LIMIT 1) AS last_action
+    (SELECT time FROM actions WHERE address = miners.address ORDER BY time DESC LIMIT 1) AS last
     FROM miners 
     GROUP BY address 
     ORDER BY power DESC");
 
 foreach ($data AS $key => $value) {
+
+    if (!$value['actions'])
+        $data[$key]['actions'] = '';
 
     $data[$key]['miner'] = html_a('/info/miner/'.$value['miner'], ($value['nick']?$value['nick']:$value['miner']));
     unset($data[$key]['nick']);
@@ -26,6 +30,28 @@ foreach ($data AS $key => $value) {
 
     $data[$key]['power']     = '<span title="'.$value['power'].'%">'.num($value['power'], POWER_PRECISION).'%</span>';
     $data[$key]['hashpower'] = hashpower_humans($value['hashpower']);
+
+
+    $pools_miner = [];
+    $pools = sql("SELECT SUM(power) AS power,
+    (SELECT pool FROM blocks WHERE height = miners.height) AS pool,
+    (SELECT pool_link FROM blocks WHERE height = miners.height) AS pool_link
+    FROM miners 
+    WHERE address = '".$value['miner']."'
+    GROUP BY pool
+    ORDER BY power DESC");
+
+    foreach ($pools AS $key2 => $value2) {
+        if (!$value2['pool'])
+            continue;
+
+        if ($value2['pool_link'])
+            $value2['pool'] = '<a href="'.$value2['pool'].'" target="_blank">'.$value2['pool'].'</a>';
+        $pools_miner[] = $value2['pool'];
+    }
+
+    $data[$key]['pools'] = implode(', ', $pools_miner);
+
 }
 
 

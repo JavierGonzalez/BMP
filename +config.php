@@ -17,7 +17,7 @@ define('BLOCKCHAINS', [
 
 define('BLOCKCHAIN_ACTIONS', 'BCH');
 
-define('POWER_PRECISION', 7); // Decimals of %
+define('POWER_PRECISION', 6); // Decimals of %
 
 define('OP_RETURN_MAX_SIZE', 220); // Bytes
 
