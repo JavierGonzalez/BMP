@@ -7,7 +7,6 @@ echo html_h($maxsim['template']['title'], 1);
 
 $data = sql("SELECT COUNT(DISTINCT height) AS blocks, 
     address AS miner, 
-    nick, 
     SUM(power) AS power, 
     SUM(hashpower) AS hashpower,
     0 AS pools,
@@ -22,8 +21,7 @@ foreach ($data AS $key => $value) {
     if (!$value['actions'])
         $data[$key]['actions'] = '';
 
-    $data[$key]['miner'] = html_a('/info/miner/'.$value['miner'], ($value['nick']?$value['nick']:$value['miner']));
-    unset($data[$key]['nick']);
+    $data[$key]['miner'] = html_a('/info/miner/'.$value['miner'], $value['miner']);
 
     if ($value['actions'] > 0)
         $data[$key]['miner'] = html_b($data[$key]['miner']);
@@ -47,7 +45,7 @@ foreach ($data AS $key => $value) {
 
         if ($value2['pool_link'])
             $value2['pool'] = '<a href="'.$value2['pool'].'" target="_blank">'.$value2['pool'].'</a>';
-        $pools_miner[] = $value2['pool'];
+        $pools_miner[] = '<span title="'.num($value2['power'], POWER_PRECISION).'%">'.$value2['pool'].'</span>';
     }
 
     $data[$key]['pools'] = implode(', ', $pools_miner);
