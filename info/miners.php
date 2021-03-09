@@ -44,7 +44,7 @@ foreach ($data AS $key => $value) {
             continue;
 
         if ($value2['pool_link'])
-            $value2['pool'] = '<a href="'.$value2['pool'].'" target="_blank">'.$value2['pool'].'</a>';
+            $value2['pool'] = '<a href="'.$value2['pool_link'].'" target="_blank">'.$value2['pool'].'</a>';
         $pools_miner[] = '<span title="'.num($value2['power'], POWER_PRECISION).'%">'.$value2['pool'].'</span>';
     }
 
