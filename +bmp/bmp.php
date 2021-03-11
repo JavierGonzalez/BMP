@@ -154,7 +154,7 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
 
     if (!$block)
         $action['time'] = date('Y-m-d H:i:s');                      // By BMP server
-    else if ($action['action']=='chat' AND $action['p1']<=time() AND $action['p1']>$block['time'])
+    else if ($action['action']=='chat' AND $action['p1']<=time())
         $action['time'] = date('Y-m-d H:i:s', $action['p1']);       // By user
     else
         $action['time'] = date('Y-m-d H:i:s', $block['time']);      // By hashpower
