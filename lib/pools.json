@@ -563,7 +563,7 @@
             "name": "Grinup Pool",
             "link": "https://grinup.info/"
         },
-        "Toomim Bros" : {
+        "Toomim Bros solo" : {
             "name": "Toomim Bros",
             "link": "https://toom.im"
         },
@@ -679,17 +679,11 @@
         "Hath": {
             "name": "Hath"
         },
-        "[HASHPIPE]": {
-            "name": "HASHPIPE"
-        },
         "BTCPool": {
             "name": "BTCPool"
         },
         "/one_more_mcd/": {
             "name": "one_more_mcd"
-        },
-        "p2pcash.kz": {
-            "name": "p2pcash.kz"
         },
         "/TMSPOOL/": {
             "name": "TMSPOOL"
@@ -706,14 +700,28 @@
             "link": "https://foundrydigital.com/"
         },
         "/CODEBLACK/": {
-            "name": "CODEBLACK"
+            "name": "Codeblack"
         },
         "ASICseer": {
             "name": "ASICseer",
             "link": "https://asicseer.com/"
+        },
+        "p2pool" : {
+            "name": "P2Pool",
+            "link": "http://github.com/jtoomim/p2pool"
+        },
+        "Bitcoin A-B": {
+            "name": "P2Pool",
+            "link": "http://github.com/jtoomim/p2pool"
+        },
+        "[HASHPIPE]": {
+            "name": "P2Pool",
+            "link": "http://github.com/jtoomim/p2pool"
+        },
+        "p2pcash.kz": {
+            "name": "P2Pool",
+            "link": "http://github.com/jtoomim/p2pool"
         }
-        
-        
     },
     "payout_addresses" : {
         "1CjPR7Z5ZSyWk6WtXvSFgkptmpoi4UM9BC" : {

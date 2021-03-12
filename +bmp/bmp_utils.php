@@ -88,9 +88,12 @@ function pool_decode($coinbase) {
 
 
 function pool_identify() {
-    foreach (sql("SELECT id, coinbase FROM blocks") AS $r)
+    foreach (sql("SELECT id, coinbase FROM blocks") AS $r) {
         if ($pool = pool_decode($r['coinbase']))
             sql_update('blocks', ['pool' => $pool['name'], 'pool_link' => ($pool['link']?$pool['link']:null)], "id = '".$r['id']."'");
+        else
+            sql_update('blocks', ['pool' => null, 'pool_link' => null], "id = '".$r['id']."'");
+    }
 }
 
 
