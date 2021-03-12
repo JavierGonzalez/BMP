@@ -8,16 +8,17 @@ $votings = sql("SELECT txid FROM actions WHERE action = 'voting' ORDER BY height
 
 foreach ($votings AS $r)
     if ($voting = action_voting($r['txid'], $_GET['blockchain']))
-        $table[$voting['status']][] = [
-            'status'        => ucfirst($voting['status']),
-            'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
-            'power'         => $voting['votes_power'],
-            'hashpower'     => $voting['votes_hashpower'],
-            'valid?'        => '<span title="'.num($voting['validity'], POWER_PRECISION).'%">'.($voting['validity']>50?'Yes!':'No').'</span>',
-            'votes'         => $voting['votes_num'],
-            'time'          => date('Y-m-d', strtotime($voting['time'])),
-            'height_closed' => $voting['height_closed'],
-            ];
+        if ($voting['status']!='closed' OR $voting['votes_num']>0)
+            $table[$voting['status']][] = [
+                'status'        => ucfirst($voting['status']),
+                'voting'        => html_a('/voting/'.$voting['txid'], html_b($voting['question'])),
+                'power'         => $voting['votes_power'],
+                'hashpower'     => $voting['votes_hashpower'],
+                'valid?'        => '<span title="'.num($voting['validity'], POWER_PRECISION).'%">'.($voting['validity']>50?'Yes!':'No').'</span>',
+                'votes'         => $voting['votes_num'],
+                'time'          => date('Y-m-d', strtotime($voting['time'])),
+                'height_closed' => $voting['height_closed'],
+                ];
 
 
 $config = [
