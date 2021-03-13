@@ -1,7 +1,6 @@
 <?php # BMP — Javier González González
 
-unset($maxsim['output']);
-
+pool_identify();
 
 $beat_last = sql_key_value('beat_last');
 
@@ -40,3 +39,4 @@ function beat_payload() {
 
 }
 
+exit;

@@ -4,7 +4,7 @@
 if (!$maxsim['template']['title'])
     $maxsim['template']['title'] = 'The Bitcoin Mining Parliament';
 
-$maxsim['template']['title'] .= ' - BMP';
+$maxsim['template']['title'] .= ' | BMP';
 
 $maxsim['autoload'][] = 'lib/bootstrap-4.3.1/css/bootstrap.min.css';
 $maxsim['autoload'][] = 'template/style.css';
@@ -32,7 +32,6 @@ $maxsim['template']['js'] .= "\n".'bmp_protocol_prefix = "'.BMP_PROTOCOL['prefix
 <meta name="author" content="Javier González González — gonzo@virtualpol.com" />
 
 <link rel="shortcut icon" href="/template/favicon.ico" type="image/x-icon" />
-<link rel="icon" href="/template/favicon.ico" type="image/x-icon" />
 
 <?php
 

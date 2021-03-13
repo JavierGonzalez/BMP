@@ -159,7 +159,7 @@ function hex2bin_print($hex) {
 }
 
 
-function replace_hash_to_link($text) { // Refact: fail with non-BCH links and op_return
+function replace_hash_to_link($text) {
 
     $text = preg_replace( 
         "/[0]{10}[A-Fa-f0-9]{54}/i", 
