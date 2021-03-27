@@ -721,6 +721,10 @@
         "p2pcash.kz": {
             "name": "P2Pool",
             "link": "http://github.com/jtoomim/p2pool"
+        },
+        "p2p-spb.xyz": {
+            "name": "P2Pool",
+            "link": "http://github.com/jtoomim/p2pool"
         }
     },
     "payout_addresses" : {
