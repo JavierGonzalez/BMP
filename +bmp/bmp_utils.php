@@ -60,7 +60,7 @@ function revert_bytes($hex) {
 function pool_decode($coinbase) {
     global $__pools_json_cache;
 
-    if (!$__pools_json_cache)
+    if (!isset($__pools_json_cache) AND file_exists('lib/pools.json'))
         $__pools_json_cache = json_decode(file_get_contents('lib/pools.json'), true);
 
 
@@ -163,11 +163,11 @@ function replace_hash_to_link($text) {
 
     $text = preg_replace( 
         "/[0]{10}[A-Fa-f0-9]{54}/i", 
-        "<a href=\"".URL_EXPLORER_BLOCK."\\0\" target=\"blank\">\\0</a>", $text);
+        "<a href=\"".URL_EXPLORER_BLOCK."\\0\" target=\"blank\" rel=\"noopener\">\\0</a>", $text);
 
     $text = preg_replace( 
         "/((?!(0000000000))[A-Fa-f0-9]{64})/i", 
-        "<a href=\"".URL_EXPLORER_TX."\\0\" target=\"blank\">\\0</a>", $text);
+        "<a href=\"".URL_EXPLORER_TX."\\0\" target=\"blank\" rel=\"noopener\">\\0</a>", $text);
 
     return $text;
 }
