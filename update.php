@@ -1,6 +1,5 @@
 <?php # BMP — Javier González González
 
-pool_identify();
 
 $beat_last = sql_key_value('beat_last');
 
@@ -8,10 +7,10 @@ ___('beat_last: '.$beat_last);
 
 if ($beat_last AND $beat_last >= time()-(60*4))
     exit;
-    
-
 
 set_time_limit(60*60*24);
+
+pool_identify();
 
 for ($i=0;$i<=10000;$i++) {
     beat();

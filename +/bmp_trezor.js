@@ -25,13 +25,13 @@ async function get_miner_utxo(confirmation=false) {
 
     
     TrezorConnect = window.TrezorConnect;
-
+    
+    /*
     TrezorConnect.manifest({
         email: 'gonzo@virtualpol.com',
         appUrl: 'https://bmp.virtualpol.com'
     });
-
-
+    */
 
     result_utxo = await TrezorConnect.getAccountInfo({
         coin: 'bch',
@@ -72,11 +72,13 @@ async function blockchain_send_tx(op_return) {
     var value_output = String(miner_utxo()['value'] - ((op_return.length * 2) + 1000));
 
     var TrezorConnect = window.TrezorConnect;
-
+    
+    /*
     TrezorConnect.manifest({
         email: 'gonzo@virtualpol.com',
         appUrl: 'https://bmp.virtualpol.com'
     });
+    */
 
     result_tx = await TrezorConnect.signTransaction({
             inputs: [

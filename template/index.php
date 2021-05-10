@@ -12,7 +12,7 @@ $maxsim['autoload'][] = 'template/style.css';
 $maxsim['autoload'] = array_merge([
     'lib/jquery-3.4.1.min.js',
     'lib/bootstrap-4.3.1/js/bootstrap.min.js',
-    'lib/trezor-connect-7.js',
+    'lib/trezor-connect-6.js',
     ], (array)$maxsim['autoload']);
     
 
