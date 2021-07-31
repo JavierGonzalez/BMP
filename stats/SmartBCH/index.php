@@ -22,12 +22,11 @@ foreach ($smartbch_validators_count AS $validator => $votes)
 
 foreach ($smartbch_validators_count AS $validator => $votes) {
     
-    $pool = '';
+    $pool = [];
     foreach ($smartbch_validators_raw AS $value) {
         if ($validator === $value['validator_pub_key']) {
             $r = sql('SELECT pool, pool_link FROM blocks WHERE blockchain = "'.BLOCKCHAIN_ACTIONS.'" AND height = "'.$value['height'].'" LIMIT 1')[0];
-            $pool = ($r['pool_link']?'<a href="'.$r['pool_link'].'" target="_blank">'.$r['pool'].'</a>':$r['pool']);
-            break;
+            $pool[$r['pool']] = ($r['pool_link']?'<a href="'.$r['pool_link'].'" target="_blank">'.$r['pool'].'</a>':$r['pool']);
         }
     }
     
@@ -36,7 +35,7 @@ foreach ($smartbch_validators_count AS $validator => $votes) {
         'blocks'            => num($votes),
         'share_absolute'    => num(($votes*100)/$smartbch_block_window,2).'%',
         'share'             => num(($votes*100)/$votes_total,2).'%',
-        'pool'              => $pool,
+        'pools'              => implode(', ', $pool),
     ];
 }
 
