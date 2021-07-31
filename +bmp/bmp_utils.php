@@ -60,8 +60,8 @@ function revert_bytes($hex) {
 function pool_decode($coinbase) {
     global $__pools_json_cache;
 
-    if (!isset($__pools_json_cache) AND file_exists('lib/pools.json'))
-        $__pools_json_cache = json_decode(file_get_contents('lib/pools.json'), true);
+    if (!isset($__pools_json_cache) AND file_exists('stats/pools.json'))
+        $__pools_json_cache = json_decode(file_get_contents('stats/pools.json'), true);
 
 
     if (is_array($coinbase))

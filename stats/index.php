@@ -136,9 +136,9 @@ foreach (BLOCKCHAINS AS $blockchain => $value) {
 <br /><br />
 
 <ul>
-<li>BMP protocol is not based on "pools.json" or "coinbase text" to calculate the miners hashpower.</li>
-<li>This information is for aditional validation and research purposes only.</li>
-<li>Last <?=BLOCK_WINDOW?> blocks avg.</li>
+<li>BMP protocol is not based on "<a href="/stats/pools.json">pools.json</a>" or "coinbase text" to calculate the miners hashpower.</li>
+<li>This information is for aditional info and research purposes only.</li>
+<li>BMP block window is the last <?=BLOCK_WINDOW?> blocks.</li>
 </ul>
 
 <br />

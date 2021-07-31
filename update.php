@@ -31,9 +31,13 @@ function beat() {
 
 function beat_payload() {
 
-    if (get_new_blocks())
+    if (get_new_blocks()) {
+
+        if (function_exists('smartbch_update_validators'))
+            smartbch_update_validators();
+
         return beat();
-    else
+    } else
         sql_insert('actions', get_mempool());
 
 }
