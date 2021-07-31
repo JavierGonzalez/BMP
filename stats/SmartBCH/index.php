@@ -1,7 +1,7 @@
 <?php
 
 
-$maxsim['template']['title'] = 'Stats: SmartBCH validators';
+$maxsim['template']['title'] = 'SmartBCH validators';
 
 
 $smartbch_block_window      = 2016;
@@ -50,7 +50,7 @@ $data[] = [
 
 $config = [
     'validators'        => ['th' => 'Validators (pub key)', 'monospace' => true],
-    'blocks'            => ['align' => 'right'],
+    'blocks'            => ['th' => '<a href="/stats/SmartBCH/blocks">Blocks</a>', 'align' => 'right'],
     'share_absolute'    => ['th' => 'Share (absolute)', 'align' => 'right'],
     'share'             => ['align' => 'right'],
     ];
