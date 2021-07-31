@@ -336,7 +336,7 @@
             "name": "BTC.com",
             "link": "https://pool.btc.com"
         },
-        "/BTC.com/" : {
+        "BTC.com/" : {
             "name": "BTC.com",
             "link": "https://pool.btc.com"
         },
@@ -660,7 +660,7 @@
             "name": "Minerium.com",
             "link": "https://minerium.com"
         },
-        "/Bitdeer/": {
+        "Bitdeer/": {
             "name": "BITDEER",
             "link": "https://www.bitdeer.com/"
         },
@@ -725,6 +725,9 @@
         "p2p-spb.xyz": {
             "name": "P2Pool",
             "link": "http://github.com/jtoomim/p2pool"
+        },
+        "/starbucks/": {
+            "name": "starbucks"
         }
     },
     "payout_addresses" : {
