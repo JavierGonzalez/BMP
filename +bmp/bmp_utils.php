@@ -57,11 +57,11 @@ function revert_bytes($hex) {
 }
 
 
-function pool_decode($coinbase) {
+function pool_decode($coinbase, $pools_json='stats/pools.json') {
     global $__pools_json_cache;
 
-    if (!isset($__pools_json_cache) AND file_exists('stats/pools.json'))
-        $__pools_json_cache = json_decode(file_get_contents('stats/pools.json'), true);
+    if (!isset($__pools_json_cache) AND file_exists($pools_json))
+        $__pools_json_cache = json_decode(file_get_contents($pools_json), true);
 
 
     if (is_array($coinbase))
