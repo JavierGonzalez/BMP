@@ -39,8 +39,8 @@ foreach ($data AS $key => $value) {
 
     $pools_miner = [];
     $pools = sql("SELECT SUM(power) AS power,
-    (SELECT pool FROM blocks WHERE height = miners.height) AS pool,
-    (SELECT pool_link FROM blocks WHERE height = miners.height) AS pool_link
+    (SELECT pool FROM blocks WHERE height = miners.height LIMIT 1) AS pool,
+    (SELECT pool_link FROM blocks WHERE height = miners.height LIMIT 1) AS pool_link
     FROM miners 
     WHERE address = '".$value['miner']."'
     GROUP BY pool
