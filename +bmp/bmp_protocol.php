@@ -31,7 +31,7 @@ define('BMP_PROTOCOL', [
         '01' => [
             'action'        => 'power_by_action',
             'coinbase'      => false,
-            'status'        => 'planned',
+            'status'        => 'idea',
             'tested'        => false,
             'description'   => 'Power quota delegation in to arbitrary address by action. Independent from value. Non-recursive.',
             1 => ['size' =>  3, 'name'=>'quota',       'decode'=>'hexdec'],

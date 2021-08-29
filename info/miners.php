@@ -64,7 +64,7 @@ echo html_table($data, [
     'id' => 'miners_list',
     0           => ['align' => 'right',  'th' => '&nbsp;'],
     'miner'     => ['th' => 'Miners', 'monospace' => true],
-    'blocks'    => ['align' => 'right', 'th' => '&nbsp; &nbsp; &nbsp; &nbsp; Blocks'],
+    'blocks'    => ['align' => 'right', 'function'=>'num', 'th' => '&nbsp; &nbsp; &nbsp; &nbsp; Blocks'],
     'power'     => ['align' => 'right', 'monospace' => true],
     'hashpower' => ['align' => 'right'],
     'actions'   => ['align' => 'right', 'th' => ''],

@@ -1,6 +1,25 @@
 <?php # BMP — Javier González González
 
 
+function get_mempool($blockchain=BLOCKCHAIN_ACTIONS) {
+    global $__mempool_cache;
+
+    foreach (rpc_get_mempool($blockchain) AS $txid)
+        if (!$__mempool_cache[$txid] AND $__mempool_cache[$txid] = true)
+            if (!sql("SELECT id FROM actions WHERE txid = '".$txid."' LIMIT 1"))
+                if ($action = get_action($txid, $blockchain))
+                    $actions[] = $action;
+    
+    return $actions;
+}
+
+
+
+function block_delete($height, $blockchain=BLOCKCHAIN_ACTIONS) {
+    sql("DELETE FROM blocks WHERE blockchain = '".$blockchain."' AND height = ".$height);
+    sql("DELETE FROM miners WHERE blockchain = '".$blockchain."' AND height = ".$height);
+}
+
 
 function get_new_blocks() {
     $output = false;

@@ -3,7 +3,7 @@
 
 function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
-    if (sql("SELECT id FROM blocks WHERE blockchain = '".$blockchain."' AND height = ".e($height)))
+    if (sql("SELECT id FROM blocks WHERE blockchain = '".e($blockchain)."' AND height = ".e($height)))
         return false;
 
     ini_set('memory_limit', '15G');
@@ -42,7 +42,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
         'hashpower'             => $block_hashpower,
         ]);
 
-    foreach (sql("SELECT height FROM blocks WHERE blockchain = '".$blockchain."' ORDER BY height DESC LIMIT ".BLOCK_WINDOW.",".BLOCK_WINDOW) AS $r)
+    foreach (sql("SELECT height FROM blocks WHERE blockchain = '".e($blockchain)."' ORDER BY height DESC LIMIT ".e(BLOCK_WINDOW).",".e(BLOCK_WINDOW)) AS $r)
         block_delete($r['height'], $blockchain);
 
     
@@ -69,7 +69,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
     foreach ($block['tx'] AS $key => $txid)
         if ($key!==0)
             if ($action = get_action($txid, $blockchain, $block))
-                sql_update('actions', $action, "txid = '".$action['txid']."'", true);
+                sql_update('actions', $action, "txid = '".e($action['txid'])."'", true);
 
     update_actions($blockchain, $block['height']);
 
@@ -80,7 +80,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
 function update_power() {
     $total_hashpower = sql("SELECT SUM(hashpower) AS ECHO FROM miners");
-    sql("UPDATE miners SET power = (hashpower*100)/".$total_hashpower);
+    sql("UPDATE miners SET power = (hashpower*100)/".e($total_hashpower));
 }
 
 
@@ -137,7 +137,7 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
 
     
     $power = sql("SELECT SUM(power) AS power, SUM(hashpower) AS hashpower 
-                  FROM miners WHERE address = '".$tx_info['address']."'")[0];
+                  FROM miners WHERE address = '".e($tx_info['address'])."'")[0];
     
 
     // Actions without hashpower are ignored.
@@ -160,19 +160,19 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
         $action['time'] = date('Y-m-d H:i:s', $block['time']);      // By hashpower
 
     
-    if ($block AND sql("SELECT id FROM actions WHERE txid = '".$action['txid']."' LIMIT 1"))
+    if ($block AND sql("SELECT id FROM actions WHERE txid = '".e($action['txid'])."' LIMIT 1"))
         unset($action['time']);
 
 
     $nick = sql("SELECT p2 AS ECHO FROM actions 
-        WHERE action = 'miner_parameter' AND p1 = 'nick' AND address = '".$action['address']."' 
+        WHERE action = 'miner_parameter' AND p1 = 'nick' AND address = '".e($action['address'])."' 
         ORDER BY time DESC LIMIT 1");
     if ($nick AND !is_array($nick))
         $action['nick'] = $nick;
     
 
     $evidence['miner'] = sql("SELECT blockchain, height, (SELECT hash FROM blocks WHERE blockchain = miners.blockchain AND height = miners.height LIMIT 1) AS block_hash, txid, address, power, hashpower 
-        FROM miners WHERE address = '".$action['address']."' ORDER BY height ASC");
+        FROM miners WHERE address = '".e($action['address'])."' ORDER BY height ASC");
     $action['evidence'] = json_encode($evidence);
         
     return $action;
@@ -281,25 +281,4 @@ function op_return_decode($op_return) {
     }
 
     return $output;
-}
-
-
-
-function get_mempool($blockchain=BLOCKCHAIN_ACTIONS) {
-    global $__mempool_cache;
-
-    foreach (rpc_get_mempool($blockchain) AS $txid)
-        if (!$__mempool_cache[$txid] AND $__mempool_cache[$txid] = true)
-            if (!sql("SELECT id FROM actions WHERE txid = '".$txid."' LIMIT 1"))
-                if ($action = get_action($txid, $blockchain))
-                    $actions[] = $action;
-    
-    return $actions;
-}
-
-
-
-function block_delete($height, $blockchain=BLOCKCHAIN_ACTIONS) {
-    sql("DELETE FROM blocks WHERE blockchain = '".$blockchain."' AND height = ".$height);
-    sql("DELETE FROM miners WHERE blockchain = '".$blockchain."' AND height = ".$height);
 }

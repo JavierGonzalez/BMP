@@ -131,6 +131,12 @@ This functionality has not been tested on mainet. Please write to gonzo@virtualp
 
 ### 5) How to deploy your own BMP server
 
+Requirements:
+* Web server (GNU/Linux, Apache (with mod_rewrite), MySQL, PHP +7).
+* Bitcoin BCH client, with `-txindex` and RPC access.
+* Tested with +300 GB free space and +2 GB RAM.
+
+Install:
 1. Put the BMP code in the `www` httpd public directory.
 2. Execute `scheme.sql` in a new MySQL database.
 3. Re-name the file `+passwords.ini.template` in to `+passwords.ini`.
@@ -139,10 +145,6 @@ This functionality has not been tested on mainet. Please write to gonzo@virtualp
 6. Set a `crontab` every minute executing: `curl https://bmp.your-domain.com/update`
 7. Wait for BMP synchronization (~10h). Check progress in: `/stats`
 
-Requirements:
-* Web server (GNU/Linux, Apache, MySQL, PHP +7).
-* +300 GB free space and +2 GB RAM.
-* Bitcoin BCH client, with `-txindex`.
 
 <br  />
 
