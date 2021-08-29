@@ -33,9 +33,10 @@ Note: participation in BMP might require some rented hashpower because it is req
 ## Motivation and Benefits
 
 Centralized decision making on the blockchain protocol is a problem that has caused in the last years 3 splits (not counting minor cases and NextChain).
-We can repeat the same mistake indefinitely, with successive internal disputes in each controversy, until we fail due to atomization (losing marketcap, talent and adoption.
 
-Or we can use, at a new level, the consensus mechanism designed by Satoshi Nakamoto based on hashpower voting.
+We can repeat the same mistake indefinitely, with successive internal disputes in each controversy, until we fail due to atomization (losing marketcap, talent and adoption).
+
+Or we can use now, at a new level, the fundamental mechanism consensus designed by Satoshi Nakamoto based on hashpower voting.
 
 And with the BMP we can achieve that without causing another split (division of people, talent, market cap and adoption)It is only necessary to say YES to the following question: Can we accept a decision made by a majority of hashpower?
 
