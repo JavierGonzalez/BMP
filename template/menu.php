@@ -61,7 +61,6 @@ function menu_active($url) {
 
     <p>
         <a href="https://github.com/JavierGonzalez/BMP" target="_blank">GitHub</a><br />
-        <br />
         <a<?=menu_active('/protocol')?> href="/protocol">Protocol</a><br />
         <a<?=menu_active('/stats')?> href="/stats">Stats</a></br >
         <br />

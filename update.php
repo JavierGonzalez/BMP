@@ -9,12 +9,17 @@ if ($beat_last AND $beat_last >= time()-(60*4))
     exit;
 
 set_time_limit(60*60*24);
+ini_set('memory_limit', '15G');
 
 pool_identify();
 
-for ($i=0;$i<=10000;$i++) {
+if (function_exists('smartbch_update_validators'))
+    smartbch_update_validators();
+
+
+for ($i=0;$i<=1000;$i++) {
     beat();
-    sleep(3);
+    sleep(5);
 }
 
 
@@ -32,10 +37,6 @@ function beat() {
 function beat_payload() {
 
     if (get_new_blocks()) {
-
-        if (function_exists('smartbch_update_validators'))
-            smartbch_update_validators();
-
         return beat();
     } else
         sql_insert('actions', get_mempool());

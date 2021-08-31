@@ -26,12 +26,15 @@ foreach (BLOCKCHAINS AS $blockchain => $config) {
 
     $blocks_ahead = $last_height-$last_block['height'];
 
+    $blocks_num = sql("SELECT COUNT(*) AS num FROM blocks WHERE blockchain = '".$blockchain."'")[0]['num'];
+
     $data[] = [
         'blockchain'    => $blockchain,
-        'sync'          => ($blocks_ahead?num($blocks_ahead):'✔'),
+        'sync'          => ($blocks_ahead?$blocks_ahead.' ✖':'✔'),
         'SQL'           => $last_block['height'],
-        'RPC'           => $last_height,
+        'RPC'           => ($last_height?$last_height:'✖'),
         'time'          => $last_block['time'],
+        'blocks'        => $blocks_num.' '.($blocks_num != BLOCK_WINDOW?'✖':'✔'),
         'mempool'       => rpc_get_mempool_info($blockchain)['size'],
         'peers'         => count((array)rpc_get_peer_info($blockchain)),
         'uptime'        => num(rpc_uptime($blockchain)/60/60).' h',
@@ -56,6 +59,7 @@ $config = [
     'blockchain'    => ['th' => '', 'tr_background_color' => $blockchain_colors],
     ''              => ['align' => 'right',  'th' => '&nbsp;'],
     'sync'          => ['align' => 'right'],
+    'blocks'        => ['align' => 'right'],
     'mempool'       => ['align' => 'right', 'function' => 'num'],
     'peers'         => ['align' => 'right', 'function' => 'num'],
     'uptime'        => ['align' => 'right'],

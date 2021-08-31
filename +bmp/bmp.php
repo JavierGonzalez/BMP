@@ -6,9 +6,6 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
     if (sql("SELECT id FROM blocks WHERE blockchain = '".e($blockchain)."' AND height = ".e($height)))
         return false;
 
-    ini_set('memory_limit', '15G');
-
-
     $block = rpc_get_block($height, $blockchain);
     $block_hashpower = round($block['difficulty'] * pow(2,32) / 600);
     
