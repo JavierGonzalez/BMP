@@ -63,10 +63,6 @@ Por defecto, el BMP calcula el porcentaje de hashpower proporcional de cada dire
 - **`power_by_opreturn`**
 Con el fin de no interferir en las operaciones de minería, este segundo método permite la señalización de hashpower on una o varias direcciones con salida de coinbase OP_RETURN. Esto ignora el `value`, y permite la delegación del hashpower, con simplicidad.
 
-
-- **`power_by_action`**
-En desarrollo. Para una total flexibilidad, el protocolo BMP permitirá la delegación de un % de hashpower a una o varias direcciones con una acción de protocolo de BMP sin necesidad de estar en `coinbase`. De la misma manera, le permitirá modificar o revocar esa delegación de hashpower con efecto inmediato desde el siguiente bloque.
-
 Con el BMP, los mineros pueden delegar porcentajes arbitrarios de hashpower a otras personas para que participen. De esta manera, los mineros pueden designar individualmente y de forma revocable representantes de manera fluida y responsable.
 
 <br  />

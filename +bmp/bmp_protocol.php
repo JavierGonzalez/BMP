@@ -13,7 +13,7 @@ define('BMP_PROTOCOL', [
             'coinbase'      => true,
             'status'        => 'implemented',
             'tested'        => true,
-            'description'   => 'By default, by value, standard block, P2Pool style.',
+            'description'   => 'By default, power quota by value.',
         ],
 
 
@@ -28,7 +28,7 @@ define('BMP_PROTOCOL', [
         ],
 
 
-        '01' => [
+        /*'01' => [
             'action'        => 'power_by_action',
             'coinbase'      => false,
             'status'        => 'idea',
@@ -36,7 +36,7 @@ define('BMP_PROTOCOL', [
             'description'   => 'Power quota delegation in to arbitrary address by action. Independent from value. Non-recursive.',
             1 => ['size' =>  3, 'name'=>'quota',       'decode'=>'hexdec'],
             2 => ['size' => 40, 'name'=>'address',     'decode'=>'hex2bin', 'is'=>'address'],
-        ],
+        ],*/
 
 
         '02' => [
