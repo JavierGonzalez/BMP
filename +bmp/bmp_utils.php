@@ -41,13 +41,13 @@ function get_new_block($blockchain=BLOCKCHAIN_ACTIONS) {
 
     $height_bmp = sql("SELECT height AS ECHO FROM blocks WHERE blockchain = '".$blockchain."' ORDER BY height DESC LIMIT 1");
     
-    if (!is_numeric($height_rpc) OR $height_rpc==$height_bmp)
+    if (!is_numeric($height_rpc) OR $height_rpc == $height_bmp)
         return false;
     
     if ($height_bmp)
         $height = $height_bmp + 1;
     else
-        $height = BLOCKCHAINS[$blockchain]['bmp_start'];
+        $height = BLOCKCHAINS[$blockchain]['bmp_start'] - BLOCK_WINDOW - 1;
 
     block_insert($height, $blockchain);
 

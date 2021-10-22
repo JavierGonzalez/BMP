@@ -9,7 +9,7 @@ define('BLOCK_WINDOW', 4032); // Blocks for hashpower calculation
 define('BLOCKCHAINS', [
     'BCH' => [
         'name'              => 'Bitcoin Cash',
-        'bmp_start'         => 584964,
+        'bmp_start'         => 588996,
         'background_color'  => '#FCC201',
         'actions'           => true,
     ], 

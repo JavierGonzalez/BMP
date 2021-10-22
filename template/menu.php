@@ -66,8 +66,8 @@ function menu_active($url) {
         <br />
         <a<?=($_SERVER['REQUEST_URI']=='/README'?' style="background:#FFFFBB;"':'')?> href="/README">How it works?</a><br />
         <a<?=menu_active('/README/CN')?> href="/README/CN">它是如何工作的?</a><br />
-        <br />
-        <a href="https://nakamoto.observer" target="_blank">Nakamoto.observer</a>
+        <hr />
+        <?=passwords['menu_extra_html']?>
     </p>
 
 </div>
