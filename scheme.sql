@@ -30,7 +30,7 @@ CREATE TABLE `blocks` (
     KEY `time` (`time`),
     KEY `pool` (`pool`),
     KEY `hashpower` (`hashpower`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `miners` (
@@ -52,7 +52,7 @@ CREATE TABLE `miners` (
     KEY `address_delegated` (`address_delegated`),
     KEY `power` (`power`),
     KEY `hashpower` (`hashpower`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `actions` (
@@ -87,13 +87,13 @@ CREATE TABLE `actions` (
     KEY `p2` (`p2`),
     KEY `p3` (`p3`),
     KEY `p4` (`p4`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 CREATE TABLE `key_value` (
     `id`                    int(10) UNSIGNED          NOT NULL AUTO_INCREMENT,
-    `name`                  varchar(900)              NOT NULL,
+    `name`                  varchar(700)              NOT NULL,
     `value`                 longtext              DEFAULT NULL,
     PRIMARY KEY (id),
     KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
