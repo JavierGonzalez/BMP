@@ -57,7 +57,7 @@ $maxsim['template']['tabs'] = [
 <tr>
 
 <td width="46" align="right" valign="top">
-    <img id="vpc_actividad" src="/chat/img/point_grey.png" width=16 height=16 style="margin-top:4px;" />
+    <img id="vpc_actividad" src="/static/point/grey.png" width=16 height=16 style="margin-top:4px;" />
 </td>
 
 <td valign="top">
