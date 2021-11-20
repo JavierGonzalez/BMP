@@ -11,9 +11,14 @@ echo 'Select config "test": <b>'.sql("SELECT value FROM key_value WHERE name = '
 sql_key_value('test', time().'.'.rand(1,10000));
 
 
-
 echo sql_error();
 
+
+___(rpc_get_block(1));
+
+___(rpc_get_transaction('0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098'));
+
 ___(sql_link());
+
 
 exit;
