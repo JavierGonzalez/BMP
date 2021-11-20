@@ -11,7 +11,7 @@ echo 'Select config "test": <b>'.sql("SELECT value FROM key_value WHERE name = '
 sql_key_value('test', time().'.'.rand(1,10000));
 
 
-
+___(rpc_get_best_height('BCH'));
 
 ___(rpc_get_block(1));
 
@@ -22,8 +22,7 @@ ___(sql_link());
 
 
 echo 'New blocks <br />';
-get_new_blocks();
-
+block_insert((588996-5000), 'BCH');
 
 echo sql_error();
 
