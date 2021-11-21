@@ -3,7 +3,8 @@ web:
   build: maxsim/docker/
   ports:
     - "80:80"
-    - "443:443"
   volumes:
     - .:/var/www/html
     - ./maxsim/log:/var/log/apache2
+  labels:
+    - "traefik.http.routers.bmp.rule=Host(`bmp.localhost`)"

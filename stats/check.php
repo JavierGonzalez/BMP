@@ -20,10 +20,6 @@ ___(rpc_get_transaction('0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1
 ___(sql_link());
 
 
-
-echo 'New blocks <br />';
-block_insert((588996-5000), 'BCH');
-
 echo sql_error();
 
 exit;
