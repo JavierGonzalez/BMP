@@ -39,7 +39,7 @@ function get_new_block($blockchain=BLOCKCHAIN_ACTIONS) {
     if (!$height_rpc)
         exit;
 
-    $height_bmp = sql("SELECT height AS ECHO FROM blocks WHERE blockchain = '".$blockchain."' ORDER BY height DESC LIMIT 1");
+    $height_bmp = sql("SELECT height FROM blocks WHERE blockchain = '".$blockchain."' ORDER BY height DESC LIMIT 1")[0]['height'];
     
     if (!is_numeric($height_rpc) OR $height_rpc == $height_bmp)
         return false;
@@ -47,10 +47,16 @@ function get_new_block($blockchain=BLOCKCHAIN_ACTIONS) {
     if ($height_bmp)
         $height = $height_bmp + 1;
     else
-        $height = BLOCKCHAINS[$blockchain]['bmp_start'] - BLOCK_WINDOW - 1;
+        $height = BLOCKCHAINS[$blockchain]['bmp_start'] - BLOCK_WINDOW - 10;
 
     block_insert($height, $blockchain);
 
+    
+    $block_duplicate = sql("SELECT COUNT(*) AS num FROM blocks WHERE blockchain = '".$blockchain."' AND height = '".$height."'")[0]['num'];
+    if ($block_duplicate >= 2) {
+        block_delete_from($height, $blockchain);
+        return false;
+    }
 
     return true;
 }
@@ -58,7 +64,7 @@ function get_new_block($blockchain=BLOCKCHAIN_ACTIONS) {
 
 function block_delete_from($height, $blockchain=BLOCKCHAIN_ACTIONS) {
     if ($height < 0)
-        $height = rpc_get_best_height($blockchain)-$height;
+        $height = rpc_get_best_height($blockchain) - $height;
 
     sql("DELETE FROM blocks  WHERE blockchain = '".$blockchain."' AND height >= ".e($height));
     sql("DELETE FROM miners  WHERE blockchain = '".$blockchain."' AND height >= ".e($height));
