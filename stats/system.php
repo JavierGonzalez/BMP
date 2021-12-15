@@ -1,7 +1,5 @@
 <?php # BMP — Javier González González
 
-
-
 $maxsim['output'] = 'json';
 
 
@@ -31,6 +29,11 @@ $echo = [
         'last_hash' => sql("SELECT hash FROM blocks ORDER BY height DESC LIMIT 1")[0]['hash'],
         'first_height' => sql("SELECT height FROM blocks ORDER BY height ASC LIMIT 1")[0]['height'],
         'first_hash' => sql("SELECT hash FROM blocks ORDER BY height ASC LIMIT 1")[0]['hash'],
+        'height_sum_blocks' => sql("SELECT SUM(height) AS num FROM blocks")[0]['num'],
+        'height_sum_miners' => sql("SELECT SUM(height) AS num FROM miners")[0]['num'],
+        'height_sum_actions' => sql("SELECT SUM(height) AS num FROM actions")[0]['num'],
+        'difficulty_sum_blocks' => sql("SELECT SUM(difficulty) AS num FROM blocks")[0]['num'],
+        'hashpower_sum_miners' => sql("SELECT SUM(hashpower) AS num FROM miners")[0]['num'],
     ],
     'metrics' => [
         'beat_last_ms' => sql_key_value('beat_last_ms'),
@@ -39,5 +42,6 @@ $echo = [
         'cache_miners_num' => sql_key_value('cache_miners_num'),
         'cache_actions_num' => sql_key_value('cache_actions_num'),
         'cache_chat_num' => sql_key_value('cache_chat_num'),
+        'maxsim_timing' => $maxsim['debug']['timing'],
     ],
 ];
