@@ -20,6 +20,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
     $pool = pool_decode($coinbase);
     
+    
     /// BLOCK
     sql_insert('blocks', [
         'blockchain'            => $blockchain,
@@ -37,12 +38,7 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
         'power_by'              => $coinbase_quota['power_by'],
         'quota_total'           => $coinbase_quota_total,
         'hashpower'             => $block_hashpower,
-        ]);
-
-    foreach (sql("SELECT height FROM blocks WHERE blockchain = '".e($blockchain)."' ORDER BY height DESC LIMIT ".e(BLOCK_WINDOW).",".e(BLOCK_WINDOW)) AS $r)
-        block_delete($r['height'], $blockchain);
-
-    
+    ]);
 
     /// MINERS
     foreach ((array)$coinbase_quota['miners'] AS $miner)
@@ -53,7 +49,12 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
             'address'       => $miner['address'],
             'quota'         => $miner['quota'],
             'hashpower'     => round(($block_hashpower * $miner['quota']) / $coinbase_quota_total / BLOCK_WINDOW),
-            ]);
+        ]);
+    
+
+    foreach (sql("SELECT height FROM blocks WHERE blockchain = '".e($blockchain)."' ORDER BY height DESC LIMIT ".e(BLOCK_WINDOW).",".e(BLOCK_WINDOW)) AS $r)
+        block_delete($r['height'], $blockchain);
+
     
     update_power();
 
@@ -64,9 +65,8 @@ function block_insert($height, $blockchain=BLOCKCHAIN_ACTIONS) {
 
     /// ACTIONS
     foreach ($block['tx'] AS $key => $txid)
-        if ($key!==0)
-            if ($action = get_action($txid, $blockchain, $block))
-                sql_update('actions', $action, "txid = '".e($action['txid'])."'", true);
+        if ($key!==0 AND $action = get_action($txid, $blockchain, $block))
+            sql_update('actions', $action, "txid = '".e($action['txid'])."'", true);
 
     update_actions($blockchain, $block['height']);
 
@@ -92,7 +92,7 @@ function coinbase_quota($coinbase) {
                     'power_by' => 'opreturn',
                     'quota'    => $action['p1'],
                     'address'  => address_normalice($action['p2']),
-                    ];
+                ];
 
     if ($output['miners']) {
         $output['power_by'] = 'opreturn';
@@ -106,7 +106,7 @@ function coinbase_quota($coinbase) {
                     'power_by' => 'value',
                     'quota'    => $tx_vout['value'],
                     'address'  => address_normalice($tx_vout['scriptPubKey']['addresses'][0]),
-                    ];
+                ];
 
         $output['power_by'] = 'value';
     }
@@ -123,7 +123,7 @@ function get_action($txid, $blockchain=BLOCKCHAIN_ACTIONS, $block=false) {
     $action = [
         'blockchain'    => BLOCKCHAIN_ACTIONS,
         'txid'          => $tx['txid'],
-        ];
+    ];
     
     if ($block)
         $action['height'] = $block['height'];
@@ -241,7 +241,7 @@ function op_return_decode($op_return) {
     $output = [
         'action_id' => $action_id,
         'action'    => BMP_PROTOCOL['actions'][$action_id]['action'],
-        ];
+    ];
 
     $counter = $metadata_start_bytes + 1;
 

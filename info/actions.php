@@ -5,9 +5,8 @@ $maxsim['template']['title'] = 'Actions';
 echo html_h($maxsim['template']['title'], 1);
 
 
-$data = sql("SELECT blockchain, height, txid, time, address, power, hashpower, action, action_id AS aid, p1, p2, p3, p4, p5
-    FROM actions  
-    ORDER BY time DESC");
+$data = sql("SELECT height, txid, time, address, power, hashpower, action, action_id AS aid, p1, p2, p3, p4, p5
+    FROM actions ORDER BY height DESC, txid ASC");
 
 
 foreach ($data AS $key => $value) {

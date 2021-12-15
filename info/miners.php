@@ -18,7 +18,7 @@ $data = sql("SELECT
     (SELECT time FROM actions WHERE address = miners.address ORDER BY time DESC LIMIT 1) AS last_action
     FROM miners 
     GROUP BY address 
-    ORDER BY power DESC");
+    ORDER BY power DESC, address ASC");
 
 foreach ($data AS $key => $value) {
 
