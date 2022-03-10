@@ -30,7 +30,7 @@ function bmp_op_return_chat() {
 
 
 $('#chat_input_msg').keyup(function() {
-	$('#op_return_preview').text('0x' + bmp_op_return_chat());
+	$('#op_return_preview').html(command_print(bmp_op_return_chat()));
 });
 
 

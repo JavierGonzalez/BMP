@@ -121,7 +121,6 @@ $maxsim['autoload'][]  = 'voting/create.js';
 
 
 </td><td valign="top">
-    OP_RETURN preview:
     <div id="op_return_preview" class="monospace"></div>
 </td></tr>
 

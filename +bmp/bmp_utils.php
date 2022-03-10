@@ -180,7 +180,11 @@ function hex2bin_print($hex) {
     foreach (str_split($hex,2) AS $byte)
         $output .= (ctype_print(hex2bin($byte))?'<b>'.hex2bin($byte).'</b>':$byte);
 
-    return str_replace('</b><b>', '', $output);
+    $output = str_replace('</b><b>', '', $output);
+
+    $output = str_replace('<script', '&lt;script', $output);
+
+    return $output;
 }
 
 

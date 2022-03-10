@@ -12,14 +12,20 @@ $('#blocks_to_finish, #question, .parameter').keyup(function() {
 
 function bmp_preview_voting_update() {
     op_return_preview = bmp_preview_voting();
-    $('#op_return_preview').html('0x' + op_return_preview.join('<br />0x'));
+
+    var html = '';
+    for (const element of op_return_preview)
+        html += command_print(element) + '<br />';
+
+    $('#op_return_preview').html(html);
+    
     $('#op_return_preview_tx_count').html('<b>' + op_return_preview.length + '</b> transactions required.');
 }
 
 
 function bmp_preview_voting() {
     output_array = [bmp_op_return_voting()];
-    output_array = output_array.concat(bmp_op_return_voting_parameter('[first_txid]'));
+    output_array = output_array.concat(bmp_op_return_voting_parameter('&lt;first tx hash&gt;'));
     return output_array;
 }
 

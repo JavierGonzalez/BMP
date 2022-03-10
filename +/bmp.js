@@ -44,7 +44,7 @@ function bin2hex(s) {
     var i, l, o = '', n;
     s += '';
     for (i = 0, l = s.length; i < l; i++) {
-        n = s.charCodeAt(i).toString(16)
+        n = s.charCodeAt(i).toString(16);
         o += n.length < 2 ? '0' + n : n;
     }
     return o;
@@ -65,3 +65,12 @@ function fill_hex(hex, bytes) {
     return hex.padStart(bytes*2, '0').substr(0, bytes*2);
 }
 
+
+function command_print(op_return) {
+    if (!op_return)
+        return '';
+    
+    var data = dechex(op_return.length / 2) + op_return;
+
+    return '<div style="width:100%;padding:5px;background-color:#FFF;border:1px solid #000;cursor:text;" contenteditable>createrawtransaction "[{\\"txid\\": \\"&lt;tx hash containing mined coinbase&gt;\\", \\"vout\\":&lt;vout mined address&gt;}]" "[{\\"bitcoincash:&lt;mined address in coinbase&gt;\\":&lt;coinbase output amount&gt;, \\"data\\":\\"' + data + '\\"}]"</div>';
+}

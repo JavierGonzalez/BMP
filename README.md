@@ -80,14 +80,54 @@ With the BMP, miners can delegate arbitrary percentages of hashpower to other pe
 
 * Each miner action is a standard transaction in BCH.
 * BMP actions use the <a href="https://memo.cash" target="_blank">Memo.cash</a> style.
-* The miner’s address must be in the coinbase VOUT in one of the last `4,032 blocks` of Bitcoin Cash (BCH).
+* The miner’s address must be in the coinbase VOUT in one of the last `4032 blocks` of Bitcoin Cash (BCH).
 * The miner’s address must be in the TX_PREV VOUT (Any index).
 * The miner’s address must be in VOUT index=0.
 * OP_RETURN payload in VOUT index=1. 
-* OP_RETURN prefix: `0x9d`.
+* OP_RETURN prefix: `9d`.
 * OP_RETURN respecting [BMP Protocol](https://bmp.virtualpol.com/protocol). BMP web facilitates the `OP_RETURN hex`.
 
-Some examples of actions: [chat](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fca6622d117e4d6b4149a3855de780295e852e471504b937c14), [vote](https://blockchair.com/bitcoin-cash/transaction/2c4219ce4533759a5886839d03494420e92c5add807c010c4b507b347b3b0e21).
+Some examples of valid BMP actions: [chat](https://blockchair.com/bitcoin-cash/transaction/91162d0670c72fca6622d117e4d6b4149a3855de780295e852e471504b937c14), [vote](https://blockchair.com/bitcoin-cash/transaction/2c4219ce4533759a5886839d03494420e92c5add807c010c4b507b347b3b0e21).
+
+
+Example (by Griffith of Bitcoin Unlimited):
+
+How to get data hex for a chat message:
+
+- BMP code is `9D` (length 1).
+- Chat command is `02` (length 1).
+- Epoch time has a length of 5.
+- Channel is `00` (length of 1).
+- Message in hex (use ASCII to hex converter).
+- Change back to mining address in `vout0`, chat data in `vout1`.
+
+Example: for the message `BU has joined the BMP` using the time `1646589806`. 
+
+`9D 02 1646589806 00 425520686173206A6F696E65642074686520424D50`
+
+Then len is 1 (`9d`, BMP signal) + 1 (`02`, chat action) + 5 (`1646589806`, epoch time)
++ 1 (`00`, channel) + 21 (`425520686173206A6F696E65642074686520424D50`, "BU has joined the BMP")
+= 29. convert length to hex 29 -> `1D` and add to front
+
+Result:
+`1D9D02164658980600425520686173206A6F696E65642074686520424D50`
+
+Once then length is found the output amount needs to be adjusted, add length + 1 (op return script code) + 8 (CTxOut nValue size) and remove that amount from the vout. 
+
+example: 
+Using a coinbase that mined `0.01617838`, select the intput in Qt coincontrol, make a 1 input 1 output tx to self. get that fee and subtract. In this case fee was `226` resulting in a vout value of `0.01617612`. 
+This output amount does not include a fee for the chata data output as that was not part of the tx. use the formula above to get what will be the fee for the data output.
+In this example it is 38 sats. Subtract that from the vout to get a new value of `0.01617574` which is enough fee for the entire transaction.
+
+full command:
+
+`createrawtransaction "[{\"txid\": \"27993f8e9386abf537b65838394ae63f98556230fc43a2a9ee6a0e9e8fb27be6\", \"vout\":7}]" "{\"bitcoincash:qphxs8fk39twj7chxlteq0thgkl5cuclqsa7zmuv2s\":0.01617574, \"data\":\"1D9D02164658980600425520686173206A6F696E65642074686520424D50\"}"`
+
+Get the output hex, pass that hex into signrawtransaction.
+Then get that output hex and pass that into sendrawtransaction and the tx will be broadcast to the network.
+
+
+
 
 
 ### 3) How to signal hashpower with P2Pool
